@@ -32,11 +32,6 @@ class JoinViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        APIManager.shared.testAPI()
-            .subscribe(onNext: {[weak self] datas in
-                print(datas)
-            })
-            .disposed(by: disposeBag)
 
     }
     
