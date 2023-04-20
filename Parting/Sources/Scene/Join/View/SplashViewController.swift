@@ -8,7 +8,7 @@
 import UIKit
 
 class SplashViewController: UIViewController {
-    let mainView = SplashView()
+    private let mainView = SplashView()
     private var viewModel: SplashViewModel
     
     init(viewModel: SplashViewModel) {
@@ -22,15 +22,20 @@ class SplashViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        mainView.setGradient(UIColor(hexcode: "FFEAD4"), AppColor.brand)
+        backgroundUI()
     }
+    
     override func loadView() {
         self.view = mainView
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         DispatchQueue.main.asyncAfter(deadline: .now()+3) {
             self.viewModel.showJoinViewController()
         }
+    }
+    private func backgroundUI() {
+        mainView.setGradient(UIColor(hexcode: "FFEAD4"), AppColor.brand)
     }
 }

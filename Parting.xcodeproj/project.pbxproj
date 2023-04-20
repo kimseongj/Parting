@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E52227A29F11788000B96B4 /* JoinCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227929F11788000B96B4 /* JoinCompleteView.swift */; };
+		4E52227C29F119B3000B96B4 /* JoinCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227B29F119B3000B96B4 /* JoinCompleteViewController.swift */; };
+		4E52227E29F11C81000B96B4 /* JoinCompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227D29F11C81000B96B4 /* JoinCompleteViewModel.swift */; };
+		4E52228029F14163000B96B4 /* EssentialInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227F29F14163000B96B4 /* EssentialInfoView.swift */; };
+		4E52228229F1417A000B96B4 /* EssentialInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52228129F1417A000B96B4 /* EssentialInfoViewModel.swift */; };
+		4E52228429F141AA000B96B4 /* EssentialInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52228329F141AA000B96B4 /* EssentialInfoViewController.swift */; };
 		4E783FA229EABC54008B3E48 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 4E783FA129EABC54008B3E48 /* RxCocoa */; };
 		4E783FA429EABC54008B3E48 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E783FA329EABC54008B3E48 /* RxSwift */; };
 		4E783FAA29EABF3E008B3E48 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E783FA929EABF3E008B3E48 /* JoinViewController.swift */; };
@@ -49,6 +55,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4E52227829F10541000B96B4 /* Parting.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Parting.entitlements; sourceTree = "<group>"; };
+		4E52227929F11788000B96B4 /* JoinCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCompleteView.swift; sourceTree = "<group>"; };
+		4E52227B29F119B3000B96B4 /* JoinCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCompleteViewController.swift; sourceTree = "<group>"; };
+		4E52227D29F11C81000B96B4 /* JoinCompleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCompleteViewModel.swift; sourceTree = "<group>"; };
+		4E52227F29F14163000B96B4 /* EssentialInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialInfoView.swift; sourceTree = "<group>"; };
+		4E52228129F1417A000B96B4 /* EssentialInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialInfoViewModel.swift; sourceTree = "<group>"; };
+		4E52228329F141AA000B96B4 /* EssentialInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialInfoViewController.swift; sourceTree = "<group>"; };
 		4E783FA929EABF3E008B3E48 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		4E89BC2829C57CBB00BAE38A /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		4E89BC2A29C57D0900BAE38A /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
@@ -299,10 +312,14 @@
 		4E89BC4829C5E13900BAE38A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4E52227F29F14163000B96B4 /* EssentialInfoView.swift */,
 				4E783FA929EABF3E008B3E48 /* JoinViewController.swift */,
 				4ECEAE1E29ED298F006AAF6B /* SplahView.swift */,
 				4EA81DDD29ED2D9A0070F1B7 /* SplashViewController.swift */,
 				4EA81DDF29ED2DC00070F1B7 /* JoinView.swift */,
+				4E52227929F11788000B96B4 /* JoinCompleteView.swift */,
+				4E52227B29F119B3000B96B4 /* JoinCompleteViewController.swift */,
+				4E52228329F141AA000B96B4 /* EssentialInfoViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -312,6 +329,8 @@
 			children = (
 				4ECEAE1B29ED25D7006AAF6B /* JoinViewModel.swift */,
 				4EA81DE329ED36860070F1B7 /* SplashViewModel.swift */,
+				4E52227D29F11C81000B96B4 /* JoinCompleteViewModel.swift */,
+				4E52228129F1417A000B96B4 /* EssentialInfoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -355,6 +374,7 @@
 		4EA5836929C04F4200BF4D7A /* Parting */ = {
 			isa = PBXGroup;
 			children = (
+				4E52227829F10541000B96B4 /* Parting.entitlements */,
 				4E89BC1F29C572BA00BAE38A /* Resources */,
 				4E89BC2029C572C400BAE38A /* Sources */,
 			);
@@ -468,6 +488,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EA81DE029ED2DC00070F1B7 /* JoinView.swift in Sources */,
+				4E52228029F14163000B96B4 /* EssentialInfoView.swift in Sources */,
 				4E89BC3329C57E3C00BAE38A /* Error.swift in Sources */,
 				4ECEAE2429ED2A66006AAF6B /* BaseViewModel.swift in Sources */,
 				4EA81DE229ED32680070F1B7 /* UILabel+Extension.swift in Sources */,
@@ -475,17 +496,22 @@
 				4ECEAE1329ED2043006AAF6B /* Coordinator.swift in Sources */,
 				4E783FAA29EABF3E008B3E48 /* JoinViewController.swift in Sources */,
 				4ECEAE1A29ED2537006AAF6B /* JoinCoordinator.swift in Sources */,
+				4E52227C29F119B3000B96B4 /* JoinCompleteViewController.swift in Sources */,
 				4ECEAE1C29ED25D7006AAF6B /* JoinViewModel.swift in Sources */,
+				4E52228229F1417A000B96B4 /* EssentialInfoViewModel.swift in Sources */,
 				4E89BC5C29CC34AC00BAE38A /* enum+Font.swift in Sources */,
 				4E89BC8F29D167E800BAE38A /* Color+Extension.swift in Sources */,
 				4EA5836B29C04F4200BF4D7A /* AppDelegate.swift in Sources */,
 				4E89BC2B29C57D0900BAE38A /* APIKey.swift in Sources */,
 				4EA5836D29C04F4200BF4D7A /* SceneDelegate.swift in Sources */,
+				4E52227E29F11C81000B96B4 /* JoinCompleteViewModel.swift in Sources */,
 				4EA81DDE29ED2D9A0070F1B7 /* SplashViewController.swift in Sources */,
 				4EA81DE429ED36860070F1B7 /* SplashViewModel.swift in Sources */,
 				4E89BC2D29C57D2300BAE38A /* Endpoints.swift in Sources */,
 				4ECEAE1529ED20F3006AAF6B /* CoordinatorStyleCase.swift in Sources */,
 				4E89BC3129C57DE900BAE38A /* Response.swift in Sources */,
+				4E52228429F141AA000B96B4 /* EssentialInfoViewController.swift in Sources */,
+				4E52227A29F11788000B96B4 /* JoinCompleteView.swift in Sources */,
 				4ECEAE1729ED2116006AAF6B /* AppCoordinator.swift in Sources */,
 				4ECEAE1F29ED298F006AAF6B /* SplahView.swift in Sources */,
 				4ECEAE2129ED29EF006AAF6B /* BaseView.swift in Sources */,
@@ -628,6 +654,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Parting/Parting.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4TP5C45KH5;
@@ -659,6 +686,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Parting/Parting.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4TP5C45KH5;

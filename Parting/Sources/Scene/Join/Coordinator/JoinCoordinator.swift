@@ -30,6 +30,27 @@ final class JoinCoordinator: Coordinator {
     func showJoinViewController() {
         let viewModel = JoinViewModel(coordinator: self)
         let vc = JoinViewController(viewModel: viewModel)
+        changeAnimation()
         navigationController.viewControllers = [vc]
+    }
+    
+    func pushJoinCompleteViewController() {
+        let viewModel = JoinCompleteViewModel(coordinator: self)
+        let vc = JoinCompleteViewController(viewModel: viewModel)
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func popJoinCompleteViewController() {
+        navigationController.popViewController(animated: true)
+    }
+    
+    func pushEssentialInfoViewController() {
+        let viewModel = EssentialInfoViewModel(coordinator: self)
+        let vc = EssentialInfoViewController(viewModel: viewModel)
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func popEssentialInfoViewController() {
+        navigationController.popViewController(animated: true)
     }
 }

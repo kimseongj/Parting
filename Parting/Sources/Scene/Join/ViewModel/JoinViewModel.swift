@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import RxSwift
 
 class JoinViewModel: BaseViewModel {
     struct Input {
-        
+        let viewChangeTrigger: PublishSubject<Void> = PublishSubject()
     }
     
     struct Output {
@@ -20,10 +21,24 @@ class JoinViewModel: BaseViewModel {
     var output: Output
     
     private weak var coordinator: JoinCoordinator?
+    private let disposeBag = DisposeBag()
     
     init(input: Input = Input(), output: Output = Output(), coordinator: JoinCoordinator?) {
         self.input = input
         self.output = output
         self.coordinator = coordinator
+        viewChangeTrigger()
+    }
+    
+    private func viewChangeTrigger() {
+        input.viewChangeTrigger
+            .subscribe(onNext: { _ in
+                self.pushJoinCompleteViewController()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func pushJoinCompleteViewController() {
+        self.coordinator?.pushJoinCompleteViewController()
     }
 }

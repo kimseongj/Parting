@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 
+
 class JoinView: BaseView {
     let backGroundView: SplashView = {
         let view = SplashView()
@@ -30,7 +31,7 @@ class JoinView: BaseView {
         let button = UIButton()
         button.layer.backgroundColor = AppColor.white.cgColor
         button.layer.cornerRadius = 8
-        button.setTitle("Apple 로그인", for: .normal)
+        button.setTitle("Apple로 로그인", for: .normal)
         button.titleLabel?.font = notoSansFont.Regular.of(size: 16)
         button.setTitleColor(AppColor.baseText, for: .normal)
         button.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: UIScreen.main.bounds.width * 0.457)

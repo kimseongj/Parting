@@ -1,16 +1,17 @@
 //
-//  SplashViewModel.swift
+//  EssentialInfoViewModel.swift
 //  Parting
 //
-//  Created by 박시현 on 2023/04/17.
+//  Created by 박시현 on 2023/04/20.
 //
 
 import UIKit
 import RxSwift
+import RxCocoa
 
-class SplashViewModel: BaseViewModel {
+class EssentialInfoViewModel: BaseViewModel {
     struct Input {
-        let showJoinViewController: PublishSubject<Void> = PublishSubject()
+        let viewChangeTrigger: PublishSubject<Void> = PublishSubject()
     }
     
     struct Output {
@@ -27,18 +28,18 @@ class SplashViewModel: BaseViewModel {
         self.input = input
         self.output = output
         self.coordinator = coordinator
-        viewChangeTrgger()
+        viewChangeTrigger()
     }
     
-    private func viewChangeTrgger() {
-        input.showJoinViewController
-            .subscribe(onNext: { _ in
-                self.showJoinViewController()
+    private func viewChangeTrigger() {
+        input.viewChangeTrigger
+            .subscribe(onNext:{ _ in
+                self.popEssentialInfoViewController()
             })
             .disposed(by: disposeBag)
     }
     
-    func showJoinViewController() {
-        self.coordinator?.showJoinViewController()
+    func popEssentialInfoViewController() {
+        self.coordinator?.popJoinCompleteViewController()
     }
 }
