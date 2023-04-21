@@ -26,6 +26,10 @@ class EssentialInfoViewController: UIViewController {
     override func loadView() {
         self.view = mainView
     }
+    
+    override func viewDidLayoutSubviews() {
+        checkButtonUI()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationUI()
@@ -43,6 +47,30 @@ class EssentialInfoViewController: UIViewController {
         titleLabel.font = notoSansFont.Regular.of(size: 20)
         titleLabel.sizeToFit()
         navigationItem.titleView = titleLabel
+    }
+    
+    private func checkButtonUI() {
+        mainView.checkJobFirstStackView.checkButton.layer.cornerRadius = mainView.checkJobFirstStackView.checkButton.bounds.size.width / 2
+        mainView.checkJobFirstStackView.checkButton.clipsToBounds = true
+        mainView.checkJobFirstStackView.checkButton.setImage(UIImage(named: "checkButton"), for: .normal)
+        mainView.checkJobFirstStackView.checkAnswerLabel.text = "네, 직장인입니다."
+        
+        
+        mainView.checkJobSecondStackView.checkButton.layer.cornerRadius = mainView.checkJobSecondStackView.checkButton.bounds.size.width / 2
+        mainView.checkJobSecondStackView.checkButton.clipsToBounds = true
+        mainView.checkJobSecondStackView.checkButton.setImage(UIImage(named: "checkButton"), for: .normal)
+        mainView.checkJobSecondStackView.checkAnswerLabel.text = "아니오, 학생입니다."
+        
+        
+        mainView.checkGenderFirstStackView.checkButton.layer.cornerRadius = mainView.checkGenderFirstStackView.checkButton.bounds.size.width / 2
+        mainView.checkGenderFirstStackView.checkButton.clipsToBounds = true
+        mainView.checkGenderFirstStackView.checkButton.setImage(UIImage(named: "checkButton"), for: .normal)
+        mainView.checkGenderFirstStackView.checkAnswerLabel.text = "남자"
+        
+        mainView.checkGenderSecondStackView.checkButton.layer.cornerRadius = mainView.checkGenderSecondStackView.checkButton.bounds.size.width / 2
+        mainView.checkGenderSecondStackView.checkButton.clipsToBounds = true
+        mainView.checkGenderSecondStackView.checkButton.setImage(UIImage(named: "checkButton"), for: .normal)
+        mainView.checkGenderSecondStackView.checkAnswerLabel.text = "여자"
     }
     
     @objc func backBarButtonClicked() {

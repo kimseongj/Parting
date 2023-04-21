@@ -13,6 +13,10 @@
 		4E52228029F14163000B96B4 /* EssentialInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227F29F14163000B96B4 /* EssentialInfoView.swift */; };
 		4E52228229F1417A000B96B4 /* EssentialInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52228129F1417A000B96B4 /* EssentialInfoViewModel.swift */; };
 		4E52228429F141AA000B96B4 /* EssentialInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52228329F141AA000B96B4 /* EssentialInfoViewController.swift */; };
+		4E52228829F1813C000B96B4 /* InterestsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52228729F1813C000B96B4 /* InterestsViewModel.swift */; };
+		4E52228A29F18152000B96B4 /* InterestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52228929F18152000B96B4 /* InterestsView.swift */; };
+		4E52228C29F18166000B96B4 /* InterestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52228B29F18166000B96B4 /* InterestsViewController.swift */; };
+		4E52228F29F27DA8000B96B4 /* customStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52228E29F27DA8000B96B4 /* customStackView.swift */; };
 		4E783FA229EABC54008B3E48 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 4E783FA129EABC54008B3E48 /* RxCocoa */; };
 		4E783FA429EABC54008B3E48 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E783FA329EABC54008B3E48 /* RxSwift */; };
 		4E783FAA29EABF3E008B3E48 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E783FA929EABF3E008B3E48 /* JoinViewController.swift */; };
@@ -62,6 +66,10 @@
 		4E52227F29F14163000B96B4 /* EssentialInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialInfoView.swift; sourceTree = "<group>"; };
 		4E52228129F1417A000B96B4 /* EssentialInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialInfoViewModel.swift; sourceTree = "<group>"; };
 		4E52228329F141AA000B96B4 /* EssentialInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialInfoViewController.swift; sourceTree = "<group>"; };
+		4E52228729F1813C000B96B4 /* InterestsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestsViewModel.swift; sourceTree = "<group>"; };
+		4E52228929F18152000B96B4 /* InterestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestsView.swift; sourceTree = "<group>"; };
+		4E52228B29F18166000B96B4 /* InterestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestsViewController.swift; sourceTree = "<group>"; };
+		4E52228E29F27DA8000B96B4 /* customStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customStackView.swift; sourceTree = "<group>"; };
 		4E783FA929EABF3E008B3E48 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		4E89BC2829C57CBB00BAE38A /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		4E89BC2A29C57D0900BAE38A /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
@@ -116,6 +124,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E52228D29F27D97000B96B4 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				4E52228E29F27DA8000B96B4 /* customStackView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
 		4E89BC1F29C572BA00BAE38A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -312,6 +328,7 @@
 		4E89BC4829C5E13900BAE38A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4E52228D29F27D97000B96B4 /* CustomView */,
 				4E52227F29F14163000B96B4 /* EssentialInfoView.swift */,
 				4E783FA929EABF3E008B3E48 /* JoinViewController.swift */,
 				4ECEAE1E29ED298F006AAF6B /* SplahView.swift */,
@@ -320,6 +337,8 @@
 				4E52227929F11788000B96B4 /* JoinCompleteView.swift */,
 				4E52227B29F119B3000B96B4 /* JoinCompleteViewController.swift */,
 				4E52228329F141AA000B96B4 /* EssentialInfoViewController.swift */,
+				4E52228929F18152000B96B4 /* InterestsView.swift */,
+				4E52228B29F18166000B96B4 /* InterestsViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -331,6 +350,7 @@
 				4EA81DE329ED36860070F1B7 /* SplashViewModel.swift */,
 				4E52227D29F11C81000B96B4 /* JoinCompleteViewModel.swift */,
 				4E52228129F1417A000B96B4 /* EssentialInfoViewModel.swift */,
+				4E52228729F1813C000B96B4 /* InterestsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -487,6 +507,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E52228829F1813C000B96B4 /* InterestsViewModel.swift in Sources */,
 				4EA81DE029ED2DC00070F1B7 /* JoinView.swift in Sources */,
 				4E52228029F14163000B96B4 /* EssentialInfoView.swift in Sources */,
 				4E89BC3329C57E3C00BAE38A /* Error.swift in Sources */,
@@ -496,12 +517,14 @@
 				4ECEAE1329ED2043006AAF6B /* Coordinator.swift in Sources */,
 				4E783FAA29EABF3E008B3E48 /* JoinViewController.swift in Sources */,
 				4ECEAE1A29ED2537006AAF6B /* JoinCoordinator.swift in Sources */,
+				4E52228C29F18166000B96B4 /* InterestsViewController.swift in Sources */,
 				4E52227C29F119B3000B96B4 /* JoinCompleteViewController.swift in Sources */,
 				4ECEAE1C29ED25D7006AAF6B /* JoinViewModel.swift in Sources */,
 				4E52228229F1417A000B96B4 /* EssentialInfoViewModel.swift in Sources */,
 				4E89BC5C29CC34AC00BAE38A /* enum+Font.swift in Sources */,
 				4E89BC8F29D167E800BAE38A /* Color+Extension.swift in Sources */,
 				4EA5836B29C04F4200BF4D7A /* AppDelegate.swift in Sources */,
+				4E52228F29F27DA8000B96B4 /* customStackView.swift in Sources */,
 				4E89BC2B29C57D0900BAE38A /* APIKey.swift in Sources */,
 				4EA5836D29C04F4200BF4D7A /* SceneDelegate.swift in Sources */,
 				4E52227E29F11C81000B96B4 /* JoinCompleteViewModel.swift in Sources */,
@@ -517,6 +540,7 @@
 				4ECEAE2129ED29EF006AAF6B /* BaseView.swift in Sources */,
 				4E89BC3529C57E5300BAE38A /* BaseURL.swift in Sources */,
 				4EA81DE629ED41100070F1B7 /* UIView+Extension.swift in Sources */,
+				4E52228A29F18152000B96B4 /* InterestsView.swift in Sources */,
 				4ECEAE1129ED1F7F006AAF6B /* CoordinatorDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

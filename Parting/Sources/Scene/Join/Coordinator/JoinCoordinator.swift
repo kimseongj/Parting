@@ -53,4 +53,8 @@ final class JoinCoordinator: Coordinator {
     func popEssentialInfoViewController() {
         navigationController.popViewController(animated: true)
     }
+    
+    func popInterestsViewController() {
+        navigationController.popViewController(animated: true)
+    }
 }
