@@ -12,6 +12,7 @@ class essentialInfoStackView: UIStackView {
     let checkButton: UIButton = {
         let button = UIButton()
         button.layer.borderColor = AppColor.gray500.cgColor
+        button.setImage(UIImage(named: "checkButton"), for: .normal)
         button.layer.borderWidth = 1
         return button
     }()

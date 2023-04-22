@@ -9,7 +9,7 @@ import UIKit
 
 class InterestsView: BaseView {
     override func makeConfigures() {
-        
+        super.makeConfigures()
     }
     
     override func makeConstraints() {

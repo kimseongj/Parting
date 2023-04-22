@@ -153,7 +153,7 @@ class EssentialInfoView: BaseView {
     let addressTextField: UITextField = {
         let textField = UITextField()
         textField.font = notoSansFont.Regular.of(size: 13)
-        textField.attributedPlaceholder = NSAttributedString(string: "주소", attributes: [.foregroundColor: UIColor(hexcode: "A7B0C0"), .font: notoSansFont.Regular.of(size: 13)])
+        textField.attributedPlaceholder = NSAttributedString(string: "    주소", attributes: [.foregroundColor: UIColor(hexcode: "A7B0C0"), .font: notoSansFont.Regular.of(size: 13)])
         textField.backgroundColor = AppColor.gray100
         textField.layer.cornerRadius = 8
         textField.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
@@ -191,7 +191,7 @@ class EssentialInfoView: BaseView {
     let nickNameTextField: UITextField = {
         let textField = UITextField()
         textField.font = notoSansFont.Regular.of(size: 13)
-        textField.attributedPlaceholder = NSAttributedString(string: "닉네임", attributes: [.foregroundColor: UIColor(hexcode: "A7B0C0"), .font: notoSansFont.Regular.of(size: 13)])
+        textField.attributedPlaceholder = NSAttributedString(string: "    닉네임", attributes: [.foregroundColor: UIColor(hexcode: "A7B0C0"), .font: notoSansFont.Regular.of(size: 13)])
         textField.backgroundColor = AppColor.gray100
         textField.layer.cornerRadius = 8
         textField.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
