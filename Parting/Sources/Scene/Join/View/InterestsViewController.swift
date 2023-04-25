@@ -9,8 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class InterestsViewController: UIViewController {
-    private let mainView = InterestsView()
+class InterestsViewController: BaseViewController<InterestsView> {
     private let viewModel: InterestsViewModel
     
     init(viewModel: InterestsViewModel) {
@@ -20,10 +19,6 @@ class InterestsViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func loadView() {
-        self.view = mainView
     }
     
     override func viewDidLoad() {

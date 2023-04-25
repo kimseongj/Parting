@@ -9,14 +9,9 @@ import UIKit
 import RxSwift
 import AuthenticationServices
 
-class JoinViewController: UIViewController {
+class JoinViewController: BaseViewController<JoinView> {
     private let disposeBag = DisposeBag()
     private var viewModel: JoinViewModel
-    private let mainView = JoinView()
-    
-    override func loadView() {
-        self.view = mainView
-    }
     
     init(viewModel: JoinViewModel) {
         self.viewModel = viewModel
@@ -33,7 +28,7 @@ class JoinViewController: UIViewController {
     }
     
     private func backgroundUI() {
-        mainView.setGradient(UIColor(hexcode: "FFEAD4"), AppColor.brand)
+        rootView.setGradient(UIColor(hexcode: "FFEAD4"), AppColor.brand)
     }
     
     private func navigationUI() {
@@ -43,7 +38,7 @@ class JoinViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationUI()
-        mainView.appleLoginButton.addTarget(self, action: #selector(appleLoginButtonClicked), for: .touchUpInside)
+        rootView.appleLoginButton.addTarget(self, action: #selector(appleLoginButtonClicked), for: .touchUpInside)
     }
     
     @objc func appleLoginButtonClicked() {
@@ -70,7 +65,6 @@ extension JoinViewController: ASAuthorizationControllerDelegate {
             let user = credential.user
             print(user)
             self.viewModel.input.viewChangeTrigger.onNext(())
-            
         }
     }
     

@@ -7,8 +7,7 @@
 
 import UIKit
 
-class SplashViewController: UIViewController {
-    private let mainView = SplashView()
+class SplashViewController: BaseViewController<SplashView> {
     private var viewModel: SplashViewModel
     
     init(viewModel: SplashViewModel) {
@@ -26,7 +25,7 @@ class SplashViewController: UIViewController {
     }
     
     override func loadView() {
-        self.view = mainView
+        self.view = rootView
     }
     
     override func viewDidLoad() {
@@ -36,6 +35,6 @@ class SplashViewController: UIViewController {
         }
     }
     private func backgroundUI() {
-        mainView.setGradient(UIColor(hexcode: "FFEAD4"), AppColor.brand)
+        rootView.setGradient(UIColor(hexcode: "FFEAD4"), AppColor.brand)
     }
 }

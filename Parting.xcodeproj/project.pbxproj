@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E3C856529F7AE920006BEB1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3C856429F7AE920006BEB1 /* BaseViewController.swift */; };
 		4E52227A29F11788000B96B4 /* JoinCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227929F11788000B96B4 /* JoinCompleteView.swift */; };
 		4E52227C29F119B3000B96B4 /* JoinCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227B29F119B3000B96B4 /* JoinCompleteViewController.swift */; };
 		4E52227E29F11C81000B96B4 /* JoinCompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227D29F11C81000B96B4 /* JoinCompleteViewModel.swift */; };
@@ -59,6 +60,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4E3C856429F7AE920006BEB1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		4E52227829F10541000B96B4 /* Parting.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Parting.entitlements; sourceTree = "<group>"; };
 		4E52227929F11788000B96B4 /* JoinCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCompleteView.swift; sourceTree = "<group>"; };
 		4E52227B29F119B3000B96B4 /* JoinCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCompleteViewController.swift; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 			children = (
 				4ECEAE2029ED29EF006AAF6B /* BaseView.swift */,
 				4ECEAE2329ED2A66006AAF6B /* BaseViewModel.swift */,
+				4E3C856429F7AE920006BEB1 /* BaseViewController.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -512,6 +515,7 @@
 				4E52228029F14163000B96B4 /* EssentialInfoView.swift in Sources */,
 				4E89BC3329C57E3C00BAE38A /* Error.swift in Sources */,
 				4ECEAE2429ED2A66006AAF6B /* BaseViewModel.swift in Sources */,
+				4E3C856529F7AE920006BEB1 /* BaseViewController.swift in Sources */,
 				4EA81DE229ED32680070F1B7 /* UILabel+Extension.swift in Sources */,
 				4E89BC2F29C57DDD00BAE38A /* APIManager.swift in Sources */,
 				4ECEAE1329ED2043006AAF6B /* Coordinator.swift in Sources */,

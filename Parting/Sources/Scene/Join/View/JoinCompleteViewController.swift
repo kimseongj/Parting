@@ -9,8 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class JoinCompleteViewController: UIViewController {
-    private let mainView = JoinCompleteView()
+class JoinCompleteViewController: BaseViewController<JoinCompleteView> {
     private let viewModel: JoinCompleteViewModel
     private let disposeBag = DisposeBag()
     
@@ -24,10 +23,6 @@ class JoinCompleteViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func loadView() {
-        self.view = mainView
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationUI()
@@ -35,7 +30,7 @@ class JoinCompleteViewController: UIViewController {
     }
     
     private func writeButtonClicked() {
-        mainView.writeInfoButton.rx.tap
+        rootView.writeInfoButton.rx.tap
             .subscribe(onNext: {[weak self] _ in
                 guard let self = self else { return }
                 self.viewModel.input.pushEssentialInfoViewTrigger.onNext(())
