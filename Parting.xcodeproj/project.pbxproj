@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4E23293229FCEFB600455971 /* categoryImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23293129FCEFB600455971 /* categoryImageCollectionViewCell.swift */; };
-		4E2874B62A2D97470000B24C /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2874B52A2D97470000B24C /* KakaoSDK */; };
 		4E3C856529F7AE920006BEB1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3C856429F7AE920006BEB1 /* BaseViewController.swift */; };
 		4E52227A29F11788000B96B4 /* JoinCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227929F11788000B96B4 /* JoinCompleteView.swift */; };
 		4E52227C29F119B3000B96B4 /* JoinCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227B29F119B3000B96B4 /* JoinCompleteViewController.swift */; };
@@ -125,7 +124,6 @@
 				4E783FA229EABC54008B3E48 /* RxCocoa in Frameworks */,
 				4E89BC3F29C58B7300BAE38A /* Alamofire in Frameworks */,
 				4ED3889029FC2FA3003D67C5 /* Kingfisher in Frameworks */,
-				4E2874B62A2D97470000B24C /* KakaoSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,7 +448,6 @@
 				4E783FA329EABC54008B3E48 /* RxSwift */,
 				4EA81DDB29ED2D2A0070F1B7 /* SnapKit */,
 				4ED3888F29FC2FA3003D67C5 /* Kingfisher */,
-				4E2874B52A2D97470000B24C /* KakaoSDK */,
 			);
 			productName = Parting;
 			productReference = 4EA5836729C04F4200BF4D7A /* Parting.app */;
@@ -485,7 +482,6 @@
 				4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				4EA81DDA29ED2D2A0070F1B7 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				4ED3888E29FC2FA3003D67C5 /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				4E2874B42A2D97470000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = 4EA5836829C04F4200BF4D7A /* Products */;
 			projectDirPath = "";
@@ -777,14 +773,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4E2874B42A2D97470000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kakao/kakao-ios-sdk.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
 		4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
@@ -820,11 +808,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4E2874B52A2D97470000B24C /* KakaoSDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E2874B42A2D97470000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
-			productName = KakaoSDK;
-		};
 		4E783FA129EABC54008B3E48 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift" */;
