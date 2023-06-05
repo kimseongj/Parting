@@ -11,7 +11,6 @@ import SnapKit
 class EssentialInfoView: BaseView {
     let jobLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(hexcode: "505057")
         label.text = "직업이 있으신가요?"
         label.font = notoSansFont.Regular.of(size: 11)
         return label
@@ -19,7 +18,6 @@ class EssentialInfoView: BaseView {
     
     let genderLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(hexcode: "505057")
         label.text = "성별을 입력해주세요"
         label.font = notoSansFont.Regular.of(size: 11)
         return label
@@ -27,20 +25,19 @@ class EssentialInfoView: BaseView {
     
     let birthLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(hexcode: "505057")
         label.text = "생년월일"
         label.font = notoSansFont.Regular.of(size: 11)
         return label
     }()
     
-    let yearLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = AppColor.gray100
-        label.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
-        label.layer.borderWidth = 1
-        label.layer.cornerRadius = 8
-        label.font = notoSansFont.Regular.of(size: 13)
-        return label
+    let yearTextField: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = AppColor.gray100
+        textField.layer.cornerRadius = 8
+        textField.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
+        textField.layer.borderWidth = 1
+        textField.textAlignment = .center
+        return textField
     }()
     
     let yearLiteralLabel: UILabel = {
@@ -59,14 +56,14 @@ class EssentialInfoView: BaseView {
         return view
     }()
     
-    let monthLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = AppColor.gray100
-        label.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
-        label.layer.borderWidth = 1
-        label.layer.cornerRadius = 8
-        label.font = notoSansFont.Regular.of(size: 13)
-        return label
+    let monthTextField: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = AppColor.gray100
+        textField.layer.cornerRadius = 8
+        textField.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
+        textField.layer.borderWidth = 1
+        textField.textAlignment = .center
+        return textField
     }()
     
     let monthLiteralLabel: UILabel = {
@@ -85,14 +82,14 @@ class EssentialInfoView: BaseView {
         return view
     }()
     
-    let dayLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = AppColor.gray100
-        label.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
-        label.layer.borderWidth = 1
-        label.layer.cornerRadius = 8
-        label.font = notoSansFont.Regular.of(size: 13)
-        return label
+    let dayTextField: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = AppColor.gray100
+        textField.layer.cornerRadius = 8
+        textField.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
+        textField.layer.borderWidth = 1
+        textField.textAlignment = .center
+        return textField
     }()
     
     let dayLiteralLabel: UILabel = {
@@ -150,10 +147,10 @@ class EssentialInfoView: BaseView {
         return label
     }()
     
-    let addressTextField: UITextField = {
+    let sidoTextField: UITextField = {
         let textField = UITextField()
         textField.font = notoSansFont.Regular.of(size: 13)
-        textField.attributedPlaceholder = NSAttributedString(string: "    주소", attributes: [.foregroundColor: UIColor(hexcode: "A7B0C0"), .font: notoSansFont.Regular.of(size: 13)])
+        textField.attributedPlaceholder = NSAttributedString(string: "    시도 선택", attributes: [.foregroundColor: UIColor(hexcode: "A7B0C0"), .font: notoSansFont.Regular.of(size: 13)])
         textField.backgroundColor = AppColor.gray100
         textField.layer.cornerRadius = 8
         textField.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
@@ -161,16 +158,15 @@ class EssentialInfoView: BaseView {
         return textField
     }()
     
-    let addressCheckButton: UIButton = {
-        let button = UIButton()
-        button.layer.cornerRadius = 8
-        button.backgroundColor = AppColor.gray100
-        button.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
-        button.layer.borderWidth = 1
-        button.titleLabel?.font = notoSansFont.Regular.of(size: 13)
-        button.setTitle("주소확인", for: .normal)
-        button.setTitleColor(UIColor(hexcode: "A7B0C0"), for: .normal)
-        return button
+    let sigugunTextField: UITextField = {
+        let textField = UITextField()
+        textField.font = notoSansFont.Regular.of(size: 13)
+        textField.attributedPlaceholder = NSAttributedString(string: "    시군구 선택", attributes: [.foregroundColor: UIColor(hexcode: "A7B0C0"), .font: notoSansFont.Regular.of(size: 13)])
+        textField.backgroundColor = AppColor.gray100
+        textField.layer.cornerRadius = 8
+        textField.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
+        textField.layer.borderWidth = 1
+        return textField
     }()
     
     let addressStackView: UIStackView = {
@@ -231,19 +227,19 @@ class EssentialInfoView: BaseView {
     
     override func makeConfigures() {
         super.makeConfigures()
-        [yearLabel,yearLiteralLabel].forEach {
+        [yearTextField,yearLiteralLabel].forEach {
             yearStackView.addArrangedSubview($0)
         }
         
-        [monthLabel, monthLiteralLabel].forEach {
+        [monthTextField, monthLiteralLabel].forEach {
             monthStackView.addArrangedSubview($0)
         }
         
-        [dayLabel, dayLiteralLabel].forEach {
+        [dayTextField, dayLiteralLabel].forEach {
             dayStackView.addArrangedSubview($0)
         }
         
-        [addressTextField, addressCheckButton].forEach {
+        [sidoTextField, sigugunTextField].forEach {
             addressStackView.addArrangedSubview($0)
         }
         
@@ -306,7 +302,7 @@ class EssentialInfoView: BaseView {
             make.height.equalToSuperview().multipliedBy(0.03)
         }
         
-        yearLabel.snp.makeConstraints { make in
+        yearTextField.snp.makeConstraints { make in
             make.width.equalToSuperview().multipliedBy(0.756)
         }
         yearStackView.snp.makeConstraints { make in
@@ -316,7 +312,7 @@ class EssentialInfoView: BaseView {
             make.leading.equalTo(birthLabel.snp.trailing).offset(0.184 * UIScreen.main.bounds.width)
         }
         
-        monthLabel.snp.makeConstraints { make in
+        monthTextField.snp.makeConstraints { make in
             make.width.equalToSuperview().multipliedBy(0.719)
         }
         
@@ -327,7 +323,7 @@ class EssentialInfoView: BaseView {
             make.height.equalToSuperview().multipliedBy(0.046)
         }
         
-        dayLabel.snp.makeConstraints { make in
+        dayTextField.snp.makeConstraints { make in
             make.width.equalToSuperview().multipliedBy(0.719)
         }
         
@@ -343,8 +339,8 @@ class EssentialInfoView: BaseView {
             make.horizontalEdges.equalToSuperview().inset(20)
             make.height.equalToSuperview().multipliedBy(0.03)
         }
-        addressTextField.snp.makeConstraints { make in
-            make.width.equalToSuperview().multipliedBy(0.736)
+        sidoTextField.snp.makeConstraints { make in
+            make.width.equalToSuperview().multipliedBy(0.5)
         }
         addressStackView.snp.makeConstraints { make in
             make.top.equalTo(addressLabel.snp.bottom)

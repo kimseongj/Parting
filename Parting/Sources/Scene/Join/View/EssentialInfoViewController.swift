@@ -12,6 +12,7 @@ import RxCocoa
 class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     private let viewModel: EssentialInfoViewModel
     private let disposeBag = DisposeBag()
+    private let datePicker = UIDatePicker()
     
     init(viewModel: EssentialInfoViewModel) {
         self.viewModel = viewModel
@@ -32,8 +33,46 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         jobCheckButtonClicked()
         genderCheckButtonClicked()
         addressTextFieldClicked()
+        textFieldAction()
+        birthDateConfigure()
     }
     
+    private func textFieldAction() {
+        configureDatePicker()
+    }
+    
+    private func birthDateConfigure() {
+        self.viewModel.output.birthDateData
+            .filter { $0 != nil }
+            .subscribe(onNext: { [weak self] date in
+                guard let self else { return }
+                guard let date = date else { return }
+                self.rootView.yearTextField.text = date[0]
+                self.rootView.monthTextField.text = date[1]
+                self.rootView.dayTextField.text = date[2]
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func configureDatePicker() {
+        self.datePicker.datePickerMode = .date
+        self.datePicker.preferredDatePickerStyle = .wheels
+        self.datePicker.addTarget(self, action: #selector(datePickerValueDidChange(_:)), for: .valueChanged)
+        self.datePicker.locale = Locale(identifier: "ko_KR")
+        rootView.yearTextField.inputView = self.datePicker
+        rootView.monthTextField.inputView = self.datePicker
+        rootView.dayTextField.inputView = self.datePicker
+        
+    }
+    
+    @objc private func datePickerValueDidChange(_ datePicker: UIDatePicker) {
+        self.datePicker.rx.date
+            .subscribe(onNext:{[weak self] date in
+                guard let self else {return}
+                self.viewModel.input.yearTextFieldTrigger.onNext(date)
+            })
+            .disposed(by: disposeBag)
+    }
     private func navigationUI() {
         self.navigationController?.isNavigationBarHidden = false
         let leftBarButtonItem = UIBarButtonItem.init(image:  UIImage(named: "backBarButton"), style: .plain, target: self, action: #selector(backBarButtonClicked))
@@ -144,15 +183,16 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         rootView.checkGenderSecondStackView.checkAnswerLabel.text = "여자"
     }
     
-    @objc func backBarButtonClicked() {
+    @objc private func backBarButtonClicked() {
         self.viewModel.input.popEssentialViewTrigger.onNext(())
     }
     
     private func addressTextFieldClicked() {
-        rootView.addressTextField.rx.text
+        rootView.sidoTextField.rx.text
             .subscribe(onNext:{[weak self] _ in
                 self?.viewModel.input.getAddressTrigger.onNext(())
             })
             .disposed(by: disposeBag)
     }
 }
+
