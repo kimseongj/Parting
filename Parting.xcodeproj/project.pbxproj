@@ -27,7 +27,7 @@
 		4E89BC2B29C57D0900BAE38A /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89BC2A29C57D0900BAE38A /* APIKey.swift */; };
 		4E89BC2D29C57D2300BAE38A /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89BC2C29C57D2300BAE38A /* Endpoints.swift */; };
 		4E89BC2F29C57DDD00BAE38A /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89BC2E29C57DDD00BAE38A /* APIManager.swift */; };
-		4E89BC3129C57DE900BAE38A /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89BC3029C57DE900BAE38A /* Response.swift */; };
+		4E89BC3129C57DE900BAE38A /* CategoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89BC3029C57DE900BAE38A /* CategoryResponse.swift */; };
 		4E89BC3329C57E3C00BAE38A /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89BC3229C57E3C00BAE38A /* Error.swift */; };
 		4E89BC3529C57E5300BAE38A /* BaseURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89BC3429C57E5300BAE38A /* BaseURL.swift */; };
 		4E89BC3F29C58B7300BAE38A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4E89BC3E29C58B7300BAE38A /* Alamofire */; };
@@ -81,7 +81,7 @@
 		4E89BC2A29C57D0900BAE38A /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		4E89BC2C29C57D2300BAE38A /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		4E89BC2E29C57DDD00BAE38A /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
-		4E89BC3029C57DE900BAE38A /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		4E89BC3029C57DE900BAE38A /* CategoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryResponse.swift; sourceTree = "<group>"; };
 		4E89BC3229C57E3C00BAE38A /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		4E89BC3429C57E5300BAE38A /* BaseURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseURL.swift; sourceTree = "<group>"; };
 		4E89BC4B29CC339F00BAE38A /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
@@ -204,7 +204,7 @@
 				4E89BC2A29C57D0900BAE38A /* APIKey.swift */,
 				4E89BC2C29C57D2300BAE38A /* Endpoints.swift */,
 				4E89BC2E29C57DDD00BAE38A /* APIManager.swift */,
-				4E89BC3029C57DE900BAE38A /* Response.swift */,
+				4E89BC3029C57DE900BAE38A /* CategoryResponse.swift */,
 				4E89BC3229C57E3C00BAE38A /* Error.swift */,
 				4E89BC3429C57E5300BAE38A /* BaseURL.swift */,
 			);
@@ -548,7 +548,7 @@
 				4EA81DE429ED36860070F1B7 /* SplashViewModel.swift in Sources */,
 				4E89BC2D29C57D2300BAE38A /* Endpoints.swift in Sources */,
 				4ECEAE1529ED20F3006AAF6B /* CoordinatorStyleCase.swift in Sources */,
-				4E89BC3129C57DE900BAE38A /* Response.swift in Sources */,
+				4E89BC3129C57DE900BAE38A /* CategoryResponse.swift in Sources */,
 				4E52228429F141AA000B96B4 /* EssentialInfoViewController.swift in Sources */,
 				4E52227A29F11788000B96B4 /* JoinCompleteView.swift in Sources */,
 				4ECEAE1729ED2116006AAF6B /* AppCoordinator.swift in Sources */,

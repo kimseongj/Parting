@@ -65,7 +65,11 @@ class EssentialInfoViewModel: BaseViewModel {
             .disposed(by: disposeBag)
     }
     private func getAddress() {
-        
+        input.getAddressTrigger
+            .subscribe(onNext: { _ in
+                
+            })
+            .disposed(by: disposeBag)
     }
     
     
