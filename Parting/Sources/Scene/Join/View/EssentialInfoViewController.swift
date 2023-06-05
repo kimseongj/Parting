@@ -31,6 +31,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         nextButtonClicked()
         jobCheckButtonClicked()
         genderCheckButtonClicked()
+        addressTextFieldClicked()
     }
     
     private func navigationUI() {
@@ -145,5 +146,13 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     
     @objc func backBarButtonClicked() {
         self.viewModel.input.popEssentialViewTrigger.onNext(())
+    }
+    
+    private func addressTextFieldClicked() {
+        rootView.addressTextField.rx.text
+            .subscribe(onNext:{[weak self] _ in
+                self?.viewModel.input.getAddressTrigger.onNext(())
+            })
+            .disposed(by: disposeBag)
     }
 }

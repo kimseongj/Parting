@@ -24,10 +24,6 @@ class SplashViewController: BaseViewController<SplashView> {
         backgroundUI()
     }
     
-    override func loadView() {
-        self.view = rootView
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         DispatchQueue.main.asyncAfter(deadline: .now()+3) {

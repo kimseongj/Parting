@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E23293229FCEFB600455971 /* categoryImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23293129FCEFB600455971 /* categoryImageCollectionViewCell.swift */; };
+		4E2874B62A2D97470000B24C /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2874B52A2D97470000B24C /* KakaoSDK */; };
 		4E3C856529F7AE920006BEB1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3C856429F7AE920006BEB1 /* BaseViewController.swift */; };
 		4E52227A29F11788000B96B4 /* JoinCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227929F11788000B96B4 /* JoinCompleteView.swift */; };
 		4E52227C29F119B3000B96B4 /* JoinCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227B29F119B3000B96B4 /* JoinCompleteViewController.swift */; };
@@ -57,9 +59,11 @@
 		4ECEAE1F29ED298F006AAF6B /* SplahView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEAE1E29ED298F006AAF6B /* SplahView.swift */; };
 		4ECEAE2129ED29EF006AAF6B /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEAE2029ED29EF006AAF6B /* BaseView.swift */; };
 		4ECEAE2429ED2A66006AAF6B /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEAE2329ED2A66006AAF6B /* BaseViewModel.swift */; };
+		4ED3889029FC2FA3003D67C5 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4ED3888F29FC2FA3003D67C5 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4E23293129FCEFB600455971 /* categoryImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E3C856429F7AE920006BEB1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		4E52227829F10541000B96B4 /* Parting.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Parting.entitlements; sourceTree = "<group>"; };
 		4E52227929F11788000B96B4 /* JoinCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCompleteView.swift; sourceTree = "<group>"; };
@@ -120,6 +124,8 @@
 				4EA81DDC29ED2D2A0070F1B7 /* SnapKit in Frameworks */,
 				4E783FA229EABC54008B3E48 /* RxCocoa in Frameworks */,
 				4E89BC3F29C58B7300BAE38A /* Alamofire in Frameworks */,
+				4ED3889029FC2FA3003D67C5 /* Kingfisher in Frameworks */,
+				4E2874B62A2D97470000B24C /* KakaoSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,9 +156,9 @@
 			isa = PBXGroup;
 			children = (
 				4ECEAE2229ED2A52006AAF6B /* Base */,
+				4E89BC2429C57C3500BAE38A /* Models */,
 				4E89BC4A29C5E18800BAE38A /* Coordinator */,
 				4E89BC3629C57E5D00BAE38A /* Scene */,
-				4E89BC2429C57C3500BAE38A /* Models */,
 				4E89BC2329C57A9100BAE38A /* Extensions */,
 				4E89BC2229C57A8A00BAE38A /* Fonts */,
 			);
@@ -341,6 +347,7 @@
 				4E52228329F141AA000B96B4 /* EssentialInfoViewController.swift */,
 				4E52228929F18152000B96B4 /* InterestsView.swift */,
 				4E52228B29F18166000B96B4 /* InterestsViewController.swift */,
+				4E23293129FCEFB600455971 /* categoryImageCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -442,6 +449,8 @@
 				4E783FA129EABC54008B3E48 /* RxCocoa */,
 				4E783FA329EABC54008B3E48 /* RxSwift */,
 				4EA81DDB29ED2D2A0070F1B7 /* SnapKit */,
+				4ED3888F29FC2FA3003D67C5 /* Kingfisher */,
+				4E2874B52A2D97470000B24C /* KakaoSDK */,
 			);
 			productName = Parting;
 			productReference = 4EA5836729C04F4200BF4D7A /* Parting.app */;
@@ -475,6 +484,8 @@
 				4E89BC3D29C58B7300BAE38A /* XCRemoteSwiftPackageReference "Alamofire" */,
 				4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				4EA81DDA29ED2D2A0070F1B7 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				4ED3888E29FC2FA3003D67C5 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				4E2874B42A2D97470000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = 4EA5836829C04F4200BF4D7A /* Products */;
 			projectDirPath = "";
@@ -516,6 +527,7 @@
 				4E89BC3329C57E3C00BAE38A /* Error.swift in Sources */,
 				4ECEAE2429ED2A66006AAF6B /* BaseViewModel.swift in Sources */,
 				4E3C856529F7AE920006BEB1 /* BaseViewController.swift in Sources */,
+				4E23293229FCEFB600455971 /* categoryImageCollectionViewCell.swift in Sources */,
 				4EA81DE229ED32680070F1B7 /* UILabel+Extension.swift in Sources */,
 				4E89BC2F29C57DDD00BAE38A /* APIManager.swift in Sources */,
 				4ECEAE1329ED2043006AAF6B /* Coordinator.swift in Sources */,
@@ -765,6 +777,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4E2874B42A2D97470000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
@@ -789,9 +809,22 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		4ED3888E29FC2FA3003D67C5 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4E2874B52A2D97470000B24C /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E2874B42A2D97470000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
+		};
 		4E783FA129EABC54008B3E48 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift" */;
@@ -811,6 +844,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4EA81DDA29ED2D2A0070F1B7 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		4ED3888F29FC2FA3003D67C5 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4ED3888E29FC2FA3003D67C5 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

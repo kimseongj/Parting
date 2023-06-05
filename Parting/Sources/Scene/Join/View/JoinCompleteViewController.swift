@@ -12,7 +12,7 @@ import RxCocoa
 class JoinCompleteViewController: BaseViewController<JoinCompleteView> {
     private let viewModel: JoinCompleteViewModel
     private let disposeBag = DisposeBag()
-    
+
     
     init(viewModel: JoinCompleteViewModel) {
         self.viewModel = viewModel

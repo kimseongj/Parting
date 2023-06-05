@@ -13,7 +13,7 @@ class EssentialInfoViewModel: BaseViewModel {
     struct Input {
         let popEssentialViewTrigger: PublishSubject<Void> = PublishSubject()
         let pushInterestsViewTrigger: PublishSubject<Void> = PublishSubject()
-        
+        let getAddressTrigger: PublishSubject<Void> = PublishSubject()
     }
     
     struct Output {
@@ -31,6 +31,7 @@ class EssentialInfoViewModel: BaseViewModel {
         self.output = output
         self.coordinator = coordinator
         viewChangeTrigger()
+        getAddress()
     }
     
     private func viewChangeTrigger() {
@@ -46,13 +47,17 @@ class EssentialInfoViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
     }
+    private func getAddress() {
+        
+    }
     
     
-    func popEssentialInfoViewController() {
+    private func popEssentialInfoViewController() {
         self.coordinator?.popJoinCompleteViewController()
     }
     
-    func pushInterestsViewController() {
+    private func pushInterestsViewController() {
         self.coordinator?.pushInterestsViewController()
     }
+    
 }
