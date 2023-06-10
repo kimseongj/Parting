@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E153FA82A34C37600C7F58C /* DetailInterestsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E153FA72A34C37600C7F58C /* DetailInterestsViewModel.swift */; };
+		4E153FAA2A34C39F00C7F58C /* DetailInterestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E153FA92A34C39F00C7F58C /* DetailInterestsViewController.swift */; };
+		4E153FAC2A34C3BB00C7F58C /* DetailInterestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E153FAB2A34C3BB00C7F58C /* DetailInterestsView.swift */; };
 		4E23293229FCEFB600455971 /* categoryImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23293129FCEFB600455971 /* categoryImageCollectionViewCell.swift */; };
 		4E2874B92A2D98FB0000B24C /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2874B82A2D98FB0000B24C /* KakaoSDK */; };
 		4E3C856529F7AE920006BEB1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3C856429F7AE920006BEB1 /* BaseViewController.swift */; };
@@ -65,6 +68,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4E153FA72A34C37600C7F58C /* DetailInterestsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsViewModel.swift; sourceTree = "<group>"; };
+		4E153FA92A34C39F00C7F58C /* DetailInterestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsViewController.swift; sourceTree = "<group>"; };
+		4E153FAB2A34C3BB00C7F58C /* DetailInterestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsView.swift; sourceTree = "<group>"; };
 		4E23293129FCEFB600455971 /* categoryImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E3C856429F7AE920006BEB1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		4E52227829F10541000B96B4 /* Parting.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Parting.entitlements; sourceTree = "<group>"; };
@@ -354,6 +360,8 @@
 				4E52228929F18152000B96B4 /* InterestsView.swift */,
 				4E52228B29F18166000B96B4 /* InterestsViewController.swift */,
 				4E23293129FCEFB600455971 /* categoryImageCollectionViewCell.swift */,
+				4E153FA92A34C39F00C7F58C /* DetailInterestsViewController.swift */,
+				4E153FAB2A34C3BB00C7F58C /* DetailInterestsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -366,6 +374,7 @@
 				4E52227D29F11C81000B96B4 /* JoinCompleteViewModel.swift */,
 				4E52228129F1417A000B96B4 /* EssentialInfoViewModel.swift */,
 				4E52228729F1813C000B96B4 /* InterestsViewModel.swift */,
+				4E153FA72A34C37600C7F58C /* DetailInterestsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -544,6 +553,7 @@
 				4E52227C29F119B3000B96B4 /* JoinCompleteViewController.swift in Sources */,
 				4ECEAE1C29ED25D7006AAF6B /* JoinViewModel.swift in Sources */,
 				4E52228229F1417A000B96B4 /* EssentialInfoViewModel.swift in Sources */,
+				4E153FA82A34C37600C7F58C /* DetailInterestsViewModel.swift in Sources */,
 				4E89BC5C29CC34AC00BAE38A /* enum+Font.swift in Sources */,
 				4E89BC8F29D167E800BAE38A /* Color+Extension.swift in Sources */,
 				4EA5836B29C04F4200BF4D7A /* AppDelegate.swift in Sources */,
@@ -551,9 +561,11 @@
 				4E89BC2B29C57D0900BAE38A /* APIKey.swift in Sources */,
 				4EA5836D29C04F4200BF4D7A /* SceneDelegate.swift in Sources */,
 				4EB2AC692A3081090023F49A /* NickNameValidateResponse.swift in Sources */,
+				4E153FAA2A34C39F00C7F58C /* DetailInterestsViewController.swift in Sources */,
 				4E52227E29F11C81000B96B4 /* JoinCompleteViewModel.swift in Sources */,
 				4EA81DDE29ED2D9A0070F1B7 /* SplashViewController.swift in Sources */,
 				4EA81DE429ED36860070F1B7 /* SplashViewModel.swift in Sources */,
+				4E153FAC2A34C3BB00C7F58C /* DetailInterestsView.swift in Sources */,
 				4E89BC2D29C57D2300BAE38A /* Endpoints.swift in Sources */,
 				4ECEAE1529ED20F3006AAF6B /* CoordinatorStyleCase.swift in Sources */,
 				4E89BC3129C57DE900BAE38A /* CategoryResponse.swift in Sources */,
