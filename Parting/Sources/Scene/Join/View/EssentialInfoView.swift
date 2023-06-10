@@ -35,6 +35,7 @@ class EssentialInfoView: BaseView {
         textField.backgroundColor = AppColor.gray100
         textField.layer.cornerRadius = 8
         textField.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
+        textField.font = notoSansFont.Regular.of(size: 13)
         textField.layer.borderWidth = 1
         textField.textAlignment = .center
         return textField
@@ -62,6 +63,7 @@ class EssentialInfoView: BaseView {
         textField.layer.cornerRadius = 8
         textField.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
         textField.layer.borderWidth = 1
+        textField.font = notoSansFont.Regular.of(size: 13)
         textField.textAlignment = .center
         return textField
     }()
@@ -88,6 +90,7 @@ class EssentialInfoView: BaseView {
         textField.layer.cornerRadius = 8
         textField.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
         textField.layer.borderWidth = 1
+        textField.font = notoSansFont.Regular.of(size: 13)
         textField.textAlignment = .center
         return textField
     }()
@@ -150,22 +153,24 @@ class EssentialInfoView: BaseView {
     let sidoTextField: UITextField = {
         let textField = UITextField()
         textField.font = notoSansFont.Regular.of(size: 13)
-        textField.attributedPlaceholder = NSAttributedString(string: "    시도 선택", attributes: [.foregroundColor: UIColor(hexcode: "A7B0C0"), .font: notoSansFont.Regular.of(size: 13)])
+        textField.attributedPlaceholder = NSAttributedString(string: "시도 선택", attributes: [.foregroundColor: UIColor(hexcode: "A7B0C0"), .font: notoSansFont.Regular.of(size: 13)])
         textField.backgroundColor = AppColor.gray100
         textField.layer.cornerRadius = 8
         textField.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
         textField.layer.borderWidth = 1
+        textField.textAlignment = .center
         return textField
     }()
     
     let sigugunTextField: UITextField = {
         let textField = UITextField()
         textField.font = notoSansFont.Regular.of(size: 13)
-        textField.attributedPlaceholder = NSAttributedString(string: "    시군구 선택", attributes: [.foregroundColor: UIColor(hexcode: "A7B0C0"), .font: notoSansFont.Regular.of(size: 13)])
+        textField.attributedPlaceholder = NSAttributedString(string: "시군구 선택", attributes: [.foregroundColor: UIColor(hexcode: "A7B0C0"), .font: notoSansFont.Regular.of(size: 13)])
         textField.backgroundColor = AppColor.gray100
         textField.layer.cornerRadius = 8
         textField.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
         textField.layer.borderWidth = 1
+        textField.textAlignment = .center
         return textField
     }()
     
@@ -187,11 +192,13 @@ class EssentialInfoView: BaseView {
     let nickNameTextField: UITextField = {
         let textField = UITextField()
         textField.font = notoSansFont.Regular.of(size: 13)
-        textField.attributedPlaceholder = NSAttributedString(string: "    닉네임", attributes: [.foregroundColor: UIColor(hexcode: "A7B0C0"), .font: notoSansFont.Regular.of(size: 13)])
+        textField.attributedPlaceholder = NSAttributedString(string: "닉네임", attributes: [.foregroundColor: UIColor(hexcode: "A7B0C0"), .font: notoSansFont.Regular.of(size: 13)])
         textField.backgroundColor = AppColor.gray100
         textField.layer.cornerRadius = 8
         textField.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
         textField.layer.borderWidth = 1
+        textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 16.0, height: 0.0))
+        textField.leftViewMode = .always
         return textField
     }()
     

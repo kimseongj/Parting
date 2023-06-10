@@ -12,11 +12,12 @@ import RxSwift
 class APIManager {
     static let shared = APIManager()
     
+    //MARK: - 카테고리 종류 API
     func getCategoryAPI() -> Observable<CategoryData> {
         return Observable.create { emitter in
-            guard let url = PartingAPI.detailCategory.url else { return Disposables.create() }
-            AF.request(url, method: .get, headers: PartingAPI.detailCategory.headers).validate(statusCode: 200...500).responseDecodable(of: CategoryData.self) { response in
-                print("\(response.response?.statusCode ?? 1) ✅✅")
+            let api = PartingAPI.detailCategory
+            guard let categoryURL = api.url else { return Disposables.create() }
+            AF.request(categoryURL, method: .get, headers: api.headers).validate(statusCode: 200...500).responseDecodable(of: CategoryData.self) { response in
                 switch response.result {
                 case let .success(value):
                     emitter.onNext(value)
@@ -29,6 +30,63 @@ class APIManager {
         }
     }
     
+    //MARK: - 시도, 시군구 API
+    func getRegionAPI() -> Observable<RegionData> {
+        return Observable.create { emitter in
+            let api = PartingAPI.region
+            guard let regionURL = api.url else { return Disposables.create() }
+            AF.request(regionURL, method: .get, headers: api.headers).validate(statusCode: 200...500).responseDecodable(of: RegionData.self) {
+                response in
+                switch response.result {
+                case let .success(value):
+                    emitter.onNext(value)
+                    emitter.onCompleted()
+                case let .failure(error):
+                    emitter.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
     
+    //MARK: - 닉네임 중복 검사 API
+    func checkValidateNickName(_ nickname: String) -> Observable<NickNameResponse> {
+        return Observable.create { emitter in
+            let api = PartingAPI.checkNickname(nickName: nickname)
+            guard let nickNameurl = api
+                .url else { return Disposables.create() }
+            AF.request(nickNameurl, method: .get, parameters: api.parameters, encoding: URLEncoding.default, headers: api.headers).responseDecodable(of: NickNameResponse.self) {
+                response in
+                switch response.result {
+                case let .success(value):
+                    emitter.onNext(value)
+                    emitter.onCompleted()
+                case let .failure(error):
+                    emitter.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    //MARK: - 필수정보 입력 POST API
+    func enterEssentialInfo(_ birth: String, _ job: String, _ nickName: String, _ sex: String, _ sigunguCd: Int) -> Observable<NickNameResponse> {
+        return Observable.create { emitter in
+            let api = PartingAPI.essentialInfo(birth: birth, job: job, nickName: nickName, sex: sex, sigunguCd: sigunguCd)
+            guard let essentialURL = api.url else { return Disposables.create() }
+            AF.request(essentialURL, method: .post, parameters: api.parameters, encoding: JSONEncoding.default, headers: api.headers).responseDecodable(of: NickNameResponse.self) { response in
+                print("\(response.response?.statusCode) 🌱🌱")
+                print("\(response.result) 🌱🌱")
+                switch response.result {
+                case let .success(value):
+                    emitter.onNext(value)
+                    emitter.onCompleted()
+                case let .failure(error):
+                    emitter.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
 }
 

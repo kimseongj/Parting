@@ -50,6 +50,8 @@
 		4EA81DE229ED32680070F1B7 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA81DE129ED32680070F1B7 /* UILabel+Extension.swift */; };
 		4EA81DE429ED36860070F1B7 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA81DE329ED36860070F1B7 /* SplashViewModel.swift */; };
 		4EA81DE629ED41100070F1B7 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA81DE529ED41100070F1B7 /* UIView+Extension.swift */; };
+		4EB2AC652A2E09EF0023F49A /* RegionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB2AC642A2E09EF0023F49A /* RegionResponse.swift */; };
+		4EB2AC692A3081090023F49A /* NickNameValidateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB2AC682A3081090023F49A /* NickNameValidateResponse.swift */; };
 		4ECEAE1129ED1F7F006AAF6B /* CoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEAE1029ED1F7F006AAF6B /* CoordinatorDelegate.swift */; };
 		4ECEAE1329ED2043006AAF6B /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEAE1229ED2043006AAF6B /* Coordinator.swift */; };
 		4ECEAE1529ED20F3006AAF6B /* CoordinatorStyleCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEAE1429ED20F3006AAF6B /* CoordinatorStyleCase.swift */; };
@@ -104,6 +106,8 @@
 		4EA81DE129ED32680070F1B7 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		4EA81DE329ED36860070F1B7 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		4EA81DE529ED41100070F1B7 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		4EB2AC642A2E09EF0023F49A /* RegionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionResponse.swift; sourceTree = "<group>"; };
+		4EB2AC682A3081090023F49A /* NickNameValidateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameValidateResponse.swift; sourceTree = "<group>"; };
 		4ECEAE1029ED1F7F006AAF6B /* CoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorDelegate.swift; sourceTree = "<group>"; };
 		4ECEAE1229ED2043006AAF6B /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		4ECEAE1429ED20F3006AAF6B /* CoordinatorStyleCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorStyleCase.swift; sourceTree = "<group>"; };
@@ -207,6 +211,8 @@
 				4E89BC3029C57DE900BAE38A /* CategoryResponse.swift */,
 				4E89BC3229C57E3C00BAE38A /* Error.swift */,
 				4E89BC3429C57E5300BAE38A /* BaseURL.swift */,
+				4EB2AC642A2E09EF0023F49A /* RegionResponse.swift */,
+				4EB2AC682A3081090023F49A /* NickNameValidateResponse.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -529,6 +535,7 @@
 				4E3C856529F7AE920006BEB1 /* BaseViewController.swift in Sources */,
 				4E23293229FCEFB600455971 /* categoryImageCollectionViewCell.swift in Sources */,
 				4EA81DE229ED32680070F1B7 /* UILabel+Extension.swift in Sources */,
+				4EB2AC652A2E09EF0023F49A /* RegionResponse.swift in Sources */,
 				4E89BC2F29C57DDD00BAE38A /* APIManager.swift in Sources */,
 				4ECEAE1329ED2043006AAF6B /* Coordinator.swift in Sources */,
 				4E783FAA29EABF3E008B3E48 /* JoinViewController.swift in Sources */,
@@ -543,6 +550,7 @@
 				4E52228F29F27DA8000B96B4 /* customStackView.swift in Sources */,
 				4E89BC2B29C57D0900BAE38A /* APIKey.swift in Sources */,
 				4EA5836D29C04F4200BF4D7A /* SceneDelegate.swift in Sources */,
+				4EB2AC692A3081090023F49A /* NickNameValidateResponse.swift in Sources */,
 				4E52227E29F11C81000B96B4 /* JoinCompleteViewModel.swift in Sources */,
 				4EA81DDE29ED2D9A0070F1B7 /* SplashViewController.swift in Sources */,
 				4EA81DE429ED36860070F1B7 /* SplashViewModel.swift in Sources */,

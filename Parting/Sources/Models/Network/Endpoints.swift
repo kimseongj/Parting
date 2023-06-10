@@ -29,7 +29,7 @@ enum PartingAPI {
     case partyDday
     case checkMypage
     case checkNickname(nickName: String)
-    case essentialInfo
+    case essentialInfo(birth: String, job: String, nickName: String, sex: String, sigunguCd: Int)
     case interest
     case modifyInfo
 }
@@ -57,21 +57,23 @@ extension PartingAPI {
             return URL(string: "\(BaseURL.baseURL)/entered-party")
         case .checkMypage:
             return URL(string: "\(BaseURL.userURL)")
-        case .checkNickname, .essentialInfo, .interest, .modifyInfo:
-            return URL(string: "\(BaseURL.userURL)/")
+        case .checkNickname:
+            return URL(string: "\(BaseURL.userURL)/check")
+        case .essentialInfo, .interest, .modifyInfo:
+            return URL(string: "\(BaseURL.userURL)/essential-information")
         }
     }
     
     var headers: HTTPHeaders {
         switch self {
-        case .detailCategory, .oauthKaKao, .oauthLogout, .isMemeber, .tokenReissue, .region, .reportParty, .checkEnteredParty, .partyDday, .checkMypage, .essentialInfo, .interest, .modifyInfo :
+        case .detailCategory, .oauthKaKao, .oauthLogout, .isMemeber, .tokenReissue, .region, .reportParty, .checkEnteredParty, .partyDday, .checkMypage, .interest, .modifyInfo :
             return [
-                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4MTU1MDk2MCwiZXhwIjoxNjgzOTcwMTYwfQ.p0ZDKKUVoydIpWiUbSsiM2qnzrfdGe1vX2wxlXKICC0"
+                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4NTE2MTU1MSwiZXhwIjoxNjg3NTgwNzUxfQ.ZkMQ9PA2KAodD7AXyDClJEq-P47p3ucqbQ2G5c7aH8M"
             ]
-        case .parties, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calender, .recentView, .checkMyParty, .partyMember, .checkNickname:
+        case .parties, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calender, .recentView, .checkMyParty, .partyMember, .checkNickname, .essentialInfo:
             return [
-                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4MTU1MDk2MCwiZXhwIjoxNjgzOTcwMTYwfQ.p0ZDKKUVoydIpWiUbSsiM2qnzrfdGe1vX2wxlXKICC0",
-                    "Content-Type" : "application/json;charset=UTF-8"
+                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4NTE2MTU1MSwiZXhwIjoxNjg3NTgwNzUxfQ.ZkMQ9PA2KAodD7AXyDClJEq-P47p3ucqbQ2G5c7aH8M",
+                    "Content-Type": "application/json;charset=UTF-8"
             ]
         }
     }
@@ -111,6 +113,14 @@ extension PartingAPI {
         case let .checkNickname(nickName):
             return [
                 "nickName": nickName
+            ]
+        case let .essentialInfo(birth, job, nickName, sex, sigunguCd):
+            return [
+                "birth": birth,
+                "job": job,
+                "nickName": nickName,
+                "sex": sex,
+                "sigunguCd": sigunguCd
             ]
         default:
             return ["":""]
