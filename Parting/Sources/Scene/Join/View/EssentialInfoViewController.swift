@@ -79,8 +79,8 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     
     private func enterYourNickname() {
         self.rootView.nickNameTextField.rx.text
-            .orEmpty // rxcocoa uitextfield가 optional String을 던져주기 때문에 optional 형태로 반환된 text를 걸러주는 operator
-            .distinctUntilChanged() // 값이 변화한 이벤트만 간추리기, 기존에는 rxcocoa의 text 정의를 보면.allEditingEvents, .valueChanged 두가지 케이스의 이벤트가 발생할 때 textfield의 값을 return 한다. 그 중 allEditingEvents는 값을 입력하기 위한 touch, 입력된 값을 수정하기 위한 touch, 키보드를 내리는 동작 모두 이벤트를 발생시키기 때문에 공백의 상황에서, 값을 입력 완료하고 나서 모두 불필요한 이벤트를 발생시킨다. 때문에 이벤트 변화가 아닌 , 변화된 입력값만 리턴할 수 있는 오퍼레이터를 찾아야하는데 그게 distinctUntilChanged()이다.
+            .orEmpty 
+            .distinctUntilChanged()
             .subscribe(onNext: {[weak self] text in
                 guard let self else { return }
                 let flag = self.viewModel.nicknameValidCheck(text)
