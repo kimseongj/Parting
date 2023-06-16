@@ -49,6 +49,8 @@ enum InterestsCategory: Int, CaseIterable {
 class InterestsViewController: BaseViewController<InterestsView> {
     private let viewModel: InterestsViewModel
     private let disposeBag = DisposeBag()
+    private var checkedCategoryList: [Int] = [1,2,3,4,5,6,7,8]
+    private var selectedCellIndex: [Int] = []
     
     init(viewModel: InterestsViewModel) {
         self.viewModel = viewModel
@@ -59,17 +61,15 @@ class InterestsViewController: BaseViewController<InterestsView> {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.viewModel.input.getCategoryImageTrigger.onNext(())
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.viewModel.getAssociatedCategory(checkedCategoryList)
         navigationUI()
         configureCell()
         bindCategoryImage()
         didSelectedCell()
+        nextButtonClicked()
+        self.viewModel.input.getCategoryImageTrigger.onNext(())
     }
     
     private func configureCell() {
@@ -82,6 +82,7 @@ class InterestsViewController: BaseViewController<InterestsView> {
         viewModel.output.categoryImage
             .bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: categoryImageCollectionViewCell.identifier, cellType: categoryImageCollectionViewCell.self)) {
                 index, categoryImage, cell in
+                print("\(categoryImage) ▶️▶️")
                 cell.interestsImageView.kf.setImage(with: URL(string: categoryImage))
                 cell.interestsLabel.text = InterestsCategory(rawValue: index)?.category
             }
@@ -91,17 +92,33 @@ class InterestsViewController: BaseViewController<InterestsView> {
     private func didSelectedCell() {
         rootView.categoryCollectionView.rx
             .itemSelected
-            .observe(on: MainScheduler.instance) // 명시적 표현
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: {[weak self] indexPath in
+                print("\(indexPath[1]) 🚫🚫")
                 guard let self else {return}
                 guard let cell = self.rootView.categoryCollectionView.cellForItem(at: indexPath) as? categoryImageCollectionViewCell else { return }
-                if cell.interestsImageView.alpha == 1 {
+                if cell.interestsImageView.alpha == 1 { // 선택이 이미 된 상태
+                    if let firstIndex = selectedCellIndex.firstIndex(of: indexPath[1]+1) {
+                        selectedCellIndex.remove(at: firstIndex)  // 1
+                        print("\(selectedCellIndex) + 체크 안됐을 때")
+                    }
                     cell.interestsImageView.alpha = 0.6
                     cell.interestsLabel.textColor = AppColor.gray400
-                } else {
+                } else { // 선택이 안된 상태
+                    selectedCellIndex.append(indexPath[1]+1)
+                    print("\(selectedCellIndex) + 체크됐을 때")
                     cell.interestsImageView.alpha = 1
                     cell.interestsLabel.textColor = UIColor(hexcode: "65656D")
                 }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func nextButtonClicked() {
+        //MARK: - 보내야 할 데이터: EssentialView에서 선택할 관심사 배열, 배열하나만 보내면 카운트 갯수만큼 컬렉션 뷰 Cell 생성, 배열의 원소(인덱스)를 통해 통신.
+        rootView.nextStepButton.rx.tap
+            .subscribe(onNext: { _ in
+                self.viewModel.input.pushDetailInterestViewTrigger.onNext(self.selectedCellIndex)
             })
             .disposed(by: disposeBag)
     }
@@ -121,7 +138,7 @@ class InterestsViewController: BaseViewController<InterestsView> {
     }
     
     @objc func backBarButtonClicked() {
-        self.viewModel.input.viewChangeTrigger.onNext(())
+        self.viewModel.input.popInterestsViewTrigger.onNext(())
     }
 }
 

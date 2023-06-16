@@ -15,9 +15,11 @@ class APIManager {
     //MARK: - 카테고리 종류 API
     func getCategoryAPI() -> Observable<CategoryData> {
         return Observable.create { emitter in
-            let api = PartingAPI.detailCategory
+            let api = PartingAPI.detailCategory(categoryVersion: "1.0.0")
             guard let categoryURL = api.url else { return Disposables.create() }
             AF.request(categoryURL, method: .get, headers: api.headers).validate(statusCode: 200...500).responseDecodable(of: CategoryData.self) { response in
+                print("\(response) 🥶🥶")
+                print(response.response?.statusCode)
                 switch response.result {
                 case let .success(value):
                     emitter.onNext(value)
@@ -76,7 +78,27 @@ class APIManager {
             guard let essentialURL = api.url else { return Disposables.create() }
             AF.request(essentialURL, method: .post, parameters: api.parameters, encoding: JSONEncoding.default, headers: api.headers).responseDecodable(of: NickNameResponse.self) { response in
                 print("\(response.response?.statusCode) 🌱🌱")
+                print("\(birth), \(job), \(nickName), \(sex), \(sigunguCd) 🌱🌱")
                 print("\(response.result) 🌱🌱")
+                switch response.result {
+                case let .success(value):
+                    emitter.onNext(value)
+                    emitter.onCompleted()
+                case let .failure(error):
+                    emitter.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    //MARK: - Category Detail API
+    func getCategoryDetailList(_ categoryId: Int) -> Observable<CategoryDetailResponse> {
+        return Observable.create { emitter in
+            let api = PartingAPI.associatedCategory(categoryId: categoryId)
+            guard let associatedCategoryURL = api.url else { return Disposables.create() }
+            AF.request(associatedCategoryURL, method: .get, parameters: api.parameters, encoding: URLEncoding.default, headers: api.headers).responseDecodable(of: CategoryDetailResponse.self) { response in
+                print("\(response.response?.statusCode) 💖💖")
                 switch response.result {
                 case let .success(value):
                     emitter.onNext(value)

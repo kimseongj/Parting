@@ -9,7 +9,8 @@ import Foundation
 import Alamofire
 
 enum PartingAPI {
-    case detailCategory
+    case detailCategory(categoryVersion: String)
+    case associatedCategory(categoryId: Int)
     case oauthKaKao
     case oauthLogout
     case isMemeber
@@ -35,42 +36,44 @@ enum PartingAPI {
 }
 
 extension PartingAPI {
-    var url: URL? {
+    var url: String? {
         switch self {
-        case .detailCategory:
-            return URL(string: "\(BaseURL.baseURL)/category-sortby")
+        case let .associatedCategory(categoryId):
+            return  "\(BaseURL.baseURL)/categoryId/\(categoryId)/associated-category"
+        case let .detailCategory(categoryVersion):
+            return  "\(BaseURL.baseURL)/category-sortby/category-version/0.0.9"
         case .oauthKaKao, .oauthLogout, .isMemeber, .tokenReissue:
-            return URL(string: "\(BaseURL.oauthURL)/")
+            return  "\(BaseURL.oauthURL)/"
         case .parties:
-            return URL(string: "\(BaseURL.baseURL)/parties")
+            return "\(BaseURL.baseURL)/parties"
         case .createParty:
-            return URL(string: "\(BaseURL.partyURL)")
+            return  "\(BaseURL.partyURL)"
         case .getPartyDetail, .modifyParty, .deleteParty, .calender, .recentView, .partyMember, .partyDday:
-            return URL(string: "\(BaseURL.partyURL)/calendar")
+            return  "\(BaseURL.partyURL)/calendar"
         case .region:
-            return URL(string: "\(BaseURL.baseURL)/region")
+            return  "\(BaseURL.baseURL)/region"
         case .reportParty:
-            return URL(string: "\(BaseURL.baseURL)/report/party")
+            return  "\(BaseURL.baseURL)/report/party"
         case .checkMyParty:
-            return URL(string: "\(BaseURL.baseURL)/my-party")
+            return  "\(BaseURL.baseURL)/my-party"
         case .checkEnteredParty:
-            return URL(string: "\(BaseURL.baseURL)/entered-party")
+            return  "\(BaseURL.baseURL)/entered-party"
         case .checkMypage:
-            return URL(string: "\(BaseURL.userURL)")
+            return  "\(BaseURL.userURL)"
         case .checkNickname:
-            return URL(string: "\(BaseURL.userURL)/check")
+            return  "\(BaseURL.userURL)/check"
         case .essentialInfo, .interest, .modifyInfo:
-            return URL(string: "\(BaseURL.userURL)/essential-information")
+            return  "\(BaseURL.userURL)/essential-information"
         }
     }
     
     var headers: HTTPHeaders {
         switch self {
-        case .detailCategory, .oauthKaKao, .oauthLogout, .isMemeber, .tokenReissue, .region, .reportParty, .checkEnteredParty, .partyDday, .checkMypage, .interest, .modifyInfo :
+        case .oauthKaKao, .oauthLogout, .isMemeber, .tokenReissue, .region, .reportParty, .checkEnteredParty, .partyDday, .checkMypage, .interest, .modifyInfo :
             return [
                 "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4NTE2MTU1MSwiZXhwIjoxNjg3NTgwNzUxfQ.ZkMQ9PA2KAodD7AXyDClJEq-P47p3ucqbQ2G5c7aH8M"
             ]
-        case .parties, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calender, .recentView, .checkMyParty, .partyMember, .checkNickname, .essentialInfo:
+        case .parties, .associatedCategory, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calender, .recentView, .checkMyParty, .partyMember, .detailCategory, .checkNickname, .essentialInfo:
             return [
                 "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4NTE2MTU1MSwiZXhwIjoxNjg3NTgwNzUxfQ.ZkMQ9PA2KAodD7AXyDClJEq-P47p3ucqbQ2G5c7aH8M",
                     "Content-Type": "application/json;charset=UTF-8"

@@ -23,6 +23,10 @@
 		4E52228A29F18152000B96B4 /* InterestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52228929F18152000B96B4 /* InterestsView.swift */; };
 		4E52228C29F18166000B96B4 /* InterestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52228B29F18166000B96B4 /* InterestsViewController.swift */; };
 		4E52228F29F27DA8000B96B4 /* customStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52228E29F27DA8000B96B4 /* customStackView.swift */; };
+		4E6123BC2A36C1100039307A /* CategoryDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6123BB2A36C1100039307A /* CategoryDetailResponse.swift */; };
+		4E6123BE2A3763720039307A /* detailCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6123BD2A3763720039307A /* detailCategoryCollectionViewCell.swift */; };
+		4E6123C02A39B0BC0039307A /* CustomGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6123BF2A39B0BC0039307A /* CustomGroupView.swift */; };
+		4E6123C22A3AC2100039307A /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6123C12A3AC2100039307A /* CustomHeaderView.swift */; };
 		4E783FA229EABC54008B3E48 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 4E783FA129EABC54008B3E48 /* RxCocoa */; };
 		4E783FA429EABC54008B3E48 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E783FA329EABC54008B3E48 /* RxSwift */; };
 		4E783FAA29EABF3E008B3E48 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E783FA929EABF3E008B3E48 /* JoinViewController.swift */; };
@@ -84,6 +88,10 @@
 		4E52228929F18152000B96B4 /* InterestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestsView.swift; sourceTree = "<group>"; };
 		4E52228B29F18166000B96B4 /* InterestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestsViewController.swift; sourceTree = "<group>"; };
 		4E52228E29F27DA8000B96B4 /* customStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customStackView.swift; sourceTree = "<group>"; };
+		4E6123BB2A36C1100039307A /* CategoryDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailResponse.swift; sourceTree = "<group>"; };
+		4E6123BD2A3763720039307A /* detailCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		4E6123BF2A39B0BC0039307A /* CustomGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGroupView.swift; sourceTree = "<group>"; };
+		4E6123C12A3AC2100039307A /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
 		4E783FA929EABF3E008B3E48 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		4E89BC2829C57CBB00BAE38A /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		4E89BC2A29C57D0900BAE38A /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
@@ -146,6 +154,8 @@
 			isa = PBXGroup;
 			children = (
 				4E52228E29F27DA8000B96B4 /* customStackView.swift */,
+				4E6123BF2A39B0BC0039307A /* CustomGroupView.swift */,
+				4E6123C12A3AC2100039307A /* CustomHeaderView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -219,6 +229,7 @@
 				4E89BC3429C57E5300BAE38A /* BaseURL.swift */,
 				4EB2AC642A2E09EF0023F49A /* RegionResponse.swift */,
 				4EB2AC682A3081090023F49A /* NickNameValidateResponse.swift */,
+				4E6123BB2A36C1100039307A /* CategoryDetailResponse.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -349,19 +360,20 @@
 			isa = PBXGroup;
 			children = (
 				4E52228D29F27D97000B96B4 /* CustomView */,
-				4E52227F29F14163000B96B4 /* EssentialInfoView.swift */,
 				4E783FA929EABF3E008B3E48 /* JoinViewController.swift */,
 				4ECEAE1E29ED298F006AAF6B /* SplahView.swift */,
 				4EA81DDD29ED2D9A0070F1B7 /* SplashViewController.swift */,
 				4EA81DDF29ED2DC00070F1B7 /* JoinView.swift */,
 				4E52227929F11788000B96B4 /* JoinCompleteView.swift */,
 				4E52227B29F119B3000B96B4 /* JoinCompleteViewController.swift */,
+				4E52227F29F14163000B96B4 /* EssentialInfoView.swift */,
 				4E52228329F141AA000B96B4 /* EssentialInfoViewController.swift */,
 				4E52228929F18152000B96B4 /* InterestsView.swift */,
 				4E52228B29F18166000B96B4 /* InterestsViewController.swift */,
 				4E23293129FCEFB600455971 /* categoryImageCollectionViewCell.swift */,
 				4E153FA92A34C39F00C7F58C /* DetailInterestsViewController.swift */,
 				4E153FAB2A34C3BB00C7F58C /* DetailInterestsView.swift */,
+				4E6123BD2A3763720039307A /* detailCategoryCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -537,6 +549,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E52228829F1813C000B96B4 /* InterestsViewModel.swift in Sources */,
+				4E6123C02A39B0BC0039307A /* CustomGroupView.swift in Sources */,
 				4EA81DE029ED2DC00070F1B7 /* JoinView.swift in Sources */,
 				4E52228029F14163000B96B4 /* EssentialInfoView.swift in Sources */,
 				4E89BC3329C57E3C00BAE38A /* Error.swift in Sources */,
@@ -555,6 +568,7 @@
 				4E52228229F1417A000B96B4 /* EssentialInfoViewModel.swift in Sources */,
 				4E153FA82A34C37600C7F58C /* DetailInterestsViewModel.swift in Sources */,
 				4E89BC5C29CC34AC00BAE38A /* enum+Font.swift in Sources */,
+				4E6123BC2A36C1100039307A /* CategoryDetailResponse.swift in Sources */,
 				4E89BC8F29D167E800BAE38A /* Color+Extension.swift in Sources */,
 				4EA5836B29C04F4200BF4D7A /* AppDelegate.swift in Sources */,
 				4E52228F29F27DA8000B96B4 /* customStackView.swift in Sources */,
@@ -568,6 +582,7 @@
 				4E153FAC2A34C3BB00C7F58C /* DetailInterestsView.swift in Sources */,
 				4E89BC2D29C57D2300BAE38A /* Endpoints.swift in Sources */,
 				4ECEAE1529ED20F3006AAF6B /* CoordinatorStyleCase.swift in Sources */,
+				4E6123C22A3AC2100039307A /* CustomHeaderView.swift in Sources */,
 				4E89BC3129C57DE900BAE38A /* CategoryResponse.swift in Sources */,
 				4E52228429F141AA000B96B4 /* EssentialInfoViewController.swift in Sources */,
 				4E52227A29F11788000B96B4 /* JoinCompleteView.swift in Sources */,
@@ -576,6 +591,7 @@
 				4ECEAE2129ED29EF006AAF6B /* BaseView.swift in Sources */,
 				4E89BC3529C57E5300BAE38A /* BaseURL.swift in Sources */,
 				4EA81DE629ED41100070F1B7 /* UIView+Extension.swift in Sources */,
+				4E6123BE2A3763720039307A /* detailCategoryCollectionViewCell.swift in Sources */,
 				4E52228A29F18152000B96B4 /* InterestsView.swift in Sources */,
 				4ECEAE1129ED1F7F006AAF6B /* CoordinatorDelegate.swift in Sources */,
 			);

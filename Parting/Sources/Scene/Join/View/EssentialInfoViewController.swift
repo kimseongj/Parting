@@ -21,7 +21,6 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     var sigugunCDData: [Int]?
     
     var job: String = ""
-    var birth: String = ""
     var sigungu: Int = 0
     var gender: String = ""
     var nickName: String = ""
@@ -79,7 +78,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     
     private func enterYourNickname() {
         self.rootView.nickNameTextField.rx.text
-            .orEmpty 
+            .orEmpty
             .distinctUntilChanged()
             .subscribe(onNext: {[weak self] text in
                 guard let self else { return }
@@ -150,7 +149,6 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         rootView.yearTextField.inputView = self.datePicker
         rootView.monthTextField.inputView = self.datePicker
         rootView.dayTextField.inputView = self.datePicker
-        
     }
     
     @objc private func datePickerValueDidChange(_ datePicker: UIDatePicker) {
@@ -185,7 +183,6 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
                 self.rootView.checkJobFirstStackView.checkAnswerLabel.textColor = UIColor(hexcode: "393939")
                 self.rootView.checkJobFirstStackView.checkButton.layer.borderWidth = 0
                 
-
                 self.rootView.checkJobSecondStackView.checkButton.layer.borderColor = AppColor.gray500.cgColor
                 self.rootView.checkJobSecondStackView.checkButton.backgroundColor = AppColor.white
                 self.rootView.checkJobSecondStackView.checkButton.layer.borderWidth = 1
@@ -220,7 +217,6 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
                 self.rootView.checkGenderFirstStackView.checkAnswerLabel.textColor = UIColor(hexcode: "393939")
                 self.rootView.checkGenderFirstStackView.checkButton.layer.borderWidth = 0
                 
-                
                 self.rootView.checkGenderSecondStackView.checkButton.layer.borderColor = AppColor.gray500.cgColor
                 self.rootView.checkGenderSecondStackView.checkButton.backgroundColor = AppColor.white
                 self.rootView.checkGenderSecondStackView.checkButton.layer.borderWidth = 1
@@ -236,7 +232,6 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
                 self.rootView.checkGenderSecondStackView.checkButton.setImage(UIImage(named: "clickedCheckButton"), for: .normal)
                 self.rootView.checkGenderSecondStackView.checkAnswerLabel.textColor = UIColor(hexcode: "393939")
                 self.rootView.checkGenderSecondStackView.checkButton.layer.borderWidth = 0
-                
                 
                 self.rootView.checkGenderFirstStackView.checkButton.layer.borderColor = AppColor.gray500.cgColor
                 self.rootView.checkGenderFirstStackView.checkButton.backgroundColor = AppColor.white
@@ -296,16 +291,12 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         rootView.nextStepButton.rx.tap
             .subscribe(onNext: { _ in
                 guard let text = self.rootView.nickNameTextField.text else { return }
-
                 self.viewModel.input.pushInterestsViewTrigger.onNext(())
                 self.nickName = text
                 print("\(self.birthDate), \(self.job), \(self.nickName), \(self.gender), \(self.sigugunCDData?[self.sigunguRow] ?? 0) 💮💮")
-                self.viewModel.postEssentialInfo(self.birth, self.job, self.nickName, self.gender, self.sigugunCDData?[self.sigunguRow] ?? 0)
+                self.viewModel.postEssentialInfo(self.birthDate, self.job, self.nickName, self.gender, self.sigugunCDData?[self.sigunguRow] ?? 0)
             })
             .disposed(by: disposeBag)
-        
-        
-        
     }
     
     private func checkButtonUI() {

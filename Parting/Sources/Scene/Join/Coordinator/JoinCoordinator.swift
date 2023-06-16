@@ -64,5 +64,13 @@ final class JoinCoordinator: Coordinator {
         navigationController.popViewController(animated: true)
     }
     
+    func pushDeteilInterestsViewController(_ cellList: [Int], _ categoryNameList: [String], _ associatedNameList: [[String]]) {
+        let viewModel = DetailInterestsViewModel(coordinator: self, cellList: cellList, categoryNameList: categoryNameList, associatedNameList: associatedNameList)
+        let vc = DetailInterestsViewController(viewModel: viewModel)
+        navigationController.pushViewController(vc, animated: true)
+    }
     
+    func popDetailInterestsViewController() {
+        navigationController.popViewController(animated: true)
+    }
 }
