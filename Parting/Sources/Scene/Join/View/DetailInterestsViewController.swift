@@ -9,34 +9,6 @@ import UIKit
 import RxSwift
 
 
-class Section: Hashable {
-    var selectedCategorys: [String]
-    var id = UUID()
-    
-    init(selectedCategorys: [String]) {
-        self.selectedCategorys = selectedCategorys
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    
-    static func == (lhs: Section, rhs: Section) -> Bool {
-        lhs.id == rhs.id
-    }
-}
-
-enum SectionTitle: Int, CaseIterable {
-    case cultureLife
-    case watch
-    case selfDevelopement
-    case food
-    case exercise
-    case play
-    case cafe
-    case drink
-}
-
 class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
     static let sectionBackgroundDecorationElementKind = "background"
     private let viewModel: DetailInterestsViewModel
@@ -46,7 +18,7 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
     private var cellIdxList: [Int] = []
     
 
-    var dataSource: UICollectionViewDiffableDataSource<SectionTitle, String>?
+    var dataSource: UICollectionViewDiffableDataSource<String, String>?
     
     init(viewModel: DetailInterestsViewModel) {
         self.viewModel = viewModel
@@ -62,39 +34,17 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
         super.viewDidLoad()
         cellResist()
         navigationUI()
-        
-        dataSource = UICollectionViewDiffableDataSource<SectionTitle, String>(collectionView: self.rootView.detailCategoryCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            guard let section = SectionTitle(rawValue: indexPath.section) else { return UICollectionViewCell() }
+        setDataSource()
+        headerViewResist()
+        bindingCategoryData()
+    }
+    
+    private func setDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<String, String>(collectionView: self.rootView.detailCategoryCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             guard let cell = self.rootView.detailCategoryCollectionView.dequeueReusableCell(withReuseIdentifier: detailCategoryCollectionViewCell.identifier, for: indexPath) as? detailCategoryCollectionViewCell else { return nil }
-            switch section {
-            case .cultureLife:
-                cell.configure(itemIdentifier)
-                return cell
-            case .watch:
-                cell.configure(itemIdentifier)
-                return cell
-            case .cafe:
-                cell.configure(itemIdentifier)
-                return cell
-            case .selfDevelopement:
-                cell.configure(itemIdentifier)
-                return cell
-            case .food:
-                cell.configure(itemIdentifier)
-                return cell
-            case .exercise:
-                cell.configure(itemIdentifier)
-                return cell
-            case .play:
-                cell.configure(itemIdentifier)
-                return cell
-            case .drink:
-                cell.configure(itemIdentifier)
-                return cell
-            }
+            cell.configure(itemIdentifier)
+            return cell
         })
-        
-        self.rootView.detailCategoryCollectionView.register(CustomHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CustomHeaderView.elementKind)
         
         dataSource?.supplementaryViewProvider = {
             collectionView, kind, indexPath in
@@ -105,7 +55,9 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
             
             return view
         }
-        
+    }
+    
+    private func bindingCategoryData() {
         self.viewModel.count
             .subscribe(onNext: {[weak self] count in
                 self?.cellIdxList = count
@@ -130,31 +82,24 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
             .disposed(by: disposeBag)
     }
     
+    private func headerViewResist() {
+        self.rootView.detailCategoryCollectionView.register(CustomHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CustomHeaderView.elementKind)
+    }
+    
     private func cellResist() {
         self.rootView.detailCategoryCollectionView.register(detailCategoryCollectionViewCell.self, forCellWithReuseIdentifier: detailCategoryCollectionViewCell.identifier)
     }
     
     private func snapShotTest() {
-        var snapshot = NSDiffableDataSourceSnapshot<SectionTitle, String>()
-        snapshot.appendSections([.cultureLife])
-        snapshot.appendItems(categoryDetailLists[0])
-        snapshot.appendSections([.cafe])
-        snapshot.appendItems(categoryDetailLists[1])
-        snapshot.appendSections([.drink])
-        snapshot.appendItems(categoryDetailLists[2])
-        snapshot.appendSections([.watch])
-        snapshot.appendItems(categoryDetailLists[3])
-        snapshot.appendSections([.exercise])
-        snapshot.appendItems(categoryDetailLists[4])
-        snapshot.appendSections([.play])
-        snapshot.appendItems(categoryDetailLists[5])
-        snapshot.appendSections([.selfDevelopement])
-        snapshot.appendItems(categoryDetailLists[6])
-        snapshot.appendSections([.food])
-        snapshot.appendItems(categoryDetailLists[7])
+        var snapshot = NSDiffableDataSourceSnapshot<String, String>()
+        snapshot.appendSections(categoryTitle)
+        
+        for (idx,section) in snapshot.sectionIdentifiers.enumerated() {
+            snapshot.appendItems(categoryDetailLists[idx], toSection: section)
+        }
+        
         self.dataSource?.apply(snapshot, animatingDifferences: true)
     }
-    
     
     private func navigationUI() {
         self.navigationController?.isNavigationBarHidden = false
