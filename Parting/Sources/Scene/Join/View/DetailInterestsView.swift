@@ -18,6 +18,16 @@ class DetailInterestsView: BaseView {
         return label
     }()
     
+    let serviceStartButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("서비스 이용하기", for: .normal)
+        button.layer.cornerRadius = 8
+        button.backgroundColor = AppColor.brand
+        button.titleLabel?.font = notoSansFont.Bold.of(size: 20)
+        button.setTitleColor(AppColor.white, for: .normal)
+        return button
+    }()
+    
     lazy var detailCategoryCollectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         return view
@@ -32,7 +42,7 @@ class DetailInterestsView: BaseView {
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [titleItem])
         
-        group.interItemSpacing = .fixed(16) // 아이템간 간격(가로)
+        group.interItemSpacing = .fixed(10) // 아이템간 간격(가로)
         
         let headersize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(25))
         
@@ -54,7 +64,7 @@ class DetailInterestsView: BaseView {
     
     override func makeConfigures() {
         super.makeConfigures()
-        [duplicatedChooseLabel, detailCategoryCollectionView].forEach {
+        [duplicatedChooseLabel, detailCategoryCollectionView, serviceStartButton].forEach {
             self.addSubview($0)
         }
     }
@@ -70,6 +80,13 @@ class DetailInterestsView: BaseView {
             make.top.equalTo(duplicatedChooseLabel.snp.bottom).offset(0.032 * UIScreen.main.bounds.height)
             make.horizontalEdges.equalToSuperview().inset(25)
             make.height.equalToSuperview().multipliedBy(0.6)
+        }
+        
+        serviceStartButton.snp.makeConstraints { make in
+            make.top.equalTo(detailCategoryCollectionView.snp.bottom).offset(27)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.872)
+            make.height.equalToSuperview().multipliedBy(0.061)
         }
     }
 }

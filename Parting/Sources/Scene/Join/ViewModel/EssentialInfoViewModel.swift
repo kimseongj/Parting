@@ -25,9 +25,12 @@ class EssentialInfoViewModel: BaseViewModel {
         let sidoListData: BehaviorRelay<[String]?> = BehaviorRelay(value: nil)
         let sigugunListData: BehaviorRelay<[String]?> = BehaviorRelay(value: nil)
         let sigugunCodeData: BehaviorRelay<[Int]?> = BehaviorRelay(value: nil)
+        let sidoCodeData: BehaviorRelay<[Int]?> = BehaviorRelay(value: nil)
         let nickNameValidate: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         let duplicatedNickNameCheck: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         let postResponseData: BehaviorRelay<NickNameResponse?> = BehaviorRelay(value: nil)
+        let sigunguCDDictData: BehaviorRelay<[Int: [String]]?> = BehaviorRelay(value: [:])
+        let sidoCDDictData: BehaviorRelay<[String: Int]?> = BehaviorRelay(value: [:])
     }
     
     var input: Input
@@ -35,6 +38,9 @@ class EssentialInfoViewModel: BaseViewModel {
     var sidoList: [String] = []
     var sigugunList: [String] = []
     var sigugunCD: [Int] = []
+    var sidoCD: [Int] = []
+    var sigunguCDDict: [Int: [String]] = [:]
+    var sidoCDDict: [String: Int] = [:]
     
     private weak var coordinator: JoinCoordinator?
     private let disposeBag = DisposeBag()
@@ -51,7 +57,7 @@ class EssentialInfoViewModel: BaseViewModel {
     
     func postEssentialInfo(_ birth: String, _ job: String, _ nickName: String, _ sex: String, _ sigunguCd: Int) {
         APIManager.shared.enterEssentialInfo(birth, job, nickName, sex, sigunguCd)
-            .subscribe(onNext: {[weak self] data in
+            .subscribe(onNext: { data in
                 print("\(data) 🔥🔥")
             })
             .disposed(by: disposeBag)
@@ -110,7 +116,18 @@ class EssentialInfoViewModel: BaseViewModel {
                 guard let self else { return }
                 for idx in 0..<data.result.sidoInfoList.count {
                     sidoList.append(data.result.sidoInfoList[idx].sidoNm)
+                    sidoCD.append(data.result.sidoInfoList[idx].sidoCD)
                 }
+                
+                for item in data.result.sidoInfoList {
+                    let sidoCd = item.sidoCD, sidoNm = item.sidoNm
+                    if sidoCDDict[sidoNm] == nil {
+                        sidoCDDict[sidoNm] = 0
+                    }
+                    sidoCDDict[sidoNm] = sidoCd
+                    print("\(sidoCDDict) 🤍🤍")
+                }
+                
                 for idx in 0..<data.result.sigunguInfoList.count {
                     sigugunList.append(data.result.sigunguInfoList[idx].sigunguNm)
                 }
@@ -118,9 +135,20 @@ class EssentialInfoViewModel: BaseViewModel {
                 for idx in 0..<data.result.sigunguInfoList.count {
                     sigugunCD.append(data.result.sigunguInfoList[idx].sigunguCD)
                 }
+                
+                for item in data.result.sigunguInfoList {
+                    let sidoCd = item.sidoCD,  sigunguNm = item.sigunguNm
+                    if sigunguCDDict[sidoCd] == nil {
+                        sigunguCDDict[sidoCd] = []
+                    }
+                    sigunguCDDict[sidoCd]?.append(sigunguNm)
+                }
+                
                 self.output.sidoListData.accept(sidoList)
                 self.output.sigugunListData.accept(sigugunList)
                 self.output.sigugunCodeData.accept(sigugunCD)
+                self.output.sidoCDDictData.accept(sidoCDDict)
+                self.output.sigunguCDDictData.accept(sigunguCDDict)
             })
             .disposed(by: disposeBag)
     }

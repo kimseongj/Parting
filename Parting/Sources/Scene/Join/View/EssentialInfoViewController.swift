@@ -19,6 +19,9 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     var sidoListData: [String]?
     var sigugunListData: [String]?
     var sigugunCDData: [Int]?
+    var sidoCDData: [Int]?
+    var sidoCDDict: [String: Int]?
+    var sigunguCDDict: [Int: [String]]?
     
     var job: String = ""
     var sigungu: Int = 0
@@ -99,6 +102,14 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     }
     
     private func regionDataBind() {
+        self.viewModel.output.sidoCodeData
+            .filter { $0 != nil}
+            .subscribe(onNext: {[weak self] sidoCD in
+                guard let self else { return }
+                self.sidoCDData = sidoCD
+            })
+            .disposed(by: disposeBag)
+        
         self.viewModel.output.sidoListData
             .filter { $0 != nil }
             .subscribe(onNext: { [weak self] data in
@@ -122,6 +133,25 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
                 guard let self else { return }
                 guard let sigugunCDData = data else { return }
                 self.sigugunCDData = sigugunCDData
+                
+            })
+            .disposed(by: disposeBag)
+        
+        self.viewModel.output.sidoCDDictData
+            .filter { $0 != nil}
+            .subscribe(onNext: {[weak self] data in
+                guard let self else { return }
+                guard let sidoCDDict = data else { return }
+                self.sidoCDDict = sidoCDDict
+            })
+            .disposed(by: disposeBag)
+        
+        self.viewModel.output.sigunguCDDictData
+            .filter { $0 != nil }
+            .subscribe(onNext: {[weak self] data in
+                guard let self else { return }
+                guard let sigunguCDDict = data else { return }
+                self.sigunguCDDict = sigunguCDDict
             })
             .disposed(by: disposeBag)
     }
@@ -263,13 +293,13 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     @objc private func completeButtonClicked() {
         guard let sidoData = sidoListData else { return }
         guard let sigugunData = sigugunListData else { return }
-        let row1 = self.regionPicker.selectedRow(inComponent: 0) // 현재선택된 row
+        let row1 = self.regionPicker.selectedRow(inComponent: 0)
         let row2 = self.regionPicker.selectedRow(inComponent: 1)
-        self.sigunguRow = row2
         self.regionPicker.selectRow(row1, inComponent: 0, animated: false)
         self.regionPicker.selectRow(row2, inComponent: 1, animated: false)
         self.rootView.sidoTextField.text = sidoData[row1]
         self.rootView.sigugunTextField.text = sigugunData[row2]
+        regionPicker.reloadComponent(1)
         self.rootView.sidoTextField.resignFirstResponder()
         self.rootView.sigugunTextField.resignFirstResponder()
     }
@@ -304,11 +334,9 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         rootView.checkJobFirstStackView.checkButton.clipsToBounds = true
         rootView.checkJobFirstStackView.checkAnswerLabel.text = "네, 직장인입니다."
         
-        
         rootView.checkJobSecondStackView.checkButton.layer.cornerRadius = rootView.checkJobSecondStackView.checkButton.bounds.size.width / 2
         rootView.checkJobSecondStackView.checkButton.clipsToBounds = true
         rootView.checkJobSecondStackView.checkAnswerLabel.text = "아니오, 학생입니다."
-        
         
         rootView.checkGenderFirstStackView.checkButton.layer.cornerRadius = rootView.checkGenderFirstStackView.checkButton.bounds.size.width / 2
         rootView.checkGenderFirstStackView.checkButton.clipsToBounds = true
@@ -339,7 +367,9 @@ extension EssentialInfoViewController: UIPickerViewDataSource {
             guard let data = sidoListData else { return 1 }
             return data.count
         case 1:
-            guard let data = sigugunListData else { return 1 }
+            let selected = regionPicker.selectedRow(inComponent: 0)
+            guard let selectedName = sidoListData?[selected] else { return 0 }
+            guard let data = sigunguCDDict?[sidoCDDict?[selectedName] ?? 0] else { return 1 }
             return data.count
         default:
             return 0
@@ -352,8 +382,12 @@ extension EssentialInfoViewController: UIPickerViewDataSource {
             guard let data = sidoListData else { return "" }
             return data[row]
         case 1:
-            guard let data = sigugunListData else { return "" }
-            return data[row]
+            let selected = regionPicker.selectedRow(inComponent: 0)
+            guard let selectedName = sidoListData?[selected] else { return "" }
+            let data = sidoCDDict?[selectedName] ?? 0
+            sigugunListData = sigunguCDDict?[data]
+            guard let sigugunList = sigunguCDDict?[data]?[row] else { return "" }
+            return sigugunList
         default:
             return ""
         }
@@ -362,11 +396,14 @@ extension EssentialInfoViewController: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch component {
         case 0:
+            regionPicker.reloadComponent(1)
             guard let data = sidoListData else { return }
             self.rootView.sidoTextField.text = data[row]
         case 1:
-            guard let data = sigugunListData else { return }
-            self.rootView.sigugunTextField.text = data[row]
+            let selected = regionPicker.selectedRow(inComponent: 0)
+            let selectedName = sidoListData?[selected]
+            let data = sidoCDDict?[selectedName ?? ""] ?? 0
+            self.rootView.sigugunTextField.text = sigunguCDDict?[data]?[row] ?? ""
         default:
             break
         }

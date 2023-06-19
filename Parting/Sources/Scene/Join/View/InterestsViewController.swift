@@ -61,6 +61,10 @@ class InterestsViewController: BaseViewController<InterestsView> {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        selectedCellIndex.removeAll()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.getAssociatedCategory(checkedCategoryList)
