@@ -58,17 +58,18 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         configureToolBar()
         enterYourNickname()
         checkDuplicatedNickName()
+        canGoNextStepBindings()
     }
     
     private func checkDuplicatedNickName() {
-        self.rootView.nickNameCheckButton.rx.tap
+        rootView.nickNameCheckButton.rx.tap
             .subscribe(onNext: { _ in
                 let text = self.rootView.nickNameTextField.text
                 self.viewModel.input.duplicatedNickNameTrigger.onNext(text)
             })
             .disposed(by: disposeBag)
         
-        self.viewModel.output.duplicatedNickNameCheck
+        viewModel.output.duplicatedNickNameCheck
             .subscribe(onNext: { check in
                 if check == true {
                     print("사용 가능한 닉네임 입니다.")
@@ -80,7 +81,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     }
     
     private func enterYourNickname() {
-        self.rootView.nickNameTextField.rx.text
+        rootView.nickNameTextField.rx.text
             .orEmpty
             .distinctUntilChanged()
             .subscribe(onNext: {[weak self] text in
@@ -172,17 +173,17 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     }
     
     private func configureDatePicker() {
-        self.datePicker.datePickerMode = .date
-        self.datePicker.preferredDatePickerStyle = .wheels
-        self.datePicker.addTarget(self, action: #selector(datePickerValueDidChange(_:)), for: .valueChanged)
-        self.datePicker.locale = Locale(identifier: "ko_KR")
+        datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.addTarget(self, action: #selector(datePickerValueDidChange(_:)), for: .valueChanged)
+        datePicker.locale = Locale(identifier: "ko_KR")
         rootView.yearTextField.inputView = self.datePicker
         rootView.monthTextField.inputView = self.datePicker
         rootView.dayTextField.inputView = self.datePicker
     }
     
     @objc private func datePickerValueDidChange(_ datePicker: UIDatePicker) {
-        self.datePicker.rx.date
+        datePicker.rx.date
             .subscribe(onNext:{[weak self] date in
                 guard let self else {return}
                 self.viewModel.input.BirthTextFieldTrigger.onNext(date)
@@ -286,28 +287,28 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         toolBar.setItems([cancelButton,flexibleSpace,completeButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         
-        self.rootView.sidoTextField.inputAccessoryView = toolBar
-        self.rootView.sigugunTextField.inputAccessoryView = toolBar
+        rootView.sidoTextField.inputAccessoryView = toolBar
+        rootView.sigugunTextField.inputAccessoryView = toolBar
     }
     
     @objc private func completeButtonClicked() {
         guard let sidoData = sidoListData else { return }
         guard let sigugunData = sigugunListData else { return }
-        let row1 = self.regionPicker.selectedRow(inComponent: 0)
-        let row2 = self.regionPicker.selectedRow(inComponent: 1)
-        self.regionPicker.selectRow(row1, inComponent: 0, animated: false)
-        self.regionPicker.selectRow(row2, inComponent: 1, animated: false)
-        self.rootView.sidoTextField.text = sidoData[row1]
-        self.rootView.sigugunTextField.text = sigugunData[row2]
+        let row1 = regionPicker.selectedRow(inComponent: 0)
+        let row2 = regionPicker.selectedRow(inComponent: 1)
+        regionPicker.selectRow(row1, inComponent: 0, animated: false)
+        regionPicker.selectRow(row2, inComponent: 1, animated: false)
+        rootView.sidoTextField.text = sidoData[row1]
+        rootView.sigugunTextField.text = sigugunData[row2]
         regionPicker.reloadComponent(1)
-        self.rootView.sidoTextField.resignFirstResponder()
-        self.rootView.sigugunTextField.resignFirstResponder()
+        rootView.sidoTextField.resignFirstResponder()
+        rootView.sigugunTextField.resignFirstResponder()
     }
     
     @objc private func cancelButtonClicked() {
-        self.rootView.sidoTextField.text = nil
-        self.rootView.sigugunTextField.text = nil
-        self.rootView.resignFirstResponder()
+        rootView.sidoTextField.text = nil
+        rootView.sigugunTextField.text = nil
+        rootView.resignFirstResponder()
     }
     
     private func configurePickerView() {
@@ -348,7 +349,13 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     }
     
     @objc private func backBarButtonClicked() {
-        self.viewModel.input.popEssentialViewTrigger.onNext(())
+        viewModel.input.popEssentialViewTrigger.onNext(())
+    }
+    
+    private func canGoNextStepBindings() {
+//        viewModel.isValidForm
+//            .bind(to: rootView.nextStepButton.isEnabled)
+//            .disposed(by: disposeBag)
     }
 }
 
@@ -386,7 +393,7 @@ extension EssentialInfoViewController: UIPickerViewDataSource {
             guard let selectedName = sidoListData?[selected] else { return "" }
             let data = sidoCDDict?[selectedName] ?? 0
             sigugunListData = sigunguCDDict?[data]
-            guard let sigugunList = sigunguCDDict?[data]?[row] else { return "" }
+            guard let sigugunList = sigugunListData?[row] else { return "" }
             return sigugunList
         default:
             return ""
@@ -398,12 +405,12 @@ extension EssentialInfoViewController: UIPickerViewDataSource {
         case 0:
             regionPicker.reloadComponent(1)
             guard let data = sidoListData else { return }
-            self.rootView.sidoTextField.text = data[row]
+            rootView.sidoTextField.text = data[row]
         case 1:
             let selected = regionPicker.selectedRow(inComponent: 0)
             let selectedName = sidoListData?[selected]
             let data = sidoCDDict?[selectedName ?? ""] ?? 0
-            self.rootView.sigugunTextField.text = sigunguCDDict?[data]?[row] ?? ""
+            rootView.sigugunTextField.text = sigunguCDDict?[data]?[row] ?? ""
         default:
             break
         }

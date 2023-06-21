@@ -42,6 +42,12 @@ class EssentialInfoViewModel: BaseViewModel {
     var sigunguCDDict: [Int: [String]] = [:]
     var sidoCDDict: [String: Int] = [:]
     
+    let checkNicknameValidate = BehaviorRelay<Bool?>(value: false)
+    let checkNicknameDuplicated = BehaviorRelay<Bool?>(value: false)
+    let checkBirthNotEmpty = BehaviorRelay<String?>(value: "")
+    let checkAddressNotEmpty = BehaviorRelay<String?>(value: "")
+    let checkJobAndGenderButtonisSelected = BehaviorRelay<Bool?>(value: false)
+    
     private weak var coordinator: JoinCoordinator?
     private let disposeBag = DisposeBag()
     
@@ -114,34 +120,33 @@ class EssentialInfoViewModel: BaseViewModel {
             }
             .subscribe(onNext: {[weak self] data in
                 guard let self else { return }
-                for idx in 0..<data.result.sidoInfoList.count {
-                    sidoList.append(data.result.sidoInfoList[idx].sidoNm)
-                    sidoCD.append(data.result.sidoInfoList[idx].sidoCD)
+
+                data.result.sidoInfoList.forEach {
+                    self.sidoList.append($0.sidoNm)
+                    self.sidoCD.append($0.sidoCD)
                 }
                 
-                for item in data.result.sidoInfoList {
-                    let sidoCd = item.sidoCD, sidoNm = item.sidoNm
-                    if sidoCDDict[sidoNm] == nil {
-                        sidoCDDict[sidoNm] = 0
+                data.result.sidoInfoList.forEach {
+                    let sidoCd = $0.sidoCD, sidoNm = $0.sidoNm
+                    if self.sidoCDDict[sidoNm] == nil {
+                        self.sidoCDDict[sidoNm] = 0
                     }
-                    sidoCDDict[sidoNm] = sidoCd
-                    print("\(sidoCDDict) 🤍🤍")
+                    self.sidoCDDict[sidoNm] = sidoCd
                 }
                 
-                for idx in 0..<data.result.sigunguInfoList.count {
-                    sigugunList.append(data.result.sigunguInfoList[idx].sigunguNm)
+                data.result.sigunguInfoList.forEach {  self.sigugunCD.append($0.sigunguCD)
                 }
                 
-                for idx in 0..<data.result.sigunguInfoList.count {
-                    sigugunCD.append(data.result.sigunguInfoList[idx].sigunguCD)
-                }
-                
-                for item in data.result.sigunguInfoList {
-                    let sidoCd = item.sidoCD,  sigunguNm = item.sigunguNm
-                    if sigunguCDDict[sidoCd] == nil {
-                        sigunguCDDict[sidoCd] = []
+                data.result.sigunguInfoList.forEach {
+                    let sidoCd = $0.sidoCD,  sigunguNm = $0.sigunguNm
+                    if self.sigunguCDDict[sidoCd] == nil {
+                        self.sigunguCDDict[sidoCd] = []
                     }
-                    sigunguCDDict[sidoCd]?.append(sigunguNm)
+                    self.sigunguCDDict[sidoCd]?.append(sigunguNm)
+                }
+                
+                data.result.sigunguInfoList.forEach {
+                    self.sigugunList.append($0.sigunguNm)
                 }
                 
                 self.output.sidoListData.accept(sidoList)
@@ -151,6 +156,23 @@ class EssentialInfoViewModel: BaseViewModel {
                 self.output.sigunguCDDictData.accept(sigunguCDDict)
             })
             .disposed(by: disposeBag)
+    }
+    
+    var isValidForm: Observable<Bool> {
+        // check nickNameValidate
+        // check nickNameDuplicated
+        // check birth TextField Not empty
+        // check sido, sigungu TextField Not empty
+        // check Button selected
+        return Observable.combineLatest(checkNicknameValidate, checkNicknameDuplicated, checkBirthNotEmpty, checkAddressNotEmpty, checkJobAndGenderButtonisSelected) { nicknameValidate, nickNameDuplicated, birth, address, jobAndGender in
+            guard let nickNameValid = nicknameValidate else { return false }
+            guard let nickNameDup = nickNameDuplicated else { return false }
+            guard let jobAndGender = jobAndGender else { return false }
+            guard !nickNameValid && !nickNameDup && birth != nil && address != nil && !jobAndGender else { return false }
+            
+            return true
+            
+        }
     }
     
     
