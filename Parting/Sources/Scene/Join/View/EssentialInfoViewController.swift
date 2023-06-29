@@ -14,7 +14,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     private let disposeBag = DisposeBag()
     
     init(viewModel: EssentialInfoViewModel) {
-        self.viewModel = viewModel
+		self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -118,7 +118,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     private func nextButtonClicked() {
         rootView.nextStepButton.rx.tap
             .subscribe(onNext: { _ in
-                self.viewModel.input.pushInterestsViewTrigger.onNext(())
+				self.viewModel.input.pushInterestsViewTrigger.onNext(())
             })
             .disposed(by: disposeBag)
     }
@@ -144,6 +144,6 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     }
     
     @objc func backBarButtonClicked() {
-        self.viewModel.input.popEssentialViewTrigger.onNext(())
+		self.viewModel.input.popEssentialViewTrigger.onNext(())
     }
 }

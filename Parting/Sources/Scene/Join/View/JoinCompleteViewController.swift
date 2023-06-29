@@ -15,7 +15,7 @@ class JoinCompleteViewController: BaseViewController<JoinCompleteView> {
     
     
     init(viewModel: JoinCompleteViewModel) {
-        self.viewModel = viewModel
+		self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -33,7 +33,7 @@ class JoinCompleteViewController: BaseViewController<JoinCompleteView> {
         rootView.writeInfoButton.rx.tap
             .subscribe(onNext: {[weak self] _ in
                 guard let self = self else { return }
-                self.viewModel.input.pushEssentialInfoViewTrigger.onNext(())
+				viewModel.input.pushEssentialInfoViewTrigger.onNext(())
             })
             .disposed(by: disposeBag)
     }
@@ -53,7 +53,7 @@ class JoinCompleteViewController: BaseViewController<JoinCompleteView> {
     }
     
     @objc func backBarButtonClicked() {
-        self.viewModel.input.popJoinCompleteViewTrigger.onNext(())
+		viewModel.input.popJoinCompleteViewTrigger.onNext(())
     }
     
 }

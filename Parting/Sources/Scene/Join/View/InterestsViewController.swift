@@ -13,7 +13,7 @@ class InterestsViewController: BaseViewController<InterestsView> {
     private let viewModel: InterestsViewModel
     
     init(viewModel: InterestsViewModel) {
-        self.viewModel = viewModel
+		self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,6 +41,6 @@ class InterestsViewController: BaseViewController<InterestsView> {
     }
     
     @objc func backBarButtonClicked() {
-        self.viewModel.input.viewChangeTrigger.onNext(())
+		viewModel.input.viewChangeTrigger.onNext(())
     }
 }
