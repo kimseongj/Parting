@@ -79,7 +79,7 @@ class DetailInterestsView: BaseView {
         detailCategoryCollectionView.snp.makeConstraints { make in
             make.top.equalTo(duplicatedChooseLabel.snp.bottom).offset(0.032 * UIScreen.main.bounds.height)
             make.horizontalEdges.equalToSuperview().inset(25)
-            make.height.equalToSuperview().multipliedBy(0.6)
+            make.height.equalToSuperview().multipliedBy(0.5)
         }
         
         serviceStartButton.snp.makeConstraints { make in

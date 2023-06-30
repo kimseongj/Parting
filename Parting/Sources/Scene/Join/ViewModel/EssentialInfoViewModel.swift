@@ -9,7 +9,36 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class EssentialInfoViewModel: BaseViewModel {
+protocol EssentialInfoViewModelProtocol {
+    var genderState: PublishRelay<Int> { get }
+    var jobState: PublishRelay<Int> { get }
+    var nickNameValidateState: PublishRelay<Int> { get }
+    var nickNameDuplicateState: PublishRelay<Int> { get }
+    
+    func tapGenderButton(gender: Int)
+    func tapJobButton(job: Int)
+    func tapDuplicatedCheckButton()
+}
+
+class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtocol {
+    
+    var nickNameValidateState: PublishRelay<Int> = PublishRelay()
+    var nickNameDuplicateState: PublishRelay<Int> = PublishRelay()
+    var genderState: PublishRelay<Int> = PublishRelay()
+    var jobState: PublishRelay<Int> = PublishRelay()
+    
+    func tapGenderButton(gender: Int) {
+        genderState.accept(gender)
+    }
+    
+    func tapJobButton(job: Int) {
+        jobState.accept(job)
+    }
+    
+    func tapDuplicatedCheckButton() {
+        
+    }
+    
     struct Input {
         let popEssentialViewTrigger: PublishSubject<Void> = PublishSubject()
         let pushInterestsViewTrigger: PublishSubject<Void> = PublishSubject()
@@ -18,6 +47,9 @@ class EssentialInfoViewModel: BaseViewModel {
         let checkNicknameTrigger: PublishSubject<String?> = PublishSubject()
         let duplicatedNickNameTrigger: PublishSubject<String?> = PublishSubject()
         let postEssentialInfoTrigger: PublishSubject<Void> = PublishSubject()
+        
+        
+        // MARK: - 개선중인 코드는 이 아래로
     }
     
     struct Output {
@@ -42,11 +74,11 @@ class EssentialInfoViewModel: BaseViewModel {
     var sigunguCDDict: [Int: [String]] = [:]
     var sidoCDDict: [String: Int] = [:]
     
-    let checkNicknameValidate = BehaviorRelay<Bool?>(value: false)
-    let checkNicknameDuplicated = BehaviorRelay<Bool?>(value: false)
-    let checkBirthNotEmpty = BehaviorRelay<String?>(value: "")
-    let checkAddressNotEmpty = BehaviorRelay<String?>(value: "")
-    let checkJobAndGenderButtonisSelected = BehaviorRelay<Bool?>(value: false)
+    let checkNicknameValidate = BehaviorRelay<Bool>(value: false)
+    let checkNicknameDuplicated = BehaviorRelay<Bool>(value: false)
+    let checkBirthNotEmpty = BehaviorRelay<String?>(value: nil)
+    let checkAddressNotEmpty = BehaviorRelay<String?>(value: nil)
+    let checkJobAndGenderButtonisSelected = BehaviorRelay<Bool>(value: false)
     
     private weak var coordinator: JoinCoordinator?
     private let disposeBag = DisposeBag()
@@ -59,6 +91,24 @@ class EssentialInfoViewModel: BaseViewModel {
         datePickerValueChanged()
         getAddress()
         duplicatedNickNameCheck()
+    }
+    
+    // MARK: - 다음단계로 버튼 활성화 유효성 검사
+    var isValidForm: Observable<Bool> {
+        // check nickNameValidate
+        // check nickNameDuplicated
+        // check birth TextField Not empty
+        // check sido, sigungu TextField Not empty
+        // check Button selected
+        return Observable.combineLatest(checkNicknameValidate, checkNicknameDuplicated, checkBirthNotEmpty, checkAddressNotEmpty, checkJobAndGenderButtonisSelected) { nicknameValidate, nickNameDuplicated, birth, address, jobAndGender in
+            
+            print(nicknameValidate, nickNameDuplicated, birth, address, jobAndGender)
+            
+            guard birth != nil && address != nil else { return false }
+            
+            // 위의 조건에 따른 return
+            return nicknameValidate && nickNameDuplicated && jobAndGender && !address!.isEmpty && !birth!.isEmpty
+        }
     }
     
     func postEssentialInfo(_ birth: String, _ job: String, _ nickName: String, _ sex: String, _ sigunguCd: Int) {
@@ -80,8 +130,9 @@ class EssentialInfoViewModel: BaseViewModel {
             .disposed(by: disposeBag)
     }
     
+    //MARK: - 닉네임 정규식 표현
     func nicknameValidCheck(_ nickname: String) -> Bool {
-        //MARK: - 닉네임 정규식 표현
+        
         let regexPattern = "^[a-zA-Z0-9가-힣_-]{2,16}$"
         let nicknamePredicate = NSPredicate(format: "SELF MATCHES %@", regexPattern)
         return nicknamePredicate.evaluate(with: nickname)
@@ -157,24 +208,6 @@ class EssentialInfoViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
     }
-    
-    var isValidForm: Observable<Bool> {
-        // check nickNameValidate
-        // check nickNameDuplicated
-        // check birth TextField Not empty
-        // check sido, sigungu TextField Not empty
-        // check Button selected
-        return Observable.combineLatest(checkNicknameValidate, checkNicknameDuplicated, checkBirthNotEmpty, checkAddressNotEmpty, checkJobAndGenderButtonisSelected) { nicknameValidate, nickNameDuplicated, birth, address, jobAndGender in
-            guard let nickNameValid = nicknameValidate else { return false }
-            guard let nickNameDup = nickNameDuplicated else { return false }
-            guard let jobAndGender = jobAndGender else { return false }
-            guard !nickNameValid && !nickNameDup && birth != nil && address != nil && !jobAndGender else { return false }
-            
-            return true
-            
-        }
-    }
-    
     
     private func popEssentialInfoViewController() {
         self.coordinator?.popJoinCompleteViewController()

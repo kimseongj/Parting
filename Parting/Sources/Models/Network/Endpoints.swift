@@ -69,13 +69,13 @@ extension PartingAPI {
     
     var headers: HTTPHeaders {
         switch self {
-        case .oauthKaKao, .oauthLogout, .isMemeber, .tokenReissue, .region, .reportParty, .checkEnteredParty, .partyDday, .checkMypage, .interest, .modifyInfo :
+        case .oauthKaKao, .oauthLogout, .isMemeber, .tokenReissue, .reportParty, .checkEnteredParty, .partyDday, .checkMypage, .interest, .modifyInfo :
             return [
-                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4NTE2MTU1MSwiZXhwIjoxNjg3NTgwNzUxfQ.ZkMQ9PA2KAodD7AXyDClJEq-P47p3ucqbQ2G5c7aH8M"
+                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4NzU5MTI3MywiZXhwIjoxNjkwMDEwNDczfQ.03osK4IUE4VNDJ2fSclmtoXQprOn-opf5_LqfeT76RU"
             ]
-        case .parties, .associatedCategory, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calender, .recentView, .checkMyParty, .partyMember, .detailCategory, .checkNickname, .essentialInfo:
+        case .parties, .associatedCategory, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calender, .region, .recentView, .checkMyParty, .partyMember, .detailCategory, .checkNickname, .essentialInfo:
             return [
-                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4NTE2MTU1MSwiZXhwIjoxNjg3NTgwNzUxfQ.ZkMQ9PA2KAodD7AXyDClJEq-P47p3ucqbQ2G5c7aH8M",
+                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4NzU5MTI3MywiZXhwIjoxNjkwMDEwNDczfQ.03osK4IUE4VNDJ2fSclmtoXQprOn-opf5_LqfeT76RU",
                     "Content-Type": "application/json;charset=UTF-8"
             ]
         }

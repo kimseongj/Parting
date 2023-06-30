@@ -9,12 +9,14 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-
 class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     private let viewModel: EssentialInfoViewModel
     private let disposeBag = DisposeBag()
     private let datePicker = UIDatePicker()
     private let regionPicker = UIPickerView()
+    
+    private(set) var genderState = PublishRelay<Int>()
+    private(set) var jobState = PublishRelay<Int>()
     
     var sidoListData: [String]?
     var sigugunListData: [String]?
@@ -28,7 +30,13 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     var gender: String = ""
     var nickName: String = ""
     var birthDate: String = ""
+    var sidosigunguText: String = ""
     var sigunguRow: Int = 0
+    
+    var checkJobButtonSelected = false
+    var checkGenderButtonSelected = false
+    var checkNicknameValidate = false
+    var checkNicknameDuplicated = false
     
     init(viewModel: EssentialInfoViewModel) {
         self.viewModel = viewModel
@@ -39,10 +47,12 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - viewDidLayoutSubviews
     override func viewDidLayoutSubviews() {
         checkButtonUI()
     }
     
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         self.rootView.nickNameTextField.delegate = self
@@ -58,12 +68,25 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         configureToolBar()
         enterYourNickname()
         checkDuplicatedNickName()
-        canGoNextStepBindings()
+        bind()
+        viewModel.isValidForm
+            .subscribe(onNext: { flag in
+                print("\(flag) 👀👀")
+                if flag{
+                    self.viewModel.input.pushInterestsViewTrigger.onNext(())
+                } else {
+                    print("다음단계로 버튼을 다시 검사해야해 🤢🤢🤢")
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
+    // MARK: - 닉네임 중복 검사
     private func checkDuplicatedNickName() {
         rootView.nickNameCheckButton.rx.tap
-            .subscribe(onNext: { _ in
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.viewModel.tapDuplicatedCheckButton()
                 let text = self.rootView.nickNameTextField.text
                 self.viewModel.input.duplicatedNickNameTrigger.onNext(text)
             })
@@ -73,13 +96,16 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
             .subscribe(onNext: { check in
                 if check == true {
                     print("사용 가능한 닉네임 입니다.")
+                    self.checkNicknameDuplicated = true
                 } else {
                     print("중복된 닉네임 입니다.")
+                    self.checkNicknameDuplicated = false
                 }
             })
             .disposed(by: self.disposeBag)
     }
     
+    // MARK: - 닉네임 유효성 검사
     private func enterYourNickname() {
         rootView.nickNameTextField.rx.text
             .orEmpty
@@ -93,15 +119,18 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
                     self.rootView.nickNameCheckButton.isEnabled = true
                     self.rootView.nickNameCheckButton.setTitleColor(.black, for: .normal)
                     self.rootView.nickNameCheckButton.layer.borderColor = UIColor.black.cgColor
+                    checkNicknameValidate = true
                 } else {
                     self.rootView.nickNameCheckButton.isEnabled = false
                     self.rootView.nickNameCheckButton.setTitleColor(UIColor(hexcode: "A7B0C0"), for: .normal)
                     self.rootView.nickNameCheckButton.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
+                    checkNicknameValidate = false
                 }
             })
             .disposed(by: disposeBag)
     }
     
+    // MARK: - 시도, 시군구 관련 데이터 바인딩
     private func regionDataBind() {
         self.viewModel.output.sidoCodeData
             .filter { $0 != nil}
@@ -157,6 +186,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
             .disposed(by: disposeBag)
     }
     
+    // MARK: - BirthDate TextField Configure
     private func birthDateConfigure() {
         self.viewModel.output.birthDateData
             .filter { $0 != nil }
@@ -166,7 +196,6 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
                 self.rootView.yearTextField.text = date[0]
                 self.rootView.monthTextField.text = date[1]
                 self.rootView.dayTextField.text = date[2]
-                
                 self.birthDate = date[0] + "-" + date[1] + "-" + date[2]
             })
             .disposed(by: disposeBag)
@@ -191,6 +220,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
             .disposed(by: disposeBag)
     }
     
+    // MARK: - Navigation UI
     private func navigationUI() {
         self.navigationController?.isNavigationBarHidden = false
         let leftBarButtonItem = UIBarButtonItem.init(image:  UIImage(named: "backBarButton"), style: .plain, target: self, action: #selector(backBarButtonClicked))
@@ -205,74 +235,118 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         navigationItem.titleView = titleLabel
     }
     
+    // MARK: - 직업 체크 버튼
     private func jobCheckButtonClicked() {
         rootView.checkJobFirstStackView.checkButton.rx.tap
-            .subscribe(onNext: { _ in
-                self.job = "WORKER"
-                self.rootView.checkJobFirstStackView.checkButton.backgroundColor = AppColor.brand
-                self.rootView.checkJobFirstStackView.checkButton.setImage(UIImage(named: "clickedCheckButton"), for: .normal)
-                self.rootView.checkJobFirstStackView.checkAnswerLabel.textColor = UIColor(hexcode: "393939")
-                self.rootView.checkJobFirstStackView.checkButton.layer.borderWidth = 0
-                
-                self.rootView.checkJobSecondStackView.checkButton.layer.borderColor = AppColor.gray500.cgColor
-                self.rootView.checkJobSecondStackView.checkButton.backgroundColor = AppColor.white
-                self.rootView.checkJobSecondStackView.checkButton.layer.borderWidth = 1
-                self.rootView.checkJobSecondStackView.checkButton.setImage(UIImage(named: "checkButton"), for: .normal)
-                self.rootView.checkJobSecondStackView.checkAnswerLabel.textColor = AppColor.gray500
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.viewModel.tapJobButton(job: 0)
+                owner.checkJobButtonSelected = true
+                owner.job = "WORKER"
             })
             .disposed(by: disposeBag)
         
         rootView.checkJobSecondStackView.checkButton.rx.tap
-            .subscribe(onNext: { _ in
-                self.job = "STUDENT"
-                self.rootView.checkJobSecondStackView.checkButton.backgroundColor = AppColor.brand
-                self.rootView.checkJobSecondStackView.checkButton.setImage(UIImage(named: "clickedCheckButton"), for: .normal)
-                self.rootView.checkJobSecondStackView.checkAnswerLabel.textColor = UIColor(hexcode: "393939")
-                self.rootView.checkJobSecondStackView.checkButton.layer.borderWidth = 0
-                
-                self.rootView.checkJobFirstStackView.checkButton.layer.borderColor = AppColor.gray500.cgColor
-                self.rootView.checkJobFirstStackView.checkButton.backgroundColor = AppColor.white
-                self.rootView.checkJobFirstStackView.checkButton.layer.borderWidth = 1
-                self.rootView.checkJobFirstStackView.checkButton.setImage(UIImage(named: "checkButton"), for: .normal)
-                self.rootView.checkJobFirstStackView.checkAnswerLabel.textColor = AppColor.gray500
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.viewModel.tapJobButton(job: 1)
+                owner.checkJobButtonSelected = true
+                owner.job = "STUDENT"
             })
             .disposed(by: disposeBag)
     }
     
+    // MARK: - job 선택 UIUpdate
+    private func jobUIUpdate(job: Int) {
+        if job == 0 {
+            self.rootView.checkJobFirstStackView.checkButton.backgroundColor = AppColor.brand
+            self.rootView.checkJobFirstStackView.checkButton.setImage(UIImage(named: "clickedCheckButton"), for: .normal)
+            self.rootView.checkJobFirstStackView.checkAnswerLabel.textColor = UIColor(hexcode: "393939")
+            self.rootView.checkJobFirstStackView.checkButton.layer.borderWidth = 0
+
+            self.rootView.checkJobSecondStackView.checkButton.layer.borderColor = AppColor.gray500.cgColor
+            self.rootView.checkJobSecondStackView.checkButton.backgroundColor = AppColor.white
+            self.rootView.checkJobSecondStackView.checkButton.layer.borderWidth = 1
+            self.rootView.checkJobSecondStackView.checkButton.setImage(UIImage(named: "checkButton"), for: .normal)
+            self.rootView.checkJobSecondStackView.checkAnswerLabel.textColor = AppColor.gray500
+        } else {
+            self.rootView.checkJobSecondStackView.checkButton.backgroundColor = AppColor.brand
+            self.rootView.checkJobSecondStackView.checkButton.setImage(UIImage(named: "clickedCheckButton"), for: .normal)
+            self.rootView.checkJobSecondStackView.checkAnswerLabel.textColor = UIColor(hexcode: "393939")
+            self.rootView.checkJobSecondStackView.checkButton.layer.borderWidth = 0
+            
+            self.rootView.checkJobFirstStackView.checkButton.layer.borderColor = AppColor.gray500.cgColor
+            self.rootView.checkJobFirstStackView.checkButton.backgroundColor = AppColor.white
+            self.rootView.checkJobFirstStackView.checkButton.layer.borderWidth = 1
+            self.rootView.checkJobFirstStackView.checkButton.setImage(UIImage(named: "checkButton"), for: .normal)
+            self.rootView.checkJobFirstStackView.checkAnswerLabel.textColor = AppColor.gray500
+        }
+    }
+    
+    // MARK: - 성별 체크 버튼
     private func genderCheckButtonClicked() {
         rootView.checkGenderFirstStackView.checkButton.rx.tap
-            .subscribe(onNext: { _ in
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.viewModel.tapGenderButton(gender: 0)
+                self.checkGenderButtonSelected = true
                 self.gender = "M"
-                self.rootView.checkGenderFirstStackView.checkButton.backgroundColor = AppColor.brand
-                self.rootView.checkGenderFirstStackView.checkButton.setImage(UIImage(named: "clickedCheckButton"), for: .normal)
-                self.rootView.checkGenderFirstStackView.checkAnswerLabel.textColor = UIColor(hexcode: "393939")
-                self.rootView.checkGenderFirstStackView.checkButton.layer.borderWidth = 0
-                
-                self.rootView.checkGenderSecondStackView.checkButton.layer.borderColor = AppColor.gray500.cgColor
-                self.rootView.checkGenderSecondStackView.checkButton.backgroundColor = AppColor.white
-                self.rootView.checkGenderSecondStackView.checkButton.layer.borderWidth = 1
-                self.rootView.checkGenderSecondStackView.checkButton.setImage(UIImage(named: "checkButton"), for: .normal)
-                self.rootView.checkGenderSecondStackView.checkAnswerLabel.textColor = AppColor.gray500
             })
             .disposed(by: disposeBag)
         
         rootView.checkGenderSecondStackView.checkButton.rx.tap
-            .subscribe(onNext: { _ in
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.viewModel.tapGenderButton(gender: 1)
+                self.checkGenderButtonSelected = true
                 self.gender = "F"
-                self.rootView.checkGenderSecondStackView.checkButton.backgroundColor = AppColor.brand
-                self.rootView.checkGenderSecondStackView.checkButton.setImage(UIImage(named: "clickedCheckButton"), for: .normal)
-                self.rootView.checkGenderSecondStackView.checkAnswerLabel.textColor = UIColor(hexcode: "393939")
-                self.rootView.checkGenderSecondStackView.checkButton.layer.borderWidth = 0
-                
-                self.rootView.checkGenderFirstStackView.checkButton.layer.borderColor = AppColor.gray500.cgColor
-                self.rootView.checkGenderFirstStackView.checkButton.backgroundColor = AppColor.white
-                self.rootView.checkGenderFirstStackView.checkButton.layer.borderWidth = 1
-                self.rootView.checkGenderFirstStackView.checkButton.setImage(UIImage(named: "checkButton"), for: .normal)
-                self.rootView.checkGenderFirstStackView.checkAnswerLabel.textColor = AppColor.gray500
             })
             .disposed(by: disposeBag)
     }
     
+    // MARK: = gender 선택 UIUpdate
+    private func genderUIUpdate(gender: Int) {
+        if gender == 0 {
+            self.rootView.checkGenderFirstStackView.checkButton.backgroundColor = AppColor.brand
+            self.rootView.checkGenderFirstStackView.checkButton.setImage(UIImage(named: "clickedCheckButton"), for: .normal)
+            self.rootView.checkGenderFirstStackView.checkAnswerLabel.textColor = UIColor(hexcode: "393939")
+            self.rootView.checkGenderFirstStackView.checkButton.layer.borderWidth = 0
+
+            self.rootView.checkGenderSecondStackView.checkButton.layer.borderColor = AppColor.gray500.cgColor
+            self.rootView.checkGenderSecondStackView.checkButton.backgroundColor = AppColor.white
+            self.rootView.checkGenderSecondStackView.checkButton.layer.borderWidth = 1
+            self.rootView.checkGenderSecondStackView.checkButton.setImage(UIImage(named: "checkButton"), for: .normal)
+            self.rootView.checkGenderSecondStackView.checkAnswerLabel.textColor = AppColor.gray500
+        } else {
+            self.rootView.checkGenderSecondStackView.checkButton.backgroundColor = AppColor.brand
+            self.rootView.checkGenderSecondStackView.checkButton.setImage(UIImage(named: "clickedCheckButton"), for: .normal)
+            self.rootView.checkGenderSecondStackView.checkAnswerLabel.textColor = UIColor(hexcode: "393939")
+            self.rootView.checkGenderSecondStackView.checkButton.layer.borderWidth = 0
+            
+            self.rootView.checkGenderFirstStackView.checkButton.layer.borderColor = AppColor.gray500.cgColor
+            self.rootView.checkGenderFirstStackView.checkButton.backgroundColor = AppColor.white
+            self.rootView.checkGenderFirstStackView.checkButton.layer.borderWidth = 1
+            self.rootView.checkGenderFirstStackView.checkButton.setImage(UIImage(named: "checkButton"), for: .normal)
+            self.rootView.checkGenderFirstStackView.checkAnswerLabel.textColor = AppColor.gray500
+        }
+    }
+    
+    // MARK: - 데이터 바인딩
+    private func bind() {
+        viewModel.genderState
+            .subscribe(onNext: { [weak self] gender in
+            self?.genderUIUpdate(gender: gender)
+        })
+            .disposed(by: disposeBag)
+        
+        viewModel.jobState
+            .subscribe(onNext: { [weak self] job in
+            self?.jobUIUpdate(job: job)
+        })
+            .disposed(by: disposeBag)
+    }
+    
+    // MARK: - 시도, 시군구 피커뷰 ToolBar UI
     private func configureToolBar() {
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
@@ -291,6 +365,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         rootView.sigugunTextField.inputAccessoryView = toolBar
     }
     
+    // MARK: - 데이트 피커 완료버튼
     @objc private func completeButtonClicked() {
         guard let sidoData = sidoListData else { return }
         guard let sigugunData = sigugunListData else { return }
@@ -305,12 +380,14 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         rootView.sigugunTextField.resignFirstResponder()
     }
     
+    // MARK: 데이트 피커 취소버튼
     @objc private func cancelButtonClicked() {
         rootView.sidoTextField.text = nil
         rootView.sigugunTextField.text = nil
         rootView.resignFirstResponder()
     }
     
+    // MARK: 피커뷰 delegate, datasource 설정
     private func configurePickerView() {
         regionPicker.delegate = self
         regionPicker.dataSource = self
@@ -318,18 +395,20 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         rootView.sigugunTextField.inputView = regionPicker
     }
     
+    // MARK: 다음단계로 버튼 클릭
     private func nextButtonClicked() {
         rootView.nextStepButton.rx.tap
             .subscribe(onNext: { _ in
+                print("버튼 클릭중")
+                self.canGoNextStepBindings()
                 guard let text = self.rootView.nickNameTextField.text else { return }
-                self.viewModel.input.pushInterestsViewTrigger.onNext(())
                 self.nickName = text
-                print("\(self.birthDate), \(self.job), \(self.nickName), \(self.gender), \(self.sigugunCDData?[self.sigunguRow] ?? 0) 💮💮")
                 self.viewModel.postEssentialInfo(self.birthDate, self.job, self.nickName, self.gender, self.sigugunCDData?[self.sigunguRow] ?? 0)
             })
             .disposed(by: disposeBag)
     }
     
+    // MARK: 버튼 체크 UI
     private func checkButtonUI() {
         rootView.checkJobFirstStackView.checkButton.layer.cornerRadius = rootView.checkJobFirstStackView.checkButton.bounds.size.width / 2
         rootView.checkJobFirstStackView.checkButton.clipsToBounds = true
@@ -348,21 +427,37 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         rootView.checkGenderSecondStackView.checkAnswerLabel.text = "여자"
     }
     
+    // MARK: 네비게이션 바 Back Button Click
     @objc private func backBarButtonClicked() {
         viewModel.input.popEssentialViewTrigger.onNext(())
     }
     
+    // MARK: - 다음단계로 가는 버튼 유효성 검사
     private func canGoNextStepBindings() {
-//        viewModel.isValidForm
-//            .bind(to: rootView.nextStepButton.isEnabled)
-//            .disposed(by: disposeBag)
+        // MARK: - jobAndGenderButton이 선택되어 있는지 Check
+        viewModel.checkJobAndGenderButtonisSelected.accept(checkJobButtonSelected && checkGenderButtonSelected)
+        // rx.isEnabled를 옵저버블로 합쳐서(jobButton, GenderButton)
+        
+        // MARK: - addressTextField가 채워져있는지 Check
+        viewModel.checkAddressNotEmpty.accept(sidosigunguText)
+        
+        // MARK: - birthTextField가 채워져있는지 Check
+        viewModel.checkBirthNotEmpty.accept(birthDate) // ViewModel에서 바로 사용하면 됨
+        
+        // MARK: - nickNameValidate가 검사되었는지 Check
+        viewModel.checkNicknameValidate.accept(checkNicknameValidate)
+        
+        // MARK: - nickNameDuplicated가 검사되었는지 Check
+        viewModel.checkNicknameDuplicated.accept(checkNicknameDuplicated)
     }
 }
 
+// MARK: - UIPickerView Delegate
 extension EssentialInfoViewController: UIPickerViewDelegate {
     
 }
 
+// MARK: - UIPickerView DataSource
 extension EssentialInfoViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2
@@ -406,17 +501,22 @@ extension EssentialInfoViewController: UIPickerViewDataSource {
             regionPicker.reloadComponent(1)
             guard let data = sidoListData else { return }
             rootView.sidoTextField.text = data[row]
+            guard let text = rootView.sidoTextField.text else { return }
+            sidosigunguText += text
         case 1:
             let selected = regionPicker.selectedRow(inComponent: 0)
             let selectedName = sidoListData?[selected]
             let data = sidoCDDict?[selectedName ?? ""] ?? 0
             rootView.sigugunTextField.text = sigunguCDDict?[data]?[row] ?? ""
+            guard let text = rootView.sigugunTextField.text else { return }
+            sidosigunguText += text
         default:
             break
         }
     }
 }
 
+// MARK: - TextField Delegate
 extension EssentialInfoViewController: UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
             self.view.endEditing(true)

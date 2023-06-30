@@ -7,8 +7,8 @@
 
 import Foundation
 
-// MARK: - Welcome
-struct CategoryData: Codable {
+// MARK: - CategoryResponse
+struct CategoryResponse: Codable {
     let isSuccess: Bool
     let code: Int
     let message: String
@@ -24,26 +24,26 @@ struct Result: Codable {
 
 // MARK: - Category
 struct Category: Codable {
-    let categoryID: Int
     let categoryName: String
     let imgURL: String
-    let categoryDetail: [CategoryDetail]
+    let categoryDetailList: [CategoryDetailList]
+    let categoryID: String
 
     enum CodingKeys: String, CodingKey {
-        case categoryID = "categoryId"
-        case categoryName = "categoryName"
+        case categoryName
         case imgURL = "imgUrl"
-        case categoryDetail = "categoryDetail"
+        case categoryDetailList
+        case categoryID = "categoryId"
     }
 }
 
-// MARK: - CategoryDetail
-struct CategoryDetail: Codable {
+// MARK: - CategoryDetailList
+struct CategoryDetailList: Codable {
     let categoryDetailID: Int
     let categoryDetailName: String
 
     enum CodingKeys: String, CodingKey {
         case categoryDetailID = "categoryDetailId"
-        case categoryDetailName = "categoryDetailName"
+        case categoryDetailName
     }
 }

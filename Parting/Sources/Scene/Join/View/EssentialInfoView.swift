@@ -111,6 +111,7 @@ class EssentialInfoView: BaseView {
         return view
     }()
     
+    /// 직업 학생 버튼
     let checkJobFirstStackView: essentialInfoStackView = {
         let view = essentialInfoStackView()
         view.axis = .horizontal
@@ -119,6 +120,7 @@ class EssentialInfoView: BaseView {
         return view
     }()
     
+    /// 직업 직장인 버튼
     let checkJobSecondStackView: essentialInfoStackView = {
         let view = essentialInfoStackView()
         view.axis = .horizontal
@@ -127,6 +129,7 @@ class EssentialInfoView: BaseView {
         return view
     }()
     
+    /// 성별 남자 버튼
     let checkGenderFirstStackView: essentialInfoStackView = {
         let view = essentialInfoStackView()
         view.axis = .horizontal
@@ -135,6 +138,7 @@ class EssentialInfoView: BaseView {
         return view
     }()
     
+    /// 성별 여자 버튼
     let checkGenderSecondStackView: essentialInfoStackView = {
         let view = essentialInfoStackView()
         view.axis = .horizontal
