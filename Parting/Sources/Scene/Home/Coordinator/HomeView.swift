@@ -10,28 +10,82 @@ import UIKit
 import SnapKit
 
 class HomeView: BaseView {
-	lazy var bellButtonImageView: UIImageView = {
-		let image = UIImage(systemName: Images.icon.bell)
-		let imageView = UIImageView(image: image)
-		return imageView
+
+	let bellBarButton = BarImageButton(imageName: Images.icon.bell)
+	
+	let searchBar: UISearchBar = {
+		let bar = UISearchBar()
+		bar.placeholder = "세부 카테고리 검색"
+		bar.backgroundImage = UIImage()
+		return bar
 	}()
 	
-	lazy var bellButton: UIButton = {
+	let navigationLabel = BarTitleLabel(text: "팟팅")
+	
+	let mainStackView: UIStackView = {
+		let view = UIStackView()
+		view.axis = .vertical
+		view.alignment = .center
+		view.backgroundColor = .clear
+		return view
+	}()
+	
+	let scheduleStackView: UIStackView = {
+		let view = StackView(axis: .horizontal, alignment: .fill)
+		view.backgroundColor = .systemGreen
+		return view
+	}()
+	
+	let calendarWidget: UIButton = {
 		let button = UIButton()
-		button.addSubview(bellButtonImageView)
+		button.setTitle("test", for: .normal)
+		button.backgroundColor = .magenta
 		return button
 	}()
 	
+	let dDayWidget: UIView = {
+		let view = UIView()
+		view.backgroundColor = .brown
+		return view
+	}()
+	
 	override func makeConfigures() {
-		super.makeConfigures()
+		self.backgroundColor = .white
 		
+		addSubview(mainStackView)
+		mainStackView.addArrangedSubview(searchBar)
+		mainStackView.addArrangedSubview(scheduleStackView)
+		scheduleStackView.addArrangedSubview(calendarWidget)
+		scheduleStackView.addArrangedSubview(dDayWidget)
 	}
 	
 	override func makeConstraints() {
-		bellButtonImageView.snp.makeConstraints { make in
-			make.center.equalTo(bellButton)
+		
+		mainStackView.snp.makeConstraints { make in
+			make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(8)
+//			make.bottom.equalToSuperview()
+			make.width.equalToSuperview()
 		}
 		
+		searchBar.snp.makeConstraints { make in
+			make.right.equalToSuperview().offset(-8)
+			make.left.equalToSuperview().offset(8)
+		}
+		
+		scheduleStackView.snp.makeConstraints { make in
+			make.left.equalToSuperview().offset(16)
+			make.right.equalToSuperview().offset(-16)
+		}
+
+		calendarWidget.snp.makeConstraints { make in
+			make.width.equalTo(snp.width).multipliedBy(0.4)
+			make.height.equalTo(calendarWidget.snp.width)
+		}
+
+		dDayWidget.snp.makeConstraints { make in
+			make.width.equalTo(snp.width).multipliedBy(0.4)
+			make.height.equalTo(calendarWidget.snp.width)
+		}
 	}
 }
 

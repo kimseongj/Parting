@@ -8,6 +8,7 @@
 import UIKit
 
 final class HomeCoordinator: Coordinator {
+	
 	weak var delegate: CoordinatorDelegate?
 	var childCoordinators = [Coordinator]()
 	var navigationController: UINavigationController
@@ -18,13 +19,23 @@ final class HomeCoordinator: Coordinator {
 	}
 	
 	func start() {
-		showHomeViewController()
+		showHomeVC()
 	}
 	
-	func showHomeViewController() {
+	func showHomeVC() {
 		let viewModel = HomeViewModel(coordinator: self)
 		let vc = HomeViewController(viewModel: viewModel)
+
 		navigationController.viewControllers = [vc]
+	}
+	
+	func pushScheduleVC() {
+		let viewModel = ScheduleViewModel(coordinator: self)
+		navigationController.pushViewController(ScheduleViewController(viewModel: viewModel), animated: true)
+	}
+	
+	func popVC() {
+		navigationController.popViewController(animated: true)
 	}
 	
 	

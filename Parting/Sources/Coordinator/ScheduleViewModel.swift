@@ -1,17 +1,16 @@
 //
-//  HomeViewModel.swift
+//  ScheduleViewModel.swift
 //  Parting
 //
-//  Created by 김민규 on 2023/05/09.
+//  Created by 김민규 on 2023/07/01.
 //
 
 import Foundation
 import RxSwift
 
-class HomeViewModel: BaseViewModel {
-	
+class ScheduleViewModel: BaseViewModel {
 	struct Input {
-		let pushScheduleVCTrigger = PublishSubject<Void>()
+		let popVCTrigger = PublishSubject<Void>()
 	}
 	
 	struct Output {
@@ -33,9 +32,10 @@ class HomeViewModel: BaseViewModel {
 	}
 	
 	private func setupBindings() {
-		input.pushScheduleVCTrigger
+
+		input.popVCTrigger
 			.subscribe(onNext: { [weak self] in
-				self?.coordinator?.pushScheduleVC()
+				self?.coordinator?.popVC()
 			})
 			.disposed(by: disposeBag)
 	}

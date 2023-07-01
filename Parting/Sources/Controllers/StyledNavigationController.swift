@@ -16,7 +16,7 @@ class StyledNavigationController: UINavigationController {
 	
 	private func changeBackgroundColor(_ color: UIColor) {
 		let appearance = navigationBar.standardAppearance
-//		appearance.backgroundColor = .background
+		appearance.backgroundColor = color
 		UINavigationBar.appearance().standardAppearance = appearance
 		UINavigationBar.appearance().compactAppearance = appearance
 		UINavigationBar.appearance().scrollEdgeAppearance = appearance
@@ -25,7 +25,10 @@ class StyledNavigationController: UINavigationController {
 	private func changeShadowColor(_ color: UIColor) {
 		let appearance = navigationBar.standardAppearance
 		appearance.shadowColor = color
+		
 		UINavigationBar.appearance().standardAppearance = appearance
+		UINavigationBar.appearance().compactAppearance = appearance
+		UINavigationBar.appearance().scrollEdgeAppearance = appearance
 	}
 	
 	private func changeTintColor(_ color: UIColor) {
@@ -42,9 +45,10 @@ class StyledNavigationController: UINavigationController {
 	
 	private func setupAppearance() {
 //		disableDefaultSettings()
-		changeBackgroundColor(.white)
-		changeShadowColor(.separator)
-//		changeTintColor(.primary)
+		changeBackgroundColor(AppColor.white)
+		changeTintColor(AppColor.baseText)
+		changeShadowColor(.clear)
+
 	}
 	
 	override func viewDidLoad() {

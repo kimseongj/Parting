@@ -25,7 +25,7 @@ final class AppCoordinator: Coordinator {
 
     func start() {
 		if isLoggedIn {
-			connectHomeFlow()
+			connectMainFlow()
 		} else {
 			connectJoinFlow()
 		}
@@ -38,21 +38,14 @@ final class AppCoordinator: Coordinator {
         childCoordinators.append(joinCoordinator)
     }
 	
-	private func connectHomeFlow() {
-        let homeCoordinator = HomeCoordinator(self.navigationController)
-        homeCoordinator.delegate = self
-        homeCoordinator.start()
-        childCoordinators.append(homeCoordinator)
+	private func connectMainFlow() {
+		let mainCoordinator = TabCoordinator(self.navigationController)
+		mainCoordinator.delegate = self
+		mainCoordinator.start()
+		childCoordinators.append(mainCoordinator)
     }
 	
-//	private func connectFlow<T: Coordinator>(coordinatorType: T.Type) {
-//		let coordinator = coordinatorType.init(self.navigationController)
-//		coordinator.delegate = self
-//		coordinator.start()
-//		childCoordinators.append(coordinator)
-//	}
 
-	
 	
 	
 }
