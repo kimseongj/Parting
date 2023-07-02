@@ -66,13 +66,15 @@
 		9348C1092A501771000F25A9 /* BarImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9348C1082A501771000F25A9 /* BarImageButton.swift */; };
 		9348C10B2A5029C6000F25A9 /* BarTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9348C10A2A5029C6000F25A9 /* BarTitleLabel.swift */; };
 		9348C10E2A502D76000F25A9 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 9348C10D2A502D76000F25A9 /* FSCalendar */; };
+		9348C1102A504680000F25A9 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9348C10F2A504680000F25A9 /* UIImage+Extension.swift */; };
 		935D3A7E2A0A78900033DCCD /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935D3A7D2A0A78900033DCCD /* HomeCoordinator.swift */; };
 		935D3A802A0A7B7F0033DCCD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935D3A7F2A0A7B7F0033DCCD /* HomeViewController.swift */; };
 		935D3A822A0A7C210033DCCD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935D3A812A0A7C210033DCCD /* HomeView.swift */; };
 		935D3A842A0A7CAF0033DCCD /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935D3A832A0A7CAF0033DCCD /* HomeViewModel.swift */; };
 		937711EA2A4EDFD00019DC6F /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937711E92A4EDFD00019DC6F /* StackView.swift */; };
+		938C902C2A512003007FA45F /* DdayWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938C902B2A512003007FA45F /* DdayWidgetView.swift */; };
 		938D15F72A077BFD00CABCF2 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D15F62A077BFD00CABCF2 /* APIKey.swift */; };
-		93A09BA22A4D967F0096A1D5 /* CalendarWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A09BA12A4D967F0096A1D5 /* CalendarWidget.swift */; };
+		93A09BA22A4D967F0096A1D5 /* CalendarWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A09BA12A4D967F0096A1D5 /* CalendarWidgetView.swift */; };
 		93A09BA52A4DA0ED0096A1D5 /* ProgrammaticallyInitializableViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A09BA42A4DA0ED0096A1D5 /* ProgrammaticallyInitializableViewProtocol.swift */; };
 /* End PBXBuildFile section */
 
@@ -134,13 +136,15 @@
 		9348C1062A500BF3000F25A9 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		9348C1082A501771000F25A9 /* BarImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarImageButton.swift; sourceTree = "<group>"; };
 		9348C10A2A5029C6000F25A9 /* BarTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarTitleLabel.swift; sourceTree = "<group>"; };
+		9348C10F2A504680000F25A9 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		935D3A7D2A0A78900033DCCD /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		935D3A7F2A0A7B7F0033DCCD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Parting/Sources/Scene/Home/Coordinator/HomeViewController.swift; sourceTree = SOURCE_ROOT; };
 		935D3A812A0A7C210033DCCD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeView.swift; path = Parting/Sources/Scene/Home/Coordinator/HomeView.swift; sourceTree = SOURCE_ROOT; };
 		935D3A832A0A7CAF0033DCCD /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewModel.swift; path = Parting/Sources/Scene/Home/Coordinator/HomeViewModel.swift; sourceTree = SOURCE_ROOT; };
 		937711E92A4EDFD00019DC6F /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
+		938C902B2A512003007FA45F /* DdayWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DdayWidgetView.swift; sourceTree = "<group>"; };
 		938D15F62A077BFD00CABCF2 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
-		93A09BA12A4D967F0096A1D5 /* CalendarWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWidget.swift; sourceTree = "<group>"; };
+		93A09BA12A4D967F0096A1D5 /* CalendarWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWidgetView.swift; sourceTree = "<group>"; };
 		93A09BA42A4DA0ED0096A1D5 /* ProgrammaticallyInitializableViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammaticallyInitializableViewProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -218,6 +222,7 @@
 				4E89BC8E29D167E800BAE38A /* Color+Extension.swift */,
 				4EA81DE129ED32680070F1B7 /* UILabel+Extension.swift */,
 				4EA81DE529ED41100070F1B7 /* UIView+Extension.swift */,
+				9348C10F2A504680000F25A9 /* UIImage+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -506,7 +511,8 @@
 		93A09BA02A4D962F0096A1D5 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
-				93A09BA12A4D967F0096A1D5 /* CalendarWidget.swift */,
+				93A09BA12A4D967F0096A1D5 /* CalendarWidgetView.swift */,
+				938C902B2A512003007FA45F /* DdayWidgetView.swift */,
 			);
 			path = Widgets;
 			sourceTree = "<group>";
@@ -611,7 +617,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				930165232A10B3EC00DA1A07 /* StyledNavigationController.swift in Sources */,
-				93A09BA22A4D967F0096A1D5 /* CalendarWidget.swift in Sources */,
+				93A09BA22A4D967F0096A1D5 /* CalendarWidgetView.swift in Sources */,
 				4E52228829F1813C000B96B4 /* InterestsViewModel.swift in Sources */,
 				4EA81DE029ED2DC00070F1B7 /* JoinView.swift in Sources */,
 				4E52228029F14163000B96B4 /* EssentialInfoView.swift in Sources */,
@@ -643,6 +649,7 @@
 				935D3A802A0A7B7F0033DCCD /* HomeViewController.swift in Sources */,
 				4E52227E29F11C81000B96B4 /* JoinCompleteViewModel.swift in Sources */,
 				9348C1052A500A2A000F25A9 /* ScheduleViewModel.swift in Sources */,
+				9348C1102A504680000F25A9 /* UIImage+Extension.swift in Sources */,
 				4EA81DDE29ED2D9A0070F1B7 /* SplashViewController.swift in Sources */,
 				4EA81DE429ED36860070F1B7 /* SplashViewModel.swift in Sources */,
 				4E89BC2D29C57D2300BAE38A /* Endpoints.swift in Sources */,
@@ -657,6 +664,7 @@
 				4ECEAE1729ED2116006AAF6B /* AppCoordinator.swift in Sources */,
 				4ECEAE1F29ED298F006AAF6B /* SplahView.swift in Sources */,
 				4ECEAE2129ED29EF006AAF6B /* BaseView.swift in Sources */,
+				938C902C2A512003007FA45F /* DdayWidgetView.swift in Sources */,
 				4E89BC3529C57E5300BAE38A /* BaseURL.swift in Sources */,
 				4EA81DE629ED41100070F1B7 /* UIView+Extension.swift in Sources */,
 				4E52228A29F18152000B96B4 /* InterestsView.swift in Sources */,

@@ -8,13 +8,16 @@
 import Foundation
 import UIKit
 import RxSwift
+import FSCalendar
 
 class ScheduleViewController: BaseViewController<ScheduleView> {
 
 	private var viewModel: ScheduleViewModel
 
 	private let disposeBag = DisposeBag()
-
+	
+	
+	
 	init(viewModel: ScheduleViewModel) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
@@ -28,7 +31,8 @@ class ScheduleViewController: BaseViewController<ScheduleView> {
 		super.viewDidLoad()
 		navigationUI()
 		bindViewModel()
-
+		
+		
 	}
 
 	private func navigationUI() {

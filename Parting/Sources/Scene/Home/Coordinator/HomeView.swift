@@ -25,29 +25,29 @@ class HomeView: BaseView {
 	let mainStackView: UIStackView = {
 		let view = UIStackView()
 		view.axis = .vertical
-		view.alignment = .center
-		view.backgroundColor = .clear
+		view.alignment = .firstBaseline
+		view.distribution = .equalSpacing
+		view.backgroundColor = .white
 		return view
 	}()
-	
+
 	let scheduleStackView: UIStackView = {
-		let view = StackView(axis: .horizontal, alignment: .fill)
-		view.backgroundColor = .systemGreen
+		let view = StackView(axis: .horizontal, alignment: .leading, distribution: .equalSpacing, spacing: 20.0)
 		return view
 	}()
 	
 	let calendarWidget: UIButton = {
-		let button = UIButton()
-		button.setTitle("test", for: .normal)
-		button.backgroundColor = .magenta
-		return button
+		let widget = CalendarWidgetView()
+		return widget
 	}()
 	
 	let dDayWidget: UIView = {
-		let view = UIView()
-		view.backgroundColor = .brown
+		let view = DdayWidgetView()
+						  
+		view.backgroundColor = .white
 		return view
 	}()
+	
 	
 	override func makeConfigures() {
 		self.backgroundColor = .white
@@ -62,9 +62,9 @@ class HomeView: BaseView {
 	override func makeConstraints() {
 		
 		mainStackView.snp.makeConstraints { make in
-			make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(8)
-//			make.bottom.equalToSuperview()
-			make.width.equalToSuperview()
+			make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(8)
+			make.left.equalToSuperview()
+			make.right.equalToSuperview()
 		}
 		
 		searchBar.snp.makeConstraints { make in
@@ -76,16 +76,22 @@ class HomeView: BaseView {
 			make.left.equalToSuperview().offset(16)
 			make.right.equalToSuperview().offset(-16)
 		}
+		
+		let screenWidth = UIScreen.main.bounds.width
+		let totalPadding = 32.0 + 20.0
+		let widgetWidth = screenWidth - totalPadding
+		let widgetWidthMultiplier = widgetWidth / screenWidth / 2
 
 		calendarWidget.snp.makeConstraints { make in
-			make.width.equalTo(snp.width).multipliedBy(0.4)
+			make.width.equalTo(snp.width).multipliedBy(widgetWidthMultiplier)
 			make.height.equalTo(calendarWidget.snp.width)
 		}
 
 		dDayWidget.snp.makeConstraints { make in
-			make.width.equalTo(snp.width).multipliedBy(0.4)
-			make.height.equalTo(calendarWidget.snp.width)
+			make.width.equalTo(snp.width).multipliedBy(widgetWidthMultiplier)
+			make.height.equalTo(dDayWidget.snp.width)
 		}
+		
 	}
 }
 

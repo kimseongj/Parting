@@ -16,7 +16,8 @@ class BarImageButton: UIBarButtonItem {
 	private var imageView: UIImageView
 	
 	init(imageName: String) {
-		let image = UIImage(named: imageName)
+		var image = UIImage(named: imageName)
+		image = image?.resized(to: CGSize(width: 20, height: 22))
 		imageView = UIImageView(image: image)
 
 		super.init()

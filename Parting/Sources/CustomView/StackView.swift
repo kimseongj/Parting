@@ -14,10 +14,17 @@ class StackView: UIStackView {
 		
 	}
 	
-	convenience init(axis:  NSLayoutConstraint.Axis, alignment: UIStackView.Alignment) {
+	convenience init(axis:  NSLayoutConstraint.Axis, alignment: UIStackView.Alignment, distribution: UIStackView.Distribution) {
 		self.init()
 		self.axis = axis
 		self.alignment = alignment
+	}
+	
+	convenience init(axis:  NSLayoutConstraint.Axis, alignment: UIStackView.Alignment, distribution: UIStackView.Distribution, spacing: CGFloat) {
+		self.init()
+		self.axis = axis
+		self.alignment = alignment
+		self.spacing = spacing
 	}
 	
 	required init(coder: NSCoder) {
