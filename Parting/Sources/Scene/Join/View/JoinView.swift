@@ -8,7 +8,6 @@
 import UIKit
 import SnapKit
 
-
 class JoinView: BaseView {
     let backGroundView: SplashView = {
         let view = SplashView()

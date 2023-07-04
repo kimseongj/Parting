@@ -9,7 +9,25 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class InterestsViewModel: BaseViewModel {
+
+protocol InterestsViewModelProtocol {
+    func viewDidLoadAction()
+}
+
+class InterestsViewModel: BaseViewModel, InterestsViewModelProtocol {
+    func viewDidLoadAction() {
+        APIManager.shared.getCategoryAPI()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, data in
+                for idx in 0..<data.result.categories.count {
+                    owner.imageDataList.append(data.result.categories[idx].imgURL)
+                    owner.categoryNameList.append(data.result.categories[idx].categoryName)
+                }
+                owner.output.categoryImage.accept(owner.imageDataList)
+            })
+            .disposed(by: disposeBag)
+    }
+    
     struct Input {
         let popInterestsViewTrigger: PublishSubject<Void> = PublishSubject()
         let getCategoryImageTrigger: PublishSubject<Void> = PublishSubject()
@@ -38,7 +56,7 @@ class InterestsViewModel: BaseViewModel {
         self.output = output
         self.coordinator = coordinator
         viewChangeTrigger()
-        getCategoryImage()
+//        getCategoryImage()
     }
     
     func getAssociatedCategory(_ categoryId: [Int]) {

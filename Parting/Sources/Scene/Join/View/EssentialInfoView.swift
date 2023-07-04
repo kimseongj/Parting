@@ -206,7 +206,8 @@ class EssentialInfoView: BaseView {
         return textField
     }()
     
-    let nickNameCheckButton: UIButton = {
+    /// 닉네임 중복확인 버튼
+    let duplicatedNickNameCheckButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 8
         button.backgroundColor = AppColor.gray100
@@ -254,7 +255,7 @@ class EssentialInfoView: BaseView {
             addressStackView.addArrangedSubview($0)
         }
         
-        [nickNameTextField, nickNameCheckButton].forEach {
+        [nickNameTextField, duplicatedNickNameCheckButton].forEach {
            nickNameStackView.addArrangedSubview($0)
         }
         

@@ -69,40 +69,17 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         enterYourNickname()
         checkDuplicatedNickName()
         bind()
-        viewModel.isValidForm
-            .subscribe(onNext: { flag in
-                print("\(flag) 👀👀")
-                if flag{
-                    self.viewModel.input.pushInterestsViewTrigger.onNext(())
-                } else {
-                    print("다음단계로 버튼을 다시 검사해야해 🤢🤢🤢")
-                }
-            })
-            .disposed(by: disposeBag)
     }
     
     // MARK: - 닉네임 중복 검사
     private func checkDuplicatedNickName() {
-        rootView.nickNameCheckButton.rx.tap
+        rootView.duplicatedNickNameCheckButton.rx.tap
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
-                owner.viewModel.tapDuplicatedCheckButton()
-                let text = self.rootView.nickNameTextField.text
-                self.viewModel.input.duplicatedNickNameTrigger.onNext(text)
+                guard let text = self.rootView.nickNameTextField.text else { return }
+                owner.viewModel.tapDuplicatedCheckButton(nickName: text)
             })
             .disposed(by: disposeBag)
-        
-        viewModel.output.duplicatedNickNameCheck
-            .subscribe(onNext: { check in
-                if check == true {
-                    print("사용 가능한 닉네임 입니다.")
-                    self.checkNicknameDuplicated = true
-                } else {
-                    print("중복된 닉네임 입니다.")
-                    self.checkNicknameDuplicated = false
-                }
-            })
-            .disposed(by: self.disposeBag)
     }
     
     // MARK: - 닉네임 유효성 검사
@@ -116,14 +93,14 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
                 if(flag) {
                     //MARK: - 버튼 활성화
                     print("가입 가능한 닉네임 입니다✅✅")
-                    self.rootView.nickNameCheckButton.isEnabled = true
-                    self.rootView.nickNameCheckButton.setTitleColor(.black, for: .normal)
-                    self.rootView.nickNameCheckButton.layer.borderColor = UIColor.black.cgColor
+                    self.rootView.duplicatedNickNameCheckButton.isEnabled = true
+                    self.rootView.duplicatedNickNameCheckButton.setTitleColor(.black, for: .normal)
+                    self.rootView.duplicatedNickNameCheckButton.layer.borderColor = UIColor.black.cgColor
                     checkNicknameValidate = true
                 } else {
-                    self.rootView.nickNameCheckButton.isEnabled = false
-                    self.rootView.nickNameCheckButton.setTitleColor(UIColor(hexcode: "A7B0C0"), for: .normal)
-                    self.rootView.nickNameCheckButton.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
+                    self.rootView.duplicatedNickNameCheckButton.isEnabled = false
+                    self.rootView.duplicatedNickNameCheckButton.setTitleColor(UIColor(hexcode: "A7B0C0"), for: .normal)
+                    self.rootView.duplicatedNickNameCheckButton.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
                     checkNicknameValidate = false
                 }
             })
@@ -304,7 +281,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
             .disposed(by: disposeBag)
     }
     
-    // MARK: = gender 선택 UIUpdate
+    // MARK: gender 선택 UIUpdate
     private func genderUIUpdate(gender: Int) {
         if gender == 0 {
             self.rootView.checkGenderFirstStackView.checkButton.backgroundColor = AppColor.brand
@@ -334,15 +311,39 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     // MARK: - 데이터 바인딩
     private func bind() {
         viewModel.genderState
-            .subscribe(onNext: { [weak self] gender in
-            self?.genderUIUpdate(gender: gender)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, gender in
+            owner.genderUIUpdate(gender: gender)
         })
             .disposed(by: disposeBag)
         
         viewModel.jobState
-            .subscribe(onNext: { [weak self] job in
-            self?.jobUIUpdate(job: job)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, job in
+            owner.jobUIUpdate(job: job)
         })
+            .disposed(by: disposeBag)
+        
+        viewModel.nickNameDuplicateState
+            .withUnretained(self)
+            .subscribe(onNext: { owner, isDuplicated in
+                if isDuplicated {
+                    owner.checkNicknameDuplicated = true
+                } else {
+                    owner.checkNicknameDuplicated = false
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.isValidForm
+            .subscribe(onNext: { flag in
+                print("\(flag) 👀👀")
+                if flag{
+                    self.viewModel.input.pushInterestsViewTrigger.onNext(())
+                } else {
+                    print("다음단계로 버튼을 다시 검사해야해 🤢🤢🤢")
+                }
+            })
             .disposed(by: disposeBag)
     }
     
@@ -365,7 +366,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         rootView.sigugunTextField.inputAccessoryView = toolBar
     }
     
-    // MARK: - 데이트 피커 완료버튼
+    // MARK: - 피커뷰 완료버튼
     @objc private func completeButtonClicked() {
         guard let sidoData = sidoListData else { return }
         guard let sigugunData = sigugunListData else { return }
@@ -373,8 +374,10 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         let row2 = regionPicker.selectedRow(inComponent: 1)
         regionPicker.selectRow(row1, inComponent: 0, animated: false)
         regionPicker.selectRow(row2, inComponent: 1, animated: false)
-        rootView.sidoTextField.text = sidoData[row1]
-        rootView.sigugunTextField.text = sigugunData[row2]
+        if row1 <= sidoData.count && row2 <= sigugunData.count {
+            rootView.sidoTextField.text = sidoData[row1]
+            rootView.sigugunTextField.text = sigugunData[row2]
+        }
         regionPicker.reloadComponent(1)
         rootView.sidoTextField.resignFirstResponder()
         rootView.sigugunTextField.resignFirstResponder()
@@ -488,8 +491,14 @@ extension EssentialInfoViewController: UIPickerViewDataSource {
             guard let selectedName = sidoListData?[selected] else { return "" }
             let data = sidoCDDict?[selectedName] ?? 0
             sigugunListData = sigunguCDDict?[data]
-            guard let sigugunList = sigugunListData?[row] else { return "" }
-            return sigugunList
+            print("\(row) 이병헌")
+            if let sigugunListData = sigugunListData, row < sigugunListData.count {
+                let sigugunList = sigugunListData[row]
+                return sigugunList
+                // 유효한 값에 대한 처리
+            } else {
+                return "" // 유효한 값이 없을 경우 처리
+            }
         default:
             return ""
         }
@@ -505,9 +514,15 @@ extension EssentialInfoViewController: UIPickerViewDataSource {
             sidosigunguText += text
         case 1:
             let selected = regionPicker.selectedRow(inComponent: 0)
+            print("\(selected) 선택한 시도 ROW")
             let selectedName = sidoListData?[selected]
+            print("\(selectedName) 선택한 시도이름 ROW")
             let data = sidoCDDict?[selectedName ?? ""] ?? 0
-            rootView.sigugunTextField.text = sigunguCDDict?[data]?[row] ?? ""
+            print("\(data) 선택한 시도의 시도CD")
+            if row <= sigunguCDDict?[data]?.count ?? 0 {
+                rootView.sigugunTextField.text = sigunguCDDict?[data]?[row] ?? ""
+                print("\(data) \(row) 선택한 시도의 시군구 이름")
+            }
             guard let text = rootView.sigugunTextField.text else { return }
             sidosigunguText += text
         default:

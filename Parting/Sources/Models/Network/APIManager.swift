@@ -52,7 +52,7 @@ class APIManager {
     }
     
     //MARK: - 닉네임 중복 검사 API
-    func checkValidateNickName(_ nickname: String) -> Observable<NickNameResponse> {
+    func checkNickNameIsDuplicated(_ nickname: String) -> Observable<NickNameResponse> {
         return Observable.create { emitter in
             let api = PartingAPI.checkNickname(nickName: nickname)
             guard let nickNameurl = api

@@ -13,17 +13,16 @@ protocol EssentialInfoViewModelProtocol {
     var genderState: PublishRelay<Int> { get }
     var jobState: PublishRelay<Int> { get }
     var nickNameValidateState: PublishRelay<Int> { get }
-    var nickNameDuplicateState: PublishRelay<Int> { get }
+    var nickNameDuplicateState: PublishRelay<Bool> { get }
     
     func tapGenderButton(gender: Int)
     func tapJobButton(job: Int)
-    func tapDuplicatedCheckButton()
+    func tapDuplicatedCheckButton(nickName: String)
 }
 
 class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtocol {
-    
     var nickNameValidateState: PublishRelay<Int> = PublishRelay()
-    var nickNameDuplicateState: PublishRelay<Int> = PublishRelay()
+    var nickNameDuplicateState: PublishRelay<Bool> = PublishRelay()
     var genderState: PublishRelay<Int> = PublishRelay()
     var jobState: PublishRelay<Int> = PublishRelay()
     
@@ -35,8 +34,13 @@ class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtocol {
         jobState.accept(job)
     }
     
-    func tapDuplicatedCheckButton() {
-        
+    func tapDuplicatedCheckButton(nickName: String) {
+        APIManager.shared.checkNickNameIsDuplicated(nickName)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, data in
+                owner.nickNameDuplicateState.accept(data.isSuccess)
+            })
+            .disposed(by: disposeBag)
     }
     
     struct Input {
@@ -90,7 +94,6 @@ class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtocol {
         viewChangeTrigger()
         datePickerValueChanged()
         getAddress()
-        duplicatedNickNameCheck()
     }
     
     // MARK: - 다음단계로 버튼 활성화 유효성 검사
@@ -101,9 +104,7 @@ class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtocol {
         // check sido, sigungu TextField Not empty
         // check Button selected
         return Observable.combineLatest(checkNicknameValidate, checkNicknameDuplicated, checkBirthNotEmpty, checkAddressNotEmpty, checkJobAndGenderButtonisSelected) { nicknameValidate, nickNameDuplicated, birth, address, jobAndGender in
-            
-            print(nicknameValidate, nickNameDuplicated, birth, address, jobAndGender)
-            
+         
             guard birth != nil && address != nil else { return false }
             
             // 위의 조건에 따른 return
@@ -115,17 +116,6 @@ class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtocol {
         APIManager.shared.enterEssentialInfo(birth, job, nickName, sex, sigunguCd)
             .subscribe(onNext: { data in
                 print("\(data) 🔥🔥")
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    private func duplicatedNickNameCheck() {
-        input.duplicatedNickNameTrigger
-            .flatMap { nickName in
-                APIManager.shared.checkValidateNickName(nickName ?? "")
-            }
-            .subscribe(onNext: { data in
-                self.output.duplicatedNickNameCheck.accept(data.isSuccess)
             })
             .disposed(by: disposeBag)
     }

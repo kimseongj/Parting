@@ -73,11 +73,13 @@ class InterestsViewController: BaseViewController<InterestsView> {
         bindCategoryImage()
         didSelectedCell()
         nextButtonClicked()
-        self.viewModel.input.getCategoryImageTrigger.onNext(())
+        viewModel.viewDidLoadAction()
+//        self.viewModel.input.getCategoryImageTrigger.onNext(())
     }
     
     private func configureCell() {
         rootView.categoryCollectionView.register(categoryImageCollectionViewCell.self, forCellWithReuseIdentifier: categoryImageCollectionViewCell.identifier)
+        
         rootView.categoryCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
     }
