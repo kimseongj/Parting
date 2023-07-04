@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import RxSwift
 
 class SplashViewModel: BaseViewModel {
     struct Input {
-        
+        let showJoinViewController: PublishSubject<Void> = PublishSubject()
     }
     
     struct Output {
@@ -20,11 +21,21 @@ class SplashViewModel: BaseViewModel {
     var output: Output
     
     private weak var coordinator: JoinCoordinator?
+    private let disposeBag = DisposeBag()
     
     init(input: Input = Input(), output: Output = Output(), coordinator: JoinCoordinator?) {
         self.input = input
         self.output = output
         self.coordinator = coordinator
+        viewChangeTrgger()
+    }
+    
+    private func viewChangeTrgger() {
+        input.showJoinViewController
+            .subscribe(onNext: { _ in
+                self.showJoinViewController()
+            })
+            .disposed(by: disposeBag)
     }
     
     func showJoinViewController() {

@@ -20,6 +20,8 @@ class BaseView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func makeConfigures() {}
+    func makeConfigures() {
+        self.backgroundColor = AppColor.white
+    }
     func makeConstraints() {}
 }
