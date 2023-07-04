@@ -30,13 +30,13 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     var gender: String = ""
     var nickName: String = ""
     var birthDate: String = ""
-    var sidosigunguText: String = ""
     var sigunguRow: Int = 0
     
     var checkJobButtonSelected = false
     var checkGenderButtonSelected = false
     var checkNicknameValidate = false
     var checkNicknameDuplicated = false
+    var isValidState: Bool = false
     
     init(viewModel: EssentialInfoViewModel) {
         self.viewModel = viewModel
@@ -87,21 +87,21 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         rootView.nickNameTextField.rx.text
             .orEmpty
             .distinctUntilChanged()
-            .subscribe(onNext: {[weak self] text in
-                guard let self else { return }
-                let flag = self.viewModel.nicknameValidCheck(text)
+            .withUnretained(self)
+            .subscribe(onNext: {owner, text in
+                let flag = owner.viewModel.nicknameValidCheck(text)
                 if(flag) {
                     //MARK: - 버튼 활성화
                     print("가입 가능한 닉네임 입니다✅✅")
-                    self.rootView.duplicatedNickNameCheckButton.isEnabled = true
-                    self.rootView.duplicatedNickNameCheckButton.setTitleColor(.black, for: .normal)
-                    self.rootView.duplicatedNickNameCheckButton.layer.borderColor = UIColor.black.cgColor
-                    checkNicknameValidate = true
+                    owner.rootView.duplicatedNickNameCheckButton.isEnabled = true
+                    owner.rootView.duplicatedNickNameCheckButton.setTitleColor(.black, for: .normal)
+                    owner.rootView.duplicatedNickNameCheckButton.layer.borderColor = UIColor.black.cgColor
+                    owner.checkNicknameValidate = true
                 } else {
-                    self.rootView.duplicatedNickNameCheckButton.isEnabled = false
-                    self.rootView.duplicatedNickNameCheckButton.setTitleColor(UIColor(hexcode: "A7B0C0"), for: .normal)
-                    self.rootView.duplicatedNickNameCheckButton.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
-                    checkNicknameValidate = false
+                    owner.rootView.duplicatedNickNameCheckButton.isEnabled = false
+                    owner.rootView.duplicatedNickNameCheckButton.setTitleColor(UIColor(hexcode: "A7B0C0"), for: .normal)
+                    owner.rootView.duplicatedNickNameCheckButton.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
+                    owner.checkNicknameValidate = false
                 }
             })
             .disposed(by: disposeBag)
@@ -166,14 +166,14 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     // MARK: - BirthDate TextField Configure
     private func birthDateConfigure() {
         self.viewModel.output.birthDateData
-            .filter { $0 != nil }
-            .subscribe(onNext: { [weak self] date in
-                guard let self else { return }
+            .withUnretained(self)
+            .subscribe(onNext: { owner, date in
                 guard let date = date else { return }
-                self.rootView.yearTextField.text = date[0]
-                self.rootView.monthTextField.text = date[1]
-                self.rootView.dayTextField.text = date[2]
-                self.birthDate = date[0] + "-" + date[1] + "-" + date[2]
+                owner.rootView.yearTextField.text = date[0]
+                owner.rootView.monthTextField.text = date[1]
+                owner.rootView.dayTextField.text = date[2]
+                owner.birthDate = date[0] + "-" + date[1] + "-" + date[2]
+                owner.viewModel.checkBirthNotEmpty.accept(owner.birthDate)
             })
             .disposed(by: disposeBag)
     }
@@ -335,14 +335,24 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
             })
             .disposed(by: disposeBag)
         
+        rootView.sidoTextField.rx.text
+            .withUnretained(self)
+            .subscribe(onNext: { owner, text in
+                owner.viewModel.checkAddressNotEmpty.accept(text)
+            })
+            .disposed(by: disposeBag)
+        
+        rootView.sigugunTextField.rx.text
+            .withUnretained(self)
+            .subscribe(onNext: { owner, text in
+                owner.viewModel.checkAddressNotEmpty.accept(text)
+            })
+            .disposed(by: disposeBag)
+        
         viewModel.isValidForm
-            .subscribe(onNext: { flag in
-                print("\(flag) 👀👀")
-                if flag{
-                    self.viewModel.input.pushInterestsViewTrigger.onNext(())
-                } else {
-                    print("다음단계로 버튼을 다시 검사해야해 🤢🤢🤢")
-                }
+            .withUnretained(self)
+            .subscribe(onNext: {owner, flag in
+                owner.isValidState = flag
             })
             .disposed(by: disposeBag)
     }
@@ -401,12 +411,13 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     // MARK: 다음단계로 버튼 클릭
     private func nextButtonClicked() {
         rootView.nextStepButton.rx.tap
-            .subscribe(onNext: { _ in
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
                 print("버튼 클릭중")
-                self.canGoNextStepBindings()
+                owner.viewModel.tapNextButton(isValid: owner.isValidState)
                 guard let text = self.rootView.nickNameTextField.text else { return }
-                self.nickName = text
-                self.viewModel.postEssentialInfo(self.birthDate, self.job, self.nickName, self.gender, self.sigugunCDData?[self.sigunguRow] ?? 0)
+                owner.nickName = text
+                owner.viewModel.postEssentialInfo(owner.birthDate, owner.job, owner.nickName, owner.gender, owner.sigugunCDData?[owner.sigunguRow] ?? 0)
             })
             .disposed(by: disposeBag)
     }
@@ -433,25 +444,6 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     // MARK: 네비게이션 바 Back Button Click
     @objc private func backBarButtonClicked() {
         viewModel.input.popEssentialViewTrigger.onNext(())
-    }
-    
-    // MARK: - 다음단계로 가는 버튼 유효성 검사
-    private func canGoNextStepBindings() {
-        // MARK: - jobAndGenderButton이 선택되어 있는지 Check
-        viewModel.checkJobAndGenderButtonisSelected.accept(checkJobButtonSelected && checkGenderButtonSelected)
-        // rx.isEnabled를 옵저버블로 합쳐서(jobButton, GenderButton)
-        
-        // MARK: - addressTextField가 채워져있는지 Check
-        viewModel.checkAddressNotEmpty.accept(sidosigunguText)
-        
-        // MARK: - birthTextField가 채워져있는지 Check
-        viewModel.checkBirthNotEmpty.accept(birthDate) // ViewModel에서 바로 사용하면 됨
-        
-        // MARK: - nickNameValidate가 검사되었는지 Check
-        viewModel.checkNicknameValidate.accept(checkNicknameValidate)
-        
-        // MARK: - nickNameDuplicated가 검사되었는지 Check
-        viewModel.checkNicknameDuplicated.accept(checkNicknameDuplicated)
     }
 }
 
@@ -491,7 +483,6 @@ extension EssentialInfoViewController: UIPickerViewDataSource {
             guard let selectedName = sidoListData?[selected] else { return "" }
             let data = sidoCDDict?[selectedName] ?? 0
             sigugunListData = sigunguCDDict?[data]
-            print("\(row) 이병헌")
             if let sigugunListData = sigugunListData, row < sigugunListData.count {
                 let sigugunList = sigugunListData[row]
                 return sigugunList
@@ -511,20 +502,14 @@ extension EssentialInfoViewController: UIPickerViewDataSource {
             guard let data = sidoListData else { return }
             rootView.sidoTextField.text = data[row]
             guard let text = rootView.sidoTextField.text else { return }
-            sidosigunguText += text
         case 1:
             let selected = regionPicker.selectedRow(inComponent: 0)
-            print("\(selected) 선택한 시도 ROW")
             let selectedName = sidoListData?[selected]
-            print("\(selectedName) 선택한 시도이름 ROW")
             let data = sidoCDDict?[selectedName ?? ""] ?? 0
-            print("\(data) 선택한 시도의 시도CD")
             if row <= sigunguCDDict?[data]?.count ?? 0 {
                 rootView.sigugunTextField.text = sigunguCDDict?[data]?[row] ?? ""
-                print("\(data) \(row) 선택한 시도의 시군구 이름")
             }
             guard let text = rootView.sigugunTextField.text else { return }
-            sidosigunguText += text
         default:
             break
         }

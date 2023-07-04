@@ -14,17 +14,32 @@ protocol EssentialInfoViewModelProtocol {
     var jobState: PublishRelay<Int> { get }
     var nickNameValidateState: PublishRelay<Int> { get }
     var nickNameDuplicateState: PublishRelay<Bool> { get }
+    var isValidForm: Observable<Bool> { get }
     
+    func tapNextButton(isValid: Bool)
     func tapGenderButton(gender: Int)
     func tapJobButton(job: Int)
     func tapDuplicatedCheckButton(nickName: String)
+    func postEssentialInfo(_ birth: String, _ job: String, _ nickName: String, _ sex: String, _ sigunguCd: Int)
 }
 
 class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtocol {
+    
     var nickNameValidateState: PublishRelay<Int> = PublishRelay()
     var nickNameDuplicateState: PublishRelay<Bool> = PublishRelay()
     var genderState: PublishRelay<Int> = PublishRelay()
     var jobState: PublishRelay<Int> = PublishRelay()
+    
+    // MARK: - 성별 직업 버튼 선택 여부
+    var jobAndGenderButtonState: Observable<Bool> {
+        Observable.combineLatest(genderState, jobState) { genderState, jobState  in
+            if (genderState == 0 || genderState == 1) && (jobState == 0 || jobState == 1) {
+                return true
+            } else {
+                return false
+            }
+        }
+    }
     
     func tapGenderButton(gender: Int) {
         genderState.accept(gender)
@@ -32,6 +47,13 @@ class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtocol {
     
     func tapJobButton(job: Int) {
         jobState.accept(job)
+        
+    }
+    
+    func tapNextButton(isValid: Bool) {
+        if isValid {
+            self.pushInterestsViewController()
+        }
     }
     
     func tapDuplicatedCheckButton(nickName: String) {
@@ -39,6 +61,29 @@ class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtocol {
             .withUnretained(self)
             .subscribe(onNext: { owner, data in
                 owner.nickNameDuplicateState.accept(data.isSuccess)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    // MARK: - 다음단계로 버튼 활성화 유효성 검사
+    var isValidForm: Observable<Bool> {
+        // check nickNameValidate -> Bool Type
+        // check nickNameDuplicated -> Bool Type
+        // check birth TextField Not empty
+        // check sido, sigungu TextField Not empty
+        // check Button selected -> Bool Type
+        return Observable.combineLatest(checkNicknameValidate, nickNameDuplicateState, checkBirthNotEmpty, checkAddressNotEmpty, jobAndGenderButtonState) { nicknameValidate, nickNameDuplicated, birth, address, jobAndGender in
+         
+            guard birth != nil && address != nil else { return false }
+            print("\(nicknameValidate) \(nickNameDuplicated)  \(jobAndGender)  \(!address!.isEmpty) \(!birth!.isEmpty)")
+            // 위의 조건에 따른 return
+            return nicknameValidate && nickNameDuplicated && jobAndGender && !address!.isEmpty && !birth!.isEmpty
+        }
+    }
+    
+    func postEssentialInfo(_ birth: String, _ job: String, _ nickName: String, _ sex: String, _ sigunguCd: Int) {
+        APIManager.shared.enterEssentialInfo(birth, job, nickName, sex, sigunguCd)
+            .subscribe(onNext: { data in
             })
             .disposed(by: disposeBag)
     }
@@ -79,11 +124,9 @@ class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtocol {
     var sidoCDDict: [String: Int] = [:]
     
     let checkNicknameValidate = BehaviorRelay<Bool>(value: false)
-    let checkNicknameDuplicated = BehaviorRelay<Bool>(value: false)
     let checkBirthNotEmpty = BehaviorRelay<String?>(value: nil)
     let checkAddressNotEmpty = BehaviorRelay<String?>(value: nil)
-    let checkJobAndGenderButtonisSelected = BehaviorRelay<Bool>(value: false)
-    
+
     private weak var coordinator: JoinCoordinator?
     private let disposeBag = DisposeBag()
     
@@ -96,35 +139,11 @@ class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtocol {
         getAddress()
     }
     
-    // MARK: - 다음단계로 버튼 활성화 유효성 검사
-    var isValidForm: Observable<Bool> {
-        // check nickNameValidate
-        // check nickNameDuplicated
-        // check birth TextField Not empty
-        // check sido, sigungu TextField Not empty
-        // check Button selected
-        return Observable.combineLatest(checkNicknameValidate, checkNicknameDuplicated, checkBirthNotEmpty, checkAddressNotEmpty, checkJobAndGenderButtonisSelected) { nicknameValidate, nickNameDuplicated, birth, address, jobAndGender in
-         
-            guard birth != nil && address != nil else { return false }
-            
-            // 위의 조건에 따른 return
-            return nicknameValidate && nickNameDuplicated && jobAndGender && !address!.isEmpty && !birth!.isEmpty
-        }
-    }
-    
-    func postEssentialInfo(_ birth: String, _ job: String, _ nickName: String, _ sex: String, _ sigunguCd: Int) {
-        APIManager.shared.enterEssentialInfo(birth, job, nickName, sex, sigunguCd)
-            .subscribe(onNext: { data in
-                print("\(data) 🔥🔥")
-            })
-            .disposed(by: disposeBag)
-    }
-    
     //MARK: - 닉네임 정규식 표현
     func nicknameValidCheck(_ nickname: String) -> Bool {
-        
         let regexPattern = "^[a-zA-Z0-9가-힣_-]{2,16}$"
         let nicknamePredicate = NSPredicate(format: "SELF MATCHES %@", regexPattern)
+        self.checkNicknameValidate.accept(nicknamePredicate.evaluate(with: nickname))
         return nicknamePredicate.evaluate(with: nickname)
     }
     
