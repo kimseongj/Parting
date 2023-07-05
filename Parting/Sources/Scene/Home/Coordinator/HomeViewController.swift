@@ -28,7 +28,7 @@ class HomeViewController: BaseViewController<HomeView> {
 		super.viewDidLoad()
 		navigationUI()
 		bindViewModel()
-		
+		APIManager.shared.getCategoryAPI()
 	}
 	
 	private func navigationUI() {

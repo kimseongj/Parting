@@ -7,7 +7,16 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 import AuthenticationServices
+import KakaoSDKUser
+import KakaoSDKAuth
+import KakaoSDKCommon
+
+struct GetCategoryImage {
+    static var imageURLList = [String]()
+    static var imageNameList = [String]()
+}
 
 class JoinViewController: BaseViewController<JoinView> {
 	private let viewModel: JoinViewModel
@@ -39,6 +48,42 @@ class JoinViewController: BaseViewController<JoinView> {
         super.viewDidLoad()
         navigationUI()
         rootView.appleLoginButton.addTarget(self, action: #selector(appleLoginButtonClicked), for: .touchUpInside)
+        rootView.kakaoLoginButton.addTarget(self, action: #selector(kakaoLoginButtonClicked), for: .touchUpInside)
+    }
+    
+    @objc func kakaoLoginButtonClicked() {
+        if(AuthApi.hasToken()) { // 토큰이 있는 경우
+            UserApi.shared.accessTokenInfo { (accessTokenInfo, error) in
+                if let error = error {
+                    if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true {
+                        //MARK: - 로그인 필요함
+                    } else {
+                        //MARK: - 기타 에러
+                    }
+                } else {
+                    //MARK: - 토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
+                    // 이미 토큰을 발급받은 상태이기 때문에, 홈화면으로 이동하거나 해당하는 화면에 대한 분기처리
+                    guard let alreadyToken = accessTokenInfo else { return }
+                    print("이미 토큰을 발급받았습니다. \(alreadyToken)")
+                    self.viewModel.input.viewChangeTrigger.onNext(())
+                }
+            }
+        } else {
+            //MARK: - 로그인 필요 (토큰이 없는 경우)
+            if(UserApi.isKakaoTalkLoginAvailable()) {
+                UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+                    if let error = error {
+                        print(error)
+                    } else {
+                        print("loginWithKakaoAccount() success.")
+                        guard let loginToken = oauthToken else { return }
+                        print("\(loginToken.accessToken) 이건 로그인 토큰이야 💛💛")
+                        self.viewModel.input.viewChangeTrigger.onNext(())
+
+                    }
+                }
+            }
+        }
     }
     
     @objc func appleLoginButtonClicked() {
