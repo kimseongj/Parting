@@ -17,7 +17,9 @@ class APIManager {
         return Observable.create { emitter in
             let api = PartingAPI.detailCategory(categoryVersion: "1.0.0")
             guard let categoryURL = api.url else { return Disposables.create() }
-            AF.request(categoryURL, method: .get, headers: api.headers).validate(statusCode: 200...500).responseDecodable(of: CategoryResponse.self) { response in
+            AF.request(categoryURL, method: .get, headers: api.headers)
+				.validate(statusCode: 200...500)
+				.responseDecodable(of: CategoryResponse.self) { response in
                 print("카테고리 종류 API 상태코드 \(response.response?.statusCode) 🌱🌱")
                 switch response.result {
                 case let .success(value):
@@ -27,6 +29,7 @@ class APIManager {
                     emitter.onError(error)
                 }
             }
+			
             return Disposables.create()
         }
     }

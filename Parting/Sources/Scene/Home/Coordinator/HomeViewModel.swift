@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 class HomeViewModel: BaseViewModel {
 	
@@ -15,7 +16,8 @@ class HomeViewModel: BaseViewModel {
 	}
 	
 	struct Output {
-		
+		let categoryImages: BehaviorRelay<[String]> = BehaviorRelay(value: [])
+		let categoryNames: BehaviorRelay<[String]> = BehaviorRelay(value: [])
 	}
 	
 	private let disposeBag = DisposeBag()
@@ -38,7 +40,27 @@ class HomeViewModel: BaseViewModel {
 				self?.coordinator?.pushScheduleVC()
 			})
 			.disposed(by: disposeBag)
+		
+		bindCategory()
 	}
+	
+	private func bindCategory() {
+		
+		var imageDataList: [String] = []
+		var categoryNameList: [String] = []
+		
+		APIManager.shared.getCategoryAPI()
+			.withUnretained(self)
+			.subscribe(onNext: { owner, data in
+				for idx in 0..<data.result.categories.count {
+					imageDataList.append(data.result.categories[idx].imgURL)
+					categoryNameList.append(data.result.categories[idx].categoryName)
+				}
+				owner.output.categoryImages.accept(imageDataList)
+			})
+			.disposed(by: disposeBag)
+	}
+	
 	
 	
 }

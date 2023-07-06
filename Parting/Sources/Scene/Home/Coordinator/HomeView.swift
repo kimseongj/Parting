@@ -23,10 +23,7 @@ class HomeView: BaseView {
 	let navigationLabel = BarTitleLabel(text: "팟팅")
 	
 	let mainStackView: UIStackView = {
-		let view = UIStackView()
-		view.axis = .vertical
-		view.alignment = .firstBaseline
-		view.distribution = .equalSpacing
+		let view = StackView(axis: .vertical, alignment: .firstBaseline, distribution: .equalSpacing, spacing: 16.0)
 		view.backgroundColor = .white
 		return view
 	}()
@@ -48,6 +45,12 @@ class HomeView: BaseView {
 		return view
 	}()
 	
+	let categoryCollectionView: UICollectionView = {
+		let layout = UICollectionViewFlowLayout()
+		let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+		collectionView.isScrollEnabled = false
+		return collectionView
+	}()
 	
 	override func makeConfigures() {
 		self.backgroundColor = .white
@@ -57,10 +60,12 @@ class HomeView: BaseView {
 		mainStackView.addArrangedSubview(scheduleStackView)
 		scheduleStackView.addArrangedSubview(calendarWidget)
 		scheduleStackView.addArrangedSubview(dDayWidget)
+		
+		mainStackView.addArrangedSubview(categoryCollectionView)
 	}
 	
 	override func makeConstraints() {
-		
+
 		mainStackView.snp.makeConstraints { make in
 			make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(8)
 			make.left.equalToSuperview()
@@ -91,7 +96,12 @@ class HomeView: BaseView {
 			make.width.equalTo(snp.width).multipliedBy(widgetWidthMultiplier)
 			make.height.equalTo(dDayWidget.snp.width)
 		}
-		
+
+		categoryCollectionView.snp.makeConstraints { make in
+			make.left.equalToSuperview().offset(16)
+			make.right.equalToSuperview().offset(-16)
+			make.height.equalTo(UIScreen.main.bounds.height * 0.25)
+		}
 	}
 }
 

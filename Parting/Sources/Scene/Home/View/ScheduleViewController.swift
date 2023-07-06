@@ -32,7 +32,6 @@ class ScheduleViewController: BaseViewController<ScheduleView> {
 		navigationUI()
 		bindViewModel()
 		
-		
 	}
 
 	private func navigationUI() {

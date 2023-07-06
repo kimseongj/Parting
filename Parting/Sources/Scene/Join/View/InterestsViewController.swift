@@ -78,7 +78,7 @@ class InterestsViewController: BaseViewController<InterestsView> {
     }
     
     private func configureCell() {
-        rootView.categoryCollectionView.register(categoryImageCollectionViewCell.self, forCellWithReuseIdentifier: categoryImageCollectionViewCell.identifier)
+        rootView.categoryCollectionView.register(CategoryImageCollectionViewCell.self, forCellWithReuseIdentifier: CategoryImageCollectionViewCell.identifier)
         
         rootView.categoryCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
@@ -86,7 +86,7 @@ class InterestsViewController: BaseViewController<InterestsView> {
     
     private func bindCategoryImage() {
         viewModel.output.categoryImage
-            .bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: categoryImageCollectionViewCell.identifier, cellType: categoryImageCollectionViewCell.self)) {
+            .bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: CategoryImageCollectionViewCell.identifier, cellType: CategoryImageCollectionViewCell.self)) {
                 index, categoryImage, cell in
                 print("\(categoryImage) ▶️▶️")
                 cell.interestsImageView.kf.setImage(with: URL(string: categoryImage))
@@ -102,7 +102,7 @@ class InterestsViewController: BaseViewController<InterestsView> {
             .subscribe(onNext: {[weak self] indexPath in
                 print("\(indexPath[1]) 🚫🚫")
                 guard let self else {return}
-                guard let cell = self.rootView.categoryCollectionView.cellForItem(at: indexPath) as? categoryImageCollectionViewCell else { return }
+                guard let cell = self.rootView.categoryCollectionView.cellForItem(at: indexPath) as? CategoryImageCollectionViewCell else { return }
                 if cell.interestsImageView.alpha == 1 { // 선택이 이미 된 상태
                     if let firstIndex = selectedCellIndex.firstIndex(of: indexPath[1]+1) {
                         selectedCellIndex.remove(at: firstIndex)  // 1

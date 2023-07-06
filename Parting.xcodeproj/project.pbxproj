@@ -10,7 +10,7 @@
 		4E153FA82A34C37600C7F58C /* DetailInterestsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E153FA72A34C37600C7F58C /* DetailInterestsViewModel.swift */; };
 		4E153FAA2A34C39F00C7F58C /* DetailInterestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E153FA92A34C39F00C7F58C /* DetailInterestsViewController.swift */; };
 		4E153FAC2A34C3BB00C7F58C /* DetailInterestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E153FAB2A34C3BB00C7F58C /* DetailInterestsView.swift */; };
-		4E23293229FCEFB600455971 /* categoryImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23293129FCEFB600455971 /* categoryImageCollectionViewCell.swift */; };
+		4E23293229FCEFB600455971 /* CategoryImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23293129FCEFB600455971 /* CategoryImageCollectionViewCell.swift */; };
 		4E2874B92A2D98FB0000B24C /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2874B82A2D98FB0000B24C /* KakaoSDK */; };
 		4E3C856529F7AE920006BEB1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3C856429F7AE920006BEB1 /* BaseViewController.swift */; };
 		4E52227A29F11788000B96B4 /* JoinCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227929F11788000B96B4 /* JoinCompleteView.swift */; };
@@ -93,7 +93,7 @@
 		4E153FA72A34C37600C7F58C /* DetailInterestsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsViewModel.swift; sourceTree = "<group>"; };
 		4E153FA92A34C39F00C7F58C /* DetailInterestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsViewController.swift; sourceTree = "<group>"; };
 		4E153FAB2A34C3BB00C7F58C /* DetailInterestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsView.swift; sourceTree = "<group>"; };
-		4E23293129FCEFB600455971 /* categoryImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		4E23293129FCEFB600455971 /* CategoryImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E3C856429F7AE920006BEB1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		4E52227829F10541000B96B4 /* Parting.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Parting.entitlements; sourceTree = "<group>"; };
 		4E52227929F11788000B96B4 /* JoinCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCompleteView.swift; sourceTree = "<group>"; };
@@ -420,7 +420,7 @@
 				4E52228329F141AA000B96B4 /* EssentialInfoViewController.swift */,
 				4E52228929F18152000B96B4 /* InterestsView.swift */,
 				4E52228B29F18166000B96B4 /* InterestsViewController.swift */,
-				4E23293129FCEFB600455971 /* categoryImageCollectionViewCell.swift */,
+				4E23293129FCEFB600455971 /* CategoryImageCollectionViewCell.swift */,
 				4E153FA92A34C39F00C7F58C /* DetailInterestsViewController.swift */,
 				4E153FAB2A34C3BB00C7F58C /* DetailInterestsView.swift */,
 				4E6123BD2A3763720039307A /* detailCategoryCollectionViewCell.swift */,
@@ -663,7 +663,7 @@
 				4E3C856529F7AE920006BEB1 /* BaseViewController.swift in Sources */,
 				933B3CA02A55870E00B8D60B /* BarTitleLabel.swift in Sources */,
 				933B3CA22A55871400B8D60B /* ProgrammaticallyInitializableViewProtocol.swift in Sources */,
-				4E23293229FCEFB600455971 /* categoryImageCollectionViewCell.swift in Sources */,
+				4E23293229FCEFB600455971 /* CategoryImageCollectionViewCell.swift in Sources */,
 				4EA81DE229ED32680070F1B7 /* UILabel+Extension.swift in Sources */,
 				933B3CA62A55873A00B8D60B /* DdayWidgetView.swift in Sources */,
 				4EB2AC652A2E09EF0023F49A /* RegionResponse.swift in Sources */,
@@ -856,7 +856,7 @@
 				CODE_SIGN_ENTITLEMENTS = Parting/Parting.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4TP5C45KH5;
+				DEVELOPMENT_TEAM = 7B4FWR87D5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Parting/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -869,7 +869,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sihyun.Parting;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Parting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -888,7 +888,7 @@
 				CODE_SIGN_ENTITLEMENTS = Parting/Parting.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4TP5C45KH5;
+				DEVELOPMENT_TEAM = 7B4FWR87D5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Parting/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -901,7 +901,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sihyun.Parting;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Parting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
