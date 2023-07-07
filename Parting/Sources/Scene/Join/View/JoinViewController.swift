@@ -19,11 +19,11 @@ struct GetCategoryImage {
 }
 
 class JoinViewController: BaseViewController<JoinView> {
+	private let viewModel: JoinViewModel
     private let disposeBag = DisposeBag()
-    private var viewModel: JoinViewModel
     
     init(viewModel: JoinViewModel) {
-        self.viewModel = viewModel
+		self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -109,7 +109,7 @@ extension JoinViewController: ASAuthorizationControllerDelegate {
             
             let user = credential.user
             print(user)
-            self.viewModel.input.viewChangeTrigger.onNext(())
+			viewModel.input.viewChangeTrigger.onNext(())
         }
     }
     

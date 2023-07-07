@@ -39,7 +39,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     var isValidState: Bool = false
     
     init(viewModel: EssentialInfoViewModel) {
-        self.viewModel = viewModel
+		self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     

@@ -40,4 +40,5 @@ enum AppColor {
     static let baseText: UIColor = UIColor(hexcode: "000000")
     static let joinText: UIColor = UIColor(hexcode: "1D232E")
     static let white: UIColor = UIColor(hexcode: "FFFFFF")
+	static let lightPink: UIColor = UIColor(hexcode: "FFC7C7")
 }
