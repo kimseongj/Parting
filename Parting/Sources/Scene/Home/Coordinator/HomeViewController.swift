@@ -52,10 +52,7 @@ class HomeViewController: BaseViewController<HomeView> {
 			.disposed(by: disposeBag)
 		
 		viewModel.output.categoryImages
-			.bind(to: rootView.categoryCollectionView.rx.items) { [weak self] _, index, imgSrc in
-				guard let cell = self?.rootView.categoryCollectionView
-					.dequeueReusableCell(withReuseIdentifier: CategoryImageCollectionViewCell.identifier, for: IndexPath(index: index)) as? CategoryImageCollectionViewCell
-				else { return UICollectionViewCell() }
+			.bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: CategoryImageCollectionViewCell.identifier, cellType: CategoryImageCollectionViewCell.self)) { index, imgSrc, cell in
 				
 				cell.interestsImageView.kf.setImage(with: URL(string: imgSrc))
 				if let text = InterestsCategory(rawValue: index)?.category {
@@ -63,7 +60,6 @@ class HomeViewController: BaseViewController<HomeView> {
 					cell.interestsLabel.text = text + "팟"
 				}
 				cell.configureCell(type: .normal)
-				return cell
 			}.disposed(by: disposeBag)
 	}
 	
@@ -85,8 +81,6 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 		let itemWidth = (width - totalHorizontalSpacing) / columns
 		let itemHeight = (height - totalVerticalSpacing) / rows
 		let itemSize = CGSize(width: itemWidth, height: itemHeight)
-		
-		
 		
 		return itemSize
 	}

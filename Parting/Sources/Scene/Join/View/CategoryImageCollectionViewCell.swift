@@ -31,9 +31,9 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
     }()
     
     let interestStackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .vertical
-        view.distribution = .fillProportionally
+		let view = StackView(axis: .vertical, alignment: .fill, distribution: .equalSpacing, spacing: 8.0)
+//        view.axis = .vertical
+//        view.distribution = .fillProportionally
         return view
     }()
     
@@ -84,15 +84,15 @@ extension CategoryImageCollectionViewCell: ProgrammaticallyInitializableViewProt
 		
 		let width = self.frame.width
 
-		interestsImageView.snp.makeConstraints { make in
-			make.height.equalTo(width)
-			make.width.equalTo(width)
-		}
-		
-		interestsLabel.snp.makeConstraints { make in
-			make.top.equalTo(interestsImageView.snp.bottom).offset(5)
-			make.centerX.equalToSuperview()
-		}
+//		interestsImageView.snp.makeConstraints { make in
+//			make.height.equalTo(width)
+//			make.width.equalTo(width)
+//		}
+//
+//		interestsLabel.snp.makeConstraints { make in
+//			make.top.equalTo(interestsImageView.snp.bottom).offset(5)
+//			make.centerX.equalToSuperview()
+//		}
 	}
 	
 	
