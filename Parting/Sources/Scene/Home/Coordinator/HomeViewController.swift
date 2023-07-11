@@ -15,7 +15,7 @@ class HomeViewController: BaseViewController<HomeView> {
 	private var viewModel: HomeViewModel
 	
 	private let disposeBag = DisposeBag()
-
+	
 	init(viewModel: HomeViewModel) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
@@ -37,19 +37,32 @@ class HomeViewController: BaseViewController<HomeView> {
 		navigationController?.isNavigationBarHidden = false
 		self.navigationItem.rightBarButtonItem = rootView.bellBarButton
 		self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: rootView.navigationLabel)
-
+		
 	}
 	
 	private func configureCell() {
 		rootView.categoryCollectionView.register(CategoryImageCollectionViewCell.self, forCellWithReuseIdentifier: CategoryImageCollectionViewCell.identifier)
-		rootView.categoryCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+		
+		rootView.categoryCollectionView.rx.setDelegate(self)
+			.disposed(by: disposeBag)
+		
+		rootView.categoryCollectionView.rx.itemSelected
+			.subscribe { [weak self] indexPath in
+				self?.viewModel.pushPartyListVC(title: InterestsCategory(rawValue: indexPath[1])?.category ?? "Error")
+			}
+			.disposed(by: disposeBag)
+		
 		
 	}
+	
 	
 	private func bindViewModel() {
 		rootView.calendarWidget.rx.tap
 			.bind(to: viewModel.input.pushScheduleVCTrigger)
 			.disposed(by: disposeBag)
+		
+//		let cache = ImageCache.default
+//		cache.clearMemoryCache()
 		
 		viewModel.output.categoryImages
 			.bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: CategoryImageCollectionViewCell.identifier, cellType: CategoryImageCollectionViewCell.self)) { index, imgSrc, cell in
@@ -66,7 +79,7 @@ class HomeViewController: BaseViewController<HomeView> {
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
-
+	
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		let width: CGFloat = collectionView.frame.width
@@ -88,9 +101,9 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 		return 24.0 // height
 	}
-
+	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 		return 32.0 // horizontal spacing
-
+		
 	}
 }

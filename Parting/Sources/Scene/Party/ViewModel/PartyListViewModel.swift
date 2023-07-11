@@ -1,0 +1,50 @@
+//
+//  PartyListViewModel.swift
+//  Parting
+//
+//  Created by 김민규 on 2023/07/11.
+//
+
+import Foundation
+import RxSwift
+import RxCocoa
+
+class PartyListViewModel: BaseViewModel {
+	
+	struct Input {
+		let popVCTrigger = PublishSubject<Void>()
+	}
+	
+	struct Output {
+//		let categoryImages: BehaviorRelay<[String]> = BehaviorRelay(value: [])
+//		let categoryNames: BehaviorRelay<[String]> = BehaviorRelay(value: [])
+	}
+	
+	private let disposeBag = DisposeBag()
+	
+	var input: Input
+	var output: Output
+	
+	private weak var coordinator: HomeCoordinator?
+	
+	init(input: Input = Input(), output: Output = Output(), coordinator: HomeCoordinator?) {
+		// Home Coordinator?
+		self.input = input
+		self.output = output
+		self.coordinator = coordinator
+		setupBindings()
+	}
+	
+	private func setupBindings() {
+		input.popVCTrigger
+			.subscribe(onNext: { [weak self] in
+				self?.coordinator?.popVC()
+			})
+			.disposed(by: disposeBag)
+	}
+	
+	
+	
+	
+}
+

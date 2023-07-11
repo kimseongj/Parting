@@ -61,6 +61,8 @@ class HomeViewModel: BaseViewModel {
 			.disposed(by: disposeBag)
 	}
 	
-	
+	func pushPartyListVC(title: String) {
+		self.coordinator?.pushPartyListVC(title: title)
+	}
 	
 }

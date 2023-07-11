@@ -12,6 +12,7 @@ import RxCocoa
 class DetailInterestsViewModel: BaseViewModel {
     struct Input {
         let popDetailInterestsViewTrigger: PublishSubject<Void> = PublishSubject()
+		let naviagteToPublicScreenTrigger: PublishSubject<Void> =  PublishSubject()
     }
     
     struct Output {
@@ -42,6 +43,13 @@ class DetailInterestsViewModel: BaseViewModel {
                 self?.popDetailInterestsViewController()
             })
             .disposed(by: disposeBag)
+		
+		input.naviagteToPublicScreenTrigger
+			.subscribe(onNext: { [weak self] _ in
+				print(self?.coordinator?.delegate)
+				(self?.coordinator?.delegate as? AppCoordinator)?.connectMainFlow()
+			})
+			.disposed(by: disposeBag)
     }
     
     private func popDetailInterestsViewController() {
