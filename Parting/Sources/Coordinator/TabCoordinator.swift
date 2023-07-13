@@ -32,6 +32,10 @@ class TabCoordinator:  NSObject, Coordinator {
 		let homeCoordinator = HomeCoordinator(StyledNavigationController())
 		homeCoordinator.start()
 		childCoordinators.append(homeCoordinator)
+        
+        let myPageCoordinator = MyPageCoordinator(StyledNavigationController())
+        myPageCoordinator.start()
+        childCoordinators.append(myPageCoordinator)
 	}
 	
 	
@@ -53,6 +57,9 @@ class TabCoordinator:  NSObject, Coordinator {
 		if let items = tabBarController.tabBar.items {
 			items[0].selectedImage = .init(named: Images.icon.home)
 			items[0].image = .init(named: Images.icon.home)
+            
+            items[1].selectedImage = .init(named: Images.icon.home)
+            items[1].image = .init(named: Images.icon.home)
 		}
 	}
 }

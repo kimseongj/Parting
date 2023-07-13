@@ -19,9 +19,9 @@ class MyPageViewModel: BaseViewModel {
     var input: Input
     var output: Output
     
-    private var coordinator: HomeCoordinator?
+    private var coordinator: MyPageCoordinator?
     
-    init(input: Input = Input(), output: Output = Output(), coordinator: HomeCoordinator?) {
+    init(input: Input = Input(), output: Output = Output(), coordinator: MyPageCoordinator?) {
         self.input = input
         self.output = output
         self.coordinator = coordinator

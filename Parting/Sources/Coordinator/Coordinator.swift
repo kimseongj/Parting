@@ -14,10 +14,10 @@ protocol Coordinator: AnyObject {
     var childCoordinators: [Coordinator] { get set }
     var type: CoordinatorStyleCase { get }
 
+    init(_ navigationController: UINavigationController)
+    
     func start()
     func finish()
-
-    init(_ navigationController: UINavigationController)
 }
 
 extension Coordinator {

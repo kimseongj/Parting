@@ -6,6 +6,13 @@
 //
 
 import UIKit
+
+protocol MyPageCoordinatorProtocol: Coordinator {
+    //MARK: - MyPage에 해당하는 기능 프로토콜
+    
+    var MyPageViewController: MyPageViewController { get set }
+}
+
 final class MyPageCoordinator: Coordinator {
     weak var delegate: CoordinatorDelegate?
     var navigationController: UINavigationController
@@ -13,11 +20,17 @@ final class MyPageCoordinator: Coordinator {
     var type: CoordinatorStyleCase = .tab
     
     init(_ navigationController: UINavigationController) {
-        <#code#>
+        self.navigationController = navigationController
     }
     
     func start() {
-        
+        showMyPageVC()
+    }
+    
+    func showMyPageVC() {
+        let viewModel = MyPageViewModel(coordinator: self)
+        let vc = MyPageViewController(viewModel: viewModel)
+        navigationController.viewControllers = [vc]
     }
     
 }
