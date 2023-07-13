@@ -52,6 +52,7 @@
 		4EA5837729C04F4400BF4D7A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EA5837529C04F4400BF4D7A /* LaunchScreen.storyboard */; };
 		4EA633972A5FAAAB00F27386 /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA633962A5FAAAB00F27386 /* MyPageCoordinator.swift */; };
 		4EA633992A5FAB3900F27386 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA633982A5FAB3900F27386 /* MyPageViewController.swift */; };
+		4EA6339B2A5FAB6D00F27386 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA6339A2A5FAB6D00F27386 /* MyPageView.swift */; };
 		4EA81DDC29ED2D2A0070F1B7 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA81DDB29ED2D2A0070F1B7 /* SnapKit */; };
 		4EA81DDE29ED2D9A0070F1B7 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA81DDD29ED2D9A0070F1B7 /* SplashViewController.swift */; };
 		4EA81DE029ED2DC00070F1B7 /* JoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA81DDF29ED2DC00070F1B7 /* JoinView.swift */; };
@@ -136,6 +137,7 @@
 		4EA5837829C04F4400BF4D7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4EA633962A5FAAAB00F27386 /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		4EA633982A5FAB3900F27386 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		4EA6339A2A5FAB6D00F27386 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		4EA81DDD29ED2D9A0070F1B7 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		4EA81DDF29ED2DC00070F1B7 /* JoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinView.swift; sourceTree = "<group>"; };
 		4EA81DE129ED32680070F1B7 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 			isa = PBXGroup;
 			children = (
 				4EA633982A5FAB3900F27386 /* MyPageViewController.swift */,
+				4EA6339A2A5FAB6D00F27386 /* MyPageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -722,6 +725,7 @@
 				4EA81DE629ED41100070F1B7 /* UIView+Extension.swift in Sources */,
 				4EA633992A5FAB3900F27386 /* MyPageViewController.swift in Sources */,
 				933B3CA82A55874600B8D60B /* ScheduleView.swift in Sources */,
+				4EA6339B2A5FAB6D00F27386 /* MyPageView.swift in Sources */,
 				4E6123BE2A3763720039307A /* detailCategoryCollectionViewCell.swift in Sources */,
 				4E52228A29F18152000B96B4 /* InterestsView.swift in Sources */,
 				4ECEAE1129ED1F7F006AAF6B /* CoordinatorDelegate.swift in Sources */,
