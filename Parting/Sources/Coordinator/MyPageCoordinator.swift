@@ -12,9 +12,9 @@ final class MyPageCoordinator: Coordinator {
     
     var navigationController: UINavigationController
     
-    var childCoordinators: [Coordinator]
+    var childCoordinators: [Coordinator] = [Coordinator]()
     
-    var type: CoordinatorStyleCase
+    var type: CoordinatorStyleCase = .home // 메인화면
     
     
     
@@ -23,7 +23,7 @@ final class MyPageCoordinator: Coordinator {
     }
     
     func start() {
-        <#code#>
+        
     }
     
     func showMyPageVC() {
