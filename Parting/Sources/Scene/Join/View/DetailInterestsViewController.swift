@@ -7,7 +7,7 @@
 
 import UIKit
 import RxSwift
-
+import RxCocoa
 
 class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
     static let sectionBackgroundDecorationElementKind = "background"
@@ -37,6 +37,7 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
         setDataSource()
         headerViewResist()
         bindingCategoryData()
+        serviceStartButtonClicked()
     }
     
     private func setDataSource() {
@@ -55,6 +56,15 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
             
             return view
         }
+    }
+    
+    private func serviceStartButtonClicked() {
+        rootView.serviceStartButton.rx.tap
+            .subscribe(onNext: {[weak self] _ in
+                guard let self else { return }
+                self.viewModel.input.pushHomeViewControllerTrigger.onNext(())
+            })
+            .disposed(by: disposeBag)
     }
     
     private func bindingCategoryData() {

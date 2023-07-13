@@ -38,7 +38,7 @@ final class AppCoordinator: Coordinator {
         childCoordinators.append(joinCoordinator)
     }
 	
-	private func connectMainFlow() {
+	func connectMainFlow() {
 		let mainCoordinator = TabCoordinator(self.navigationController)
 		mainCoordinator.delegate = self
 		mainCoordinator.start()
@@ -71,7 +71,7 @@ extension AppCoordinator: CoordinatorDelegate {
 extension AppCoordinator {
 	var isLoggedIn: Bool {
 		// Check if user has logged in using key chain
-		return true
+		return false
 	}
 }
 

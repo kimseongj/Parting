@@ -12,6 +12,7 @@ import RxCocoa
 class DetailInterestsViewModel: BaseViewModel {
     struct Input {
         let popDetailInterestsViewTrigger: PublishSubject<Void> = PublishSubject()
+        let pushHomeViewControllerTrigger: PublishSubject<Void> = PublishSubject()
     }
     
     struct Output {
@@ -39,7 +40,15 @@ class DetailInterestsViewModel: BaseViewModel {
     private func viewChangeTrigger() {
         input.popDetailInterestsViewTrigger
             .subscribe(onNext: {[weak self] _ in
-                self?.popDetailInterestsViewController()
+                guard let self else { return }
+                self.popDetailInterestsViewController()
+            })
+            .disposed(by: disposeBag)
+        
+        input.pushHomeViewControllerTrigger
+            .subscribe(onNext: {[weak self] _ in
+                guard let self else { return }
+                (self.coordinator?.delegate as? AppCoordinator)?.connectMainFlow()
             })
             .disposed(by: disposeBag)
     }
