@@ -50,6 +50,7 @@
 		4EA5836D29C04F4200BF4D7A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5836C29C04F4200BF4D7A /* SceneDelegate.swift */; };
 		4EA5837429C04F4400BF4D7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EA5837329C04F4400BF4D7A /* Assets.xcassets */; };
 		4EA5837729C04F4400BF4D7A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EA5837529C04F4400BF4D7A /* LaunchScreen.storyboard */; };
+		4EA633972A5FAAAB00F27386 /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA633962A5FAAAB00F27386 /* MyPageCoordinator.swift */; };
 		4EA81DDC29ED2D2A0070F1B7 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA81DDB29ED2D2A0070F1B7 /* SnapKit */; };
 		4EA81DDE29ED2D9A0070F1B7 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA81DDD29ED2D9A0070F1B7 /* SplashViewController.swift */; };
 		4EA81DE029ED2DC00070F1B7 /* JoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA81DDF29ED2DC00070F1B7 /* JoinView.swift */; };
@@ -132,6 +133,7 @@
 		4EA5837329C04F4400BF4D7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4EA5837629C04F4400BF4D7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4EA5837829C04F4400BF4D7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4EA633962A5FAAAB00F27386 /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		4EA81DDD29ED2D9A0070F1B7 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		4EA81DDF29ED2DC00070F1B7 /* JoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinView.swift; sourceTree = "<group>"; };
 		4EA81DE129ED32680070F1B7 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 				4ECEAE1629ED2116006AAF6B /* AppCoordinator.swift */,
 				9348C1022A4FFA5D000F25A9 /* TabSubCoordinator.swift */,
 				933B3C982A55861F00B8D60B /* TabCoordinator.swift */,
+				4EA633962A5FAAAB00F27386 /* MyPageCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -670,6 +673,7 @@
 				933B3C9D2A5586E500B8D60B /* HomeViewController.swift in Sources */,
 				933B3C992A55861F00B8D60B /* TabCoordinator.swift in Sources */,
 				933B3C9F2A55870C00B8D60B /* BarImageButton.swift in Sources */,
+				4EA633972A5FAAAB00F27386 /* MyPageCoordinator.swift in Sources */,
 				4E89BC2F29C57DDD00BAE38A /* APIManager.swift in Sources */,
 				933B3C9A2A5586BF00B8D60B /* HomeCoordinator.swift in Sources */,
 				4ECEAE1329ED2043006AAF6B /* Coordinator.swift in Sources */,
