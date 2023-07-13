@@ -11,7 +11,7 @@ import RxCocoa
 
 class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     private let viewModel: EssentialInfoViewModel
-    private let disposeBag = DisposeBag()
+//    private let disposeBag = DisposeBag()
     private let datePicker = UIDatePicker()
     private let regionPicker = UIPickerView()
     
@@ -47,6 +47,10 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("EssetialInfoVC 메모리 해제")
+    }
+    
     // MARK: - viewDidLayoutSubviews
     override func viewDidLayoutSubviews() {
         checkButtonUI()
@@ -76,7 +80,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         rootView.duplicatedNickNameCheckButton.rx.tap
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
-                guard let text = self.rootView.nickNameTextField.text else { return }
+                guard let text = owner.rootView.nickNameTextField.text else { return }
                 owner.viewModel.tapDuplicatedCheckButton(nickName: text)
             })
             .disposed(by: disposeBag)
@@ -266,8 +270,8 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
                 owner.viewModel.tapGenderButton(gender: 0)
-                self.checkGenderButtonSelected = true
-                self.gender = "M"
+                owner.checkGenderButtonSelected = true
+                owner.gender = "M"
             })
             .disposed(by: disposeBag)
         
@@ -275,8 +279,8 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
                 owner.viewModel.tapGenderButton(gender: 1)
-                self.checkGenderButtonSelected = true
-                self.gender = "F"
+                owner.checkGenderButtonSelected = true
+                owner.gender = "F"
             })
             .disposed(by: disposeBag)
     }
@@ -415,7 +419,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
             .subscribe(onNext: { owner, _ in
                 print("버튼 클릭중")
                 owner.viewModel.tapNextButton(isValid: owner.isValidState)
-                guard let text = self.rootView.nickNameTextField.text else { return }
+                guard let text = owner.rootView.nickNameTextField.text else { return }
                 owner.nickName = text
                 owner.viewModel.postEssentialInfo(owner.birthDate, owner.job, owner.nickName, owner.gender, owner.sigugunCDData?[owner.sigunguRow] ?? 0)
             })

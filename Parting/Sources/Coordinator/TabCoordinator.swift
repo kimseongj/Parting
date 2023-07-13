@@ -12,18 +12,14 @@ import UIKit
 
 class TabCoordinator:  NSObject, Coordinator {
 	var delegate: CoordinatorDelegate?
-	
 	var navigationController: UINavigationController
-	
 	var tabBarController: UITabBarController
-	
 	var childCoordinators: [Coordinator] = []
-	
 	var type: CoordinatorStyleCase = .tab
 	
 	required init(_ navigationController: UINavigationController) {
 		self.navigationController = navigationController
-		self.tabBarController = UITabBarController()
+        self.tabBarController = .init()
 	}
 	
 	func start() {
@@ -59,9 +55,6 @@ class TabCoordinator:  NSObject, Coordinator {
 			items[0].image = .init(named: Images.icon.home)
 		}
 	}
-	
-	
-	
 }
 
 

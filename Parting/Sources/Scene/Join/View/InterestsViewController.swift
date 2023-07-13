@@ -48,7 +48,7 @@ enum InterestsCategory: Int, CaseIterable {
 
 class InterestsViewController: BaseViewController<InterestsView> {
     private let viewModel: InterestsViewModel
-    private let disposeBag = DisposeBag()
+//    private let disposeBag = DisposeBag()
     private var checkedCategoryList: [Int] = [1,2,3,4,5,6,7,8]
     private var selectedCellIndex: [Int] = []
     
@@ -59,6 +59,10 @@ class InterestsViewController: BaseViewController<InterestsView> {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("InterestsVC 메모리 해제")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,7 +78,6 @@ class InterestsViewController: BaseViewController<InterestsView> {
         didSelectedCell()
         nextButtonClicked()
         viewModel.viewDidLoadAction()
-//        self.viewModel.input.getCategoryImageTrigger.onNext(())
     }
     
     private func configureCell() {
@@ -123,7 +126,8 @@ class InterestsViewController: BaseViewController<InterestsView> {
     private func nextButtonClicked() {
         //MARK: - 보내야 할 데이터: EssentialView에서 선택할 관심사 배열, 배열하나만 보내면 카운트 갯수만큼 컬렉션 뷰 Cell 생성, 배열의 원소(인덱스)를 통해 통신.
         rootView.nextStepButton.rx.tap
-            .subscribe(onNext: { _ in
+            .subscribe(onNext: { [weak self] _ in
+                guard let self else { return }
                 self.viewModel.input.pushDetailInterestViewTrigger.onNext(self.selectedCellIndex)
             })
             .disposed(by: disposeBag)

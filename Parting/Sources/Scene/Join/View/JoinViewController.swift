@@ -20,7 +20,7 @@ struct GetCategoryImage {
 
 class JoinViewController: BaseViewController<JoinView> {
 	private let viewModel: JoinViewModel
-    private let disposeBag = DisposeBag()
+//    private let disposeBag = DisposeBag()
     
     init(viewModel: JoinViewModel) {
 		self.viewModel = viewModel
@@ -29,6 +29,10 @@ class JoinViewController: BaseViewController<JoinView> {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("JoinVC 메모리 해제")
     }
     
     override func viewDidLayoutSubviews() {

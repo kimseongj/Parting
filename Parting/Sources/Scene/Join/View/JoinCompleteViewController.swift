@@ -11,9 +11,8 @@ import RxCocoa
 
 class JoinCompleteViewController: BaseViewController<JoinCompleteView> {
     private let viewModel: JoinCompleteViewModel
-    private let disposeBag = DisposeBag()
+//    private let disposeBag = DisposeBag()
 
-    
     init(viewModel: JoinCompleteViewModel) {
 		self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -21,6 +20,10 @@ class JoinCompleteViewController: BaseViewController<JoinCompleteView> {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("JoinCompleteVC 메모리 해제")
     }
     
     override func viewDidLoad() {
@@ -31,7 +34,7 @@ class JoinCompleteViewController: BaseViewController<JoinCompleteView> {
     
     private func writeButtonClicked() {
         rootView.writeInfoButton.rx.tap
-            .subscribe(onNext: {[weak self] _ in
+            .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
 				viewModel.input.pushEssentialInfoViewTrigger.onNext(())
             })

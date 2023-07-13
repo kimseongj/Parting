@@ -14,9 +14,7 @@ class ScheduleViewController: BaseViewController<ScheduleView> {
 
 	private var viewModel: ScheduleViewModel
 
-	private let disposeBag = DisposeBag()
-	
-	
+//	private let disposeBag = DisposeBag()
 	
 	init(viewModel: ScheduleViewModel) {
 		self.viewModel = viewModel

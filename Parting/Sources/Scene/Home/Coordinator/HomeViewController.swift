@@ -13,8 +13,7 @@ import Kingfisher
 class HomeViewController: BaseViewController<HomeView> {
 	
 	private var viewModel: HomeViewModel
-	
-	private let disposeBag = DisposeBag()
+//	private let disposeBag = DisposeBag()
 
 	init(viewModel: HomeViewModel) {
 		self.viewModel = viewModel

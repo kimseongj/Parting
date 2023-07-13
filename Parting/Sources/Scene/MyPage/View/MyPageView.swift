@@ -7,14 +7,15 @@
 
 import UIKit
 
-class MyPageView: UIView {
+class MyPageView: BaseView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    let navigationLabel: BarTitleLabel = BarTitleLabel(text: "마이페이지")
+    
+    override func makeConfigures() {
+        
     }
-    */
-
+    
+    override func makeConstraints() {
+        
+    }
 }

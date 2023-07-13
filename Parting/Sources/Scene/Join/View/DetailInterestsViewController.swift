@@ -12,7 +12,7 @@ import RxCocoa
 class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
     static let sectionBackgroundDecorationElementKind = "background"
     private let viewModel: DetailInterestsViewModel
-    private let disposeBag = DisposeBag()
+//    private let disposeBag = DisposeBag()
     private var categoryTitle: [String] = []
     private var categoryDetailLists: [[String]] = []
     private var cellIdxList: [Int] = []
@@ -28,6 +28,10 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("DetailInterestsVC 메모리 해제")
     }
     
     override func viewDidLoad() {

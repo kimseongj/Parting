@@ -149,26 +149,26 @@ class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtocol {
     
     private func datePickerValueChanged() {
         input.BirthTextFieldTrigger
-            .subscribe(onNext: { date in
+            .subscribe(onNext: { [weak self] date in
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 let dateString = dateFormatter.string(from: date)
                 let birthDate: [String] = dateString.split(separator: "-").map{String($0)}
-                self.output.birthDateData.accept(birthDate)
+                self?.output.birthDateData.accept(birthDate)
             })
             .disposed(by: disposeBag)
     }
     
     private func viewChangeTrigger() {
         input.popEssentialViewTrigger
-            .subscribe(onNext:{ _ in
-                self.popEssentialInfoViewController()
+            .subscribe(onNext:{ [weak self] _ in
+                self?.popEssentialInfoViewController()
             })
             .disposed(by: disposeBag)
         
         input.pushInterestsViewTrigger
-            .subscribe(onNext: { _ in
-                self.pushInterestsViewController()
+            .subscribe(onNext: { [weak self] _ in
+                self?.pushInterestsViewController()
             })
             .disposed(by: disposeBag)
     }

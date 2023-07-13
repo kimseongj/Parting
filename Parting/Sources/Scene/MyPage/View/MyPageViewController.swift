@@ -6,13 +6,30 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-class MyPageViewController: UIViewController {
+class MyPageViewController: BaseViewController<MyPageView> {
+    
+    private var viewModel: MyPageViewModel
+    
+    init(viewModel: MyPageViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        navigationUI()
     }
     
+    private func navigationUI() {
+        navigationController?.isNavigationBarHidden = false
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: rootView.navigationLabel)
+    }
 }
