@@ -16,13 +16,18 @@ final class MyPageCoordinator: Coordinator {
     
     var type: CoordinatorStyleCase
     
-    func start() {
-        <#code#>
-    }
+    
     
     init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
+    func start() {
+        <#code#>
+    }
+    
+    func showMyPageVC() {
+        
+    }
     
 }
