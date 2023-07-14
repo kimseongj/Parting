@@ -12,7 +12,7 @@ class MyPageView: BaseView {
     let navigationLabel: BarTitleLabel = BarTitleLabel(text: "마이페이지")
     
     override func makeConfigures() {
-        
+        super.makeConfigures()
     }
     
     override func makeConstraints() {
