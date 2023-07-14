@@ -36,6 +36,8 @@ class TabCoordinator:  NSObject, Coordinator {
         let myPageCoordinator = MyPageCoordinator(StyledNavigationController())
         myPageCoordinator.start()
         childCoordinators.append(myPageCoordinator)
+        
+    
 	}
 	
 	
