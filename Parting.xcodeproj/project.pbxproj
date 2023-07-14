@@ -25,6 +25,7 @@
 		4E52228F29F27DA8000B96B4 /* customStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52228E29F27DA8000B96B4 /* customStackView.swift */; };
 		4E5443192A61323D0074F654 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5443182A61323D0074F654 /* MapCoordinator.swift */; };
 		4E54431B2A6132990074F654 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E54431A2A6132990074F654 /* MapViewController.swift */; };
+		4E54431D2A6132B40074F654 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E54431C2A6132B40074F654 /* MapViewModel.swift */; };
 		4E6123BC2A36C1100039307A /* CategoryDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6123BB2A36C1100039307A /* CategoryDetailResponse.swift */; };
 		4E6123BE2A3763720039307A /* detailCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6123BD2A3763720039307A /* detailCategoryCollectionViewCell.swift */; };
 		4E6123C02A39B0BC0039307A /* CustomGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6123BF2A39B0BC0039307A /* CustomGroupView.swift */; };
@@ -114,6 +115,7 @@
 		4E52228E29F27DA8000B96B4 /* customStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customStackView.swift; sourceTree = "<group>"; };
 		4E5443182A61323D0074F654 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		4E54431A2A6132990074F654 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		4E54431C2A6132B40074F654 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		4E6123BB2A36C1100039307A /* CategoryDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailResponse.swift; sourceTree = "<group>"; };
 		4E6123BD2A3763720039307A /* detailCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E6123BF2A39B0BC0039307A /* CustomGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGroupView.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 		4E89BC4529C5E12C00BAE38A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				4E54431C2A6132B40074F654 /* MapViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -691,6 +694,7 @@
 				933B3C9F2A55870C00B8D60B /* BarImageButton.swift in Sources */,
 				4E89BC2F29C57DDD00BAE38A /* APIManager.swift in Sources */,
 				933B3C9A2A5586BF00B8D60B /* HomeCoordinator.swift in Sources */,
+				4E54431D2A6132B40074F654 /* MapViewModel.swift in Sources */,
 				4ECEAE1329ED2043006AAF6B /* Coordinator.swift in Sources */,
 				4E783FAA29EABF3E008B3E48 /* JoinViewController.swift in Sources */,
 				4EA6339F2A5FECC700F27386 /* MyPageCoordinator.swift in Sources */,
