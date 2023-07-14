@@ -10,7 +10,7 @@ import UIKit
 protocol MapCoordinatorProtocol: Coordinator {
     //MARK: - MyPage에 해당하는 기능 프로토콜
     
-//    var MapViewController: MapViewController { get set }
+    var MapViewController: MapViewController { get set }
 }
 
 final class MapCoordinator: Coordinator {
@@ -24,11 +24,12 @@ final class MapCoordinator: Coordinator {
     }
     
     func start() {
-        showMyPageVC()
+        showMapVC()
     }
     
-    func showMyPageVC() {
-        
+    func showMapVC() {
+        let viewModel = MapViewModel(mapCoordinator: self)
+        let vc = MapViewController()
     }
     
 }
