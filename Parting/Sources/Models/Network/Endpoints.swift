@@ -9,7 +9,8 @@ import Foundation
 import Alamofire
 
 enum PartingAPI {
-    case detailCategory
+    case detailCategory(categoryVersion: String)
+    case associatedCategory(categoryId: Int)
     case oauthKaKao
     case oauthLogout
     case isMemeber
@@ -29,49 +30,53 @@ enum PartingAPI {
     case partyDday
     case checkMypage
     case checkNickname(nickName: String)
-    case essentialInfo
+    case essentialInfo(birth: String, job: String, nickName: String, sex: String, sigunguCd: Int)
     case interest
     case modifyInfo
 }
 
 extension PartingAPI {
-    var url: URL? {
+    var url: String? {
         switch self {
-        case .detailCategory:
-            return URL(string: "\(BaseURL.baseURL)/category-sortby")
+        case let .associatedCategory(categoryId):
+            return  "\(BaseURL.baseURL)/categoryId/\(categoryId)/associated-category"
+        case let .detailCategory(categoryVersion):
+            return  "\(BaseURL.baseURL)/category-sortby/category-version/0.0.9"
         case .oauthKaKao, .oauthLogout, .isMemeber, .tokenReissue:
-            return URL(string: "\(BaseURL.oauthURL)/")
+            return  "\(BaseURL.oauthURL)/"
         case .parties:
-            return URL(string: "\(BaseURL.baseURL)/parties")
+            return "\(BaseURL.baseURL)/parties"
         case .createParty:
-            return URL(string: "\(BaseURL.partyURL)")
+            return  "\(BaseURL.partyURL)"
         case .getPartyDetail, .modifyParty, .deleteParty, .calender, .recentView, .partyMember, .partyDday:
-            return URL(string: "\(BaseURL.partyURL)/calendar")
+            return  "\(BaseURL.partyURL)/calendar"
         case .region:
-            return URL(string: "\(BaseURL.baseURL)/region")
+            return  "\(BaseURL.baseURL)/region"
         case .reportParty:
-            return URL(string: "\(BaseURL.baseURL)/report/party")
+            return  "\(BaseURL.baseURL)/report/party"
         case .checkMyParty:
-            return URL(string: "\(BaseURL.baseURL)/my-party")
+            return  "\(BaseURL.baseURL)/my-party"
         case .checkEnteredParty:
-            return URL(string: "\(BaseURL.baseURL)/entered-party")
+            return  "\(BaseURL.baseURL)/entered-party"
         case .checkMypage:
-            return URL(string: "\(BaseURL.userURL)")
-        case .checkNickname, .essentialInfo, .interest, .modifyInfo:
-            return URL(string: "\(BaseURL.userURL)/")
+            return  "\(BaseURL.userURL)"
+        case .checkNickname:
+            return  "\(BaseURL.userURL)/check"
+        case .essentialInfo, .interest, .modifyInfo:
+            return  "\(BaseURL.userURL)/essential-information"
         }
     }
     
     var headers: HTTPHeaders {
         switch self {
-        case .detailCategory, .oauthKaKao, .oauthLogout, .isMemeber, .tokenReissue, .region, .reportParty, .checkEnteredParty, .partyDday, .checkMypage, .essentialInfo, .interest, .modifyInfo :
+        case .oauthKaKao, .oauthLogout, .isMemeber, .tokenReissue, .reportParty, .checkEnteredParty, .partyDday, .checkMypage, .interest, .modifyInfo :
             return [
-                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4MTU1MDk2MCwiZXhwIjoxNjgzOTcwMTYwfQ.p0ZDKKUVoydIpWiUbSsiM2qnzrfdGe1vX2wxlXKICC0"
+                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4NzU5MTI3MywiZXhwIjoxNjkwMDEwNDczfQ.03osK4IUE4VNDJ2fSclmtoXQprOn-opf5_LqfeT76RU"
             ]
-        case .parties, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calender, .recentView, .checkMyParty, .partyMember, .checkNickname:
+        case .parties, .associatedCategory, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calender, .region, .recentView, .checkMyParty, .partyMember, .detailCategory, .checkNickname, .essentialInfo:
             return [
-                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4MTU1MDk2MCwiZXhwIjoxNjgzOTcwMTYwfQ.p0ZDKKUVoydIpWiUbSsiM2qnzrfdGe1vX2wxlXKICC0",
-                    "Content-Type" : "application/json;charset=UTF-8"
+                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4NzU5MTI3MywiZXhwIjoxNjkwMDEwNDczfQ.03osK4IUE4VNDJ2fSclmtoXQprOn-opf5_LqfeT76RU",
+                    "Content-Type": "application/json;charset=UTF-8"
             ]
         }
     }
@@ -111,6 +116,14 @@ extension PartingAPI {
         case let .checkNickname(nickName):
             return [
                 "nickName": nickName
+            ]
+        case let .essentialInfo(birth, job, nickName, sex, sigunguCd):
+            return [
+                "birth": birth,
+                "job": job,
+                "nickName": nickName,
+                "sex": sex,
+                "sigunguCd": sigunguCd
             ]
         default:
             return ["":""]

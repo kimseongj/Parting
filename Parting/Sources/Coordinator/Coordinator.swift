@@ -14,10 +14,10 @@ protocol Coordinator: AnyObject {
     var childCoordinators: [Coordinator] { get set }
     var type: CoordinatorStyleCase { get }
 
+    init(_ navigationController: UINavigationController)
+    
     func start()
     func finish()
-
-    init(_ navigationController: UINavigationController)
 }
 
 extension Coordinator {
@@ -35,9 +35,9 @@ extension Coordinator {
             if currentCoordinator.type == type {
                 return currentCoordinator
             }
-            currentCoordinator.childCoordinators.forEach({ child in
+            currentCoordinator.childCoordinators.forEach { child in
                 stack.append(child)
-            })
+            }
         }
         return nil
     }
@@ -50,5 +50,9 @@ extension Coordinator {
                               animations: nil)
         }
     }
+	
+
+	
+	
 }
 

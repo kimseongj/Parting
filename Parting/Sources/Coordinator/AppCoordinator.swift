@@ -24,7 +24,11 @@ final class AppCoordinator: Coordinator {
     }
 
     func start() {
-        connectJoinFlow()
+		if isLoggedIn {
+			connectMainFlow()
+		} else {
+			connectJoinFlow()
+		}
     }
 
     private func connectJoinFlow() {
@@ -33,6 +37,17 @@ final class AppCoordinator: Coordinator {
         joinCoordinator.start()
         childCoordinators.append(joinCoordinator)
     }
+	
+	func connectMainFlow() {
+		let mainCoordinator = TabCoordinator(self.navigationController)
+		mainCoordinator.delegate = self
+		mainCoordinator.start()
+		childCoordinators.append(mainCoordinator)
+    }
+	
+
+	
+	
 }
 
 extension AppCoordinator: CoordinatorDelegate {
@@ -45,10 +60,18 @@ extension AppCoordinator: CoordinatorDelegate {
 
         switch childCoordinator.type {
         case .join:
-            self.connectJoinFlow()
+			self.connectJoinFlow()
         default:
             break
         }
     }
+}
+
+// MARK: Authentication
+extension AppCoordinator {
+	var isLoggedIn: Bool {
+		// Check if user has logged in using key chain
+		return false
+	}
 }
 
