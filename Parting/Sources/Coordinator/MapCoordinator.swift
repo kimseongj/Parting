@@ -29,7 +29,8 @@ final class MapCoordinator: Coordinator {
     
     func showMapVC() {
         let viewModel = MapViewModel(mapCoordinator: self)
-        let vc = MapViewController()
+        let vc = MapViewController(viewModel: viewModel)
+        navigationController.viewControllers = [vc]
     }
     
 }

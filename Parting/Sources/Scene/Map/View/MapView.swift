@@ -7,14 +7,15 @@
 
 import UIKit
 
-class MapView: UIView {
+class MapView: BaseView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    let navigationLabel: BarTitleLabel = BarTitleLabel(text: "지도로 보기")
+    
+    override func makeConfigures() {
+        super.makeConfigures()
     }
-    */
-
+    
+    override func makeConstraints() {
+        
+    }
 }

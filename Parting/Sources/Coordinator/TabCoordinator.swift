@@ -37,6 +37,9 @@ class TabCoordinator:  NSObject, Coordinator {
         myPageCoordinator.start()
         childCoordinators.append(myPageCoordinator)
         
+        let mapCoordinator = MapCoordinator(StyledNavigationController())
+        mapCoordinator.start()
+        childCoordinators.append(mapCoordinator)
     
 	}
 	
@@ -60,8 +63,11 @@ class TabCoordinator:  NSObject, Coordinator {
 			items[0].selectedImage = .init(named: Images.icon.home)
 			items[0].image = .init(named: Images.icon.home)
             
-            items[1].selectedImage = .init(named: Images.icon.home)
-            items[1].image = .init(named: Images.icon.home)
+            items[1].selectedImage = .init(named: Images.icon.compass)
+            items[1].image = .init(named: Images.icon.compass)
+            
+            items[2].selectedImage = .init(named: Images.icon.profile)
+            items[2].image = .init(named: Images.icon.profile)
 		}
 	}
 }
