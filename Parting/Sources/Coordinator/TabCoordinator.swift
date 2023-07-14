@@ -29,18 +29,22 @@ class TabCoordinator:  NSObject, Coordinator {
 	}
 	
 	private func startChildCoordinators() {
+        
+        //MARK: - tabBar에 넣는 순서대로 chilcCoordi에 추가
+        
 		let homeCoordinator = HomeCoordinator(StyledNavigationController())
 		homeCoordinator.start()
 		childCoordinators.append(homeCoordinator)
+        
+        
+        let mapCoordinator = MapCoordinator(StyledNavigationController())
+        mapCoordinator.start()
+        childCoordinators.append(mapCoordinator)
         
         let myPageCoordinator = MyPageCoordinator(StyledNavigationController())
         myPageCoordinator.start()
         childCoordinators.append(myPageCoordinator)
         
-        let mapCoordinator = MapCoordinator(StyledNavigationController())
-        mapCoordinator.start()
-        childCoordinators.append(mapCoordinator)
-    
 	}
 	
 	
