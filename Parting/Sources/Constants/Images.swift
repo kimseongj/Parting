@@ -15,5 +15,6 @@ enum Images {
 		static let bubble = "bubble.svg"
 		static let profile = "profile.circle.svg"
 		static let back = "back.svg"
+		static let locationMarker = "location.svg"
 	}
 }

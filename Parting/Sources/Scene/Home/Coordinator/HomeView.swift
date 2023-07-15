@@ -23,7 +23,7 @@ class HomeView: BaseView {
 	let navigationLabel = BarTitleLabel(text: "팟팅")
 	
 	let mainStackView: UIStackView = {
-		let view = StackView(axis: .vertical, alignment: .firstBaseline, distribution: .equalSpacing, spacing: 16.0)
+		let view = StackView(axis: .vertical, alignment: .firstBaseline, distribution: .equalSpacing, spacing: 8.0)
 		view.backgroundColor = .white
 		return view
 	}()
@@ -81,6 +81,8 @@ class HomeView: BaseView {
 			make.left.equalToSuperview().offset(16)
 			make.right.equalToSuperview().offset(-16)
 		}
+		
+		mainStackView.setCustomSpacing(20.0, after: scheduleStackView)
 		
 		let screenWidth = UIScreen.main.bounds.width
 		let totalPadding = 32.0 + 20.0

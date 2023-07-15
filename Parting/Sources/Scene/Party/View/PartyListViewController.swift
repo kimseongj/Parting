@@ -30,6 +30,7 @@ class PartyListViewController: BaseViewController<PartyListView> {
 		super.viewDidLoad()
 		navigationUI()
 		bindViewModel()
+		configureCell()
 	}
 
 
@@ -41,7 +42,10 @@ class PartyListViewController: BaseViewController<PartyListView> {
 
 	}
 
-
+	private func configureCell() {
+		rootView.partyListTableView.dataSource = self
+		rootView.partyListTableView.delegate = self
+	}
 
 	private func bindViewModel() {
 		rootView.backBarButton.innerButton
@@ -51,15 +55,31 @@ class PartyListViewController: BaseViewController<PartyListView> {
 
 }
 
-extension PartyListViewController: UITableViewDataSource {
+extension PartyListViewController: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 2
+		return 5
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		return UITableViewCell()
+		let cell = PartyTableViewCell()
+		cell.selectionStyle = .none
+		return cell
 	}
 	
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		let height = rootView.window?.windowScene?.screen.bounds.height
+		return (height ?? 852.0) * 0.25
+	}
+	
+	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: PartyListHeaderView.identifier) as? PartyListHeaderView else { return UIView() }
+		return header
+	}
+	
+	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		let height = rootView.window?.windowScene?.screen.bounds.height
+		return (height ?? 852.0) * 0.1
+	}
 	
 }
 

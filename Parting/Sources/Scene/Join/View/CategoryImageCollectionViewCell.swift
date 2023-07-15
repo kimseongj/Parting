@@ -16,6 +16,8 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
 		case deselectable
 	}
 	
+	private let cellType: CellType = .deselectable
+	
     let interestsImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.alpha = 0.6
@@ -52,18 +54,26 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
 	}
 	
 	func configureCell(type: CategoryImageCollectionViewCell.CellType) {
+		var imageViewWidth: CGFloat
 		
 		switch type {
 		case .deselectable:
 			interestsImageView.alpha = 0.6
 			interestsLabel.textColor = AppColor.gray400
+			imageViewWidth = 77
 		case .normal:
 			interestsImageView.alpha = 1
 			interestsLabel.textColor = AppColor.baseText
 			interestsLabel.font = notoSansFont.Light.of(size: 14)
-	
-			
+			imageViewWidth = 66.33
 		}
+		
+		interestsImageView.snp.remakeConstraints { make in
+			make.height.equalTo(imageViewWidth)
+			make.width.equalTo(imageViewWidth)
+		}
+		
+		
 	}
 }
 
@@ -79,20 +89,10 @@ extension CategoryImageCollectionViewCell: ProgrammaticallyInitializableViewProt
 	
 	func makeConstraints() {
 		interestStackView.snp.makeConstraints { make in
-			make.edges.equalToSuperview()
+			make.top.equalToSuperview()
 		}
-		
-		let width = self.frame.width
 
-//		interestsImageView.snp.makeConstraints { make in
-//			make.height.equalTo(width)
-//			make.width.equalTo(width)
-//		}
-//
-//		interestsLabel.snp.makeConstraints { make in
-//			make.top.equalTo(interestsImageView.snp.bottom).offset(5)
-//			make.centerX.equalToSuperview()
-//		}
+
 	}
 	
 	

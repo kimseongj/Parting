@@ -61,15 +61,15 @@ class HomeViewController: BaseViewController<HomeView> {
 			.bind(to: viewModel.input.pushScheduleVCTrigger)
 			.disposed(by: disposeBag)
 		
-//		let cache = ImageCache.default
-//		cache.clearMemoryCache()
+		let cache = ImageCache.default
+		cache.clearMemoryCache()
 		
 		viewModel.output.categoryImages
 			.bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: CategoryImageCollectionViewCell.identifier, cellType: CategoryImageCollectionViewCell.self)) { index, imgSrc, cell in
 				
 				cell.interestsImageView.kf.setImage(with: URL(string: imgSrc))
+
 				if let text = InterestsCategory(rawValue: index)?.category {
-					
 					cell.interestsLabel.text = text + "팟"
 				}
 				cell.configureCell(type: .normal)
