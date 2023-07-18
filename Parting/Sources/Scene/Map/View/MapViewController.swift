@@ -29,7 +29,7 @@ class MapViewController: BaseViewController<MapView> {
     
     private func navigationUI() {
         navigationController?.isNavigationBarHidden = false
-//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: )
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: rootView.navigationLabel)
     }
  
 }
