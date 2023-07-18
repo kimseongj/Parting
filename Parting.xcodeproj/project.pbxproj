@@ -95,9 +95,11 @@
 		933B3CAB2A55875600B8D60B /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 933B3CAA2A55875600B8D60B /* FSCalendar */; };
 		933B3CAC2A55876D00B8D60B /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9348C10F2A504680000F25A9 /* UIImage+Extension.swift */; };
 		93A17E082A558319004E3F75 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A17E072A558319004E3F75 /* APIKey.swift */; };
+		A73FD08B699AC59F80404D13 /* Pods_Parting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD59E7956BC0D337F1F0F17 /* Pods_Parting.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3BD59E7956BC0D337F1F0F17 /* Pods_Parting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Parting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E153FA72A34C37600C7F58C /* DetailInterestsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsViewModel.swift; sourceTree = "<group>"; };
 		4E153FA92A34C39F00C7F58C /* DetailInterestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsViewController.swift; sourceTree = "<group>"; };
 		4E153FAB2A34C3BB00C7F58C /* DetailInterestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsView.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 		4ECEAE1E29ED298F006AAF6B /* SplahView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplahView.swift; sourceTree = "<group>"; };
 		4ECEAE2029ED29EF006AAF6B /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		4ECEAE2329ED2A66006AAF6B /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		6C35BA03A4CB424586D398F0 /* Pods-Parting.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Parting.debug.xcconfig"; path = "Target Support Files/Pods-Parting/Pods-Parting.debug.xcconfig"; sourceTree = "<group>"; };
 		930165222A10B3EC00DA1A07 /* StyledNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledNavigationController.swift; sourceTree = "<group>"; };
 		930165252A10F7EE00DA1A07 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		933B3C982A55861F00B8D60B /* TabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCoordinator.swift; sourceTree = "<group>"; };
@@ -183,6 +186,7 @@
 		93A09BA12A4D967F0096A1D5 /* CalendarWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWidgetView.swift; sourceTree = "<group>"; };
 		93A09BA42A4DA0ED0096A1D5 /* ProgrammaticallyInitializableViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammaticallyInitializableViewProtocol.swift; sourceTree = "<group>"; };
 		93A17E072A558319004E3F75 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		9715D71F64F4ADB1531E9A14 /* Pods-Parting.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Parting.release.xcconfig"; path = "Target Support Files/Pods-Parting/Pods-Parting.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +201,7 @@
 				4E89BC3F29C58B7300BAE38A /* Alamofire in Frameworks */,
 				933B3CAB2A55875600B8D60B /* FSCalendar in Frameworks */,
 				4E2874B92A2D98FB0000B24C /* KakaoSDK in Frameworks */,
+				A73FD08B699AC59F80404D13 /* Pods_Parting.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,6 +497,8 @@
 				4E89BC2829C57CBB00BAE38A /* .gitignore */,
 				4EA5836929C04F4200BF4D7A /* Parting */,
 				4EA5836829C04F4200BF4D7A /* Products */,
+				72A21366DC79076DB8BCBB63 /* Pods */,
+				7D3CB0D1D4D69A76B5ACD3EF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -529,6 +536,24 @@
 				4E3C856429F7AE920006BEB1 /* BaseViewController.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		72A21366DC79076DB8BCBB63 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6C35BA03A4CB424586D398F0 /* Pods-Parting.debug.xcconfig */,
+				9715D71F64F4ADB1531E9A14 /* Pods-Parting.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		7D3CB0D1D4D69A76B5ACD3EF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3BD59E7956BC0D337F1F0F17 /* Pods_Parting.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		930165212A10B1DD00DA1A07 /* Controllers */ = {
@@ -589,9 +614,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4EA5837B29C04F4400BF4D7A /* Build configuration list for PBXNativeTarget "Parting" */;
 			buildPhases = (
+				0FB6D7886C27246D7ADC884E /* [CP] Check Pods Manifest.lock */,
 				4EA5836329C04F4200BF4D7A /* Sources */,
 				4EA5836429C04F4200BF4D7A /* Frameworks */,
 				4EA5836529C04F4200BF4D7A /* Resources */,
+				EDFB4B664B52C22589EB781E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -636,12 +663,12 @@
 			);
 			mainGroup = 4EA5835E29C04F4200BF4D7A;
 			packageReferences = (
-				4E89BC3D29C58B7300BAE38A /* XCRemoteSwiftPackageReference "Alamofire" */,
-				4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift" */,
-				4EA81DDA29ED2D2A0070F1B7 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				4E2874B72A2D98FB0000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
-				933B3C952A55858A00B8D60B /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				933B3CA92A55875600B8D60B /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				4E89BC3D29C58B7300BAE38A /* XCRemoteSwiftPackageReference "Alamofire.git" */,
+				4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift.git" */,
+				4EA81DDA29ED2D2A0070F1B7 /* XCRemoteSwiftPackageReference "SnapKit.git" */,
+				4E2874B72A2D98FB0000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk.git" */,
+				933B3C952A55858A00B8D60B /* XCRemoteSwiftPackageReference "Kingfisher.git" */,
+				933B3CA92A55875600B8D60B /* XCRemoteSwiftPackageReference "FSCalendar.git" */,
 			);
 			productRefGroup = 4EA5836829C04F4200BF4D7A /* Products */;
 			projectDirPath = "";
@@ -671,6 +698,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0FB6D7886C27246D7ADC884E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Parting-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EDFB4B664B52C22589EB781E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Parting/Pods-Parting-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Parting/Pods-Parting-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Parting/Pods-Parting-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4EA5836329C04F4200BF4D7A /* Sources */ = {
@@ -882,6 +951,7 @@
 		};
 		4EA5837C29C04F4400BF4D7A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6C35BA03A4CB424586D398F0 /* Pods-Parting.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -914,6 +984,7 @@
 		};
 		4EA5837D29C04F4400BF4D7A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9715D71F64F4ADB1531E9A14 /* Pods-Parting.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -968,7 +1039,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4E2874B72A2D98FB0000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+		4E2874B72A2D98FB0000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk.git";
 			requirement = {
@@ -976,7 +1047,7 @@
 				kind = branch;
 			};
 		};
-		4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+		4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
 			requirement = {
@@ -984,7 +1055,7 @@
 				minimumVersion = 6.0.0;
 			};
 		};
-		4E89BC3D29C58B7300BAE38A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		4E89BC3D29C58B7300BAE38A /* XCRemoteSwiftPackageReference "Alamofire.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -992,7 +1063,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		4EA81DDA29ED2D2A0070F1B7 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		4EA81DDA29ED2D2A0070F1B7 /* XCRemoteSwiftPackageReference "SnapKit.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -1000,7 +1071,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		933B3C952A55858A00B8D60B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+		933B3C952A55858A00B8D60B /* XCRemoteSwiftPackageReference "Kingfisher.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
@@ -1008,7 +1079,7 @@
 				minimumVersion = 7.0.0;
 			};
 		};
-		933B3CA92A55875600B8D60B /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+		933B3CA92A55875600B8D60B /* XCRemoteSwiftPackageReference "FSCalendar.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
 			requirement = {
@@ -1021,37 +1092,37 @@
 /* Begin XCSwiftPackageProductDependency section */
 		4E2874B82A2D98FB0000B24C /* KakaoSDK */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E2874B72A2D98FB0000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			package = 4E2874B72A2D98FB0000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk.git" */;
 			productName = KakaoSDK;
 		};
 		4E783FA129EABC54008B3E48 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift.git" */;
 			productName = RxCocoa;
 		};
 		4E783FA329EABC54008B3E48 /* RxSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift.git" */;
 			productName = RxSwift;
 		};
 		4E89BC3E29C58B7300BAE38A /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E89BC3D29C58B7300BAE38A /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = 4E89BC3D29C58B7300BAE38A /* XCRemoteSwiftPackageReference "Alamofire.git" */;
 			productName = Alamofire;
 		};
 		4EA81DDB29ED2D2A0070F1B7 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4EA81DDA29ED2D2A0070F1B7 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = 4EA81DDA29ED2D2A0070F1B7 /* XCRemoteSwiftPackageReference "SnapKit.git" */;
 			productName = SnapKit;
 		};
 		933B3C962A55858B00B8D60B /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 933B3C952A55858A00B8D60B /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			package = 933B3C952A55858A00B8D60B /* XCRemoteSwiftPackageReference "Kingfisher.git" */;
 			productName = Kingfisher;
 		};
 		933B3CAA2A55875600B8D60B /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 933B3CA92A55875600B8D60B /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			package = 933B3CA92A55875600B8D60B /* XCRemoteSwiftPackageReference "FSCalendar.git" */;
 			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
