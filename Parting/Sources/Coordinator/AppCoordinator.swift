@@ -7,8 +7,6 @@
 
 import UIKit
 
-import UIKit
-
 final class AppCoordinator: Coordinator {
 
     weak var delegate: CoordinatorDelegate?
