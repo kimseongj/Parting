@@ -7,11 +7,11 @@
 
 import UIKit
 
-class BottomSheetViewController: UIViewController {
+class BottomSheetViewController: BaseViewController<BottomSheetView> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
     
 }

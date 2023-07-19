@@ -76,6 +76,7 @@
 		4ECEAE2129ED29EF006AAF6B /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEAE2029ED29EF006AAF6B /* BaseView.swift */; };
 		4ECEAE2429ED2A66006AAF6B /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEAE2329ED2A66006AAF6B /* BaseViewModel.swift */; };
 		4EFCEBCA2A677E3F000F0A2B /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCEBC92A677E3F000F0A2B /* BottomSheetViewController.swift */; };
+		4EFCEBCE2A67A7E2000F0A2B /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCEBCD2A67A7E2000F0A2B /* BottomSheetView.swift */; };
 		933B3C972A55858B00B8D60B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 933B3C962A55858B00B8D60B /* Kingfisher */; };
 		933B3C992A55861F00B8D60B /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B3C982A55861F00B8D60B /* TabCoordinator.swift */; };
 		933B3C9A2A5586BF00B8D60B /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935D3A7D2A0A78900033DCCD /* HomeCoordinator.swift */; };
@@ -168,6 +169,7 @@
 		4ECEAE2029ED29EF006AAF6B /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		4ECEAE2329ED2A66006AAF6B /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		4EFCEBC92A677E3F000F0A2B /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
+		4EFCEBCD2A67A7E2000F0A2B /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
 		6C35BA03A4CB424586D398F0 /* Pods-Parting.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Parting.debug.xcconfig"; path = "Target Support Files/Pods-Parting/Pods-Parting.debug.xcconfig"; sourceTree = "<group>"; };
 		930165222A10B3EC00DA1A07 /* StyledNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledNavigationController.swift; sourceTree = "<group>"; };
 		930165252A10F7EE00DA1A07 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				4E6123BF2A39B0BC0039307A /* CustomGroupView.swift */,
 				4E6123C12A3AC2100039307A /* CustomHeaderView.swift */,
 				4EFCEBC92A677E3F000F0A2B /* BottomSheetViewController.swift */,
+				4EFCEBCD2A67A7E2000F0A2B /* BottomSheetView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -767,6 +770,7 @@
 				933B3C992A55861F00B8D60B /* TabCoordinator.swift in Sources */,
 				933B3C9F2A55870C00B8D60B /* BarImageButton.swift in Sources */,
 				4E89BC2F29C57DDD00BAE38A /* APIManager.swift in Sources */,
+				4EFCEBCE2A67A7E2000F0A2B /* BottomSheetView.swift in Sources */,
 				933B3C9A2A5586BF00B8D60B /* HomeCoordinator.swift in Sources */,
 				4E54431D2A6132B40074F654 /* MapViewModel.swift in Sources */,
 				4ECEAE1329ED2043006AAF6B /* Coordinator.swift in Sources */,
