@@ -26,7 +26,10 @@ class MapViewController: BaseViewController<MapView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationUI()
-        
+        configureMarker()
+    }
+    
+    private func configureMarker() {
         //MARK: - lat, lng에 해당하는 마커 생성
         marker.position = NMGLatLng(lat: 37.359291, lng: 127.105192)
         marker.mapView = rootView.mapView
@@ -36,6 +39,8 @@ class MapViewController: BaseViewController<MapView> {
     private func navigationUI() {
         navigationController?.isNavigationBarHidden = false
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: rootView.navigationLabel)
+        
+        self.navigationItem.rightBarButtonItem = rootView.bellBarButton
     }
  
 }

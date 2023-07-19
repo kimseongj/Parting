@@ -11,7 +11,10 @@ import NMapsMap
 
 class MapView: BaseView {
 
+    let bellBarButton = BarImageButton(imageName: Images.icon.bell)
+    
     let navigationLabel: BarTitleLabel = BarTitleLabel(text: "지도로 보기")
+    
     let mapView: NMFMapView = {
         let view = NMFMapView()
         return view

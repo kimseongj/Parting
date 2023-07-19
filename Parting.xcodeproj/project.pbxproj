@@ -75,6 +75,7 @@
 		4ECEAE1F29ED298F006AAF6B /* SplahView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEAE1E29ED298F006AAF6B /* SplahView.swift */; };
 		4ECEAE2129ED29EF006AAF6B /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEAE2029ED29EF006AAF6B /* BaseView.swift */; };
 		4ECEAE2429ED2A66006AAF6B /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEAE2329ED2A66006AAF6B /* BaseViewModel.swift */; };
+		4EFCEBCA2A677E3F000F0A2B /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCEBC92A677E3F000F0A2B /* BottomSheetViewController.swift */; };
 		933B3C972A55858B00B8D60B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 933B3C962A55858B00B8D60B /* Kingfisher */; };
 		933B3C992A55861F00B8D60B /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B3C982A55861F00B8D60B /* TabCoordinator.swift */; };
 		933B3C9A2A5586BF00B8D60B /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935D3A7D2A0A78900033DCCD /* HomeCoordinator.swift */; };
@@ -166,6 +167,7 @@
 		4ECEAE1E29ED298F006AAF6B /* SplahView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplahView.swift; sourceTree = "<group>"; };
 		4ECEAE2029ED29EF006AAF6B /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		4ECEAE2329ED2A66006AAF6B /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		4EFCEBC92A677E3F000F0A2B /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		6C35BA03A4CB424586D398F0 /* Pods-Parting.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Parting.debug.xcconfig"; path = "Target Support Files/Pods-Parting/Pods-Parting.debug.xcconfig"; sourceTree = "<group>"; };
 		930165222A10B3EC00DA1A07 /* StyledNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledNavigationController.swift; sourceTree = "<group>"; };
 		930165252A10F7EE00DA1A07 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				4E52228E29F27DA8000B96B4 /* customStackView.swift */,
 				4E6123BF2A39B0BC0039307A /* CustomGroupView.swift */,
 				4E6123C12A3AC2100039307A /* CustomHeaderView.swift */,
+				4EFCEBC92A677E3F000F0A2B /* BottomSheetViewController.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -544,7 +547,6 @@
 				6C35BA03A4CB424586D398F0 /* Pods-Parting.debug.xcconfig */,
 				9715D71F64F4ADB1531E9A14 /* Pods-Parting.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -663,12 +665,12 @@
 			);
 			mainGroup = 4EA5835E29C04F4200BF4D7A;
 			packageReferences = (
-				4E89BC3D29C58B7300BAE38A /* XCRemoteSwiftPackageReference "Alamofire.git" */,
-				4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift.git" */,
-				4EA81DDA29ED2D2A0070F1B7 /* XCRemoteSwiftPackageReference "SnapKit.git" */,
-				4E2874B72A2D98FB0000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk.git" */,
-				933B3C952A55858A00B8D60B /* XCRemoteSwiftPackageReference "Kingfisher.git" */,
-				933B3CA92A55875600B8D60B /* XCRemoteSwiftPackageReference "FSCalendar.git" */,
+				4E89BC3D29C58B7300BAE38A /* XCRemoteSwiftPackageReference "Alamofire" */,
+				4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				4EA81DDA29ED2D2A0070F1B7 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				4E2874B72A2D98FB0000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				933B3C952A55858A00B8D60B /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				933B3CA92A55875600B8D60B /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 4EA5836829C04F4200BF4D7A /* Products */;
 			projectDirPath = "";
@@ -801,6 +803,7 @@
 				4ECEAE1529ED20F3006AAF6B /* CoordinatorStyleCase.swift in Sources */,
 				4E89BC3129C57DE900BAE38A /* CategoryResponse.swift in Sources */,
 				4E6123C22A3AC2100039307A /* CustomHeaderView.swift in Sources */,
+				4EFCEBCA2A677E3F000F0A2B /* BottomSheetViewController.swift in Sources */,
 				93A17E082A558319004E3F75 /* APIKey.swift in Sources */,
 				933B3CA12A55871100B8D60B /* StackView.swift in Sources */,
 				4E89BC3129C57DE900BAE38A /* CategoryResponse.swift in Sources */,
@@ -1039,7 +1042,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4E2874B72A2D98FB0000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk.git" */ = {
+		4E2874B72A2D98FB0000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk.git";
 			requirement = {
@@ -1047,7 +1050,7 @@
 				kind = branch;
 			};
 		};
-		4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift.git" */ = {
+		4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
 			requirement = {
@@ -1055,7 +1058,7 @@
 				minimumVersion = 6.0.0;
 			};
 		};
-		4E89BC3D29C58B7300BAE38A /* XCRemoteSwiftPackageReference "Alamofire.git" */ = {
+		4E89BC3D29C58B7300BAE38A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -1063,7 +1066,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		4EA81DDA29ED2D2A0070F1B7 /* XCRemoteSwiftPackageReference "SnapKit.git" */ = {
+		4EA81DDA29ED2D2A0070F1B7 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -1071,7 +1074,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		933B3C952A55858A00B8D60B /* XCRemoteSwiftPackageReference "Kingfisher.git" */ = {
+		933B3C952A55858A00B8D60B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
@@ -1079,7 +1082,7 @@
 				minimumVersion = 7.0.0;
 			};
 		};
-		933B3CA92A55875600B8D60B /* XCRemoteSwiftPackageReference "FSCalendar.git" */ = {
+		933B3CA92A55875600B8D60B /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
 			requirement = {
@@ -1092,37 +1095,37 @@
 /* Begin XCSwiftPackageProductDependency section */
 		4E2874B82A2D98FB0000B24C /* KakaoSDK */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E2874B72A2D98FB0000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk.git" */;
+			package = 4E2874B72A2D98FB0000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDK;
 		};
 		4E783FA129EABC54008B3E48 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift.git" */;
+			package = 4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxCocoa;
 		};
 		4E783FA329EABC54008B3E48 /* RxSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift.git" */;
+			package = 4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
 		};
 		4E89BC3E29C58B7300BAE38A /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E89BC3D29C58B7300BAE38A /* XCRemoteSwiftPackageReference "Alamofire.git" */;
+			package = 4E89BC3D29C58B7300BAE38A /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
 		4EA81DDB29ED2D2A0070F1B7 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4EA81DDA29ED2D2A0070F1B7 /* XCRemoteSwiftPackageReference "SnapKit.git" */;
+			package = 4EA81DDA29ED2D2A0070F1B7 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
 		933B3C962A55858B00B8D60B /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 933B3C952A55858A00B8D60B /* XCRemoteSwiftPackageReference "Kingfisher.git" */;
+			package = 933B3C952A55858A00B8D60B /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
 		933B3CAA2A55875600B8D60B /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 933B3CA92A55875600B8D60B /* XCRemoteSwiftPackageReference "FSCalendar.git" */;
+			package = 933B3CA92A55875600B8D60B /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
