@@ -40,10 +40,10 @@ class BottomSheetView: BaseView {
         return label
     }()
     
-    let categoryCollectionView: UICollectionView = {
-        let collectionView = UICollectionView()
-        return collectionView
-    }()
+//    let categoryCollectionView: UICollectionView = {
+//        let collectionView = UICollectionView()
+//        return collectionView
+//    }()
     
     let lineLabel: UILabel = {
         let label = UILabel()

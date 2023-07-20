@@ -965,7 +965,7 @@
 				CODE_SIGN_ENTITLEMENTS = Parting/Parting.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7B4FWR87D5;
+				DEVELOPMENT_TEAM = 4TP5C45KH5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Parting/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -978,7 +978,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Parting;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Parting.sihyun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -998,7 +998,7 @@
 				CODE_SIGN_ENTITLEMENTS = Parting/Parting.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7B4FWR87D5;
+				DEVELOPMENT_TEAM = 4TP5C45KH5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Parting/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1011,7 +1011,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Parting;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Parting.sihyun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
