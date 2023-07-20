@@ -27,6 +27,7 @@ class MapViewController: BaseViewController<MapView> {
         super.viewDidLoad()
         navigationUI()
         configureMarker()
+        markerClicked()
     }
     
     private func configureMarker() {
@@ -42,5 +43,18 @@ class MapViewController: BaseViewController<MapView> {
         
         self.navigationItem.rightBarButtonItem = rootView.bellBarButton
     }
- 
+    
+    private func markerClicked() {
+        marker.touchHandler = { (marker: NMFOverlay?) -> Bool in
+            //MARK: - bottom sheet 띄우기
+//            let alert = UIAlertController(title: "Bottom Sheet Test", message: "확인", preferredStyle: .actionSheet)
+//            let ok = UIAlertAction(title: "ok", style: .default)
+//            alert.addAction(ok)
+//            self.present(alert, animated: true)
+            let bottomSheetViewController = BottomSheetViewController()
+            bottomSheetViewController.modalPresentationStyle = .automatic
+            self.present(bottomSheetViewController, animated: true)
+            return true
+        }
+    }
 }
