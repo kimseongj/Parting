@@ -11,7 +11,7 @@ import SnapKit
 
 class PartyListView: BaseView {
 
-	let bellBarButton = BarImageButton(imageName: Images.icon.bell)
+	let bellBarButton = BarImageButton(imageName: Images.sfSymbol.bell)
 	
 	let navigationLabel = BarTitleLabel(text: "무슨무슨팟")
 	
@@ -32,12 +32,22 @@ class PartyListView: BaseView {
 		return button
 	}()
 	
+	private let fabSymbol: UIImageView = {
+		let config = UIImage.SymbolConfiguration(scale: .large)
+		let image = UIImage(systemName: Images.sfSymbol.plus, withConfiguration: config)
+		let imageView = UIImageView(image: image)
+		imageView.isUserInteractionEnabled = false
+		imageView.tintColor = AppColor.white
+		return imageView
+	}()
+	
 	
 	override func makeConfigures() {
 		self.backgroundColor = .white
 		
 		addSubview(partyListTableView)
 		addSubview(fab)
+		fab.addSubview(fabSymbol)
 		
 	}
 	
@@ -54,6 +64,10 @@ class PartyListView: BaseView {
 			make.height.equalTo(64)
 			make.right.equalToSuperview().offset(-16)
 			make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-16)
+		}
+		
+		fabSymbol.snp.makeConstraints { make in
+			make.center.equalToSuperview()
 		}
 		
 	} /* End makeConstraints() */

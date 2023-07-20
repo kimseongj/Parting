@@ -11,7 +11,7 @@ import SnapKit
 
 class HomeView: BaseView {
 
-	let bellBarButton = BarImageButton(imageName: Images.icon.bell)
+	let bellBarButton = BarImageButton(imageName: Images.sfSymbol.bell)
 	
 	let searchBar: UISearchBar = {
 		let bar = UISearchBar()

@@ -1,34 +1,29 @@
 //
-//  TagCollectionViewCell.swift
+//  SortingOptionCollectionViewCell.swift
 //  Parting
 //
-//  Created by 김민규 on 2023/07/14.
+//  Created by 김민규 on 2023/07/15.
 //
 
 import UIKit
 
-class TagCollectionViewCell: UICollectionViewCell {
+class SortingOptionCollectionViewCell: UICollectionViewCell {
     
-	static let identifier = "TagCollectionViewCell"
+	static let identifier = "SortingOptionCollectionViewCell"
 	
 	private let cellConatiner: UIView = {
 		let view = UIView()
-		view.backgroundColor = AppColor.gray200
+		view.backgroundColor = AppColor.gray500
 		view.clipsToBounds = true
 		return view
 	}()
 	
-	private let textLabel = Label(text: "#카공", weight: .Regular, size: 12)
+	private let textLabel = Label(text: "거리 순", weight: .Bold, size: 16, color: AppColor.white)
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		addSubviews()
 		makeConstraints()
-		self.backgroundColor = .clear
-	}
-	
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
 	}
 	
 	override func layoutSubviews() {
@@ -38,9 +33,13 @@ class TagCollectionViewCell: UICollectionViewCell {
 		
 	}
 	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
 }
 
-extension TagCollectionViewCell: ProgrammaticallyInitializableViewProtocol {
+extension SortingOptionCollectionViewCell: ProgrammaticallyInitializableViewProtocol {
 	func addSubviews() {
 		addSubview(cellConatiner)
 		cellConatiner.addSubview(textLabel)
@@ -48,8 +47,9 @@ extension TagCollectionViewCell: ProgrammaticallyInitializableViewProtocol {
 	
 	func makeConstraints() {
 		cellConatiner.snp.makeConstraints { make in
-			make.height.equalTo(24)
+			make.height.equalTo(32)
 			make.width.equalToSuperview()
+			make.centerY.equalToSuperview()
 		}
 		
 		textLabel.snp.makeConstraints { make in
@@ -57,5 +57,5 @@ extension TagCollectionViewCell: ProgrammaticallyInitializableViewProtocol {
 		}
 	}
 	
-	
+
 }

@@ -23,13 +23,44 @@ class APIManager {
                 print("카테고리 종류 API 상태코드 \(response.response?.statusCode) 🌱🌱")
                 switch response.result {
                 case let .success(value):
+					print(value)
                     emitter.onNext(value)
                     emitter.onCompleted()
                 case let .failure(error):
                     emitter.onError(error)
                 }
             }
-			
+
+            return Disposables.create()
+        }
+    }
+	
+	func getCategoryImageAPI() -> Observable<[CategoryModel]> {
+        return Observable.create { emitter in
+            let api = PartingAPI.detailCategory(categoryVersion: "1.0.0")
+            guard let categoryURL = api.url else { return Disposables.create() }
+            AF.request(categoryURL, method: .get, headers: api.headers)
+				.validate(statusCode: 200...500)
+				.responseDecodable(of: CategoryResponse.self) { response in
+                print("카테고리 종류 API 상태코드 \(response.response?.statusCode) 🌱🌱")
+                switch response.result {
+                case let .success(value):
+					let categories = value.result.categories
+					
+					var categoryList: [CategoryModel] = []
+					
+					for category in categories {
+						guard let safeID = Int(category.categoryID) else { return }
+						let newCategory = CategoryModel(id: safeID, name: category.categoryName, imgURL: category.imgURL, localImgSrc: nil)
+						categoryList.append(newCategory)
+					}
+
+                    emitter.onNext(categoryList)
+                case let .failure(error):
+                    emitter.onError(error)
+                }
+            }
+
             return Disposables.create()
         }
     }

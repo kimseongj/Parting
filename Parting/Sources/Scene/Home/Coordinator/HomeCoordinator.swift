@@ -39,6 +39,11 @@ final class HomeCoordinator: Coordinator {
 		navigationController.pushViewController(PartyListViewController(viewModel: viewModel, title: title), animated: true)
 	}
 	
+	func pushCreatePartyVC() {
+		let viewModel = CreatePartyViewModel(coordinator: self)
+		navigationController.pushViewController(CreatePartyViewController(viewModel: viewModel), animated: true)
+	}
+	
 	func popVC() {
 		navigationController.popViewController(animated: true)
 	}

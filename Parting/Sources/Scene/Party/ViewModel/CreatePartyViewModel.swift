@@ -1,19 +1,19 @@
 //
-//  PartyListViewModel.swift
+//  CreatePartyViewModel.swift
 //  Parting
 //
-//  Created by 김민규 on 2023/07/11.
+//  Created by 김민규 on 2023/07/17.
 //
 
 import Foundation
 import RxSwift
 import RxCocoa
 
-class PartyListViewModel: BaseViewModel {
+class CreatePartyViewModel: BaseViewModel {
 	
 	struct Input {
 		let popVCTrigger = PublishSubject<Void>()
-		let pushCreatePartyVCTrigger = PublishSubject<Void>()
+//		let pushCreatePartyVCTrigger = PublishSubject<Void>()
 	}
 	
 	struct Output {
@@ -29,7 +29,6 @@ class PartyListViewModel: BaseViewModel {
 	private weak var coordinator: HomeCoordinator?
 	
 	init(input: Input = Input(), output: Output = Output(), coordinator: HomeCoordinator?) {
-		// Home Coordinator?
 		self.input = input
 		self.output = output
 		self.coordinator = coordinator
@@ -43,15 +42,9 @@ class PartyListViewModel: BaseViewModel {
 			})
 			.disposed(by: disposeBag)
 		
-		input.pushCreatePartyVCTrigger
-			.subscribe(onNext: { [weak self] in
-				self?.coordinator?.pushCreatePartyVC()
-			})
-			.disposed(by: disposeBag)
 	}
 	
 	
 	
 	
 }
-

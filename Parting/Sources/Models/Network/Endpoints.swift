@@ -71,11 +71,11 @@ extension PartingAPI {
         switch self {
         case .oauthKaKao, .oauthLogout, .isMemeber, .tokenReissue, .reportParty, .checkEnteredParty, .partyDday, .checkMypage, .interest, .modifyInfo :
             return [
-                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4NzU5MTI3MywiZXhwIjoxNjkwMDEwNDczfQ.03osK4IUE4VNDJ2fSclmtoXQprOn-opf5_LqfeT76RU"
+                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4OTY2Mjc5NSwiZXhwIjoxNjkyMDgxOTk1fQ.qwKegwOutI8bWPmDBE0jx5KOspSQTVZL_Ucc-I6D_hY"
             ]
         case .parties, .associatedCategory, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calender, .region, .recentView, .checkMyParty, .partyMember, .detailCategory, .checkNickname, .essentialInfo:
             return [
-                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4NzU5MTI3MywiZXhwIjoxNjkwMDEwNDczfQ.03osK4IUE4VNDJ2fSclmtoXQprOn-opf5_LqfeT76RU",
+                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4OTY2Mjc5NSwiZXhwIjoxNjkyMDgxOTk1fQ.qwKegwOutI8bWPmDBE0jx5KOspSQTVZL_Ucc-I6D_hY",
                     "Content-Type": "application/json;charset=UTF-8"
             ]
         }

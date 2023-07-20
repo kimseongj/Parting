@@ -1,22 +1,21 @@
 //
-//  HomeViewController.swift
+//  CreatePartyViewController.swift
 //  Parting
 //
-//  Created by 김민규 on 2023/05/09.
+//  Created by 김민규 on 2023/07/17.
 //
 
 import Foundation
 import UIKit
 import RxSwift
-import Kingfisher
 
-class HomeViewController: BaseViewController<HomeView> {
+class CreatePartyViewController: BaseViewController<CreatePartyView> {
 	
-	private var viewModel: HomeViewModel
+	private var viewModel: CreatePartyViewModel
 	
 	private let disposeBag = DisposeBag()
 	
-	init(viewModel: HomeViewModel) {
+	init(viewModel: CreatePartyViewModel) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -35,45 +34,55 @@ class HomeViewController: BaseViewController<HomeView> {
 	
 	private func navigationUI() {
 		navigationController?.isNavigationBarHidden = false
-		self.navigationItem.rightBarButtonItem = rootView.bellBarButton
-		self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: rootView.navigationLabel)
+		self.navigationItem.titleView = rootView.navigationLabel
+		self.navigationItem.leftBarButtonItem = rootView.backBarButton
 		
 	}
 	
 	private func configureCell() {
 		rootView.categoryCollectionView.register(CategoryImageCollectionViewCell.self, forCellWithReuseIdentifier: CategoryImageCollectionViewCell.identifier)
 		
-		rootView.categoryCollectionView.rx.setDelegate(self)
-			.disposed(by: disposeBag)
-		
-		rootView.categoryCollectionView.rx.itemSelected
-			.subscribe { [weak self] indexPath in
-				self?.viewModel.pushPartyListVC(title: InterestsCategory(rawValue: indexPath[1])?.category ?? "Error")
-			}
-			.disposed(by: disposeBag)
+//		rootView.categoryCollectionView.rx.setDelegate(self)
+//			.disposed(by: disposeBag)
+//
+//		rootView.categoryCollectionView.rx.itemSelected
+//			.subscribe { [weak self] indexPath in
+//				self?.viewModel.pushPartyListVC(title: InterestsCategory(rawValue: indexPath[1])?.category ?? "Error")
+//			}
+//			.disposed(by: disposeBag)
 		
 		
 	}
 	
 	
 	private func bindViewModel() {
-		rootView.calendarWidget.rx.tap
-			.bind(to: viewModel.input.pushScheduleVCTrigger)
+		rootView.backBarButton.innerButton
+			.rx.tap.bind(to: viewModel.input.popVCTrigger)
 			.disposed(by: disposeBag)
 		
-		
-		viewModel.output.categories
-			.bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: CategoryImageCollectionViewCell.identifier, cellType: CategoryImageCollectionViewCell.self)) { index, category, cell in
-				
-				cell.interestsImageView.kf.setImage(with: URL(string: category.imgURL))
-				cell.interestsLabel.text = category.name
-				cell.configureCell(type: .normal, size: .md)
-			}.disposed(by: disposeBag)
+//		viewModel.output.categoryImages
+//			.bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: CategoryImageCollectionViewCell.identifier, cellType: CategoryImageCollectionViewCell.self)) { index, imgSrc, cell in
+//
+//				cell.interestsImageView.kf.setImage(with: URL(string: imgSrc))
+//
+//				if let text = InterestsCategory(rawValue: index)?.category {
+//					cell.interestsLabel.text = text + "팟"
+//				}
+//				cell.configureCell(type: .normal, size: .md)
+//			}.disposed(by: disposeBag)
 	}
 	
 }
 
-extension HomeViewController: UICollectionViewDelegateFlowLayout {
+extension CreatePartyViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return 3
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		return UICollectionViewCell()
+	}
+	
 	
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -102,3 +111,8 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 		
 	}
 }
+
+
+
+
+

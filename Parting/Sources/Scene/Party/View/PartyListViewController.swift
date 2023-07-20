@@ -30,7 +30,7 @@ class PartyListViewController: BaseViewController<PartyListView> {
 		super.viewDidLoad()
 		navigationUI()
 		bindViewModel()
-		configureCell()
+		configureTableView()
 	}
 
 
@@ -42,14 +42,19 @@ class PartyListViewController: BaseViewController<PartyListView> {
 
 	}
 
-	private func configureCell() {
+	private func configureTableView() {
 		rootView.partyListTableView.dataSource = self
 		rootView.partyListTableView.delegate = self
+		rootView.partyListTableView.register(PartyTableViewCell.self, forCellReuseIdentifier: PartyTableViewCell.identifier)
+		rootView.partyListTableView.register(PartyListHeaderView.self, forHeaderFooterViewReuseIdentifier: PartyListHeaderView.identifier)
 	}
 
 	private func bindViewModel() {
 		rootView.backBarButton.innerButton
 			.rx.tap.bind(to: viewModel.input.popVCTrigger)
+			.disposed(by: disposeBag)
+		rootView.fab
+			.rx.tap.bind(to: viewModel.input.pushCreatePartyVCTrigger)
 			.disposed(by: disposeBag)
 	}
 
@@ -61,7 +66,7 @@ extension PartyListViewController: UITableViewDataSource, UITableViewDelegate {
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = PartyTableViewCell()
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: PartyTableViewCell.identifier) as? PartyTableViewCell else { return PartyTableViewCell() }
 		cell.selectionStyle = .none
 		return cell
 	}
@@ -72,7 +77,7 @@ extension PartyListViewController: UITableViewDataSource, UITableViewDelegate {
 	}
 	
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: PartyListHeaderView.identifier) as? PartyListHeaderView else { return UIView() }
+		guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: PartyListHeaderView.identifier) as? PartyListHeaderView else { return UITableViewHeaderFooterView() }
 		return header
 	}
 	

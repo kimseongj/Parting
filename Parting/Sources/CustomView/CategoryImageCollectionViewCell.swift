@@ -16,6 +16,11 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
 		case deselectable
 	}
 	
+	enum CellSize {
+		case md
+		case lg
+	}
+	
 	private let cellType: CellType = .deselectable
 	
     let interestsImageView: UIImageView = {
@@ -42,7 +47,7 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 		addSubviews()
-		configureCell(type: .deselectable)
+		configureCell(type: .deselectable, size: .lg)
     }
     
     required init?(coder: NSCoder) {
@@ -53,18 +58,23 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
 		makeConstraints()
 	}
 	
-	func configureCell(type: CategoryImageCollectionViewCell.CellType) {
+	func configureCell(type: CategoryImageCollectionViewCell.CellType, size: CategoryImageCollectionViewCell.CellSize) {
 		var imageViewWidth: CGFloat
 		
 		switch type {
 		case .deselectable:
 			interestsImageView.alpha = 0.6
 			interestsLabel.textColor = AppColor.gray400
-			imageViewWidth = 77
 		case .normal:
 			interestsImageView.alpha = 1
 			interestsLabel.textColor = AppColor.baseText
 			interestsLabel.font = notoSansFont.Light.of(size: 14)
+		}
+		
+		switch size {
+		case .lg:
+			imageViewWidth = 77
+		case .md:
 			imageViewWidth = 66.33
 		}
 		
