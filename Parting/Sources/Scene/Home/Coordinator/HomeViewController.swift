@@ -65,7 +65,8 @@ class HomeViewController: BaseViewController<HomeView> {
 		viewModel.output.categories
 			.bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: CategoryImageCollectionViewCell.identifier, cellType: CategoryImageCollectionViewCell.self)) { index, category, cell in
 				
-				cell.interestsImageView.kf.setImage(with: URL(string: category.imgURL))
+				let image = UIImage.loadImageFromDiskWith(fileName: category.localImgSrc!)
+				cell.interestsImageView.image = image
 				cell.interestsLabel.text = category.name
 				cell.configureCell(type: .normal, size: .md)
 			}.disposed(by: disposeBag)

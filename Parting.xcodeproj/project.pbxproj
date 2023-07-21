@@ -91,6 +91,7 @@
 		933E58C32A69166D000F945E /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 933E58C12A69166D000F945E /* Model.xcdatamodeld */; };
 		933E58C72A691B06000F945E /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E58C62A691B06000F945E /* Entity.swift */; };
 		933E58C92A6920FB000F945E /* Kingfisher+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E58C82A6920FB000F945E /* Kingfisher+Extension.swift */; };
+		933E58CD2A69422E000F945E /* UITabBarController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E58CC2A69422E000F945E /* UITabBarController+Extension.swift */; };
 		93653E572A64F2C400BEFD61 /* InterestBarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93653E562A64F2C400BEFD61 /* InterestBarCollectionViewCell.swift */; };
 		93653E592A6509A000BEFD61 /* CreatePartyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93653E582A6509A000BEFD61 /* CreatePartyViewController.swift */; };
 		93653E5B2A6509CE00BEFD61 /* CreatePartyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93653E5A2A6509CE00BEFD61 /* CreatePartyViewModel.swift */; };
@@ -173,6 +174,7 @@
 		933E58C22A69166D000F945E /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		933E58C62A691B06000F945E /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		933E58C82A6920FB000F945E /* Kingfisher+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Kingfisher+Extension.swift"; sourceTree = "<group>"; };
+		933E58CC2A69422E000F945E /* UITabBarController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+Extension.swift"; sourceTree = "<group>"; };
 		9348C0FE2A4FC095000F25A9 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		9348C1022A4FFA5D000F25A9 /* TabSubCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSubCoordinator.swift; sourceTree = "<group>"; };
 		9348C1042A500A2A000F25A9 /* ScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScheduleViewModel.swift; path = Parting/Sources/Coordinator/ScheduleViewModel.swift; sourceTree = SOURCE_ROOT; };
@@ -284,6 +286,7 @@
 				4EA81DE529ED41100070F1B7 /* UIView+Extension.swift */,
 				9348C10F2A504680000F25A9 /* UIImage+Extension.swift */,
 				933E58C82A6920FB000F945E /* Kingfisher+Extension.swift */,
+				933E58CC2A69422E000F945E /* UITabBarController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -753,6 +756,7 @@
 				93653E572A64F2C400BEFD61 /* InterestBarCollectionViewCell.swift in Sources */,
 				4EB2AC652A2E09EF0023F49A /* RegionResponse.swift in Sources */,
 				933B3C9D2A5586E500B8D60B /* HomeViewController.swift in Sources */,
+				933E58CD2A69422E000F945E /* UITabBarController+Extension.swift in Sources */,
 				933B3C992A55861F00B8D60B /* TabCoordinator.swift in Sources */,
 				933B3C9F2A55870C00B8D60B /* BarImageButton.swift in Sources */,
 				4E89BC2F29C57DDD00BAE38A /* APIManager.swift in Sources */,

@@ -35,6 +35,11 @@ class CreatePartyViewModel: BaseViewModel {
 		setupBindings()
 	}
 	
+	func setTabBarVisibility(to value: Bool) {
+		self.coordinator?.navigationController.tabBarController?.view.backgroundColor = .white
+		self.coordinator?.navigationController.tabBarController?.setTabBarVisible(visible: value, duration: 0.2, animated: true)
+	}
+	
 	private func setupBindings() {
 		input.popVCTrigger
 			.subscribe(onNext: { [weak self] in

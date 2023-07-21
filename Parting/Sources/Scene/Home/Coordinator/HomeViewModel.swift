@@ -142,6 +142,7 @@ class HomeViewModel: BaseViewModel {
 		} /* End categoryList.forEach */
 		
 		self.output.categories.accept(categoryModelList)
+		print("Successfully Fetched Images From Storage")
 	} /* End fetchCategoriesFromLocalStorage() */
 	
 	

@@ -29,8 +29,18 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
 		navigationUI()
 		bindViewModel()
 		configureCell()
+
 	}
 	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		self.viewModel.setTabBarVisibility(to: false)
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		self.viewModel.setTabBarVisibility(to: true)
+	}
 	
 	private func navigationUI() {
 		navigationController?.isNavigationBarHidden = false
