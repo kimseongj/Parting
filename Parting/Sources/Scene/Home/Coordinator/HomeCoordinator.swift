@@ -34,9 +34,9 @@ final class HomeCoordinator: Coordinator {
 		navigationController.pushViewController(ScheduleViewController(viewModel: viewModel), animated: true)
 	}
 		
-	func pushPartyListVC(title: String) {
-		let viewModel = PartyListViewModel(coordinator: self)
-		navigationController.pushViewController(PartyListViewController(viewModel: viewModel, title: title), animated: true)
+	func pushPartyListVC(category: CategoryModel) {
+		let viewModel = PartyListViewModel(coordinator: self, category: category)
+		navigationController.pushViewController(PartyListViewController(viewModel: viewModel, title: category.name), animated: true)
 	}
 	
 	func pushCreatePartyVC() {

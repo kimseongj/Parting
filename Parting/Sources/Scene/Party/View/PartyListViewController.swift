@@ -43,8 +43,8 @@ class PartyListViewController: BaseViewController<PartyListView> {
 	}
 
 	private func configureTableView() {
-		rootView.partyListTableView.dataSource = self
-		rootView.partyListTableView.delegate = self
+
+		rootView.partyListTableView.rx.setDelegate(self).disposed(by: disposeBag)
 		rootView.partyListTableView.register(PartyTableViewCell.self, forCellReuseIdentifier: PartyTableViewCell.identifier)
 		rootView.partyListTableView.register(PartyListHeaderView.self, forHeaderFooterViewReuseIdentifier: PartyListHeaderView.identifier)
 	}
@@ -56,20 +56,18 @@ class PartyListViewController: BaseViewController<PartyListView> {
 		rootView.fab
 			.rx.tap.bind(to: viewModel.input.pushCreatePartyVCTrigger)
 			.disposed(by: disposeBag)
+		
+		viewModel.output.partyList.bind(to: rootView.partyListTableView.rx.items(cellIdentifier: PartyTableViewCell.identifier, cellType: PartyTableViewCell.self)) { index, party, cell in
+			cell.selectionStyle = .none
+			cell.configureCell(party: party)
+		}.disposed(by: disposeBag)
+		
+		
 	}
 
 }
 
-extension PartyListViewController: UITableViewDataSource, UITableViewDelegate {
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 5
-	}
-	
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: PartyTableViewCell.identifier) as? PartyTableViewCell else { return PartyTableViewCell() }
-		cell.selectionStyle = .none
-		return cell
-	}
+extension PartyListViewController: UITableViewDelegate {
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		let height = rootView.window?.windowScene?.screen.bounds.height

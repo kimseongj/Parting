@@ -19,4 +19,6 @@ class CategoryModel {
 		self.imgURL = imgURL
 		self.localImgSrc = localImgSrc
 	}
+	
+	
 }

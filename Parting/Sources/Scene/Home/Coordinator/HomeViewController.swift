@@ -48,7 +48,9 @@ class HomeViewController: BaseViewController<HomeView> {
 		
 		rootView.categoryCollectionView.rx.itemSelected
 			.subscribe { [weak self] indexPath in
-				self?.viewModel.pushPartyListVC(title: InterestsCategory(rawValue: indexPath[1])?.category ?? "Error")
+				let index = indexPath[1]
+				guard let categories = self?.viewModel.output.categories.value else { return }
+				self?.viewModel.pushPartyListVC(category: categories[index])
 			}
 			.disposed(by: disposeBag)
 		

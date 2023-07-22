@@ -19,6 +19,7 @@ class PartyListViewModel: BaseViewModel {
 	struct Output {
 //		let categoryImages: BehaviorRelay<[String]> = BehaviorRelay(value: [])
 //		let categoryNames: BehaviorRelay<[String]> = BehaviorRelay(value: [])
+		let partyList: BehaviorRelay<[PartyListItemModel]> = BehaviorRelay(value: [])
 	}
 	
 	private let disposeBag = DisposeBag()
@@ -28,12 +29,31 @@ class PartyListViewModel: BaseViewModel {
 	
 	private weak var coordinator: HomeCoordinator?
 	
-	init(input: Input = Input(), output: Output = Output(), coordinator: HomeCoordinator?) {
-		// Home Coordinator?
+	private let category: CategoryModel
+	
+	init(input: Input = Input(), output: Output = Output(), coordinator: HomeCoordinator?, category: CategoryModel) {
+		self.category = category
 		self.input = input
 		self.output = output
 		self.coordinator = coordinator
 		setupBindings()
+		
+		loadPartyList()
+	}
+	
+	private func loadPartyList() {
+		Task {
+			
+			do {
+				guard let parties = try await APIManager.shared.getPartyList(categoryId: category.id, categoryDetailId: 1, orderCondition1: .few, orderCondition2: .latest, pageNumber: 0) else { return }
+				
+				self.output.partyList.accept(parties)
+				
+			} catch {
+				print(error)
+			} /* End Do ~ Catch */
+			
+		} /* End Task */
 	}
 	
 	private func setupBindings() {

@@ -75,16 +75,20 @@ class PartyTableViewCell: UITableViewCell {
 	
 	private let titleLabel = Label(text: "파티 이름", font: notoSansFont.Bold.of(size: 20))
 	
-	private let periodLabel = Label(text: "2023. 1. 1 - 1시 ~ 2시", font: notoSansFont.Regular.of(size: 16))
+	private let periodLabel: UILabel = {
+		let label = Label(text: "2023. 1. 1 - 1시 ~ 2시", font: notoSansFont.Regular.of(size: 16))
+		label.numberOfLines = 0
+		return label
+	}()
 	
-	private let detailLabel = Label(text: "같이 공부합시다", font: notoSansFont.Regular.of(size: 16), color: AppColor.gray600)
+//	private let detailLabel = Label(text: "같이 공부합시다", font: notoSansFont.Regular.of(size: 16), color: AppColor.gray600)
 	
 	// MARK: init
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupView()
 		addSubviews()
-		
+
 	}
 	
 	override func layoutSubviews() {
@@ -97,7 +101,13 @@ class PartyTableViewCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	
+	func configureCell(party: PartyListItemModel) {
+		locationLabel.text = party.location + " " + party.distance
+		titleLabel.text = party.title
+		periodLabel.text = party.partyDuration
+		statusLabel.text = "\(party.currentPartyMemberCount)/\(party.maxPartyMemberCount)"
+		
+	}
 }
 
 // MARK: ProgrammaticallyInitializableViewProtocol
@@ -127,7 +137,7 @@ extension PartyTableViewCell: ProgrammaticallyInitializableViewProtocol {
 		
 		contentVStack.addArrangedSubview(titleLabel)
 		contentVStack.addArrangedSubview(periodLabel)
-		contentVStack.addArrangedSubview(detailLabel)
+//		contentVStack.addArrangedSubview(detailLabel)
 		contentVStack.setCustomSpacing(0.0, after: titleLabel)
 		
 	}
@@ -186,7 +196,7 @@ extension PartyTableViewCell: ProgrammaticallyInitializableViewProtocol {
 		}
 		
 		contentVStack.snp.makeConstraints { make in
-			make.height.equalToSuperview()
+//			make.height.equalToSuperview()
 		}
 	}
 	

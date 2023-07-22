@@ -68,8 +68,8 @@ class HomeViewModel: BaseViewModel {
 	
 	
 	
-	func pushPartyListVC(title: String) {
-		self.coordinator?.pushPartyListVC(title: title)
+	func pushPartyListVC(category: CategoryModel) {
+		self.coordinator?.pushPartyListVC(category: category)
 	}
 	
 }
