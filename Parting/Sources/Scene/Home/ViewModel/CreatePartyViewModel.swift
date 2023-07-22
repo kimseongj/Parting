@@ -1,0 +1,29 @@
+//
+//  CreatePartyViewModel.swift
+//  Parting
+//
+//  Created by 박시현 on 2023/07/22.
+//
+
+import Foundation
+class CreatePartyViewModel: BaseViewModel {
+    struct Input {
+        
+    }
+    
+    struct Output {
+        
+    }
+    
+    var input: Input
+    var output: Output
+    
+    private var mapCoordinator: MapCoordinator?
+    
+    init(input: Input = Input(), output: Output = Output(), mapCoordinator: MapCoordinator?) {
+        self.input = input
+        self.output = output
+        self.mapCoordinator = mapCoordinator
+    }
+    
+}
