@@ -44,6 +44,7 @@ class HomeViewModel: BaseViewModel {
 		self.output = output
 		self.coordinator = coordinator
 		setupBindings()
+		loadCategories()
 	}
 	
 	private func setupBindings() {
@@ -52,98 +53,18 @@ class HomeViewModel: BaseViewModel {
 				self?.coordinator?.pushScheduleVC()
 			})
 			.disposed(by: disposeBag)
-		
-		loadCategories()
-		
+
 		
 	}
 	
 	private func loadCategories() {
-		do {
-			try fetchCategories()
-		} catch {
-			print("Failed to load Categories, Reason: \(error)")
-			
-		}
+		CoreDataManager.fetchCategories()
+			.withUnretained(self)
+			.subscribe(onNext: { owner, result in
+				owner.output.categories.accept(result)
+			})
+			.disposed(by: disposeBag)
 	}
-	
-	private func saveCategories(_ categories: [CategoryModel]) {
-		
-		var categoryList = [NSManagedObject]()
-		
-		guard let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else { return }
-		
-		guard let entity = NSEntityDescription.entity(forEntityName: Entity.category.entityName, in: context) else { return }
-		
-		for categoryItem in categories {
-			
-			let category = NSManagedObject(entity: entity, insertInto: context)
-			let imgFileName = categoryItem.name + ".png"
-			
-			category.setValue(categoryItem.id, forKey: Entity.category.keys.id)
-			category.setValue(categoryItem.name, forKey: Entity.category.keys.name)
-			category.setValue(categoryItem.imgURL, forKey: Entity.category.keys.imgURL)
-			category.setValue(imgFileName, forKey: Entity.category.keys.localImgSrc)
-			categoryList.append(category)
-			
-			KF.saveOnlineImageAtLocalStorage(urlString: categoryItem.imgURL, fileName: imgFileName)
-			
-		}
-		
-		
-		do {
-			try context.save()
-		} catch let error as NSError {
-			print("Could not save. \(error), \(error.userInfo)")
-		}
-		
-	}
-	
-	private func fetchCategories() throws {
-		
-		var categoryList = [NSManagedObject]()
-		
-		guard let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else { throw LocalStorageError.noContext}
-		
-		let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: Entity.category.entityName)
-		
-		do {
-			categoryList = try context.fetch(fetchRequest)
-		} catch let error as NSError {
-			print("Could not fetch. \(error), \(error.userInfo)")
-			throw error
-		}
-		
-		var categoryModelList = [CategoryModel]()
-		
-		/* Succeeded to fetch but NO ITEM */
-		guard categoryList.count > 0 else {
-			APIManager.shared.getCategoryImageAPI()
-				.withUnretained(self)
-				.subscribe(onNext: { owner, data in
-					owner.output.categories.accept(data)
-					self.saveCategories(data)
-				})
-				.disposed(by: disposeBag)
-			
-			
-			return
-		}
-		
-		categoryList.forEach { obj in
-			if let id = obj.value(forKey: Entity.category.keys.id) as? Int,
-			   let name = obj.value(forKey: Entity.category.keys.name) as? String,
-			   let imgURL = obj.value(forKey: Entity.category.keys.imgURL) as? String,
-			   let localImgSrc = obj.value(forKey: Entity.category.keys.localImgSrc) as? String {
-				categoryModelList.append(CategoryModel(id: id, name: name, imgURL: imgURL, localImgSrc: localImgSrc))
-			}
-			
-			
-		} /* End categoryList.forEach */
-		
-		self.output.categories.accept(categoryModelList)
-		print("Successfully Fetched Images From Storage")
-	} /* End fetchCategoriesFromLocalStorage() */
 	
 	
 	
