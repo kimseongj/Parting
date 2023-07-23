@@ -57,3 +57,4 @@ extension CreatePartyViewController: UICollectionViewDelegateFlowLayout {
 
     }
 }
+

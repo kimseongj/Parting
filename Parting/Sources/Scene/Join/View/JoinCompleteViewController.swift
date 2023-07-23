@@ -58,5 +58,5 @@ class JoinCompleteViewController: BaseViewController<JoinCompleteView> {
     @objc func backBarButtonClicked() {
 		viewModel.input.popJoinCompleteViewTrigger.onNext(())
     }
-    
 }
+
