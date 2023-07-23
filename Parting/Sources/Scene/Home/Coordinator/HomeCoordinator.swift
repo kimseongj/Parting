@@ -33,11 +33,21 @@ final class HomeCoordinator: Coordinator {
 		let viewModel = ScheduleViewModel(coordinator: self)
 		navigationController.pushViewController(ScheduleViewController(viewModel: viewModel), animated: true)
 	}
+		
+	func pushPartyListVC(category: CategoryModel) {
+		let viewModel = PartyListViewModel(coordinator: self, category: category)
+		navigationController.pushViewController(PartyListViewController(viewModel: viewModel, title: category.name), animated: true)
+	}
+	
+	func pushCreatePartyVC() {
+		let viewModel = CreatePartyViewModel(coordinator: self)
+		navigationController.pushViewController(CreatePartyViewController(viewModel: viewModel), animated: true)
+	}
 	
 	func popVC() {
 		navigationController.popViewController(animated: true)
 	}
 	
-	
+
 	
 }

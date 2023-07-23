@@ -80,6 +80,10 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
                 print("이건 선택된 detailCategoryList야 \(data) 💖💖")
             })
             .disposed(by: disposeBag)
+		
+		rootView.serviceStartButton.rx.tap
+			.bind(to: viewModel.input.naviagteToPublicScreenTrigger)
+			.disposed(by: disposeBag)
     }
     
     private func headerViewResist() {

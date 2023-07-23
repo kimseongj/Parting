@@ -15,7 +15,7 @@ class HomeViewController: BaseViewController<HomeView> {
 	private var viewModel: HomeViewModel
 	
 	private let disposeBag = DisposeBag()
-
+	
 	init(viewModel: HomeViewModel) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
@@ -37,36 +37,47 @@ class HomeViewController: BaseViewController<HomeView> {
 		navigationController?.isNavigationBarHidden = false
 		self.navigationItem.rightBarButtonItem = rootView.bellBarButton
 		self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: rootView.navigationLabel)
-
+		
 	}
 	
 	private func configureCell() {
 		rootView.categoryCollectionView.register(CategoryImageCollectionViewCell.self, forCellWithReuseIdentifier: CategoryImageCollectionViewCell.identifier)
-		rootView.categoryCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+		
+		rootView.categoryCollectionView.rx.setDelegate(self)
+			.disposed(by: disposeBag)
+		
+		rootView.categoryCollectionView.rx.itemSelected
+			.subscribe { [weak self] indexPath in
+				let index = indexPath[1]
+				guard let categories = self?.viewModel.output.categories.value else { return }
+				self?.viewModel.pushPartyListVC(category: categories[index])
+			}
+			.disposed(by: disposeBag)
+		
 		
 	}
+	
 	
 	private func bindViewModel() {
 		rootView.calendarWidget.rx.tap
 			.bind(to: viewModel.input.pushScheduleVCTrigger)
 			.disposed(by: disposeBag)
 		
-		viewModel.output.categoryImages
-			.bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: CategoryImageCollectionViewCell.identifier, cellType: CategoryImageCollectionViewCell.self)) { index, imgSrc, cell in
+		
+		viewModel.output.categories
+			.bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: CategoryImageCollectionViewCell.identifier, cellType: CategoryImageCollectionViewCell.self)) { index, category, cell in
 				
-				cell.interestsImageView.kf.setImage(with: URL(string: imgSrc))
-				if let text = InterestsCategory(rawValue: index)?.category {
-					
-					cell.interestsLabel.text = text + "팟"
-				}
-				cell.configureCell(type: .normal)
+				let image = UIImage.loadImageFromDiskWith(fileName: category.localImgSrc!)
+				cell.interestsImageView.image = image
+				cell.interestsLabel.text = category.name
+				cell.configureCell(type: .normal, size: .md)
 			}.disposed(by: disposeBag)
 	}
 	
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
-
+	
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		let width: CGFloat = collectionView.frame.width
@@ -88,9 +99,9 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 		return 24.0 // height
 	}
-
+	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 		return 32.0 // horizontal spacing
-
+		
 	}
 }

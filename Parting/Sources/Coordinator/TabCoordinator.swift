@@ -24,6 +24,7 @@ class TabCoordinator:  NSObject, Coordinator {
 	required init(_ navigationController: UINavigationController) {
 		self.navigationController = navigationController
 		self.tabBarController = UITabBarController()
+		
 	}
 	
 	func start() {
@@ -34,6 +35,7 @@ class TabCoordinator:  NSObject, Coordinator {
 	
 	private func startChildCoordinators() {
 		let homeCoordinator = HomeCoordinator(StyledNavigationController())
+		homeCoordinator.delegate = self
 		homeCoordinator.start()
 		childCoordinators.append(homeCoordinator)
 	}
@@ -60,6 +62,14 @@ class TabCoordinator:  NSObject, Coordinator {
 		}
 	}
 	
+	
+	
+}
+
+extension TabCoordinator: CoordinatorDelegate {
+	func didFinish(childCoordinator: Coordinator) {
+		
+	}
 	
 	
 }

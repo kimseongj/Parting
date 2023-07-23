@@ -13,7 +13,7 @@ import FSCalendar
 class ScheduleView: BaseView {
 	
 	
-	var bellBarButton = BarImageButton(imageName: Images.icon.bell)
+	var bellBarButton = BarImageButton(imageName: Images.sfSymbol.bell)
 	
 	var backBarButton = BarImageButton(imageName: Images.icon.back)
 	

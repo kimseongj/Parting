@@ -16,6 +16,13 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
 		case deselectable
 	}
 	
+	enum CellSize {
+		case md
+		case lg
+	}
+	
+	private let cellType: CellType = .deselectable
+	
     let interestsImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.alpha = 0.6
@@ -40,7 +47,7 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 		addSubviews()
-		configureCell(type: .deselectable)
+		configureCell(type: .deselectable, size: .lg)
     }
     
     required init?(coder: NSCoder) {
@@ -51,7 +58,8 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
 		makeConstraints()
 	}
 	
-	func configureCell(type: CategoryImageCollectionViewCell.CellType) {
+	func configureCell(type: CategoryImageCollectionViewCell.CellType, size: CategoryImageCollectionViewCell.CellSize) {
+		var imageViewWidth: CGFloat
 		
 		switch type {
 		case .deselectable:
@@ -61,9 +69,21 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
 			interestsImageView.alpha = 1
 			interestsLabel.textColor = AppColor.baseText
 			interestsLabel.font = notoSansFont.Light.of(size: 14)
-	
-			
 		}
+		
+		switch size {
+		case .lg:
+			imageViewWidth = 77
+		case .md:
+			imageViewWidth = 66.33
+		}
+		
+		interestsImageView.snp.remakeConstraints { make in
+			make.height.equalTo(imageViewWidth)
+			make.width.equalTo(imageViewWidth)
+		}
+		
+		
 	}
 }
 
@@ -79,20 +99,10 @@ extension CategoryImageCollectionViewCell: ProgrammaticallyInitializableViewProt
 	
 	func makeConstraints() {
 		interestStackView.snp.makeConstraints { make in
-			make.edges.equalToSuperview()
+			make.top.equalToSuperview()
 		}
-		
-		let width = self.frame.width
 
-//		interestsImageView.snp.makeConstraints { make in
-//			make.height.equalTo(width)
-//			make.width.equalTo(width)
-//		}
-//
-//		interestsLabel.snp.makeConstraints { make in
-//			make.top.equalTo(interestsImageView.snp.bottom).offset(5)
-//			make.centerX.equalToSuperview()
-//		}
+
 	}
 	
 	

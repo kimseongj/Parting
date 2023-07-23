@@ -37,6 +37,7 @@ enum AppColor {
     static let gray300: UIColor = UIColor(hexcode: "ECECEC")
     static let gray400: UIColor = UIColor(hexcode: "D9D9E2")
     static let gray500: UIColor = UIColor(hexcode: "D9D9D9")
+	static let gray600: UIColor = UIColor(hexcode: "868686")
     static let baseText: UIColor = UIColor(hexcode: "000000")
     static let joinText: UIColor = UIColor(hexcode: "1D232E")
     static let white: UIColor = UIColor(hexcode: "FFFFFF")

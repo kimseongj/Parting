@@ -8,19 +8,31 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import Kingfisher
+import CoreData
+import UIKit
 
 class HomeViewModel: BaseViewModel {
+	
+	enum LocalStorageError: Error {
+		case noFileName
+		case noImageInDisk
+		case noContext
+		case noEntity
+		case fetchingError
+	}
 	
 	struct Input {
 		let pushScheduleVCTrigger = PublishSubject<Void>()
 	}
 	
 	struct Output {
-		let categoryImages: BehaviorRelay<[String]> = BehaviorRelay(value: [])
-		let categoryNames: BehaviorRelay<[String]> = BehaviorRelay(value: [])
+				let categories: BehaviorRelay<[CategoryModel]> = BehaviorRelay(value: [])
+		let categoryImages: BehaviorRelay<[CategoryModel]> = BehaviorRelay(value: [])
 	}
 	
 	private let disposeBag = DisposeBag()
+	
 	
 	var input: Input
 	var output: Output
@@ -32,6 +44,7 @@ class HomeViewModel: BaseViewModel {
 		self.output = output
 		self.coordinator = coordinator
 		setupBindings()
+		loadCategories()
 	}
 	
 	private func setupBindings() {
@@ -40,27 +53,23 @@ class HomeViewModel: BaseViewModel {
 				self?.coordinator?.pushScheduleVC()
 			})
 			.disposed(by: disposeBag)
+
 		
-		bindCategory()
 	}
 	
-	private func bindCategory() {
-		
-		var imageDataList: [String] = []
-		var categoryNameList: [String] = []
-		
-		APIManager.shared.getCategoryAPI()
+	private func loadCategories() {
+		CoreDataManager.fetchCategories()
 			.withUnretained(self)
-			.subscribe(onNext: { owner, data in
-				for idx in 0..<data.result.categories.count {
-					imageDataList.append(data.result.categories[idx].imgURL)
-					categoryNameList.append(data.result.categories[idx].categoryName)
-				}
-				owner.output.categoryImages.accept(imageDataList)
+			.subscribe(onNext: { owner, result in
+				owner.output.categories.accept(result)
 			})
 			.disposed(by: disposeBag)
 	}
 	
 	
+	
+	func pushPartyListVC(category: CategoryModel) {
+		self.coordinator?.pushPartyListVC(category: category)
+	}
 	
 }

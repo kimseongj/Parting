@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class BarTitleLabel: UILabel {
-	
+		
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		font = UIFont(name: notoSansFont.Bold.rawValue, size: 20)
