@@ -53,6 +53,7 @@
 		4E93176C2A6B7AC5001FBDCB /* CreatePartyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E93176B2A6B7AC5001FBDCB /* CreatePartyViewController.swift */; };
 		4E9317702A6B7AEA001FBDCB /* CreatePartyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E93176F2A6B7AEA001FBDCB /* CreatePartyView.swift */; };
 		4E9317742A6B7B15001FBDCB /* CreatePartyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9317732A6B7B15001FBDCB /* CreatePartyViewModel.swift */; };
+		4E9317762A6B881A001FBDCB /* CreayPartyCommonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9317752A6B881A001FBDCB /* CreayPartyCommonLabel.swift */; };
 		4EA5836B29C04F4200BF4D7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5836A29C04F4200BF4D7A /* AppDelegate.swift */; };
 		4EA5836D29C04F4200BF4D7A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5836C29C04F4200BF4D7A /* SceneDelegate.swift */; };
 		4EA5837429C04F4400BF4D7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EA5837329C04F4400BF4D7A /* Assets.xcassets */; };
@@ -148,6 +149,7 @@
 		4E93176B2A6B7AC5001FBDCB /* CreatePartyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePartyViewController.swift; sourceTree = "<group>"; };
 		4E93176F2A6B7AEA001FBDCB /* CreatePartyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePartyView.swift; sourceTree = "<group>"; };
 		4E9317732A6B7B15001FBDCB /* CreatePartyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePartyViewModel.swift; sourceTree = "<group>"; };
+		4E9317752A6B881A001FBDCB /* CreayPartyCommonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreayPartyCommonLabel.swift; sourceTree = "<group>"; };
 		4EA5836729C04F4200BF4D7A /* Parting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Parting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EA5836A29C04F4200BF4D7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4EA5836C29C04F4200BF4D7A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -600,6 +602,7 @@
 				937711E92A4EDFD00019DC6F /* StackView.swift */,
 				9348C1082A501771000F25A9 /* BarImageButton.swift */,
 				9348C10A2A5029C6000F25A9 /* BarTitleLabel.swift */,
+				4E9317752A6B881A001FBDCB /* CreayPartyCommonLabel.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -771,6 +774,7 @@
 				933B3CA02A55870E00B8D60B /* BarTitleLabel.swift in Sources */,
 				933B3CA22A55871400B8D60B /* ProgrammaticallyInitializableViewProtocol.swift in Sources */,
 				4E23293229FCEFB600455971 /* CategoryImageCollectionViewCell.swift in Sources */,
+				4E9317762A6B881A001FBDCB /* CreayPartyCommonLabel.swift in Sources */,
 				4EA81DE229ED32680070F1B7 /* UILabel+Extension.swift in Sources */,
 				933B3CA62A55873A00B8D60B /* DdayWidgetView.swift in Sources */,
 				4E54431B2A6132990074F654 /* MapViewController.swift in Sources */,

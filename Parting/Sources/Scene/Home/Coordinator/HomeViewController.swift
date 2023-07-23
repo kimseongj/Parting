@@ -13,7 +13,6 @@ import Kingfisher
 class HomeViewController: BaseViewController<HomeView> {
 	
 	private var viewModel: HomeViewModel
-//	private let disposeBag = DisposeBag()
 
 	init(viewModel: HomeViewModel) {
 		self.viewModel = viewModel
@@ -61,7 +60,6 @@ class HomeViewController: BaseViewController<HomeView> {
 				cell.configureCell(type: .normal)
 			}.disposed(by: disposeBag)
 	}
-	
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {

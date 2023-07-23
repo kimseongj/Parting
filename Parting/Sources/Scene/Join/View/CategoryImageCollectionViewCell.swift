@@ -61,8 +61,6 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
 			interestsImageView.alpha = 1
 			interestsLabel.textColor = AppColor.baseText
 			interestsLabel.font = notoSansFont.Light.of(size: 14)
-	
-			
 		}
 	}
 }
