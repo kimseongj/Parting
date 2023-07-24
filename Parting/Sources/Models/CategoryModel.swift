@@ -11,7 +11,7 @@ class CategoryModel {
 	let id: Int
 	let name: String
 	let imgURL: String
-	let localImgSrc: String?
+	var localImgSrc: String?
 
 	init(id: Int, name: String, imgURL: String, localImgSrc: String?) {
 		self.id = id

@@ -49,6 +49,7 @@ class HomeView: BaseView {
 		let layout = UICollectionViewFlowLayout()
 		let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 		collectionView.isScrollEnabled = false
+        collectionView.backgroundColor = .clear
 		return collectionView
 	}()
 	

@@ -9,30 +9,31 @@ import Foundation
 import Alamofire
 
 enum PartingAPI {
-	case detailCategory(categoryVersion: String)
-	case associatedCategory(categoryId: Int)
-	case oauthKaKao
-	case oauthLogout
-	case isMemeber
-	case tokenReissue
+    case detailCategory(categoryVersion: String)
+    case associatedCategory(categoryId: Int)
+    case oauthKaKao
+    case oauthLogout
+    case isMemeber
+    case tokenReissue
     case parties(params: PartyListParams)
-	case createParty
-	case getPartyDetail(partyId: Int)
-	case modifyParty(partyId: Int)
-	case deleteParty(partyId: Int)
-	case calender(month: Int, year: Int)
-	case recentView(partyIdStr: String)
-	case region
-	case reportParty
-	case checkMyParty(pageNumber: Int)
-	case partyMember(partyId: Int, userId: Int)
-	case checkEnteredParty
-	case partyDday
-	case checkMypage
-	case checkNickname(nickName: String)
-	case essentialInfo(birth: String, job: String, nickName: String, sex: String, sigunguCd: Int)
-	case interest
-	case modifyInfo
+    case createParty
+    case getPartyDetail(partyId: Int)
+    case modifyParty(partyId: Int)
+    case deleteParty(partyId: Int)
+    case calender(month: Int, year: Int)
+    case recentView(partyIdStr: String)
+    case region
+    case reportParty
+    case checkMyParty(pageNumber: Int)
+    case partyMember(partyId: Int, userId: Int)
+    case checkEnteredParty
+    case partyDday
+    case checkMypage
+    case checkNickname(nickName: String)
+    case essentialInfo(birth: String, job: String, nickName: String, sex: String, sigunguCd: Int)
+    case interest
+    case modifyInfo
+    
 }
 
 extension PartingAPI {
@@ -54,8 +55,8 @@ extension PartingAPI {
             return  "\(BaseURL.baseURL)/category-sortby/category-version/0.0.9"
         case .oauthKaKao, .oauthLogout, .isMemeber, .tokenReissue:
             return  "\(BaseURL.oauthURL)/"
-        case .parties:
-            return "\(BaseURL.baseURL)/parties"
+        case .parties(let params):
+            return "\(BaseURL.baseURL)/parties?categoryDetailId=\(params.categoryDetailId)&categoryId=\(params.categoryId)&orderCondition1=\(params.orderCondition1)&orderCondition2=\(params.orderCondition2)&pageNumber=\(params.pageNumber)&categoryVersion=1.0.0&userLatitude=1.00232&userLongitude=223.2345"
         case .createParty:
             return  "\(BaseURL.partyURL)"
         case .getPartyDetail, .modifyParty, .deleteParty, .calender, .recentView, .partyMember, .partyDday:
@@ -86,21 +87,21 @@ extension PartingAPI {
         case .parties, .associatedCategory, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calender, .region, .recentView, .checkMyParty, .partyMember, .detailCategory, .checkNickname, .essentialInfo:
             return [
                 "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4OTY2Mjc5NSwiZXhwIjoxNjkyMDgxOTk1fQ.qwKegwOutI8bWPmDBE0jx5KOspSQTVZL_Ucc-I6D_hY",
-                    "Content-Type": "application/json;charset=UTF-8"
+                "Content-Type": "application/json;charset=UTF-8"
             ]
         }
     }
     
     var parameters: [String: Any] {
         switch self {
-//        case let .parties():
-//            return [
-//                "categoryDetailId": categoryDetailId,
-//                "orderCondition1": orderCondition1,
-//                "orderCondition2": orderCondition2,
-//                "pageNumber": pageNumber,
-//                "categoryVersion": categoryVersion
-//            ]
+            //        case let .parties(categoryDetailId, orderCondition1, orderCondition2, pageNumber, categoryVersion):
+            //            return [
+            //                "categoryDetailId": categoryDetailId,
+            //                "orderCondition1": orderCondition1,
+            //                "orderCondition2": orderCondition2,
+            //                "pageNumber": pageNumber,
+            //                "categoryVersion": categoryVersion
+            //            ]
         case let .getPartyDetail(partyId), let .modifyParty(partyId), let .deleteParty(partyId):
             return [
                 "partyId": partyId
