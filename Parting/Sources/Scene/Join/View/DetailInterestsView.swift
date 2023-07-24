@@ -18,15 +18,7 @@ class DetailInterestsView: BaseView {
         return label
     }()
     
-    let serviceStartButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("서비스 이용하기", for: .normal)
-        button.layer.cornerRadius = 8
-        button.backgroundColor = AppColor.brand
-        button.titleLabel?.font = notoSansFont.Bold.of(size: 20)
-        button.setTitleColor(AppColor.white, for: .normal)
-        return button
-    }()
+    let serviceStartButton = CompleteAndNextButton("서비스 이용하기")
     
     lazy var detailCategoryCollectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())

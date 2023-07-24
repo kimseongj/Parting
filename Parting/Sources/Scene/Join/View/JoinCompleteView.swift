@@ -17,15 +17,7 @@ class JoinCompleteView: BaseView {
         return label
     }()
     
-    let writeInfoButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("필수 정보 입력하기", for: .normal)
-        button.setTitleColor(AppColor.white, for: .normal)
-        button.titleLabel?.font = notoSansFont.Bold.of(size: 20)
-        button.layer.backgroundColor = AppColor.brand.cgColor
-        button.layer.cornerRadius = 8
-        return button
-    }()
+    let writeInfoButton = CompleteAndNextButton("필수 정보 입력하기")
     
     override func makeConfigures() {
         super.makeConfigures()

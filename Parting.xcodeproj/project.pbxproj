@@ -514,8 +514,8 @@
 				4E52228329F141AA000B96B4 /* EssentialInfoViewController.swift */,
 				4E52228929F18152000B96B4 /* InterestsView.swift */,
 				4E52228B29F18166000B96B4 /* InterestsViewController.swift */,
-				4E153FA92A34C39F00C7F58C /* DetailInterestsViewController.swift */,
 				4E153FAB2A34C3BB00C7F58C /* DetailInterestsView.swift */,
+				4E153FA92A34C39F00C7F58C /* DetailInterestsViewController.swift */,
 				4E6123BD2A3763720039307A /* detailCategoryCollectionViewCell.swift */,
 			);
 			path = View;

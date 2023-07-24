@@ -227,15 +227,17 @@ class EssentialInfoView: BaseView {
         return view
     }()
     
-    let nextStepButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("다음 단계로", for: .normal)
-        button.layer.cornerRadius = 8
-        button.backgroundColor = AppColor.brand
-        button.titleLabel?.font = notoSansFont.Bold.of(size: 20)
-        button.setTitleColor(AppColor.white, for: .normal)
-        return button
-    }()
+    let nextStepButton = CompleteAndNextButton("다음 단계로")
+    
+//    let nextStepButton: UIButton = {
+//        let button = UIButton()
+//        button.setTitle("다음 단계로", for: .normal)
+//        button.layer.cornerRadius = 8
+//        button.backgroundColor = AppColor.brand
+//        button.titleLabel?.font = notoSansFont.Bold.of(size: 20)
+//        button.setTitleColor(AppColor.white, for: .normal)
+//        return button
+//    }()
     
     override func makeConfigures() {
         super.makeConfigures()
