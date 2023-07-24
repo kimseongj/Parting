@@ -82,6 +82,7 @@
 		4EECA7EB2A6E4C1E00C94417 /* DetailCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECA7EA2A6E4C1E00C94417 /* DetailCategoryCollectionViewCell.swift */; };
 		4EECA7EE2A6E5BD400C94417 /* MultiSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 4EECA7ED2A6E5BD400C94417 /* MultiSlider */; };
 		4EECA7F02A6E9B2E00C94417 /* CommonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECA7EF2A6E9B2E00C94417 /* CommonButton.swift */; };
+		4EECA7F22A6E9FF200C94417 /* CreatePartyViewIntroLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECA7F12A6E9FF200C94417 /* CreatePartyViewIntroLabel.swift */; };
 		4EFCEBCA2A677E3F000F0A2B /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCEBC92A677E3F000F0A2B /* BottomSheetViewController.swift */; };
 		4EFCEBCE2A67A7E2000F0A2B /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCEBCD2A67A7E2000F0A2B /* BottomSheetView.swift */; };
 		4EFFCE3B2A6DECB30075EF9C /* PartyListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9337C01E2A6BD7E000CA572B /* PartyListResponse.swift */; };
@@ -197,6 +198,7 @@
 		4ECEAE2329ED2A66006AAF6B /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		4EECA7EA2A6E4C1E00C94417 /* DetailCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		4EECA7EF2A6E9B2E00C94417 /* CommonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonButton.swift; sourceTree = "<group>"; };
+		4EECA7F12A6E9FF200C94417 /* CreatePartyViewIntroLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePartyViewIntroLabel.swift; sourceTree = "<group>"; };
 		4EFCEBC92A677E3F000F0A2B /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		4EFCEBCD2A67A7E2000F0A2B /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
 		4EFFCE3E2A6DEDA90075EF9C /* PartyListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyListViewModel.swift; sourceTree = "<group>"; };
@@ -674,6 +676,7 @@
 				4EFFCE442A6DF2170075EF9C /* CategoryImageCollectionViewCell.swift */,
 				4EECA7EA2A6E4C1E00C94417 /* DetailCategoryCollectionViewCell.swift */,
 				4EECA7EF2A6E9B2E00C94417 /* CommonButton.swift */,
+				4EECA7F12A6E9FF200C94417 /* CreatePartyViewIntroLabel.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -935,6 +938,7 @@
 				4EA81DDE29ED2D9A0070F1B7 /* SplashViewController.swift in Sources */,
 				4EA81DE429ED36860070F1B7 /* SplashViewModel.swift in Sources */,
 				4E5443192A61323D0074F654 /* MapCoordinator.swift in Sources */,
+				4EECA7F22A6E9FF200C94417 /* CreatePartyViewIntroLabel.swift in Sources */,
 				4E153FAC2A34C3BB00C7F58C /* DetailInterestsView.swift in Sources */,
 				933B3CA32A55871800B8D60B /* Images.swift in Sources */,
 				4E89BC2D29C57D2300BAE38A /* Endpoints.swift in Sources */,

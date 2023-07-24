@@ -40,14 +40,7 @@ final class CreatePartyView: BaseView {
         return view
     }()
     
-    let maxSelectLabelNotiLabel: UILabel = {
-        let label = UILabel()
-        label.text = "최대 2개까지 중복 선택이 가능합니다."
-        label.font = notoSansFont.Black.of(size: 12)
-        label.textAlignment = .center
-        label.textColor = UIColor(hexcode: "D0D0D0")
-        return label
-    }()
+    let maxSelectLabelNotiLabel = IntroLabel("최대 2개까지 중복 선택이 가능합니다.", type: .maxSelectLabelNotiLabel)
     
     lazy var detailCategoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -196,22 +189,7 @@ final class CreatePartyView: BaseView {
         return stackView
     }()
     
-//    let numberOfPeopleTextField: UITextField = {
-//        let textField = UITextField
-//    }()
-    
-//    let numberOfPeopleStackView: UIStackView = {
-//
-//    }()
-    
-    let minAndMaxPeople: UILabel = {
-        let label = UILabel()
-        label.text = "본인 포함 최소3명, 최대 20명"
-        label.font = notoSansFont.Black.of(size: 12)
-        label.textColor = UIColor(hexcode: "D0D0D0")
-        label.textAlignment = .right
-        return label
-    }()
+    let minAndMaxPeople = IntroLabel("본인 포함 최소3명, 최대 20명", type: .minAndMaxPeople)
     
     let setAgeLabel: UILabel = {
         let label = UILabel()
@@ -241,14 +219,7 @@ final class CreatePartyView: BaseView {
         return stackView
     }()
     
-    let introContentsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "파티에서 어떤 활동을 하는지 소개해 주세요."
-        label.textAlignment = .center
-        label.textColor = UIColor(hexcode: "D0D0D0")
-        label.font = notoSansFont.Black.of(size: 12)
-        return label
-    }()
+    let introContentsLabel = IntroLabel("파티에서 어떤 활동을 하는지 소개해 주세요.", type: .introContentsLabel)
     
     let openKakaoChatTextField: UITextField = {
         let textField = UITextField()
