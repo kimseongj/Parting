@@ -25,6 +25,7 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
     deinit {
         print("CreatePartyVC 메모리해제")
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationUI()
@@ -43,13 +44,17 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
         rootView.backBarButton.innerButton.rx.tap
             .bind(to: viewModel.input.popVCTrigger)
             .disposed(by: disposeBag)
+        
+        
+    
     }
     
     private func configureCell() {
-//        rootView.categoryCollectionView.register(CategoryImageCollectionViewCell.self, forCellWithReuseIdentifier: CategoryImageCollectionViewCell.identifier)
+        rootView.categoryCollectionView.register(CategoryImageCollectionViewCell.self, forCellWithReuseIdentifier: CategoryImageCollectionViewCell.identifier)
         rootView.categoryCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
     }
+    
    
 }
 

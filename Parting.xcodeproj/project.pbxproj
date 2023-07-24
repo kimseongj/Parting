@@ -116,7 +116,6 @@
 		933E58C72A691B06000F945E /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E58C62A691B06000F945E /* Entity.swift */; };
 		933E58C92A6920FB000F945E /* Kingfisher+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E58C82A6920FB000F945E /* Kingfisher+Extension.swift */; };
 		933E58CD2A69422E000F945E /* UITabBarController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E58CC2A69422E000F945E /* UITabBarController+Extension.swift */; };
-		93653E5B2A6509CE00BEFD61 /* CreatePartyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93653E5A2A6509CE00BEFD61 /* CreatePartyViewModel.swift */; };
 		93A17E082A558319004E3F75 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A17E072A558319004E3F75 /* APIKey.swift */; };
 		A73FD08B699AC59F80404D13 /* Pods_Parting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD59E7956BC0D337F1F0F17 /* Pods_Parting.framework */; };
 /* End PBXBuildFile section */
@@ -229,7 +228,6 @@
 		935D3A812A0A7C210033DCCD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeView.swift; path = Parting/Sources/Scene/Home/Coordinator/HomeView.swift; sourceTree = SOURCE_ROOT; };
 		935D3A832A0A7CAF0033DCCD /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewModel.swift; path = Parting/Sources/Scene/Home/Coordinator/HomeViewModel.swift; sourceTree = SOURCE_ROOT; };
 		93653E562A64F2C400BEFD61 /* InterestBarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestBarCollectionViewCell.swift; sourceTree = "<group>"; };
-		93653E5A2A6509CE00BEFD61 /* CreatePartyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePartyViewModel.swift; sourceTree = "<group>"; };
 		937711E92A4EDFD00019DC6F /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 		938C902B2A512003007FA45F /* DdayWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DdayWidgetView.swift; sourceTree = "<group>"; };
 		93A09BA12A4D967F0096A1D5 /* CalendarWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWidgetView.swift; sourceTree = "<group>"; };
@@ -706,7 +704,6 @@
 		93D5002A2A5CDBCC00FCF42C /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				93653E5A2A6509CE00BEFD61 /* CreatePartyViewModel.swift */,
 				4EFFCE3E2A6DEDA90075EF9C /* PartyListViewModel.swift */,
 			);
 			path = ViewModel;
@@ -901,7 +898,6 @@
 				4EFFCE3F2A6DEDA90075EF9C /* PartyListViewModel.swift in Sources */,
 				4ECEAE1A29ED2537006AAF6B /* JoinCoordinator.swift in Sources */,
 				933E58C32A69166D000F945E /* Model.xcdatamodeld in Sources */,
-				93653E5B2A6509CE00BEFD61 /* CreatePartyViewModel.swift in Sources */,
 				4E52228C29F18166000B96B4 /* InterestsViewController.swift in Sources */,
 				933E58C72A691B06000F945E /* Entity.swift in Sources */,
 				4E52227C29F119B3000B96B4 /* JoinCompleteViewController.swift in Sources */,
