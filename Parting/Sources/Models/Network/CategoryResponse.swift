@@ -12,11 +12,11 @@ struct CategoryResponse: Codable {
     let isSuccess: Bool
     let code: Int
     let message: String
-    let result: Result
+    let result: CategoryResult
 }
 
 // MARK: - Result
-struct Result: Codable {
+struct CategoryResult: Codable {
     let orderEnum: [String]
     let categories: [Category]
     let categoryVersion: String

@@ -16,6 +16,7 @@ final class CreatePartyView: BaseView {
     let setPartyLabel: CreatePartyCommonLabel = CreatePartyCommonLabel(text: "파티 기본 설정")
     
     let introPartyLabel: CreatePartyCommonLabel = CreatePartyCommonLabel(text: "파티 소개")
+    let backBarButton = BarImageButton(imageName: Images.icon.back)
     let categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)

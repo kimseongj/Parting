@@ -33,6 +33,7 @@ class TabCoordinator:  NSObject, Coordinator {
         //MARK: - tabBar에 넣는 순서대로 chilcCoordi에 추가
         
 		let homeCoordinator = HomeCoordinator(StyledNavigationController())
+		homeCoordinator.delegate = self
 		homeCoordinator.start()
 		childCoordinators.append(homeCoordinator)
         
@@ -74,6 +75,14 @@ class TabCoordinator:  NSObject, Coordinator {
             items[2].image = .init(named: Images.icon.profile)
 		}
 	}
+}
+
+extension TabCoordinator: CoordinatorDelegate {
+	func didFinish(childCoordinator: Coordinator) {
+		
+	}
+	
+	
 }
 
 

@@ -32,6 +32,7 @@ final class AppCoordinator: Coordinator {
     private func connectJoinFlow() {
         let joinCoordinator = JoinCoordinator(self.navigationController)
         joinCoordinator.delegate = self
+		print(joinCoordinator.delegate)
         joinCoordinator.start()
         childCoordinators.append(joinCoordinator)
     }

@@ -9,30 +9,40 @@ import Foundation
 import Alamofire
 
 enum PartingAPI {
-    case detailCategory(categoryVersion: String)
-    case associatedCategory(categoryId: Int)
-    case oauthKaKao
-    case oauthLogout
-    case isMemeber
-    case tokenReissue
-    case parties(categoryDetailId: Int, orderCondition1: String, orderCondition2: String, pageNumber: Int, categoryVersion: String)
-    case createParty
-    case getPartyDetail(partyId: Int)
-    case modifyParty(partyId: Int)
-    case deleteParty(partyId: Int)
-    case calender(month: Int, year: Int)
-    case recentView(partyIdStr: String)
-    case region
-    case reportParty
-    case checkMyParty(pageNumber: Int)
-    case partyMember(partyId: Int, userId: Int)
-    case checkEnteredParty
-    case partyDday
-    case checkMypage
-    case checkNickname(nickName: String)
-    case essentialInfo(birth: String, job: String, nickName: String, sex: String, sigunguCd: Int)
-    case interest
-    case modifyInfo
+	case detailCategory(categoryVersion: String)
+	case associatedCategory(categoryId: Int)
+	case oauthKaKao
+	case oauthLogout
+	case isMemeber
+	case tokenReissue
+    case parties(params: PartyListParams)
+	case createParty
+	case getPartyDetail(partyId: Int)
+	case modifyParty(partyId: Int)
+	case deleteParty(partyId: Int)
+	case calender(month: Int, year: Int)
+	case recentView(partyIdStr: String)
+	case region
+	case reportParty
+	case checkMyParty(pageNumber: Int)
+	case partyMember(partyId: Int, userId: Int)
+	case checkEnteredParty
+	case partyDday
+	case checkMypage
+	case checkNickname(nickName: String)
+	case essentialInfo(birth: String, job: String, nickName: String, sex: String, sigunguCd: Int)
+	case interest
+	case modifyInfo
+}
+
+extension PartingAPI {
+    struct PartyListParams {
+        let categoryId: Int
+        let categoryDetailId: Int
+        let orderCondition1: String
+        let orderCondition2: String
+        let pageNumber: Int
+    }
 }
 
 extension PartingAPI {
@@ -83,14 +93,14 @@ extension PartingAPI {
     
     var parameters: [String: Any] {
         switch self {
-        case let .parties(categoryDetailId, orderCondition1, orderCondition2, pageNumber, categoryVersion):
-            return [
-                "categoryDetailId": categoryDetailId,
-                "orderCondition1": orderCondition1,
-                "orderCondition2": orderCondition2,
-                "pageNumber": pageNumber,
-                "categoryVersion": categoryVersion
-            ]
+//        case let .parties():
+//            return [
+//                "categoryDetailId": categoryDetailId,
+//                "orderCondition1": orderCondition1,
+//                "orderCondition2": orderCondition2,
+//                "pageNumber": pageNumber,
+//                "categoryVersion": categoryVersion
+//            ]
         case let .getPartyDetail(partyId), let .modifyParty(partyId), let .deleteParty(partyId):
             return [
                 "partyId": partyId
@@ -127,6 +137,22 @@ extension PartingAPI {
             ]
         default:
             return ["":""]
+        }
+    }
+}
+
+extension PartingAPI {
+    enum partySortingCondition {
+        enum byNumberOfPeople: String {
+            case few = "FEW_PEOPLE"
+            case many = "MANY_PEOPLE"
+            case none = "NONE"
+        }
+        
+        enum byTime: String {
+            case latest = "LATEST"
+            case closingTime = "CLOSING_TIME"
+            case none = "NONE"
         }
     }
 }
