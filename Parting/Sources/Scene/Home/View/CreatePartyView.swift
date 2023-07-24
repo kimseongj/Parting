@@ -7,7 +7,7 @@
 
 import UIKit
 import SnapKit
-
+import MultiSlider
 
 //MARK: - 수정 예정 => UICollectionView로 구현해서 Section별 Cell에 컴포넌트들 배치해야할 것 같음 
 final class CreatePartyView: BaseView {
@@ -49,32 +49,135 @@ final class CreatePartyView: BaseView {
         return label
     }()
     
-    let detailCategoryCollectionView: UICollectionView = {
+    lazy var detailCategoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.isScrollEnabled = false
+        collectionView.layer.borderWidth = 1
+        collectionView.layer.cornerRadius = 5
+        collectionView.layer.borderColor = UIColor(hexcode: "EEEEEE").cgColor
         return collectionView
+    }()
+    
+    let setPartyTitleLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    
+    let setPartyTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "파티 제목을 입력해 주세요"
+        return textField
+    }()
+    
+    let setPartyTextCount: UILabel = {
+        let label = UILabel()
+        label.text = "0/20"
+        return label
+    }()
+    
+    let setPartyUnderLineLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    
+    let setPartyBackgroundView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    let setHashTagLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    
+    let setHashTagTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "#해시태그"
+        return textField
+    }()
+    
+    let setHashTagTextCount: UILabel = {
+        let label = UILabel()
+        label.text = "0/20"
+        return label
+    }()
+    
+    let setHashTagUnderLineLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    
+    let setHashTagBackgroundView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    let setPartyDateLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    
+    let setPartyBirthandMonthTextField: UITextField = {
+        let textField = UITextField()
+        return textField
+    }()
+    
+    let setPartyTimeTextField: UITextField = {
+        let textField = UITextField()
+        return textField
+    }()
+    
+    let setPartyDateBackgroundView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    //MARK: - 파티제목View + setPartyTitleLabel
+    let setPartyTitleStackView: UIStackView = {
+        let stackView = UIStackView()
+        return stackView
+    }()
+    
+    //MARK: - 해시태그View + setHashTagTitleLabel
+    let setHashTagStackView: UIStackView = {
+        let stackView = UIStackView()
+        return stackView
+    }()
+    
+    //MARK: - 파티일시 + (setPartyBirthandMonthTextField, setPartyTimeTextField)
+    let setPartyDateStackView: UIStackView = {
+        let stackView = UIStackView()
+        return stackView
     }()
     
     let setPartyView: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 5
+        view.layer.borderColor = UIColor(hexcode: "EEEEEE").cgColor
         return view
     }()
     
     let setLocationButton: UIButton = {
         let button = UIButton()
         button.setTitle("지도에서 위치 설정", for: .normal)
+        button.titleLabel?.font = notoSansFont.Black.of(size: 16)
         button.setTitleColor(UIColor(hexcode: "676767"), for: .normal)
         button.setImage(UIImage(named: Images.icon.compass), for: .normal)
         button.layer.cornerRadius = 5
         button.layer.borderColor = UIColor(hexcode: "EEEEEE").cgColor
         button.layer.borderWidth = 1
+        button.imageEdgeInsets.left = -8
         return button
     }()
     
     let numberOfPeopleTitleLabel: UILabel = {
         let label = UILabel()
+        label.text = "파티 인원수"
+        label.textAlignment = .center
+        label.font = notoSansFont.Black.of(size: 15)
+        label.textColor = UIColor(hexcode: "676767")
         return label
     }()
     
@@ -84,6 +187,13 @@ final class CreatePartyView: BaseView {
         view.layer.borderColor = UIColor(hexcode: "EEEEEE").cgColor
         view.layer.borderWidth = 1
         return view
+    }()
+    
+    let numberOfPeopleStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.distribution = .fillProportionally
+        stackView.axis = .horizontal
+        return stackView
     }()
     
 //    let numberOfPeopleTextField: UITextField = {
@@ -97,12 +207,38 @@ final class CreatePartyView: BaseView {
     let minAndMaxPeople: UILabel = {
         let label = UILabel()
         label.text = "본인 포함 최소3명, 최대 20명"
+        label.font = notoSansFont.Black.of(size: 12)
+        label.textColor = UIColor(hexcode: "D0D0D0")
+        label.textAlignment = .right
         return label
     }()
     
     let setAgeLabel: UILabel = {
         let label = UILabel()
+        label.text = "연령대 설정"
+        label.textAlignment = .center
+        label.font = notoSansFont.Black.of(size: 15)
+        label.textColor = UIColor(hexcode: "676767")
         return label
+    }()
+    
+    let setAgeMultislider: MultiSlider = {
+        let multislider = MultiSlider()
+        multislider.minimumValue = 1
+        multislider.maximumValue = 5
+        multislider.value = [1, 5]
+        multislider.orientation = .horizontal
+        multislider.tintColor = AppColor.brand
+        multislider.thumbTintColor = AppColor.brand
+        multislider.thumbImage = UIImage(named: "sliderThumb")
+        return multislider
+    }()
+    
+    let setAgeStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.distribution = .fillProportionally
+        stackView.axis = .horizontal
+        return stackView
     }()
     
     let introContentsLabel: UILabel = {
@@ -131,21 +267,75 @@ final class CreatePartyView: BaseView {
         return textView
     }()
     
-    let completeCreatePartyButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("파티 등록 완료", for: .normal)
-        button.layer.cornerRadius = 8
-        button.backgroundColor = AppColor.brand
-        button.titleLabel?.font = notoSansFont.Bold.of(size: 20)
-        button.setTitleColor(AppColor.white, for: .normal)
-        return button
+    let completeCreatePartyButton = CompleteAndNextButton("파티 등록 완료")
+    
+    let textViewTextCount: UILabel = {
+        let label = UILabel()
+        label.text = "0/200"
+        label.textAlignment = .center
+        label.font = notoSansFont.Regular.of(size: 12)
+        label.textColor = UIColor(hexcode: "D3D3D3")
+        return label
     }()
+    
+    func createLayout() -> UICollectionViewLayout {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(77), heightDimension: .absolute(30))
+        
+        let titleItem = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(30))
+        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [titleItem])
+        
+        group.interItemSpacing = .fixed(10) // 아이템간 간격(가로)
+        
+        let headersize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(25))
+        
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headersize,
+                                                                        elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        let section = NSCollectionLayoutSection(group: group)
+        section.boundarySupplementaryItems = [sectionHeader]
+        section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
+        section.interGroupSpacing = 8 // 그룹간 간격(세로)
+        section.decorationItems = [
+            NSCollectionLayoutDecorationItem.background(elementKind: CustomGroupView.reuseIdentifier)
+        ]
+        let config = UICollectionViewCompositionalLayoutConfiguration()
+        config.interSectionSpacing = 33
+        let layout = UICollectionViewCompositionalLayout(section: section, configuration: config)
+        layout.register(CustomGroupView.self, forDecorationViewOfKind: CustomGroupView.reuseIdentifier)
+        return layout
+    }
     
     override func makeConfigures() {
         super.makeConfigures()
-        [themeLabel, categoryCollectionView, detailCategoryLabel, maxSelectLabelNotiLabel, detailCategoryCollectionView, setPartyLabel, setPartyView, introPartyLabel, setLocationButton, numberOfPeopleTitleLabel, numberOfPeopleView, minAndMaxPeople, setAgeLabel, introPartyLabel, introContentsLabel, openKakaoChatTextField,aboutPartyContentsTextView, completeCreatePartyButton].forEach {
+        [themeLabel, categoryCollectionView, detailCategoryLabel, maxSelectLabelNotiLabel, detailCategoryCollectionView, setPartyLabel, setPartyView, introPartyLabel, setLocationButton, numberOfPeopleStackView, minAndMaxPeople, setAgeStackView, introPartyLabel, introContentsLabel, openKakaoChatTextField,aboutPartyContentsTextView, completeCreatePartyButton, textViewTextCount].forEach {
             contentView.addSubview($0)
         }
+        
+        [setPartyTextField, setPartyUnderLineLabel, setPartyTextCount].forEach {
+            setPartyBackgroundView.addSubview($0)
+        }
+        
+        [setHashTagTextField, setHashTagUnderLineLabel, setHashTagTextCount].forEach {
+            setHashTagBackgroundView.addSubview($0)
+        }
+        
+        setPartyTitleStackView.addArrangedSubview(setPartyTitleLabel)
+        setPartyTitleStackView.addArrangedSubview(setPartyBackgroundView)
+        
+        setHashTagStackView.addArrangedSubview(setHashTagLabel)
+        setHashTagStackView.addArrangedSubview(setHashTagBackgroundView)
+        
+        [setPartyTitleStackView, setHashTagStackView].forEach {
+            setPartyView.addSubview($0)
+        }
+        
+        numberOfPeopleStackView.addArrangedSubview(numberOfPeopleTitleLabel)
+        numberOfPeopleStackView.addArrangedSubview(numberOfPeopleView)
+        
+        setAgeStackView.addArrangedSubview(setAgeLabel)
+        setAgeStackView.addArrangedSubview(setAgeMultislider)
+        
         scrollView.addSubview(contentView)
         addSubview(scrollView)
     }
@@ -190,7 +380,7 @@ final class CreatePartyView: BaseView {
         detailCategoryCollectionView.snp.makeConstraints { make in
             make.top.equalTo(maxSelectLabelNotiLabel.snp.bottom)
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.height.equalTo(UIScreen.main.bounds.height * 0.25)
+            make.height.equalTo(150)
         }
         
         setPartyLabel.snp.makeConstraints { make in
@@ -203,6 +393,7 @@ final class CreatePartyView: BaseView {
         setPartyView.snp.makeConstraints { make in
             make.top.equalTo(setPartyLabel.snp.bottom).offset(9)
             make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.equalTo(138)
         }
         
         setLocationButton.snp.makeConstraints { make in
@@ -211,7 +402,19 @@ final class CreatePartyView: BaseView {
             make.height.equalTo(43)
         }
         
+        numberOfPeopleTitleLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.3)
+        }
+
         numberOfPeopleView.snp.makeConstraints { make in
+            make.verticalEdges.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.65)
+        }
+        
+        numberOfPeopleStackView.snp.makeConstraints { make in
             make.top.equalTo(setLocationButton.snp.bottom).offset(15)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(43)
@@ -219,14 +422,28 @@ final class CreatePartyView: BaseView {
         
         minAndMaxPeople.snp.makeConstraints { make in
             make.top.equalTo(numberOfPeopleView.snp.bottom).offset(7)
-            make.horizontalEdges.equalToSuperview().inset(16)
+            make.trailing.equalToSuperview().inset(16)
+            make.width.equalToSuperview().multipliedBy(0.43)
             make.height.equalTo(24)
         }
         
         setAgeLabel.snp.makeConstraints { make in
-            make.top.equalTo(minAndMaxPeople.snp.bottom).offset(41)
+            make.top.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.3)
+        }
+        
+        setAgeMultislider.snp.makeConstraints { make in
+            make.verticalEdges.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.65)
+        }
+        
+        setAgeStackView.snp.makeConstraints { make in
+            make.top.equalTo(minAndMaxPeople.snp.bottom).offset(15)
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.height.equalTo(24)
+            make.height.equalTo(43)
         }
         
         introPartyLabel.snp.makeConstraints { make in
@@ -252,6 +469,13 @@ final class CreatePartyView: BaseView {
             make.top.equalTo(openKakaoChatTextField.snp.bottom).offset(13)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(138)
+        }
+        
+        textViewTextCount.snp.makeConstraints { make in
+            make.top.equalTo(aboutPartyContentsTextView.snp.bottom)
+            make.trailing.equalToSuperview().inset(16)
+            make.width.equalTo(48)
+            make.height.equalTo(24)
         }
         
         completeCreatePartyButton.snp.makeConstraints { make in

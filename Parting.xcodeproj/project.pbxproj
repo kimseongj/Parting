@@ -78,6 +78,10 @@
 		4ECEAE1F29ED298F006AAF6B /* SplahView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEAE1E29ED298F006AAF6B /* SplahView.swift */; };
 		4ECEAE2129ED29EF006AAF6B /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEAE2029ED29EF006AAF6B /* BaseView.swift */; };
 		4ECEAE2429ED2A66006AAF6B /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEAE2329ED2A66006AAF6B /* BaseViewModel.swift */; };
+		4EECA7E92A6E439100C94417 /* CreatePartyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9317732A6B7B15001FBDCB /* CreatePartyViewModel.swift */; };
+		4EECA7EB2A6E4C1E00C94417 /* DetailCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECA7EA2A6E4C1E00C94417 /* DetailCategoryCollectionViewCell.swift */; };
+		4EECA7EE2A6E5BD400C94417 /* MultiSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 4EECA7ED2A6E5BD400C94417 /* MultiSlider */; };
+		4EECA7F02A6E9B2E00C94417 /* CommonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECA7EF2A6E9B2E00C94417 /* CommonButton.swift */; };
 		4EFCEBCA2A677E3F000F0A2B /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCEBC92A677E3F000F0A2B /* BottomSheetViewController.swift */; };
 		4EFCEBCE2A67A7E2000F0A2B /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCEBCD2A67A7E2000F0A2B /* BottomSheetView.swift */; };
 		4EFFCE3B2A6DECB30075EF9C /* PartyListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9337C01E2A6BD7E000CA572B /* PartyListResponse.swift */; };
@@ -191,6 +195,8 @@
 		4ECEAE1E29ED298F006AAF6B /* SplahView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplahView.swift; sourceTree = "<group>"; };
 		4ECEAE2029ED29EF006AAF6B /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		4ECEAE2329ED2A66006AAF6B /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		4EECA7EA2A6E4C1E00C94417 /* DetailCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		4EECA7EF2A6E9B2E00C94417 /* CommonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonButton.swift; sourceTree = "<group>"; };
 		4EFCEBC92A677E3F000F0A2B /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		4EFCEBCD2A67A7E2000F0A2B /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
 		4EFFCE3E2A6DEDA90075EF9C /* PartyListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyListViewModel.swift; sourceTree = "<group>"; };
@@ -242,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				933B3C972A55858B00B8D60B /* Kingfisher in Frameworks */,
+				4EECA7EE2A6E5BD400C94417 /* MultiSlider in Frameworks */,
 				4E783FA429EABC54008B3E48 /* RxSwift in Frameworks */,
 				4EA81DDC29ED2D2A0070F1B7 /* SnapKit in Frameworks */,
 				4E783FA229EABC54008B3E48 /* RxCocoa in Frameworks */,
@@ -665,6 +672,8 @@
 				9348C10A2A5029C6000F25A9 /* BarTitleLabel.swift */,
 				4E9317752A6B881A001FBDCB /* CreayPartyCommonLabel.swift */,
 				4EFFCE442A6DF2170075EF9C /* CategoryImageCollectionViewCell.swift */,
+				4EECA7EA2A6E4C1E00C94417 /* DetailCategoryCollectionViewCell.swift */,
+				4EECA7EF2A6E9B2E00C94417 /* CommonButton.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -744,6 +753,7 @@
 				4E2874B82A2D98FB0000B24C /* KakaoSDK */,
 				933B3C962A55858B00B8D60B /* Kingfisher */,
 				933B3CAA2A55875600B8D60B /* FSCalendar */,
+				4EECA7ED2A6E5BD400C94417 /* MultiSlider */,
 			);
 			productName = Parting;
 			productReference = 4EA5836729C04F4200BF4D7A /* Parting.app */;
@@ -780,6 +790,7 @@
 				4E2874B72A2D98FB0000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				933B3C952A55858A00B8D60B /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				933B3CA92A55875600B8D60B /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				4EECA7EC2A6E5BD400C94417 /* XCRemoteSwiftPackageReference "MultiSlider" */,
 			);
 			productRefGroup = 4EA5836829C04F4200BF4D7A /* Products */;
 			projectDirPath = "";
@@ -882,11 +893,13 @@
 				933B3C992A55861F00B8D60B /* TabCoordinator.swift in Sources */,
 				933B3C9F2A55870C00B8D60B /* BarImageButton.swift in Sources */,
 				4E89BC2F29C57DDD00BAE38A /* APIManager.swift in Sources */,
+				4EECA7EB2A6E4C1E00C94417 /* DetailCategoryCollectionViewCell.swift in Sources */,
 				4EFFCE532A6DF5830075EF9C /* PartyListViewController.swift in Sources */,
 				4E9317702A6B7AEA001FBDCB /* CreatePartyView.swift in Sources */,
 				4EFCEBCE2A67A7E2000F0A2B /* BottomSheetView.swift in Sources */,
 				933B3C9A2A5586BF00B8D60B /* HomeCoordinator.swift in Sources */,
 				4E54431D2A6132B40074F654 /* MapViewModel.swift in Sources */,
+				4EECA7F02A6E9B2E00C94417 /* CommonButton.swift in Sources */,
 				4ECEAE1329ED2043006AAF6B /* Coordinator.swift in Sources */,
 				4EFFCE512A6DF57A0075EF9C /* TagCollectionViewCell.swift in Sources */,
 				4E783FAA29EABF3E008B3E48 /* JoinViewController.swift in Sources */,
@@ -901,6 +914,7 @@
 				4E52228C29F18166000B96B4 /* InterestsViewController.swift in Sources */,
 				933E58C72A691B06000F945E /* Entity.swift in Sources */,
 				4E52227C29F119B3000B96B4 /* JoinCompleteViewController.swift in Sources */,
+				4EECA7E92A6E439100C94417 /* CreatePartyViewModel.swift in Sources */,
 				4ECEAE1C29ED25D7006AAF6B /* JoinViewModel.swift in Sources */,
 				4E52228229F1417A000B96B4 /* EssentialInfoViewModel.swift in Sources */,
 				933B3CAC2A55876D00B8D60B /* UIImage+Extension.swift in Sources */,
@@ -1204,6 +1218,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		4EECA7EC2A6E5BD400C94417 /* XCRemoteSwiftPackageReference "MultiSlider" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yonat/MultiSlider.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		933B3C952A55858A00B8D60B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -1247,6 +1269,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4EA81DDA29ED2D2A0070F1B7 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		4EECA7ED2A6E5BD400C94417 /* MultiSlider */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EECA7EC2A6E5BD400C94417 /* XCRemoteSwiftPackageReference "MultiSlider" */;
+			productName = MultiSlider;
 		};
 		933B3C962A55858B00B8D60B /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;

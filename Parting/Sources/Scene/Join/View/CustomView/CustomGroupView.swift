@@ -12,7 +12,7 @@ class CustomGroupView: UICollectionReusableView {
     let insetView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(hexcode: "F2F2F5")
+//        view.backgroundColor = UIColor(hexcode: "F2F2F5")
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
         return view

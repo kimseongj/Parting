@@ -40,7 +40,7 @@ final class HomeCoordinator: Coordinator {
 	}
 	
 	func pushCreatePartyVC() {
-		let viewModel = CreatePartyViewModel(coordinator: self)
+        let viewModel = CreatePartyViewModel(coordinator: self)
 		navigationController.pushViewController(CreatePartyViewController(viewModel: viewModel), animated: true)
 	}
 	
