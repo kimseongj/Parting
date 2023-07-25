@@ -9,22 +9,62 @@ import UIKit
 import SnapKit
 import MultiSlider
 
+enum SetPartyList {
+    case setParty
+    case setHashTag
+    
+    var title: String {
+        switch self {
+        case .setParty:
+            return "파티 제목"
+        case .setHashTag:
+            return "해시태그"
+        }
+    }
+    
+    var placeHolder: String {
+        switch self {
+        case .setParty:
+            return "파티 제목을 입력해 주세요"
+        case .setHashTag:
+            return "#해시태그"
+        }
+    }
+}
+
 //MARK: - 수정 예정 => UICollectionView로 구현해서 Section별 Cell에 컴포넌트들 배치해야할 것 같음 
 final class CreatePartyView: BaseView {
     let navigationLabel: BarTitleLabel = BarTitleLabel(text: "파티개설")
     let themeLabel = CreatePartyCommonLabel(text: "모임 테마 설정")
     let setPartyLabel: CreatePartyCommonLabel = CreatePartyCommonLabel(text: "파티 기본 설정")
-    
     let introPartyLabel: CreatePartyCommonLabel = CreatePartyCommonLabel(text: "파티 소개")
+    
     let backBarButton = BarImageButton(imageName: Images.icon.back)
+    
+    let setPartyTitleLabel =  setTitleLabel(set: .setParty)
+    let setHashTagLabel = setTitleLabel(set: .setHashTag)
+    
+    let textCountLabel = setTextCountLabel()
+    let underLineLabel = setUnderlineLabel()
+    
+    let maxSelectLabelNotiLabel = IntroLabel(type: .maxSelectLabelNotiLabel)
+    
+    let detailCategoryLabel = CreatePartyCommonLabel(text: "세부 카테고리")
+    
+    lazy var setPartyBackgroundView = setBackGroundView(textCountLabel: textCountLabel, underLineLabel: underLineLabel, placeHolder: SetPartyList.setParty.placeHolder)
+    lazy var setHashTagBackgroundView = setBackGroundView(textCountLabel: textCountLabel, underLineLabel: underLineLabel, placeHolder: SetPartyList.setHashTag.placeHolder)
+    
+    lazy var setPartyStackView = CreatePartySetStackView(titleLabel: setPartyTitleLabel, backGroundView: setPartyBackgroundView)
+    lazy var setHashStaciView = CreatePartySetStackView(titleLabel: setHashTagLabel, backGroundView: setHashTagBackgroundView)
+    
+    
+    
     let categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = false // scroll 기능 막기
         return collectionView
     }()
-    
-    let detailCategoryLabel = CreatePartyCommonLabel(text: "세부 카테고리")
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -40,8 +80,6 @@ final class CreatePartyView: BaseView {
         return view
     }()
     
-    let maxSelectLabelNotiLabel = IntroLabel("최대 2개까지 중복 선택이 가능합니다.", type: .maxSelectLabelNotiLabel)
-    
     lazy var detailCategoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
@@ -51,61 +89,7 @@ final class CreatePartyView: BaseView {
         collectionView.layer.borderColor = UIColor(hexcode: "EEEEEE").cgColor
         return collectionView
     }()
-    
-    let setPartyTitleLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-    
-    let setPartyTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "파티 제목을 입력해 주세요"
-        return textField
-    }()
-    
-    let setPartyTextCount: UILabel = {
-        let label = UILabel()
-        label.text = "0/20"
-        return label
-    }()
-    
-    let setPartyUnderLineLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-    
-    let setPartyBackgroundView: UIView = {
-        let view = UIView()
-        return view
-    }()
-    
-    let setHashTagLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-    
-    let setHashTagTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "#해시태그"
-        return textField
-    }()
-    
-    let setHashTagTextCount: UILabel = {
-        let label = UILabel()
-        label.text = "0/20"
-        return label
-    }()
-    
-    let setHashTagUnderLineLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-    
-    let setHashTagBackgroundView: UIView = {
-        let view = UIView()
-        return view
-    }()
-    
+
     let setPartyDateLabel: UILabel = {
         let label = UILabel()
         return label
@@ -124,18 +108,6 @@ final class CreatePartyView: BaseView {
     let setPartyDateBackgroundView: UIView = {
         let view = UIView()
         return view
-    }()
-    
-    //MARK: - 파티제목View + setPartyTitleLabel
-    let setPartyTitleStackView: UIStackView = {
-        let stackView = UIStackView()
-        return stackView
-    }()
-    
-    //MARK: - 해시태그View + setHashTagTitleLabel
-    let setHashTagStackView: UIStackView = {
-        let stackView = UIStackView()
-        return stackView
     }()
     
     //MARK: - 파티일시 + (setPartyBirthandMonthTextField, setPartyTimeTextField)
@@ -189,7 +161,7 @@ final class CreatePartyView: BaseView {
         return stackView
     }()
     
-    let minAndMaxPeople = IntroLabel("본인 포함 최소3명, 최대 20명", type: .minAndMaxPeople)
+    let minAndMaxPeople = IntroLabel(type: .minAndMaxPeople)
     
     let setAgeLabel: UILabel = {
         let label = UILabel()
@@ -219,7 +191,7 @@ final class CreatePartyView: BaseView {
         return stackView
     }()
     
-    let introContentsLabel = IntroLabel("파티에서 어떤 활동을 하는지 소개해 주세요.", type: .introContentsLabel)
+    let introContentsLabel = IntroLabel(type: .introContentsLabel)
     
     let openKakaoChatTextField: UITextField = {
         let textField = UITextField()
@@ -281,24 +253,6 @@ final class CreatePartyView: BaseView {
         super.makeConfigures()
         [themeLabel, categoryCollectionView, detailCategoryLabel, maxSelectLabelNotiLabel, detailCategoryCollectionView, setPartyLabel, setPartyView, introPartyLabel, setLocationButton, numberOfPeopleStackView, minAndMaxPeople, setAgeStackView, introPartyLabel, introContentsLabel, openKakaoChatTextField,aboutPartyContentsTextView, completeCreatePartyButton, textViewTextCount].forEach {
             contentView.addSubview($0)
-        }
-        
-        [setPartyTextField, setPartyUnderLineLabel, setPartyTextCount].forEach {
-            setPartyBackgroundView.addSubview($0)
-        }
-        
-        [setHashTagTextField, setHashTagUnderLineLabel, setHashTagTextCount].forEach {
-            setHashTagBackgroundView.addSubview($0)
-        }
-        
-        setPartyTitleStackView.addArrangedSubview(setPartyTitleLabel)
-        setPartyTitleStackView.addArrangedSubview(setPartyBackgroundView)
-        
-        setHashTagStackView.addArrangedSubview(setHashTagLabel)
-        setHashTagStackView.addArrangedSubview(setHashTagBackgroundView)
-        
-        [setPartyTitleStackView, setHashTagStackView].forEach {
-            setPartyView.addSubview($0)
         }
         
         numberOfPeopleStackView.addArrangedSubview(numberOfPeopleTitleLabel)

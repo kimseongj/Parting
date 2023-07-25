@@ -11,7 +11,6 @@ import RxCocoa
 
 class JoinCompleteViewController: BaseViewController<JoinCompleteView> {
     private let viewModel: JoinCompleteViewModel
-//    private let disposeBag = DisposeBag()
 
     init(viewModel: JoinCompleteViewModel) {
 		self.viewModel = viewModel
@@ -46,12 +45,7 @@ class JoinCompleteViewController: BaseViewController<JoinCompleteView> {
         let leftBarButtonItem = UIBarButtonItem.init(image:  UIImage(named: "backBarButton"), style: .plain, target: self, action: #selector(backBarButtonClicked))
         leftBarButtonItem.tintColor = AppColor.joinText
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
-        let titleLabel = UILabel()
-        titleLabel.text = "관심사를 설정해주세요"
-        titleLabel.textColor = AppColor.joinText
-        titleLabel.textAlignment = .center
-        titleLabel.font = notoSansFont.Regular.of(size: 20)
-        titleLabel.sizeToFit()
+        let titleLabel = JoinNavigationBar(type: .JoinComplete)
         navigationItem.titleView = titleLabel
     }
     

@@ -83,6 +83,10 @@
 		4EECA7EE2A6E5BD400C94417 /* MultiSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 4EECA7ED2A6E5BD400C94417 /* MultiSlider */; };
 		4EECA7F02A6E9B2E00C94417 /* CommonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECA7EF2A6E9B2E00C94417 /* CommonButton.swift */; };
 		4EECA7F22A6E9FF200C94417 /* CreatePartyViewIntroLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECA7F12A6E9FF200C94417 /* CreatePartyViewIntroLabel.swift */; };
+		4EECA7F42A6EA43700C94417 /* JoinNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECA7F32A6EA43700C94417 /* JoinNavigationBar.swift */; };
+		4EECA7F82A6F4F8900C94417 /* JoinNaviBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECA7F72A6F4F8900C94417 /* JoinNaviBarButtonItem.swift */; };
+		4EECA7FA2A6F540C00C94417 /* CreatePartySetStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECA7F92A6F540C00C94417 /* CreatePartySetStackView.swift */; };
+		4EECA7FC2A6F620000C94417 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECA7FB2A6F620000C94417 /* LoginButton.swift */; };
 		4EFCEBCA2A677E3F000F0A2B /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCEBC92A677E3F000F0A2B /* BottomSheetViewController.swift */; };
 		4EFCEBCE2A67A7E2000F0A2B /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCEBCD2A67A7E2000F0A2B /* BottomSheetView.swift */; };
 		4EFFCE3B2A6DECB30075EF9C /* PartyListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9337C01E2A6BD7E000CA572B /* PartyListResponse.swift */; };
@@ -199,6 +203,10 @@
 		4EECA7EA2A6E4C1E00C94417 /* DetailCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		4EECA7EF2A6E9B2E00C94417 /* CommonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonButton.swift; sourceTree = "<group>"; };
 		4EECA7F12A6E9FF200C94417 /* CreatePartyViewIntroLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePartyViewIntroLabel.swift; sourceTree = "<group>"; };
+		4EECA7F32A6EA43700C94417 /* JoinNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinNavigationBar.swift; sourceTree = "<group>"; };
+		4EECA7F72A6F4F8900C94417 /* JoinNaviBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinNaviBarButtonItem.swift; sourceTree = "<group>"; };
+		4EECA7F92A6F540C00C94417 /* CreatePartySetStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePartySetStackView.swift; sourceTree = "<group>"; };
+		4EECA7FB2A6F620000C94417 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
 		4EFCEBC92A677E3F000F0A2B /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		4EFCEBCD2A67A7E2000F0A2B /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
 		4EFFCE3E2A6DEDA90075EF9C /* PartyListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyListViewModel.swift; sourceTree = "<group>"; };
@@ -677,6 +685,10 @@
 				4EECA7EA2A6E4C1E00C94417 /* DetailCategoryCollectionViewCell.swift */,
 				4EECA7EF2A6E9B2E00C94417 /* CommonButton.swift */,
 				4EECA7F12A6E9FF200C94417 /* CreatePartyViewIntroLabel.swift */,
+				4EECA7F32A6EA43700C94417 /* JoinNavigationBar.swift */,
+				4EECA7F72A6F4F8900C94417 /* JoinNaviBarButtonItem.swift */,
+				4EECA7F92A6F540C00C94417 /* CreatePartySetStackView.swift */,
+				4EECA7FB2A6F620000C94417 /* LoginButton.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -891,6 +903,7 @@
 				4EFFCE4F2A6DF5710075EF9C /* SortingOptionCollectionViewCell.swift in Sources */,
 				4E54431B2A6132990074F654 /* MapViewController.swift in Sources */,
 				4EB2AC652A2E09EF0023F49A /* RegionResponse.swift in Sources */,
+				4EECA7FA2A6F540C00C94417 /* CreatePartySetStackView.swift in Sources */,
 				933B3C9D2A5586E500B8D60B /* HomeViewController.swift in Sources */,
 				933E58CD2A69422E000F945E /* UITabBarController+Extension.swift in Sources */,
 				933B3C992A55861F00B8D60B /* TabCoordinator.swift in Sources */,
@@ -919,8 +932,10 @@
 				4E52227C29F119B3000B96B4 /* JoinCompleteViewController.swift in Sources */,
 				4EECA7E92A6E439100C94417 /* CreatePartyViewModel.swift in Sources */,
 				4ECEAE1C29ED25D7006AAF6B /* JoinViewModel.swift in Sources */,
+				4EECA7FC2A6F620000C94417 /* LoginButton.swift in Sources */,
 				4E52228229F1417A000B96B4 /* EssentialInfoViewModel.swift in Sources */,
 				933B3CAC2A55876D00B8D60B /* UIImage+Extension.swift in Sources */,
+				4EECA7F42A6EA43700C94417 /* JoinNavigationBar.swift in Sources */,
 				4E153FA82A34C37600C7F58C /* DetailInterestsViewModel.swift in Sources */,
 				933B3C9C2A5586D500B8D60B /* ScheduleViewModel.swift in Sources */,
 				4E89BC5C29CC34AC00BAE38A /* enum+Font.swift in Sources */,
@@ -934,6 +949,7 @@
 				933B3CA72A55873E00B8D60B /* ScheduleViewController.swift in Sources */,
 				4E153FAA2A34C39F00C7F58C /* DetailInterestsViewController.swift in Sources */,
 				4EFFCE492A6DF54B0075EF9C /* InterestBarCollectionViewCell.swift in Sources */,
+				4EECA7F82A6F4F8900C94417 /* JoinNaviBarButtonItem.swift in Sources */,
 				4E52227E29F11C81000B96B4 /* JoinCompleteViewModel.swift in Sources */,
 				4EA81DDE29ED2D9A0070F1B7 /* SplashViewController.swift in Sources */,
 				4EA81DE429ED36860070F1B7 /* SplashViewModel.swift in Sources */,

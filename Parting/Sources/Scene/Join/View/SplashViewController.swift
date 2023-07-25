@@ -29,6 +29,19 @@ class SplashViewController: BaseViewController<SplashView> {
         DispatchQueue.main.asyncAfter(deadline: .now()+3) {
             (self.viewModel as! SplashViewModel).showJoinViewController()
         }
+        print(#function)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print(#function)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print(#function)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print(#function)
     }
     private func backgroundUI() {
         rootView.setGradient(UIColor(hexcode: "FFEAD4"), AppColor.brand)

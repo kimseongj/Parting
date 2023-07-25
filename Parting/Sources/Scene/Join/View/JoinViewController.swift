@@ -13,11 +13,6 @@ import KakaoSDKUser
 import KakaoSDKAuth
 import KakaoSDKCommon
 
-struct GetCategoryImage {
-    static var imageURLList = [String]()
-    static var imageNameList = [String]()
-}
-
 class JoinViewController: BaseViewController<JoinView> {
 	private let viewModel: JoinViewModel
 //    private let disposeBag = DisposeBag()

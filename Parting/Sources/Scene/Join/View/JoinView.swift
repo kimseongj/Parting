@@ -14,29 +14,8 @@ class JoinView: BaseView {
         return view
     }()
     
-    let kakaoLoginButton: UIButton = {
-        let button = UIButton()
-        button.layer.backgroundColor = AppColor.kakaoButton.cgColor
-        button.layer.cornerRadius = 8
-        button.setTitle("카카오 로그인", for: .normal)
-        button.titleLabel?.font = notoSansFont.Regular.of(size: 16)
-        button.setTitleColor(AppColor.baseText, for: .normal)
-        button.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: UIScreen.main.bounds.width * 0.457)
-        button.setImage(UIImage(named: "KakaoLogin"), for: .normal)
-        return button
-    }()
-    
-    let appleLoginButton: UIButton = {
-        let button = UIButton()
-        button.layer.backgroundColor = AppColor.white.cgColor
-        button.layer.cornerRadius = 8
-        button.setTitle("Apple로 로그인", for: .normal)
-        button.titleLabel?.font = notoSansFont.Regular.of(size: 16)
-        button.setTitleColor(AppColor.baseText, for: .normal)
-        button.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: UIScreen.main.bounds.width * 0.457)
-        button.setImage(UIImage(named: "AppleLogin"), for: .normal)
-        return button
-    }()
+    let kakaoLoginButton = LoginButton(type: .kakao)
+    let appleLoginButton = LoginButton(type: .apple)
     
     let loginLabel: UILabel = {
         let label = UILabel()

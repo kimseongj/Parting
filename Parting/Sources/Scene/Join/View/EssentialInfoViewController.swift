@@ -11,7 +11,6 @@ import RxCocoa
 
 class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     private let viewModel: EssentialInfoViewModel
-//    private let disposeBag = DisposeBag()
     private let datePicker = UIDatePicker()
     private let regionPicker = UIPickerView()
     
@@ -207,12 +206,8 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         let leftBarButtonItem = UIBarButtonItem.init(image:  UIImage(named: "backBarButton"), style: .plain, target: self, action: #selector(backBarButtonClicked))
         leftBarButtonItem.tintColor = AppColor.joinText
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
-        let titleLabel = UILabel()
-        titleLabel.text = "필수 정보 입력"
-        titleLabel.textColor = AppColor.joinText
-        titleLabel.textAlignment = .center
-        titleLabel.font = notoSansFont.Regular.of(size: 20)
-        titleLabel.sizeToFit()
+        
+        let titleLabel = JoinNavigationBar(type: .EssentialInfo)
         navigationItem.titleView = titleLabel
     }
     

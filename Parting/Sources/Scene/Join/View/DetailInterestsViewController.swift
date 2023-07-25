@@ -75,15 +75,12 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
         self.viewModel.count
             .subscribe(onNext: {[weak self] count in
                 self?.cellIdxList = count
-                print("CellList의 갯수는 \(count)야")
             })
             .disposed(by: disposeBag)
         
         self.viewModel.categoryNameList
             .subscribe(onNext: {[weak self] data in
                 self?.categoryTitle = data
-                var snapShotTestArr = data
-                print("이건 categoryNameList야 \(snapShotTestArr)")
             })
             .disposed(by: disposeBag)
         
@@ -91,7 +88,6 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
             .subscribe(onNext: {[weak self] data in
                 self?.categoryDetailLists = data
                 self?.snapShotTest()
-                print("이건 선택된 detailCategoryList야 \(data) 💖💖")
             })
             .disposed(by: disposeBag)
 		
@@ -124,12 +120,7 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
         let leftBarButtonItem = UIBarButtonItem.init(image:  UIImage(named: "backBarButton"), style: .plain, target: self, action: #selector(backBarButtonClicked))
         leftBarButtonItem.tintColor = AppColor.joinText
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
-        let titleLabel = UILabel()
-        titleLabel.text = "관심사를 설정해주세요"
-        titleLabel.textColor = AppColor.joinText
-        titleLabel.textAlignment = .center
-        titleLabel.font = notoSansFont.Regular.of(size: 20)
-        titleLabel.sizeToFit()
+        let titleLabel = JoinNavigationBar(type: .DetailInterests)
         navigationItem.titleView = titleLabel
     }
     

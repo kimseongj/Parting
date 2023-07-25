@@ -60,6 +60,7 @@ class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtocol {
         APIManager.shared.checkNickNameIsDuplicated(nickName)
             .withUnretained(self)
             .subscribe(onNext: { owner, data in
+                print("TEST")
                 owner.nickNameDuplicateState.accept(data.isSuccess)
             })
             .disposed(by: disposeBag)

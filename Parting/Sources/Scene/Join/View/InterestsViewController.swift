@@ -138,12 +138,7 @@ class InterestsViewController: BaseViewController<InterestsView> {
         let leftBarButtonItem = UIBarButtonItem.init(image:  UIImage(named: "backBarButton"), style: .plain, target: self, action: #selector(backBarButtonClicked))
         leftBarButtonItem.tintColor = AppColor.joinText
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
-        let titleLabel = UILabel()
-        titleLabel.text = "관심사를 설정해주세요"
-        titleLabel.textColor = AppColor.joinText
-        titleLabel.textAlignment = .center
-        titleLabel.font = notoSansFont.Regular.of(size: 20)
-        titleLabel.sizeToFit()
+        let titleLabel = JoinNavigationBar(type: .Interests)
         navigationItem.titleView = titleLabel
     }
     
