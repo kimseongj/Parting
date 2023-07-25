@@ -12,6 +12,7 @@ import MultiSlider
 enum SetPartyList {
     case setParty
     case setHashTag
+    case setPartyDate
     
     var title: String {
         switch self {
@@ -19,15 +20,19 @@ enum SetPartyList {
             return "파티 제목"
         case .setHashTag:
             return "해시태그"
+        case .setPartyDate:
+            return "파티 일시"
         }
     }
     
     var placeHolder: String {
         switch self {
         case .setParty:
-            return "파티 제목을 입력해 주세요"
+            return "  파티 제목을 입력해 주세요"
         case .setHashTag:
-            return "#해시태그"
+            return "  #해시태그"
+        default:
+            return ""
         }
     }
 }
@@ -41,21 +46,21 @@ final class CreatePartyView: BaseView {
     
     let backBarButton = BarImageButton(imageName: Images.icon.back)
     
-    let setPartyTitleLabel =  setTitleLabel(set: .setParty)
-    let setHashTagLabel = setTitleLabel(set: .setHashTag)
+    let setPartyTitleLabel =  SetTitleLabel(set: .setParty)
+    let setHashTagLabel = SetTitleLabel(set: .setHashTag)
     
-    let textCountLabel = setTextCountLabel()
-    let underLineLabel = setUnderlineLabel()
+    let textCountLabel = SetTextCountLabel()
+    let underLineLabel = SetUnderlineLabel()
     
     let maxSelectLabelNotiLabel = IntroLabel(type: .maxSelectLabelNotiLabel)
     
     let detailCategoryLabel = CreatePartyCommonLabel(text: "세부 카테고리")
     
-    lazy var setPartyBackgroundView = setBackGroundView(textCountLabel: textCountLabel, underLineLabel: underLineLabel, placeHolder: SetPartyList.setParty.placeHolder)
-    lazy var setHashTagBackgroundView = setBackGroundView(textCountLabel: textCountLabel, underLineLabel: underLineLabel, placeHolder: SetPartyList.setHashTag.placeHolder)
+    lazy var setPartyBackgroundView = SetBackGroundView(textCountLabel: SetTextCountLabel(), underLineLabel: underLineLabel, placeHolder: SetPartyList.setParty.placeHolder)
+    lazy var setHashTagBackgroundView = SetBackGroundView(textCountLabel: textCountLabel, underLineLabel: SetUnderlineLabel(), placeHolder: SetPartyList.setHashTag.placeHolder)
     
-    lazy var setPartyStackView = CreatePartySetStackView(titleLabel: setPartyTitleLabel, backGroundView: setPartyBackgroundView)
-    lazy var setHashStaciView = CreatePartySetStackView(titleLabel: setHashTagLabel, backGroundView: setHashTagBackgroundView)
+    lazy var setPartyCreateView = SetCreatePartyView(titleLabel: setPartyTitleLabel, backGroundView: setPartyBackgroundView)
+    lazy var setHashCreateView = SetCreatePartyView(titleLabel: setHashTagLabel, backGroundView: setHashTagBackgroundView)
     
     
     
@@ -255,6 +260,9 @@ final class CreatePartyView: BaseView {
             contentView.addSubview($0)
         }
         
+        setPartyView.addSubview(setPartyCreateView)
+        setPartyView.addSubview(setHashCreateView)
+        
         numberOfPeopleStackView.addArrangedSubview(numberOfPeopleTitleLabel)
         numberOfPeopleStackView.addArrangedSubview(numberOfPeopleView)
         
@@ -318,7 +326,19 @@ final class CreatePartyView: BaseView {
         setPartyView.snp.makeConstraints { make in
             make.top.equalTo(setPartyLabel.snp.bottom).offset(9)
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.height.equalTo(138)
+            make.height.equalToSuperview().multipliedBy(0.158)
+        }
+        
+        setPartyCreateView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(20)
+            make.top.equalToSuperview().inset(20)
+            make.height.equalToSuperview().multipliedBy(0.2)
+        }
+        
+        setHashCreateView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(20)
+            make.top.equalTo(setPartyCreateView.snp.bottom).offset(20)
+            make.height.equalToSuperview().multipliedBy(0.2)
         }
         
         setLocationButton.snp.makeConstraints { make in
