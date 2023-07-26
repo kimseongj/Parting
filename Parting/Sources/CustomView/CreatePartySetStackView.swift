@@ -67,8 +67,8 @@ class SetTitleLabel: UILabel {
             text = type.title
         case .setHashTag:
             text = type.title
-        default:
-            break
+        case .setPartyDate:
+            text = type.title
         }
     }
     
@@ -116,7 +116,7 @@ class SetBackGroundView: UIView {
         addSubview(textField)
         
         textField.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.bottom.equalTo(underLineLabel.snp.top)
             make.leading.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.8)
             make.height.equalToSuperview().multipliedBy(0.9)
@@ -129,7 +129,7 @@ class SetBackGroundView: UIView {
         }
         
         textCountLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.bottom.equalTo(underLineLabel.snp.top)
             make.width.equalToSuperview().multipliedBy(0.15)
             make.trailing.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.8)

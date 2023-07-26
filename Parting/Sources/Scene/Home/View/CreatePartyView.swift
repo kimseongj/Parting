@@ -48,21 +48,17 @@ final class CreatePartyView: BaseView {
     
     let setPartyTitleLabel =  SetTitleLabel(set: .setParty)
     let setHashTagLabel = SetTitleLabel(set: .setHashTag)
-    
-    let textCountLabel = SetTextCountLabel()
-    let underLineLabel = SetUnderlineLabel()
+    let setPartyDateLabel = SetTitleLabel(set: .setPartyDate)
     
     let maxSelectLabelNotiLabel = IntroLabel(type: .maxSelectLabelNotiLabel)
     
     let detailCategoryLabel = CreatePartyCommonLabel(text: "세부 카테고리")
     
-    lazy var setPartyBackgroundView = SetBackGroundView(textCountLabel: SetTextCountLabel(), underLineLabel: underLineLabel, placeHolder: SetPartyList.setParty.placeHolder)
-    lazy var setHashTagBackgroundView = SetBackGroundView(textCountLabel: textCountLabel, underLineLabel: SetUnderlineLabel(), placeHolder: SetPartyList.setHashTag.placeHolder)
+    lazy var setPartyBackgroundView = SetBackGroundView(textCountLabel: SetTextCountLabel(), underLineLabel: SetUnderlineLabel(), placeHolder: SetPartyList.setParty.placeHolder)
+    lazy var setHashTagBackgroundView = SetBackGroundView(textCountLabel: SetTextCountLabel(), underLineLabel: SetUnderlineLabel(), placeHolder: SetPartyList.setHashTag.placeHolder)
     
     lazy var setPartyCreateView = SetCreatePartyView(titleLabel: setPartyTitleLabel, backGroundView: setPartyBackgroundView)
     lazy var setHashCreateView = SetCreatePartyView(titleLabel: setHashTagLabel, backGroundView: setHashTagBackgroundView)
-    
-    
     
     let categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -94,31 +90,33 @@ final class CreatePartyView: BaseView {
         collectionView.layer.borderColor = UIColor(hexcode: "EEEEEE").cgColor
         return collectionView
     }()
-
-    let setPartyDateLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
     
-    let setPartyBirthandMonthTextField: UITextField = {
+    let setPartyBirthAndMonthTextField: UITextField = {
         let textField = UITextField()
+        textField.placeholder = "  년,월,일"
+        textField.layer.borderColor = UIColor(hexcode: "EEEEEE").cgColor
+        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 5
         return textField
     }()
     
     let setPartyTimeTextField: UITextField = {
         let textField = UITextField()
+        textField.placeholder = "  시"
+        textField.layer.borderColor = UIColor(hexcode: "EEEEEE").cgColor
+        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 5
         return textField
+    }()
+    
+    let partyTimeView: UIView = {
+        let view = UIView()
+        return view
     }()
     
     let setPartyDateBackgroundView: UIView = {
         let view = UIView()
         return view
-    }()
-    
-    //MARK: - 파티일시 + (setPartyBirthandMonthTextField, setPartyTimeTextField)
-    let setPartyDateStackView: UIStackView = {
-        let stackView = UIStackView()
-        return stackView
     }()
     
     let setPartyView: UIView = {
@@ -180,12 +178,17 @@ final class CreatePartyView: BaseView {
     let setAgeMultislider: MultiSlider = {
         let multislider = MultiSlider()
         multislider.minimumValue = 1
-        multislider.maximumValue = 5
-        multislider.value = [1, 5]
+        multislider.maximumValue = 50
+        multislider.value = [1, 50]
         multislider.orientation = .horizontal
         multislider.tintColor = AppColor.brand
         multislider.thumbTintColor = AppColor.brand
         multislider.thumbImage = UIImage(named: "sliderThumb")
+        multislider.outerTrackColor = .lightGray
+        multislider.valueLabelPosition = .bottom
+        multislider.valueLabelColor = UIColor(hexcode: "D0D0D0")
+        multislider.snapStepSize = 1.0 // value값 Int형
+        multislider.valueLabelFont = notoSansFont.Black.of(size: 12)
         return multislider
     }()
     
@@ -260,8 +263,15 @@ final class CreatePartyView: BaseView {
             contentView.addSubview($0)
         }
         
+        partyTimeView.addSubview(setPartyTimeTextField)
+        partyTimeView.addSubview(setPartyBirthAndMonthTextField)
+        
+        setPartyDateBackgroundView.addSubview(setPartyDateLabel)
+        setPartyDateBackgroundView.addSubview(partyTimeView)
+        
         setPartyView.addSubview(setPartyCreateView)
         setPartyView.addSubview(setHashCreateView)
+        setPartyView.addSubview(setPartyDateBackgroundView)
         
         numberOfPeopleStackView.addArrangedSubview(numberOfPeopleTitleLabel)
         numberOfPeopleStackView.addArrangedSubview(numberOfPeopleView)
@@ -274,6 +284,38 @@ final class CreatePartyView: BaseView {
     }
     
     override func makeConstraints() {
+        setPartyView.snp.makeConstraints { make in
+            make.top.equalTo(setPartyLabel.snp.bottom).offset(9)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.equalToSuperview().multipliedBy(0.158)
+        }
+        
+        setPartyDateLabel.snp.makeConstraints { make in
+            make.verticalEdges.equalToSuperview()
+            make.width.equalTo(setPartyTitleLabel.snp.width)
+            make.leading.equalToSuperview()
+        }
+        
+        partyTimeView.snp.makeConstraints { make in
+            make.verticalEdges.equalToSuperview()
+            make.leading.equalTo(setPartyDateLabel.snp.trailing).offset(10)
+            make.trailing.equalToSuperview()
+        }
+        
+        setPartyBirthAndMonthTextField.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalToSuperview().multipliedBy(0.9)
+        }
+        
+        setPartyTimeTextField.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.15)
+            make.trailing.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.9)
+        }
+        
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -323,12 +365,6 @@ final class CreatePartyView: BaseView {
             make.height.equalTo(24)
         }
         
-        setPartyView.snp.makeConstraints { make in
-            make.top.equalTo(setPartyLabel.snp.bottom).offset(9)
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.height.equalToSuperview().multipliedBy(0.158)
-        }
-        
         setPartyCreateView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(20)
             make.top.equalToSuperview().inset(20)
@@ -338,6 +374,12 @@ final class CreatePartyView: BaseView {
         setHashCreateView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(20)
             make.top.equalTo(setPartyCreateView.snp.bottom).offset(20)
+            make.height.equalToSuperview().multipliedBy(0.2)
+        }
+        
+        setPartyDateBackgroundView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(20)
+            make.top.equalTo(setHashCreateView.snp.bottom).offset(20)
             make.height.equalToSuperview().multipliedBy(0.2)
         }
         
