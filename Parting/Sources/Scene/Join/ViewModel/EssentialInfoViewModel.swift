@@ -150,26 +150,29 @@ class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtocol {
     
     private func datePickerValueChanged() {
         input.BirthTextFieldTrigger
-            .subscribe(onNext: { [weak self] date in
+            .withUnretained(self)
+            .subscribe(onNext: { owner, date in
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 let dateString = dateFormatter.string(from: date)
                 let birthDate: [String] = dateString.split(separator: "-").map{String($0)}
-                self?.output.birthDateData.accept(birthDate)
+                owner.output.birthDateData.accept(birthDate)
             })
             .disposed(by: disposeBag)
     }
     
     private func viewChangeTrigger() {
         input.popEssentialViewTrigger
-            .subscribe(onNext:{ [weak self] _ in
-                self?.popEssentialInfoViewController()
+            .withUnretained(self)
+            .subscribe(onNext:{ owner, _ in
+                owner.popEssentialInfoViewController()
             })
             .disposed(by: disposeBag)
         
         input.pushInterestsViewTrigger
-            .subscribe(onNext: { [weak self] _ in
-                self?.pushInterestsViewController()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.pushInterestsViewController()
             })
             .disposed(by: disposeBag)
     }
@@ -179,42 +182,41 @@ class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtocol {
             .flatMap { _ in
                 APIManager.shared.getRegionAPI()
             }
-            .subscribe(onNext: {[weak self] data in
-                guard let self else { return }
-
+            .withUnretained(self)
+            .subscribe(onNext: { owner, data in
                 data.result.sidoInfoList.forEach {
-                    self.sidoList.append($0.sidoNm)
-                    self.sidoCD.append($0.sidoCD)
+                    owner.sidoList.append($0.sidoNm)
+                    owner.sidoCD.append($0.sidoCD)
                 }
                 
                 data.result.sidoInfoList.forEach {
                     let sidoCd = $0.sidoCD, sidoNm = $0.sidoNm
-                    if self.sidoCDDict[sidoNm] == nil {
-                        self.sidoCDDict[sidoNm] = 0
+                    if owner.sidoCDDict[sidoNm] == nil {
+                        owner.sidoCDDict[sidoNm] = 0
                     }
-                    self.sidoCDDict[sidoNm] = sidoCd
+                    owner.sidoCDDict[sidoNm] = sidoCd
                 }
                 
-                data.result.sigunguInfoList.forEach {  self.sigugunCD.append($0.sigunguCD)
+                data.result.sigunguInfoList.forEach {  owner.sigugunCD.append($0.sigunguCD)
                 }
                 
                 data.result.sigunguInfoList.forEach {
                     let sidoCd = $0.sidoCD,  sigunguNm = $0.sigunguNm
-                    if self.sigunguCDDict[sidoCd] == nil {
-                        self.sigunguCDDict[sidoCd] = []
+                    if owner.sigunguCDDict[sidoCd] == nil {
+                        owner.sigunguCDDict[sidoCd] = []
                     }
-                    self.sigunguCDDict[sidoCd]?.append(sigunguNm)
+                    owner.sigunguCDDict[sidoCd]?.append(sigunguNm)
                 }
                 
                 data.result.sigunguInfoList.forEach {
-                    self.sigugunList.append($0.sigunguNm)
+                    owner.sigugunList.append($0.sigunguNm)
                 }
                 
-                self.output.sidoListData.accept(sidoList)
-                self.output.sigugunListData.accept(sigugunList)
-                self.output.sigugunCodeData.accept(sigugunCD)
-                self.output.sidoCDDictData.accept(sidoCDDict)
-                self.output.sigunguCDDictData.accept(sigunguCDDict)
+                owner.output.sidoListData.accept(owner.sidoList)
+                owner.output.sigugunListData.accept(owner.sigugunList)
+                owner.output.sigugunCodeData.accept(owner.sigugunCD)
+                owner.output.sidoCDDictData.accept(owner.sidoCDDict)
+                owner.output.sigunguCDDictData.accept(owner.sigunguCDDict)
             })
             .disposed(by: disposeBag)
     }

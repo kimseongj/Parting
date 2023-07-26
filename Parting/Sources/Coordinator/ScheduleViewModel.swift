@@ -34,8 +34,9 @@ class ScheduleViewModel: BaseViewModel {
 	private func setupBindings() {
 
 		input.popVCTrigger
-			.subscribe(onNext: { [weak self] in
-				self?.coordinator?.popVC()
+            .withUnretained(self)
+			.subscribe(onNext: { owner, _ in
+				owner.coordinator?.popVC()
 			})
 			.disposed(by: disposeBag)
 	}

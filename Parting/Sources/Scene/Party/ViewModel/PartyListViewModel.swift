@@ -41,31 +41,33 @@ class PartyListViewModel: BaseViewModel {
 		loadPartyList()
 	}
 	
-	private func loadPartyList() {
+    private func loadPartyList() {
         Task {
-                    
-                    do {
-                        guard let parties = try await APIManager.shared.getPartyList(categoryId: category.id, categoryDetailId: 1, orderCondition1: .few, orderCondition2: .latest, pageNumber: 0) else { return }
-                        
-                        self.output.partyList.accept(parties)
-                        
-                    } catch {
-                        print(error)
-                    } /* End Do ~ Catch */
-                    
-                } /* End Task */
-	}
+            
+            do {
+                guard let parties = try await APIManager.shared.getPartyList(categoryId: category.id, categoryDetailId: 1, orderCondition1: .few, orderCondition2: .latest, pageNumber: 0) else { return }
+                
+                self.output.partyList.accept(parties)
+                
+            } catch {
+                print(error)
+            } /* End Do ~ Catch */
+            
+        } /* End Task */
+    }
 	
 	private func setupBindings() {
 		input.popVCTrigger
-			.subscribe(onNext: { [weak self] in
-				self?.coordinator?.popVC()
+            .withUnretained(self)
+			.subscribe(onNext: { owner, _ in
+				owner.coordinator?.popVC()
 			})
 			.disposed(by: disposeBag)
 		
 		input.pushCreatePartyVCTrigger
-			.subscribe(onNext: { [weak self] in
-				self?.coordinator?.pushCreatePartyVC()
+            .withUnretained(self)
+			.subscribe(onNext: { owner, _ in
+				owner.coordinator?.pushCreatePartyVC()
 			})
 			.disposed(by: disposeBag)
 	}

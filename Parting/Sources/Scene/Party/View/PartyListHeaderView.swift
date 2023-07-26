@@ -89,9 +89,10 @@ extension PartyListHeaderView: UICollectionViewDelegate, UICollectionViewDataSou
 		interestCollectionView.register(InterestBarCollectionViewCell.self, forCellWithReuseIdentifier: InterestBarCollectionViewCell.identifier)
 		
 		interestCollectionView.rx.itemSelected
-			.subscribe(onNext: { [weak self] indexPath in
+            .withUnretained(self)
+			.subscribe(onNext: { owner, indexPath in
 
-				guard let cell = self?.interestCollectionView.cellForItem(at: indexPath) as? InterestBarCollectionViewCell else { return }
+				guard let cell = owner.interestCollectionView.cellForItem(at: indexPath) as? InterestBarCollectionViewCell else { return }
 
 				cell.cellTapped()
 				

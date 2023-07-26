@@ -49,8 +49,9 @@ class HomeViewModel: BaseViewModel {
 	
 	private func setupBindings() {
 		input.pushScheduleVCTrigger
-			.subscribe(onNext: { [weak self] in
-				self?.coordinator?.pushScheduleVC()
+            .withUnretained(self)
+			.subscribe(onNext: { owner, _ in
+				owner.coordinator?.pushScheduleVC()
 			})
 			.disposed(by: disposeBag)
 

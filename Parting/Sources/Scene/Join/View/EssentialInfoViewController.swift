@@ -114,54 +114,53 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     private func regionDataBind() {
         self.viewModel.output.sidoCodeData
             .filter { $0 != nil}
-            .subscribe(onNext: {[weak self] sidoCD in
-                guard let self else { return }
-                self.sidoCDData = sidoCD
+            .withUnretained(self)
+            .subscribe(onNext: { owner, sidoCD in
+                owner.sidoCDData = sidoCD
             })
             .disposed(by: disposeBag)
         
         self.viewModel.output.sidoListData
             .filter { $0 != nil }
-            .subscribe(onNext: { [weak self] data in
-                guard let self else { return }
-                self.sidoListData = data
+            .withUnretained(self)
+            .subscribe(onNext: { owner, data in
+                owner.sidoListData = data
             })
             .disposed(by: disposeBag)
         
         self.viewModel.output.sigugunListData
             .filter { $0 != nil }
-            .subscribe(onNext:{ [weak self] data in
-                guard let self else { return }
+            .withUnretained(self)
+            .subscribe(onNext:{ owner, data in
                 guard let sigugunListData = data else { return }
-                self.sigugunListData = sigugunListData
+                owner.sigugunListData = sigugunListData
             })
             .disposed(by: disposeBag)
         
         self.viewModel.output.sigugunCodeData
             .filter { $0 != nil }
-            .subscribe(onNext: {[weak self] data in
-                guard let self else { return }
+            .withUnretained(self)
+            .subscribe(onNext: { owner, data in
                 guard let sigugunCDData = data else { return }
-                self.sigugunCDData = sigugunCDData
-                
+                owner.sigugunCDData = sigugunCDData
             })
             .disposed(by: disposeBag)
         
         self.viewModel.output.sidoCDDictData
             .filter { $0 != nil}
-            .subscribe(onNext: {[weak self] data in
-                guard let self else { return }
+            .withUnretained(self)
+            .subscribe(onNext: { owner, data in
                 guard let sidoCDDict = data else { return }
-                self.sidoCDDict = sidoCDDict
+                owner.sidoCDDict = sidoCDDict
             })
             .disposed(by: disposeBag)
         
         self.viewModel.output.sigunguCDDictData
             .filter { $0 != nil }
-            .subscribe(onNext: {[weak self] data in
-                guard let self else { return }
+            .withUnretained(self)
+            .subscribe(onNext: { owner, data in
                 guard let sigunguCDDict = data else { return }
-                self.sigunguCDDict = sigunguCDDict
+                owner.sigunguCDDict = sigunguCDDict
             })
             .disposed(by: disposeBag)
     }
@@ -193,9 +192,9 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     
     @objc private func datePickerValueDidChange(_ datePicker: UIDatePicker) {
         datePicker.rx.date
-            .subscribe(onNext:{[weak self] date in
-                guard let self else {return}
-                self.viewModel.input.BirthTextFieldTrigger.onNext(date)
+            .withUnretained(self)
+            .subscribe(onNext:{ owner, date in
+                owner.viewModel.input.BirthTextFieldTrigger.onNext(date)
             })
             .disposed(by: disposeBag)
     }

@@ -102,20 +102,20 @@ class InterestsViewController: BaseViewController<InterestsView> {
         rootView.categoryCollectionView.rx
             .itemSelected
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: {[weak self] indexPath in
+            .withUnretained(self)
+            .subscribe(onNext: { owner, indexPath in
                 print("\(indexPath[1]) 🚫🚫")
-                guard let self else {return}
-                guard let cell = self.rootView.categoryCollectionView.cellForItem(at: indexPath) as? CategoryImageCollectionViewCell else { return }
+                guard let cell = owner.rootView.categoryCollectionView.cellForItem(at: indexPath) as? CategoryImageCollectionViewCell else { return }
                 if cell.interestsImageView.alpha == 1 { // 선택이 이미 된 상태
-                    if let firstIndex = selectedCellIndex.firstIndex(of: indexPath[1]+1) {
-                        selectedCellIndex.remove(at: firstIndex)  // 1
-                        print("\(selectedCellIndex) + 체크 안됐을 때")
+                    if let firstIndex = owner.selectedCellIndex.firstIndex(of: indexPath[1]+1) {
+                        owner.selectedCellIndex.remove(at: firstIndex)  // 1
+                        print("\(owner.selectedCellIndex) + 체크 안됐을 때")
                     }
                     cell.interestsImageView.alpha = 0.6
                     cell.interestsLabel.textColor = AppColor.gray400
                 } else { // 선택이 안된 상태
-                    selectedCellIndex.append(indexPath[1]+1)
-                    print("\(selectedCellIndex) + 체크됐을 때")
+                    owner.selectedCellIndex.append(indexPath[1]+1)
+                    print("\(owner.selectedCellIndex) + 체크됐을 때")
                     cell.interestsImageView.alpha = 1
                     cell.interestsLabel.textColor = UIColor(hexcode: "65656D")
                 }
@@ -126,9 +126,9 @@ class InterestsViewController: BaseViewController<InterestsView> {
     private func nextButtonClicked() {
         //MARK: - 보내야 할 데이터: EssentialView에서 선택할 관심사 배열, 배열하나만 보내면 카운트 갯수만큼 컬렉션 뷰 Cell 생성, 배열의 원소(인덱스)를 통해 통신.
         rootView.nextStepButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                guard let self else { return }
-                self.viewModel.input.pushDetailInterestViewTrigger.onNext(self.selectedCellIndex)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.viewModel.input.pushDetailInterestViewTrigger.onNext(owner.selectedCellIndex)
             })
             .disposed(by: disposeBag)
     }

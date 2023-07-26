@@ -33,9 +33,9 @@ class JoinCompleteViewController: BaseViewController<JoinCompleteView> {
     
     private func writeButtonClicked() {
         rootView.writeInfoButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self else { return }
-				viewModel.input.pushEssentialInfoViewTrigger.onNext(())
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.viewModel.input.pushEssentialInfoViewTrigger.onNext(())
             })
             .disposed(by: disposeBag)
     }

@@ -66,13 +66,14 @@ class InterestsViewModel: BaseViewModel, InterestsViewModelProtocol {
                 semaphore.wait() // value = 0
                 print("\(categoryId)  💢💢")
                 APIManager.shared.getCategoryDetailList(categoryId)
-                    .subscribe(onNext: {[weak self] data in
+                    .withUnretained(self)
+                    .subscribe(onNext: { owner, data in
                         for idx in 0..<data.result.count {
-                            self?.tempAssociatedList.append(data.result[idx].categoryDetailName)
+                            owner.tempAssociatedList.append(data.result[idx].categoryDetailName)
                             print("\(data.result[idx].categoryDetailName) + \(data.result[idx].categoryDetailID) associatedCategoryName ▶️▶️")
                         }
-                        self?.associatedNameList.append(self?.tempAssociatedList ?? [])
-                        self?.tempAssociatedList = []
+                        owner.associatedNameList.append(owner.tempAssociatedList)
+                        owner.tempAssociatedList = []
                         semaphore.signal() // value++
                     })
                     .disposed(by: self.disposeBag)
@@ -89,20 +90,22 @@ class InterestsViewModel: BaseViewModel, InterestsViewModelProtocol {
     
     private func viewChangeTrigger() {
         input.popInterestsViewTrigger
-            .subscribe(onNext:{ [weak self] _ in
-                self?.popInterestsViewController()
+            .withUnretained(self)
+            .subscribe(onNext:{ owner, _ in
+                owner.popInterestsViewController()
             })
             .disposed(by: disposeBag)
         
         input.pushDetailInterestViewTrigger
-            .subscribe(onNext: {[weak self] data in
+            .withUnretained(self)
+            .subscribe(onNext: { owner, data in
                 for ele in data {
-                    self?.selectedAssociatedNameList.append(self?.associatedNameList[ele-1] ?? [])
-                    self?.selectedCategoryNameList.append(self?.categoryNameList[ele-1] ?? "")
+                    owner.selectedAssociatedNameList.append(owner.associatedNameList[ele-1] )
+                    owner.selectedCategoryNameList.append(owner.categoryNameList[ele-1] )
                 }
-                print("\(self?.associatedNameList) 💜💜")
+                print("\(owner.associatedNameList) 💜💜")
 
-                self?.pushDetailInterestsViewController(data, self?.selectedCategoryNameList ?? [], self?.selectedAssociatedNameList ?? [])
+                owner.pushDetailInterestsViewController(data, owner.selectedCategoryNameList , owner.selectedAssociatedNameList )
             })
             .disposed(by: disposeBag)
     }
@@ -112,13 +115,13 @@ class InterestsViewModel: BaseViewModel, InterestsViewModelProtocol {
             .flatMap { _ in
                 APIManager.shared.getCategoryAPI()
             }
-            .subscribe(onNext: { [weak self] data in
-                guard let self else { return }
+            .withUnretained(self)
+            .subscribe(onNext: { owner, data in
                 for idx in 0..<data.result.categories.count {
-                    self.imageDataList.append(data.result.categories[idx].imgURL)
-                    self.categoryNameList.append(data.result.categories[idx].categoryName)
+                    owner.imageDataList.append(data.result.categories[idx].imgURL)
+                    owner.categoryNameList.append(data.result.categories[idx].categoryName)
                 }
-                self.output.categoryImage.accept(imageDataList)
+                owner.output.categoryImage.accept(owner.imageDataList)
             })
             .disposed(by: disposeBag)
     }

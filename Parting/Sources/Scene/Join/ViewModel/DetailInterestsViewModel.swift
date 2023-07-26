@@ -39,16 +39,17 @@ class DetailInterestsViewModel: BaseViewModel {
     
     private func viewChangeTrigger() {
         input.popDetailInterestsViewTrigger
-            .subscribe(onNext: {[weak self] _ in
-                guard let self else { return }
-                self.popDetailInterestsViewController()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.popDetailInterestsViewController()
             })
             .disposed(by: disposeBag)
         
 		input.naviagteToPublicScreenTrigger
-			.subscribe(onNext: { [weak self] _ in
-				print(self?.coordinator?.delegate)
-				(self?.coordinator?.delegate as? AppCoordinator)?.connectMainFlow()
+            .withUnretained(self)
+			.subscribe(onNext: { owner, _ in
+				print(owner.coordinator?.delegate)
+				(owner.coordinator?.delegate as? AppCoordinator)?.connectMainFlow()
 			})
 			.disposed(by: disposeBag)
     }

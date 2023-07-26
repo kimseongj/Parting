@@ -59,6 +59,16 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
                 cell.configureCell(type: .deselectable, size: .md)
             }
             .disposed(by: disposeBag)
+        
+        rootView.categoryCollectionView.rx
+            .itemSelected
+            .observe(on: MainScheduler.instance)
+            .withUnretained(self)
+            .subscribe(onNext: {owner, indexPath in
+                guard let cell = owner.rootView.categoryCollectionView.cellForItem(at: indexPath) as? CategoryImageCollectionViewCell else { return }
+                cell.configureCell(type: .normal, size: .md)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func configureCell() {

@@ -44,8 +44,9 @@ class CreatePartyViewModel: BaseViewModel {
     
     private func changeVC() {
         input.popVCTrigger
-            .subscribe(onNext: {[weak self] _ in
-                self?.coordinator?.popVC()
+            .withUnretained(self)
+            .subscribe(onNext: {owner, _ in
+                owner.coordinator?.popVC()
             })
             .disposed(by: disposeBag)
     }

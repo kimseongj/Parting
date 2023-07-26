@@ -64,30 +64,33 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
     
     private func serviceStartButtonClicked() {
         rootView.serviceStartButton.rx.tap
-            .subscribe(onNext: {[weak self] _ in
-                guard let self else { return }
-                self.viewModel.input.naviagteToPublicScreenTrigger.onNext(())
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.viewModel.input.naviagteToPublicScreenTrigger.onNext(())
             })
             .disposed(by: disposeBag)
     }
     
     private func bindingCategoryData() {
         self.viewModel.count
-            .subscribe(onNext: {[weak self] count in
-                self?.cellIdxList = count
+            .withUnretained(self)
+            .subscribe(onNext: { owner, count in
+                owner.cellIdxList = count
             })
             .disposed(by: disposeBag)
         
         self.viewModel.categoryNameList
-            .subscribe(onNext: {[weak self] data in
-                self?.categoryTitle = data
+            .withUnretained(self)
+            .subscribe(onNext: { owner, data in
+                owner.categoryTitle = data
             })
             .disposed(by: disposeBag)
         
         self.viewModel.associatedNameList
-            .subscribe(onNext: {[weak self] data in
-                self?.categoryDetailLists = data
-                self?.snapShotTest()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, data in
+                owner.categoryDetailLists = data
+                owner.snapShotTest()
             })
             .disposed(by: disposeBag)
 		
