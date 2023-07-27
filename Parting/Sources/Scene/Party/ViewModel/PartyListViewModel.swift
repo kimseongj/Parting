@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class PartyListViewModel: BaseViewModel {
+final class PartyListViewModel: BaseViewModel {
 	
 	struct Input {
 		let popVCTrigger = PublishSubject<Void>()

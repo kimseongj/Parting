@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class SplashViewModel: BaseViewModel {
+final class SplashViewModel: BaseViewModel {
     struct Input {
         let showJoinViewController: PublishSubject<Void> = PublishSubject()
     }

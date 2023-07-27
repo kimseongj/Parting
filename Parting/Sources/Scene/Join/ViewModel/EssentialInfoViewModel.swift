@@ -23,7 +23,7 @@ protocol EssentialInfoViewModelProtocol {
     func postEssentialInfo(_ birth: String, _ job: String, _ nickName: String, _ sex: String, _ sigunguCd: Int)
 }
 
-class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtocol {
+final class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtocol {
     
     var nickNameValidateState: PublishRelay<Int> = PublishRelay()
     var nickNameDuplicateState: PublishRelay<Bool> = PublishRelay()

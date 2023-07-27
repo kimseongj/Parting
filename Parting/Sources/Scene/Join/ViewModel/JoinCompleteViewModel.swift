@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class JoinCompleteViewModel: BaseViewModel {
+final class JoinCompleteViewModel: BaseViewModel {
     struct Input {
         let popJoinCompleteViewTrigger: PublishSubject<Void> = PublishSubject()
         let pushEssentialInfoViewTrigger: PublishSubject<Void> = PublishSubject()
@@ -33,14 +33,16 @@ class JoinCompleteViewModel: BaseViewModel {
     
     private func viewChangeTrigger() {
         input.popJoinCompleteViewTrigger
-            .subscribe(onNext: { _ in
-                self.popJoinCompleteViewController()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.popJoinCompleteViewController()
             })
             .disposed(by: disposeBag)
         
         input.pushEssentialInfoViewTrigger
-            .subscribe(onNext: { _ in
-                self.pushEssentialInfoViewController()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.pushEssentialInfoViewController()
             })
             .disposed(by: disposeBag)
     }

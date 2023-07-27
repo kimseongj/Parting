@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class JoinViewModel: BaseViewModel{
+final class JoinViewModel: BaseViewModel{
    
     struct Input {
         let viewChangeTrigger: PublishSubject<Void> = PublishSubject()

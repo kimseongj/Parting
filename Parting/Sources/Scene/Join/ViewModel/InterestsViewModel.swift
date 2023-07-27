@@ -14,7 +14,7 @@ protocol InterestsViewModelProtocol {
     func viewDidLoadAction()
 }
 
-class InterestsViewModel: BaseViewModel, InterestsViewModelProtocol {
+final class InterestsViewModel: BaseViewModel, InterestsViewModelProtocol {
     func viewDidLoadAction() {
         APIManager.shared.getCategoryAPI()
             .withUnretained(self)

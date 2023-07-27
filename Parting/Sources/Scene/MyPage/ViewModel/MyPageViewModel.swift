@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MyPageViewModel: BaseViewModel {
+final class MyPageViewModel: BaseViewModel {
     struct Input {
         
     }

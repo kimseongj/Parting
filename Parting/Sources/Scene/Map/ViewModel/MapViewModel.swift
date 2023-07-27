@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MapViewModel: BaseViewModel {
+final class MapViewModel: BaseViewModel {
     struct Input {
         
     }

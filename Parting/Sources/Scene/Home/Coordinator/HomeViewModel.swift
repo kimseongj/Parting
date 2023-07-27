@@ -12,7 +12,7 @@ import Kingfisher
 import CoreData
 import UIKit
 
-class HomeViewModel: BaseViewModel {
+final class HomeViewModel: BaseViewModel {
 	
 	enum LocalStorageError: Error {
 		case noFileName

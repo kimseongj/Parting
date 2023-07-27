@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class ScheduleViewModel: BaseViewModel {
+final class ScheduleViewModel: BaseViewModel {
 	struct Input {
 		let popVCTrigger = PublishSubject<Void>()
 	}

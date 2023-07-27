@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class DetailInterestsViewModel: BaseViewModel {
+final class DetailInterestsViewModel: BaseViewModel {
     struct Input {
         let popDetailInterestsViewTrigger: PublishSubject<Void> = PublishSubject()
         let naviagteToPublicScreenTrigger: PublishSubject<Void> = PublishSubject()
