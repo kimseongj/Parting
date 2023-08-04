@@ -15,8 +15,10 @@ class MapView: BaseView {
     
     let navigationLabel: BarTitleLabel = BarTitleLabel(text: "지도로 보기")
     
-    let mapView: NMFMapView = {
-        let view = NMFMapView()
+    let backBarButton = BarImageButton(imageName: Images.icon.back)
+    
+    let mapView: NMFNaverMapView = {
+        let view = NMFNaverMapView()
         return view
     }()
     

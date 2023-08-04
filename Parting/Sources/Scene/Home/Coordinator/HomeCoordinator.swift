@@ -47,7 +47,9 @@ final class HomeCoordinator: Coordinator {
 	func popVC() {
 		navigationController.popViewController(animated: true)
 	}
-	
-
-	
+    
+    func pushSetMapVC() {
+        let viewModel = SetMapViewModel(coordinator: self)
+        navigationController.pushViewController(SetMapViewController(viewModel: viewModel), animated: true)
+    }
 }

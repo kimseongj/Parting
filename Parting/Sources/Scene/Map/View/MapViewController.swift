@@ -32,15 +32,15 @@ class MapViewController: BaseViewController<MapView> {
     
     private func configureMarker() {
         //MARK: - lat, lng에 해당하는 마커 생성
-        marker.position = NMGLatLng(lat: 37.359291, lng: 127.105192)
-        marker.mapView = rootView.mapView
+        marker.position = NMGLatLng(lat:35.88979460661547, lng: 128.61133694145016 )
+        marker.mapView = rootView.mapView.mapView
         marker.iconTintColor = UIColor.red
     }
     
     private func navigationUI() {
         navigationController?.isNavigationBarHidden = false
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: rootView.navigationLabel)
-        
+        self.navigationItem.titleView = rootView.navigationLabel
+        self.navigationItem.leftBarButtonItem = rootView.backBarButton
         self.navigationItem.rightBarButtonItem = rootView.bellBarButton
     }
     

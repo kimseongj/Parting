@@ -54,8 +54,19 @@ final class CreatePartyView: BaseView {
     
     let detailCategoryLabel = CreatePartyCommonLabel(text: "세부 카테고리")
     
-    lazy var setPartyBackgroundView = SetBackGroundView(textCountLabel: SetTextCountLabel(), underLineLabel: SetUnderlineLabel(), placeHolder: SetPartyList.setParty.placeHolder)
-    lazy var setHashTagBackgroundView = SetBackGroundView(textCountLabel: SetTextCountLabel(), underLineLabel: SetUnderlineLabel(), placeHolder: SetPartyList.setHashTag.placeHolder)
+    let test1 = SetTextCountLabel() // 0xAA -> 힙영역의 주소값
+    let test2 = SetTextCountLabel() // 0xFF
+    
+    lazy var setPartyBackgroundView = SetBackGroundView(
+        textCountLabel: test1, // 0xAA 값 복사
+        underLineLabel: SetUnderlineLabel(),
+        placeHolder: SetPartyList.setParty.placeHolder
+    )
+    lazy var setHashTagBackgroundView = SetBackGroundView(
+        textCountLabel: test2, // 0xFF
+        underLineLabel: SetUnderlineLabel(),
+        placeHolder: SetPartyList.setHashTag.placeHolder
+    )
     
     lazy var setPartyCreateView = SetCreatePartyView(titleLabel: setPartyTitleLabel, backGroundView: setPartyBackgroundView)
     lazy var setHashCreateView = SetCreatePartyView(titleLabel: setHashTagLabel, backGroundView: setHashTagBackgroundView)
@@ -84,7 +95,6 @@ final class CreatePartyView: BaseView {
     lazy var detailCategoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-        collectionView.isScrollEnabled = false
         collectionView.layer.borderWidth = 1
         collectionView.layer.cornerRadius = 5
         collectionView.layer.borderColor = UIColor(hexcode: "EEEEEE").cgColor
@@ -245,7 +255,7 @@ final class CreatePartyView: BaseView {
                                                                         elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [sectionHeader]
-        section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 16, trailing: 8)
         section.interGroupSpacing = 8 // 그룹간 간격(세로)
         section.decorationItems = [
             NSCollectionLayoutDecorationItem.background(elementKind: CustomGroupView.reuseIdentifier)

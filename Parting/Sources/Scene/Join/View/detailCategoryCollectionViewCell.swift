@@ -55,4 +55,6 @@ class detailCategoryCollectionViewCell: UICollectionViewCell {
     func configure(_ text: String) {
         self.categoryNameLabel.text = text
     }
+
+    
 }

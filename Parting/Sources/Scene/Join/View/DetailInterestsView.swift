@@ -34,7 +34,7 @@ class DetailInterestsView: BaseView {
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [titleItem])
         
-        group.interItemSpacing = .fixed(10) // 아이템간 간격(가로)
+        group.interItemSpacing = .fixed(8) // 아이템간 간격(가로)
         
         let headersize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(25))
         

@@ -7,9 +7,12 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 //MARK: - TitleLabel + BackgroundView
 class SetCreatePartyView: UIView {
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,6 +25,7 @@ class SetCreatePartyView: UIView {
         
         titleLabel.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview()
+            make.width.equalTo(59)
             make.leading.equalToSuperview()
         }
         
@@ -101,24 +105,39 @@ class SetTextCountLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
+//
 //MARK: - textField + textCount + underLineLabel
 class SetBackGroundView: UIView {
+    private let disposeBag = DisposeBag()
+    
+    let textCnt = PublishRelay<Int>()
+    var textField: UITextField?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
     convenience init(textCountLabel: SetTextCountLabel, underLineLabel: SetUnderlineLabel, placeHolder: String) {
         self.init()
-        let textField = SetTextField(placeHolder)
+        textField = SetTextField(placeHolder)
+//        let textField = SetTextField(placeHolder)
+        textField?.delegate = self
         addSubview(textCountLabel)
         addSubview(underLineLabel)
-        addSubview(textField)
+        addSubview(textField!)
         
-        textField.snp.makeConstraints { make in
+        textField?.rx.text
+            .map { $0?.count }
+            .bind { [weak self] cnt in
+                guard let cnt else { return }
+                textCountLabel.text = "\(cnt)/20"
+            }
+            .disposed(by: disposeBag)
+        
+        textField?.snp.makeConstraints { make in
             make.bottom.equalTo(underLineLabel.snp.top)
+            make.trailing.equalTo(textCountLabel.snp.leading)
             make.leading.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.8)
             make.height.equalToSuperview().multipliedBy(0.9)
         }
         
@@ -130,7 +149,8 @@ class SetBackGroundView: UIView {
         
         textCountLabel.snp.makeConstraints { make in
             make.bottom.equalTo(underLineLabel.snp.top)
-            make.width.equalToSuperview().multipliedBy(0.15)
+//            make.width.equalToSuperview().multipliedBy(0.15)
+            make.width.equalTo(50)
             make.trailing.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.8)
         }
@@ -138,5 +158,27 @@ class SetBackGroundView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension SetBackGroundView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        guard let text = textField.text else { return false }
+//        if text.count >= 20 {
+//            return false
+//        }
+        
+        if let char = string.cString(using: String.Encoding.utf8) {
+            let isBackSpace = strcmp(char, "\\b")
+            if isBackSpace == -92 {
+                return true
+            }
+        }
+        guard textField.text!.count <= 20 else { return false } // 10 글자로 제한
+        return true
     }
 }

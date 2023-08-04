@@ -58,7 +58,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.rootView.nickNameTextField.delegate = self
+//        self.rootView.nickNameTextField.delegate = self
         self.viewModel.input.getAddressTrigger.onNext(()) // 주소를 불러오는 API통신 트리거
         navigationUI()
         nextButtonClicked()
@@ -519,7 +519,7 @@ extension EssentialInfoViewController: UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
             self.view.endEditing(true)
         }
-        
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
             textField.resignFirstResponder() // TextField 비활성화
             return true

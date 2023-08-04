@@ -31,7 +31,8 @@ class CustomGroupView: UICollectionReusableView {
     
     func setConstraints() {
         insetView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(30)
+//            make.top.equalToSuperview().inset(30)
+            make.top.equalToSuperview()
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
         }

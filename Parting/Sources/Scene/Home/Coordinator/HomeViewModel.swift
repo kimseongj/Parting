@@ -38,8 +38,8 @@ final class HomeViewModel: BaseViewModel {
 	var output: Output
 	
 	private weak var coordinator: HomeCoordinator?
-	
-	init(input: Input = Input(), output: Output = Output(), coordinator: HomeCoordinator?) {
+    
+    init(input: Input = Input(), output: Output = Output(), coordinator: HomeCoordinator?) {
 		self.input = input
 		self.output = output
 		self.coordinator = coordinator
