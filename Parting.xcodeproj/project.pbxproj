@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4E0DCE502A7CC2D200DEB3B5 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0DCE4F2A7CC2D100DEB3B5 /* Toast */; };
+		4E0DCE562A7CF0BF00DEB3B5 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0DCE552A7CF0BF00DEB3B5 /* RxDataSources */; };
 		4E153FA82A34C37600C7F58C /* DetailInterestsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E153FA72A34C37600C7F58C /* DetailInterestsViewModel.swift */; };
 		4E153FAA2A34C39F00C7F58C /* DetailInterestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E153FA92A34C39F00C7F58C /* DetailInterestsViewController.swift */; };
 		4E153FAC2A34C3BB00C7F58C /* DetailInterestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E153FAB2A34C3BB00C7F58C /* DetailInterestsView.swift */; };
@@ -267,6 +268,7 @@
 				4E783FA429EABC54008B3E48 /* RxSwift in Frameworks */,
 				4EA81DDC29ED2D2A0070F1B7 /* SnapKit in Frameworks */,
 				4E783FA229EABC54008B3E48 /* RxCocoa in Frameworks */,
+				4E0DCE562A7CF0BF00DEB3B5 /* RxDataSources in Frameworks */,
 				4E89BC3F29C58B7300BAE38A /* Alamofire in Frameworks */,
 				933B3CAB2A55875600B8D60B /* FSCalendar in Frameworks */,
 				4E2874B92A2D98FB0000B24C /* KakaoSDK in Frameworks */,
@@ -778,6 +780,7 @@
 				933B3CAA2A55875600B8D60B /* FSCalendar */,
 				4EECA7ED2A6E5BD400C94417 /* MultiSlider */,
 				4E0DCE4F2A7CC2D100DEB3B5 /* Toast */,
+				4E0DCE552A7CF0BF00DEB3B5 /* RxDataSources */,
 			);
 			productName = Parting;
 			productReference = 4EA5836729C04F4200BF4D7A /* Parting.app */;
@@ -816,6 +819,7 @@
 				933B3CA92A55875600B8D60B /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				4EECA7EC2A6E5BD400C94417 /* XCRemoteSwiftPackageReference "MultiSlider" */,
 				4E0DCE4E2A7CC2D100DEB3B5 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				4E0DCE542A7CF0BF00DEB3B5 /* XCRemoteSwiftPackageReference "RxDataSources" */,
 			);
 			productRefGroup = 4EA5836829C04F4200BF4D7A /* Products */;
 			projectDirPath = "";
@@ -1226,6 +1230,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		4E0DCE542A7CF0BF00DEB3B5 /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		4E2874B72A2D98FB0000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk.git";
@@ -1289,6 +1301,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E0DCE4E2A7CC2D100DEB3B5 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		4E0DCE552A7CF0BF00DEB3B5 /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E0DCE542A7CF0BF00DEB3B5 /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
 		};
 		4E2874B82A2D98FB0000B24C /* KakaoSDK */ = {
 			isa = XCSwiftPackageProductDependency;
