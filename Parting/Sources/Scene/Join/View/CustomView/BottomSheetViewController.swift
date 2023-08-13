@@ -11,6 +11,7 @@ class BottomSheetViewController: BaseViewController<BottomSheetView> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         if let sheetPresentationController = sheetPresentationController {
             sheetPresentationController.detents = [.medium(), .large()]
             sheetPresentationController.largestUndimmedDetentIdentifier = .medium

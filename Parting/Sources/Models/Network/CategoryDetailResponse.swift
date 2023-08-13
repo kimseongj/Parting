@@ -19,9 +19,33 @@ struct CategoryDetailResponse: Codable {
 struct CategoryDetailResult: Codable {
     let categoryDetailID: Int
     let categoryDetailName: String
-
+    
     enum CodingKeys: String, CodingKey {
         case categoryDetailID = "categoryDetailId"
         case categoryDetailName
+    }
+}
+
+class CategoryDetailResultContainisSelected {
+    let categoryDetailID: Int
+    let categoryDetailName: String
+    var isClicked: Bool
+    
+    init(categoryDetailID: Int, categoryDetailName: String, isClicked: Bool = false) {
+        self.categoryDetailID = categoryDetailID
+        self.categoryDetailName = categoryDetailName
+        self.isClicked = isClicked
+    }
+}
+
+struct CategoryDetailResultContainisSelectedTest {
+    let categoryDetailID: Int
+    let categoryDetailName: String
+    var isClicked: Bool
+    
+    init(categoryDetailID: Int, categoryDetailName: String, isClicked: Bool = false) {
+        self.categoryDetailID = categoryDetailID
+        self.categoryDetailName = categoryDetailName
+        self.isClicked = isClicked
     }
 }

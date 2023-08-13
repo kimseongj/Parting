@@ -120,7 +120,6 @@ class SetBackGroundView: UIView {
     convenience init(textCountLabel: SetTextCountLabel, underLineLabel: SetUnderlineLabel, placeHolder: String) {
         self.init()
         textField = SetTextField(placeHolder)
-//        let textField = SetTextField(placeHolder)
         textField?.delegate = self
         addSubview(textCountLabel)
         addSubview(underLineLabel)
@@ -149,7 +148,6 @@ class SetBackGroundView: UIView {
         
         textCountLabel.snp.makeConstraints { make in
             make.bottom.equalTo(underLineLabel.snp.top)
-//            make.width.equalToSuperview().multipliedBy(0.15)
             make.width.equalTo(50)
             make.trailing.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.8)
@@ -167,10 +165,6 @@ extension SetBackGroundView: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        guard let text = textField.text else { return false }
-//        if text.count >= 20 {
-//            return false
-//        }
         
         if let char = string.cString(using: String.Encoding.utf8) {
             let isBackSpace = strcmp(char, "\\b")
@@ -178,7 +172,7 @@ extension SetBackGroundView: UITextFieldDelegate {
                 return true
             }
         }
-        guard textField.text!.count <= 20 else { return false } // 10 글자로 제한
+        guard textField.text!.count < 20 else { return false } // 20 글자로 제한
         return true
     }
 }

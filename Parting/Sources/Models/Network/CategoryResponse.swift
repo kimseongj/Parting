@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 // MARK: - CategoryResponse
 struct CategoryResponse: Codable {
     let isSuccess: Bool

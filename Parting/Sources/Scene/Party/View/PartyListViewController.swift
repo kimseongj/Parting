@@ -64,10 +64,7 @@ class PartyListViewController: BaseViewController<PartyListView> {
 			cell.selectionStyle = .none
 			cell.configureCell(party: party)
 		}.disposed(by: disposeBag)
-		
-		
 	}
-
 }
 
 extension PartyListViewController: UITableViewDelegate {

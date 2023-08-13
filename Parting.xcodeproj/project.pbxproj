@@ -91,8 +91,13 @@
 		4EECA7FC2A6F620000C94417 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECA7FB2A6F620000C94417 /* LoginButton.swift */; };
 		4EF1945D2A77E24D00D34B71 /* SetMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF1945C2A77E24D00D34B71 /* SetMapViewController.swift */; };
 		4EF1945F2A77E29700D34B71 /* SetMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF1945E2A77E29700D34B71 /* SetMapViewModel.swift */; };
+		4EFC951C2A82095700994388 /* CreatePartyPostResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC951B2A82095700994388 /* CreatePartyPostResponseModel.swift */; };
 		4EFCEBCA2A677E3F000F0A2B /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCEBC92A677E3F000F0A2B /* BottomSheetViewController.swift */; };
 		4EFCEBCE2A67A7E2000F0A2B /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCEBCD2A67A7E2000F0A2B /* BottomSheetView.swift */; };
+		4EFEB0D12A85BE6900CCAE5C /* ReuseIdentifierProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFEB0D02A85BE6900CCAE5C /* ReuseIdentifierProtocol.swift */; };
+		4EFEB0E72A888E7700CCAE5C /* SetPopUpCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFEB0E62A888E7700CCAE5C /* SetPopUpCustomView.swift */; };
+		4EFEB0E92A888E8D00CCAE5C /* SetPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFEB0E82A888E8D00CCAE5C /* SetPopUpViewController.swift */; };
+		4EFEB0EB2A88966D00CCAE5C /* SetPopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFEB0EA2A88966D00CCAE5C /* SetPopUpViewModel.swift */; };
 		4EFFCE3B2A6DECB30075EF9C /* PartyListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9337C01E2A6BD7E000CA572B /* PartyListResponse.swift */; };
 		4EFFCE3C2A6DECB60075EF9C /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E588E2A68D61D000F945E /* CategoryModel.swift */; };
 		4EFFCE3D2A6DECB90075EF9C /* PartyListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9337C01C2A6BD24100CA572B /* PartyListItemModel.swift */; };
@@ -213,8 +218,13 @@
 		4EECA7FB2A6F620000C94417 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
 		4EF1945C2A77E24D00D34B71 /* SetMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SetMapViewController.swift; path = Parting/Sources/Scene/Home/View/SetMapViewController.swift; sourceTree = SOURCE_ROOT; };
 		4EF1945E2A77E29700D34B71 /* SetMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetMapViewModel.swift; sourceTree = "<group>"; };
+		4EFC951B2A82095700994388 /* CreatePartyPostResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePartyPostResponseModel.swift; sourceTree = "<group>"; };
 		4EFCEBC92A677E3F000F0A2B /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		4EFCEBCD2A67A7E2000F0A2B /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
+		4EFEB0D02A85BE6900CCAE5C /* ReuseIdentifierProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifierProtocol.swift; sourceTree = "<group>"; };
+		4EFEB0E62A888E7700CCAE5C /* SetPopUpCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPopUpCustomView.swift; sourceTree = "<group>"; };
+		4EFEB0E82A888E8D00CCAE5C /* SetPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPopUpViewController.swift; sourceTree = "<group>"; };
+		4EFEB0EA2A88966D00CCAE5C /* SetPopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPopUpViewModel.swift; sourceTree = "<group>"; };
 		4EFFCE3E2A6DEDA90075EF9C /* PartyListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyListViewModel.swift; sourceTree = "<group>"; };
 		4EFFCE442A6DF2170075EF9C /* CategoryImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		4EFFCE462A6DF5410075EF9C /* PartyListHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyListHeaderView.swift; sourceTree = "<group>"; };
@@ -283,11 +293,13 @@
 		4E52228D29F27D97000B96B4 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				4EFEB0E62A888E7700CCAE5C /* SetPopUpCustomView.swift */,
 				4E52228E29F27DA8000B96B4 /* customStackView.swift */,
 				4E6123BF2A39B0BC0039307A /* CustomGroupView.swift */,
 				4E6123C12A3AC2100039307A /* CustomHeaderView.swift */,
 				4EFCEBC92A677E3F000F0A2B /* BottomSheetViewController.swift */,
 				4EFCEBCD2A67A7E2000F0A2B /* BottomSheetView.swift */,
+				4EFEB0E82A888E8D00CCAE5C /* SetPopUpViewController.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -346,6 +358,7 @@
 				9348C10F2A504680000F25A9 /* UIImage+Extension.swift */,
 				933E58C82A6920FB000F945E /* Kingfisher+Extension.swift */,
 				933E58CC2A69422E000F945E /* UITabBarController+Extension.swift */,
+				4EFEB0D02A85BE6900CCAE5C /* ReuseIdentifierProtocol.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -374,6 +387,7 @@
 				4EB2AC682A3081090023F49A /* NickNameValidateResponse.swift */,
 				4E6123BB2A36C1100039307A /* CategoryDetailResponse.swift */,
 				9337C01E2A6BD7E000CA572B /* PartyListResponse.swift */,
+				4EFC951B2A82095700994388 /* CreatePartyPostResponseModel.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -516,6 +530,7 @@
 				9348C1042A500A2A000F25A9 /* ScheduleViewModel.swift */,
 				4E9317732A6B7B15001FBDCB /* CreatePartyViewModel.swift */,
 				4EF1945E2A77E29700D34B71 /* SetMapViewModel.swift */,
+				4EFEB0EA2A88966D00CCAE5C /* SetPopUpViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -938,6 +953,7 @@
 				933B3CA52A55873700B8D60B /* CalendarWidgetView.swift in Sources */,
 				4E54431F2A61342C0074F654 /* MapView.swift in Sources */,
 				4EFFCE3B2A6DECB30075EF9C /* PartyListResponse.swift in Sources */,
+				4EFEB0E72A888E7700CCAE5C /* SetPopUpCustomView.swift in Sources */,
 				4EA6339D2A5FAB9000F27386 /* MyPageViewModel.swift in Sources */,
 				4EFFCE3F2A6DEDA90075EF9C /* PartyListViewModel.swift in Sources */,
 				4ECEAE1A29ED2537006AAF6B /* JoinCoordinator.swift in Sources */,
@@ -954,6 +970,7 @@
 				4E153FA82A34C37600C7F58C /* DetailInterestsViewModel.swift in Sources */,
 				933B3C9C2A5586D500B8D60B /* ScheduleViewModel.swift in Sources */,
 				4E89BC5C29CC34AC00BAE38A /* enum+Font.swift in Sources */,
+				4EFEB0E92A888E8D00CCAE5C /* SetPopUpViewController.swift in Sources */,
 				4EF1945D2A77E24D00D34B71 /* SetMapViewController.swift in Sources */,
 				933B3CA42A55871C00B8D60B /* StyledNavigationController.swift in Sources */,
 				4E6123BC2A36C1100039307A /* CategoryDetailResponse.swift in Sources */,
@@ -963,6 +980,7 @@
 				4EA5836D29C04F4200BF4D7A /* SceneDelegate.swift in Sources */,
 				4EB2AC692A3081090023F49A /* NickNameValidateResponse.swift in Sources */,
 				933B3CA72A55873E00B8D60B /* ScheduleViewController.swift in Sources */,
+				4EFC951C2A82095700994388 /* CreatePartyPostResponseModel.swift in Sources */,
 				4E153FAA2A34C39F00C7F58C /* DetailInterestsViewController.swift in Sources */,
 				4EFFCE492A6DF54B0075EF9C /* InterestBarCollectionViewCell.swift in Sources */,
 				4EECA7F82A6F4F8900C94417 /* JoinNaviBarButtonItem.swift in Sources */,
@@ -982,9 +1000,11 @@
 				93A17E082A558319004E3F75 /* APIKey.swift in Sources */,
 				933B3CA12A55871100B8D60B /* StackView.swift in Sources */,
 				4E89BC3129C57DE900BAE38A /* CategoryResponse.swift in Sources */,
+				4EFEB0EB2A88966D00CCAE5C /* SetPopUpViewModel.swift in Sources */,
 				4E52228429F141AA000B96B4 /* EssentialInfoViewController.swift in Sources */,
 				4EFFCE552A6DFF080075EF9C /* Label.swift in Sources */,
 				4E52227A29F11788000B96B4 /* JoinCompleteView.swift in Sources */,
+				4EFEB0D12A85BE6900CCAE5C /* ReuseIdentifierProtocol.swift in Sources */,
 				4ECEAE1729ED2116006AAF6B /* AppCoordinator.swift in Sources */,
 				4ECEAE1F29ED298F006AAF6B /* SplahView.swift in Sources */,
 				933E58C92A6920FB000F945E /* Kingfisher+Extension.swift in Sources */,

@@ -10,12 +10,22 @@ import RxSwift
 import RxCocoa
 import Kingfisher
 import Toast
+import MultiSlider
 
-class CreatePartyViewController: BaseViewController<CreatePartyView> {
+class CreatePartyViewController: BaseViewController<CreatePartyView>, SendCoordinate {
     var currentSelectedIndex: Int?
     var selectedDetailCategoryLists = Set<Int>()
+    var categoryDetailIDList: [Int] = []
+    static var partyTitle: String = ""
+    var hashTagNameList: [String] = []
+    var selectedCategoryID: Int?
+    var maxAge: Int?
+    var minAge: Int?
+    var latitude: Double?
+    var longitude: Double?
    
     private var viewModel: CreatePartyViewModel
+    private var setMapViewModel = SetMapViewModel(coordinator: HomeCoordinator(UINavigationController()))
     init(viewModel: CreatePartyViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -35,7 +45,15 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
         navigationUI()
         registerCell()
         bind()
-
+        setDelegateTextField()
+        setDelegateTextView()
+        getSliderValues()
+    }
+    
+    func sendLatAndLng(_ lat: Double, _ lng: Double) {
+        print(lat, lng, "🌟")
+        latitude = lat
+        longitude = lng
     }
     
     private func navigationUI() {
@@ -44,7 +62,35 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
         self.navigationItem.leftBarButtonItem = rootView.backBarButton
     }
     
+    private func getSliderValues() {
+        rootView.setAgeMultislider.addTarget(self, action: #selector(sliderChanged), for: .valueChanged)
+    }
+    
+    @objc
+    private func sliderChanged() {
+        maxAge = Int(rootView.setAgeMultislider.value[0])
+        minAge = Int(rootView.setAgeMultislider.value[1])
+        print(Int(rootView.setAgeMultislider.value[0]), Int(rootView.setAgeMultislider.value[1]))
+    }
+    
+    private func setDelegateTextField() {
+        rootView.setPartyTimeTextField.delegate = self
+        rootView.setPartyYearAndMonthTextField.delegate = self
+        rootView.numberOfPeopleTextField.delegate = self
+    }
+    
+    private func setDelegateTextView() {
+        rootView.aboutPartyContentsTextView.delegate = self
+    }
+    
     private func bind() {
+        rootView.aboutPartyContentsTextView.rx.text
+            .map { $0?.count }
+            .bind { [weak self] textCount in
+                guard let textCount else { return }
+                self?.rootView.textViewTextCount.text = "\(textCount)/200"
+            }
+            .disposed(by: disposeBag)
         
         rootView.setLocationButton.rx.tap
             .bind(to: viewModel.input.setMapVCTrigger)
@@ -54,7 +100,7 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
             .bind(to: viewModel.input.popVCTrigger)
             .disposed(by: disposeBag)
         
-        // MARK: - cellForItemAt(DataSource)
+        // MARK: - 모임 테마 설정 cellForItemAt(DataSource)
         viewModel.output.categories
             .bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: CategoryImageCollectionViewCell.identifier, cellType: CategoryImageCollectionViewCell.self)) { [weak self]
                 row, category, cell in
@@ -72,35 +118,66 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
                 }
             }
             .disposed(by: disposeBag)
-
-        // MARK: - cellForItemAt(DataSource)
-        // MARK: - 2. categoryDetailLists에 detailCategoryCollectionView 바인드 => cell에 데이터를 그려주는 작업
+        
+        viewModel.selectedDetailCategoryCell
+            .subscribe(onNext: { [weak self] data in
+                self?.selectedDetailCategoryLists = data
+            })
+            .disposed(by: disposeBag)
+        
+        
+        
+        // MARK: - 세부 카테고리 CellForItemAt(DataSource)
         viewModel.output.categoryDetailLists
             .bind(to: rootView.detailCategoryCollectionView.rx
                 .items(cellIdentifier: detailCategoryCollectionViewCell.identifier, cellType: detailCategoryCollectionViewCell.self)) { [weak self] row, element, cell in
-                cell.configure(self?.viewModel.categoryDetailListsData?[row].categoryDetailName ?? "")
-//                    print(self?.selectedDetailCategoryLists)
-                    guard let flag = self?.selectedDetailCategoryLists.contains(row) else { return }
-                    if flag {
-                        cell.backGroundView.backgroundColor = AppColor.brand
-                    } else {
-                        cell.backGroundView.backgroundColor = AppColor.gray400
-                    }
+                    cell.configure(self?.viewModel.categoryDetailListsData?[row].categoryDetailName ?? "")
+                    cell.changeCellState(element.isClicked)
+                   
+                }
+            .disposed(by: disposeBag)
+        
+        // didSelectItem
+        Observable
+            .zip(rootView.detailCategoryCollectionView.rx.modelSelected(CategoryDetailResultContainisSelected.self), rootView.detailCategoryCollectionView.rx.itemSelected)
+            .subscribe(onNext: { [weak self] (item, indexPath) in
+                item.isClicked = !item.isClicked
+                self?.categoryDetailIDList.append(item.categoryDetailID)
+                self?.rootView.detailCategoryCollectionView.reloadData()
+
+            })
+            .disposed(by: disposeBag)
+        
+        rootView.setPartyBackgroundView.textField?.rx.text
+            .bind{ [weak self] text in
+                guard let text else { return }
+                CreatePartyViewController.partyTitle = text
             }
             .disposed(by: disposeBag)
         
-    
+        rootView.setHashTagBackgroundView.textField?.rx.text
+            .bind { [weak self] text in
+                guard let text else { return }
+                self?.hashTagNameList = text.replacingOccurrences(of: " ", with: "").split(separator: ",").map{String($0)}
+            }
+            .disposed(by: disposeBag)
+        
+    //MARK: - 원하는 동작
+    // 1. 셀 클릭 -> 셀 클릭 된 상태로 변경 (최대 중복2개 까지)
+    // 2. collectionView.items가 CellForItem에 해당하는 데이터 소스 인데 itemSelected에서 또 cellForItem 메서드를 사용하는게 맞는지 -> cell에 대한 UI는 rx.items에서, 세부 카테고리 cell은 따로 model을 만들어서 상태관리
+    // 3. 카테고리 셀이 전환될 때 마다 디테일 카테고리 셀은 초기화 되어야 하는데 어떤 부분을 생각해야 하는지
         Observable
             .zip(rootView.categoryCollectionView.rx.modelSelected(CategoryModel.self), rootView.categoryCollectionView.rx.itemSelected)
             .subscribe(onNext: { [weak self] (item, indexPath) in
                 self?.viewModel.isSeletedCellIdx.onNext(indexPath.item)
-                print(indexPath.item)
                 self?.viewModel.input.partyCellClickedState.onNext(item.id)
                 self?.viewModel.selectedIndex = indexPath.item
                 self?.rootView.categoryCollectionView.reloadData()
                 
                 self?.viewModel.selectedDetailCategoryCell.accept([])
                 self?.rootView.detailCategoryCollectionView.reloadData()
+                
+                self?.selectedCategoryID = item.id
             })
             .disposed(by: disposeBag)
         
@@ -110,14 +187,6 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
                 owner.rootView.detailCategoryCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
-        
-        rootView.detailCategoryCollectionView.rx
-            .itemSelected
-            .subscribe(onNext: {[weak self] indexPath in
-                self?.viewModel.input.detailCategoryCellSelectedIndexPath.onNext(indexPath.item)
-        })
-        .disposed(by: disposeBag)
-        
         
         viewModel.toastMessage
             .observe(on: MainScheduler.instance)
@@ -133,6 +202,41 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
                 self?.rootView.detailCategoryCollectionView.reloadData()
             }
             .disposed(by: disposeBag)
+        
+        
+        rootView.completeCreatePartyButton.rx.tap
+            .bind { [weak self] _ in
+                guard let numberOfPeople = Int(self?.rootView.numberOfPeopleTextField.text ?? "0") else { return } // 토스트
+                guard let categoryDetailIDList = self?.categoryDetailIDList else { return }
+                guard let selectedCategoryID = self?.selectedCategoryID else { return }
+                guard let hashTagNameList = self?.hashTagNameList else { return }
+                guard let maxAge = self?.maxAge else { return }
+                guard let minAge = self?.minAge else { return }
+                guard let openChatURL = self?.rootView.openKakaoChatTextField.text else { return }
+                guard let partyDescription = self?.rootView.aboutPartyContentsTextView.text else { return }
+                guard let partyName = self?.rootView.setPartyBackgroundView.textField?.text else { return }
+                guard let latitude = self?.latitude else { return }
+                guard let longitude = self?.longitude else { return }
+                
+                self?.viewModel.createPartyAPICall(
+                    CreatePartyMockData.address,
+                    numberOfPeople,
+                    categoryDetailIDList,
+                    selectedCategoryID,
+                    hashTagNameList,
+                    maxAge,
+                    minAge,
+                    openChatURL,
+                    partyDescription,
+                    CreatePartyMockData.partyEndDateTime,
+                    latitude,
+                    longitude,
+                    partyName,
+                    CreatePartyMockData.partyStartDateTime,
+                    CreatePartyMockData.storeName
+                )
+            }
+            .disposed(by: disposeBag)
 
     }
     
@@ -146,8 +250,6 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
         rootView.detailCategoryCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
     }
-    
-   
 }
 
 extension CreatePartyViewController: UICollectionViewDelegateFlowLayout {
@@ -180,32 +282,23 @@ extension CreatePartyViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 32.0 // horizontal spacing
-
     }
 }
 
-extension CreatePartyViewController {
-    func dataFetchingDetailCategoryCellIndex(_ indexList: [Int]) {
-        
+extension CreatePartyViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
     }
 }
-
-//extension CreatePartyViewController: UICollectionViewDataSource {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return viewModel.categoryDetailListsData?.count ?? 0
-//    }
-//
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        guard let cell = rootView.detailCategoryCollectionView.dequeueReusableCell(withReuseIdentifier: detailCategoryCollectionViewCell.identifier, for: indexPath) as? detailCategoryCollectionViewCell else { return UICollectionViewCell() }
-//        cell.configure(viewModel.categoryDetailListsData?[indexPath.item].categoryDetailName ?? "")
-//        return cell
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//
-//    }
-//
-//
-//}
-
+extension CreatePartyViewController: UITextViewDelegate {
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if let char = text.cString(using: String.Encoding.utf8) {
+            let isBackSpace = strcmp(char, "\\b")
+            if isBackSpace == -92 {
+                return true
+            }
+        }
+        guard textView.text!.count < 200 else { return false }
+        return true
+    }
+}

@@ -10,7 +10,7 @@ import RxSwift
 
 class PartyListHeaderView: UITableViewHeaderFooterView {
 	
-	static let identifier = "PartyListHeaderView"
+//	static let identifier = "PartyListHeaderView"
 	
 	private let disposeBag = DisposeBag()
 	

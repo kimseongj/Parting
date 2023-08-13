@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 
 class CategoryImageCollectionViewCell: UICollectionViewCell {
-    static let identifier = "CategoryImageCollectionViewCell"
+//    static let identifier = "CategoryImageCollectionViewCell"
     enum CellType {
         case normal
         case deselectable

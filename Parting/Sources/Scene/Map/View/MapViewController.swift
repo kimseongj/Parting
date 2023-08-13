@@ -32,7 +32,7 @@ class MapViewController: BaseViewController<MapView> {
     
     private func configureMarker() {
         //MARK: - lat, lng에 해당하는 마커 생성
-        marker.position = NMGLatLng(lat:35.88979460661547, lng: 128.61133694145016 )
+        marker.position = NMGLatLng(lat:35.88979460661547, lng: 128.61133694145016)
         marker.mapView = rootView.mapView.mapView
         marker.iconTintColor = UIColor.red
     }
@@ -50,6 +50,7 @@ class MapViewController: BaseViewController<MapView> {
             let bottomSheetViewController = BottomSheetViewController()
             bottomSheetViewController.modalPresentationStyle = .automatic
             self.present(bottomSheetViewController, animated: true)
+            print(CreatePartyViewController.partyTitle)
             return true
         }
     }

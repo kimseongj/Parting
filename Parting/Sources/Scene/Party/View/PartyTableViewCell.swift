@@ -9,7 +9,7 @@ import UIKit
 
 class PartyTableViewCell: UITableViewCell {
 	
-	static let identifier = "PartyTableViewCell"
+//	static let identifier = "PartyTableViewCell"
 	
 	private let cellContainer: UIStackView = {
 		let view = StackView(axis: .vertical, alignment: .center, distribution: .equalCentering)

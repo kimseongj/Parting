@@ -24,7 +24,7 @@ final class CreatePartyViewModel: BaseViewModel {
     struct Output {
         let categories: BehaviorRelay<[CategoryModel]> = BehaviorRelay(value: [])
         let categoryImages: BehaviorRelay<[CategoryModel]> = BehaviorRelay(value: [])
-        let categoryDetailLists: BehaviorRelay<[CategoryDetailResult]> = BehaviorRelay(value: [])
+        let categoryDetailLists: BehaviorRelay<[CategoryDetailResultContainisSelected]> = BehaviorRelay(value: [])
         let categoryDetailResponses: BehaviorRelay<[CategoryResponse]> = BehaviorRelay(value: [])
     }
     
@@ -48,6 +48,42 @@ final class CreatePartyViewModel: BaseViewModel {
         bind()
     }
     
+    func createPartyAPICall(
+        _ address: String,
+        _ capacity: Int,
+        _ categoryDetailIDList: [Int],
+        _ categoryId: Int,
+        _ hashTagNameList: [String],
+        _ maxAge: Int,
+        _ minAge: Int,
+        _ openChattingRoomURL: String,
+        _ partyDescription: String,
+        _ partyEndDateTime: String,
+        _ partyLatitude: Double,
+        _ partyLongitude: Double,
+        _ partyName: String,
+        _ partyStartDateTime: String,
+        _ storeName: String) {
+        APIManager.shared.createPartyPost(
+            address,
+            capacity,
+            categoryDetailIDList,
+            categoryId,
+            hashTagNameList,
+            maxAge,
+            minAge,
+            openChattingRoomURL,
+            partyDescription,
+            partyEndDateTime,
+            partyLatitude,
+            partyLongitude,
+            partyName,
+            partyStartDateTime,
+            storeName) { statusCode in
+            print(statusCode, "상태코드 💜")
+        }
+    }
+    
     private func bind() {
         input.detailCategoryCellSelectedIndexPath
             .bind { [weak self] index in
@@ -68,7 +104,13 @@ final class CreatePartyViewModel: BaseViewModel {
             }
             .subscribe(onNext: {[weak self] data in
                 self?.categoryDetailListsData = data.result
-                self?.output.categoryDetailLists.accept(self?.categoryDetailListsData ?? [])
+                var newData: [CategoryDetailResultContainisSelected] = []
+                guard let arr =  self?.categoryDetailListsData else { return }
+                for ele in arr {
+                    let data = CategoryDetailResultContainisSelected(categoryDetailID: ele.categoryDetailID, categoryDetailName: ele.categoryDetailName)
+                    newData.append(data)
+                }
+                self?.output.categoryDetailLists.accept(newData)
             })
             .disposed(by: disposeBag)
     }

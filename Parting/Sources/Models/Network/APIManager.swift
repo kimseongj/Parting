@@ -9,6 +9,42 @@ import Foundation
 import Alamofire
 import RxSwift
 
+struct CreatePartyMockData {
+    static let address: String = "대구 북구 산격동"
+    static let capacity: Int = 5
+    static let categoryDetailIDList: [Int] = [1]
+    static let categoryID: Int = 0
+    static let hashTagNameList: [String] = ["iOS Test"]
+    static let maxAge: Int = 30
+    static let minAge: Int = 22
+    static let openChattingRoomURL: String = "https://open.kakao.com/o/gVRPbTzf"
+    static let partyDescription: String = "팟팅 POST 통신 테스트"
+    static let partyEndDateTime: String = "2023-04-30 12:30:00"
+    static let partyLatitude: Double = 1.00232
+    static let partyLongitude: Double = 223.2345
+    static let partyName: String = "술먹을 사람"
+    static let partyStartDateTime: String = "2023-04-30 12:00:00"
+    static let storeName: String = "사군자"
+}
+
+struct CreatePartyPostDataModel {
+//    static var address: String = ""
+//    static let capacity: Int
+//    static let categoryDetailIDList: [Int]
+//    static let categoryID: Int
+//    static let hashTagNameList: [String]
+//    static let maxAge: Int
+//    static let minAge: Int
+//    static let openChattingRoomURL: String
+//    static let partyDescription: String
+//    static let partyEndDateTime: String
+//    static let partyLatitude: Double
+//    static let partyLongitude: Double
+//    static let partyName: String
+//    static let partyStartDateTime: String
+//    static let storeName: String
+}
+
 class APIManager {
     static let shared = APIManager()
     
@@ -126,6 +162,45 @@ class APIManager {
         }
     }
     
+    func createPartyPost(_ address: String, _ capacity: Int, _ categoryDetailIDList: [Int], _ categoryID: Int, _ hashTagNameList: [String], _ maxAge: Int, _ minAge: Int, _ openChattingRoomURL: String, _ partyDescription: String, _ partyEndDateTime: String, _ partyLatitude: Double, _ partyLongitude: Double, _ partyName: String, _ partyStartDateTime: String, _ storeName: String, completion: @escaping (Int?) -> Void) {
+        let api = PartingAPI.createParty(
+            address: address,
+            capacity: capacity,
+            categoryDetailIdList: categoryDetailIDList,
+            categoryId: categoryID,
+            hashTagNameList: hashTagNameList,
+            maxAge: maxAge,
+            minAge: minAge,
+            openChattingRoomURL: openChattingRoomURL,
+            partyDescription: partyDescription,
+            partyEndDateTime: partyEndDateTime,
+            partyLatitude: partyLatitude,
+            partyLongitude: partyLongitude,
+            partyName: partyName,
+            partyStartDateTime: partyStartDateTime,
+            storeName: storeName
+        )
+        print(api)
+
+        guard let url = api.url else { return }
+        AF.request(url,
+            method: .post,
+            parameters: api.parameters,
+            encoding: JSONEncoding.default,
+            headers: api.headers).responseDecodable(of: CreatePartyPostResponseModel.self) { response in
+                switch response.result {
+                case .success(_):
+                    print(response.result, "💛💛")
+                    guard let statuscode = response.response?.statusCode else { return }
+                    completion(statuscode)
+                case .failure(_):
+                    print(response.result, "🥶🥶")
+                    guard let statuscode = response.response?.statusCode else { return }
+                    completion(statuscode)
+            }
+        }
+    }
+    
     //MARK: - 카테고리별 세부 항목 API
     func getCategoryDetailList(_ categoryId: Int) -> Observable<CategoryDetailResponse> {
         return Observable.create { emitter in
@@ -180,6 +255,9 @@ class APIManager {
 			
 		
 	} /* End func getPartyList() */
+    
+    
+    
 	
 	
 }

@@ -16,7 +16,7 @@ enum PartingAPI {
     case isMemeber
     case tokenReissue
     case parties(params: PartyListParams)
-    case createParty
+    case createParty(address: String, capacity: Int, categoryDetailIdList: [Int], categoryId: Int, hashTagNameList: [String], maxAge: Int, minAge: Int, openChattingRoomURL: String, partyDescription: String, partyEndDateTime: String, partyLatitude: Double, partyLongitude: Double, partyName: String, partyStartDateTime: String, storeName: String)
     case getPartyDetail(partyId: Int)
     case modifyParty(partyId: Int)
     case deleteParty(partyId: Int)
@@ -94,14 +94,24 @@ extension PartingAPI {
     
     var parameters: [String: Any] {
         switch self {
-            //        case let .parties(categoryDetailId, orderCondition1, orderCondition2, pageNumber, categoryVersion):
-            //            return [
-            //                "categoryDetailId": categoryDetailId,
-            //                "orderCondition1": orderCondition1,
-            //                "orderCondition2": orderCondition2,
-            //                "pageNumber": pageNumber,
-            //                "categoryVersion": categoryVersion
-            //            ]
+        case let .createParty(address, capacity, categoryDetailIDList, categoryID, hashTagNameList, maxAge, minAge, openChattingRoomURL, partyDescription, partyEndDateTime, partyLatitude, partyLongitude, partyName, partyStartDateTime, storeName):
+            return [
+                "address": address,
+                "capacity": capacity,
+                "categoryDetailIdList": categoryDetailIDList,
+                "categoryId": categoryID,
+                "hashTagNameList": hashTagNameList,
+                "maxAge": maxAge,
+                "minAge": minAge,
+                "openChattingRoomURL": openChattingRoomURL,
+                "partyDescription": partyDescription,
+                "partyEndDateTime": partyEndDateTime,
+                "partyLatitude": partyLatitude,
+                "partyLongitude": partyLongitude,
+                "partyName": partyName,
+                "partyStartDateTime": partyStartDateTime,
+                "storeName": storeName
+            ]
         case let .getPartyDetail(partyId), let .modifyParty(partyId), let .deleteParty(partyId):
             return [
                 "partyId": partyId

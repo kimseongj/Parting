@@ -10,6 +10,6 @@ import Foundation
 enum BaseURL {
     static let baseURL = "http://www.devparting.store:80/api/v1"
     static let oauthURL = "http://www.devparting.store:80/api/oauth"
-    static let partyURL = "http://www.devparting.store:80/api/party"
+    static let partyURL = "http://www.devparting.store:80/api/v1/party"
     static let userURL = "http://www.devparting.store:80/api/v1/user"
 }

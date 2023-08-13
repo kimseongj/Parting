@@ -12,6 +12,7 @@ import RxCocoa
 final class SetMapViewModel: BaseViewModel {
     struct Input {
         let popVCTrigger = PublishSubject<Void>()
+        let mapClicked = PublishSubject<Void>()
     }
 
     struct Output {
@@ -37,10 +38,22 @@ final class SetMapViewModel: BaseViewModel {
                 self?.popVC()
             })
             .disposed(by: disposeBag)
+        
+        input.mapClicked
+            .bind { [weak self] _ in
+                self?.presentPopUpVC()
+            }
+            .disposed(by: disposeBag)
+        
+        
     }
     
     private func popVC() {
         self.coordinator?.popVC()
+    }
+    
+    func presentPopUpVC() {
+        self.coordinator?.presentPopUpVC()
     }
 }
 

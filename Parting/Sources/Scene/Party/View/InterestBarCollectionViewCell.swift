@@ -9,7 +9,7 @@ import UIKit
 
 class InterestBarCollectionViewCell: UICollectionViewCell {
 	
-	static let identifier = "InterestBarCollectionViewCell"
+//	static let identifier = "InterestBarCollectionViewCell"
 	
 	private var isActivated: Bool
 	

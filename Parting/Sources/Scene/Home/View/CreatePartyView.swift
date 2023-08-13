@@ -101,12 +101,15 @@ final class CreatePartyView: BaseView {
         return collectionView
     }()
     
-    let setPartyBirthAndMonthTextField: UITextField = {
+    let setPartyYearAndMonthTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "  년,월,일"
         textField.layer.borderColor = UIColor(hexcode: "EEEEEE").cgColor
         textField.layer.borderWidth = 1
         textField.layer.cornerRadius = 5
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        textField.leftViewMode = .always
+        textField.keyboardType = .numberPad
         return textField
     }()
     
@@ -116,6 +119,9 @@ final class CreatePartyView: BaseView {
         textField.layer.borderColor = UIColor(hexcode: "EEEEEE").cgColor
         textField.layer.borderWidth = 1
         textField.layer.cornerRadius = 5
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        textField.leftViewMode = .always
+        textField.keyboardType = .numberPad
         return textField
     }()
     
@@ -159,12 +165,15 @@ final class CreatePartyView: BaseView {
         return label
     }()
     
-    let numberOfPeopleView: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 5
-        view.layer.borderColor = UIColor(hexcode: "EEEEEE").cgColor
-        view.layer.borderWidth = 1
-        return view
+    let numberOfPeopleTextField: UITextField = {
+        let textField = UITextField()
+        textField.layer.cornerRadius = 5
+        textField.layer.borderColor = UIColor(hexcode: "EEEEEE").cgColor
+        textField.layer.borderWidth = 1
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        textField.leftViewMode = .always
+        textField.keyboardType = .numberPad
+        return textField
     }()
     
     let numberOfPeopleStackView: UIStackView = {
@@ -217,6 +226,8 @@ final class CreatePartyView: BaseView {
         textField.layer.cornerRadius = 5
         textField.layer.borderColor = UIColor(hexcode: "EEEEEE").cgColor
         textField.layer.borderWidth = 1
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        textField.leftViewMode = .always
         return textField
     }()
     
@@ -225,6 +236,7 @@ final class CreatePartyView: BaseView {
         textView.layer.borderColor = UIColor(hexcode: "EEEEEE").cgColor
         textView.layer.borderWidth = 1
         textView.layer.cornerRadius = 5
+        textView.font = notoSansFont.Medium.of(size: 13)
         return textView
     }()
     
@@ -274,7 +286,7 @@ final class CreatePartyView: BaseView {
         }
         
         partyTimeView.addSubview(setPartyTimeTextField)
-        partyTimeView.addSubview(setPartyBirthAndMonthTextField)
+        partyTimeView.addSubview(setPartyYearAndMonthTextField)
         
         setPartyDateBackgroundView.addSubview(setPartyDateLabel)
         setPartyDateBackgroundView.addSubview(partyTimeView)
@@ -284,7 +296,7 @@ final class CreatePartyView: BaseView {
         setPartyView.addSubview(setPartyDateBackgroundView)
         
         numberOfPeopleStackView.addArrangedSubview(numberOfPeopleTitleLabel)
-        numberOfPeopleStackView.addArrangedSubview(numberOfPeopleView)
+        numberOfPeopleStackView.addArrangedSubview(numberOfPeopleTextField)
         
         setAgeStackView.addArrangedSubview(setAgeLabel)
         setAgeStackView.addArrangedSubview(setAgeMultislider)
@@ -312,16 +324,16 @@ final class CreatePartyView: BaseView {
             make.trailing.equalToSuperview()
         }
         
-        setPartyBirthAndMonthTextField.snp.makeConstraints { make in
+        setPartyYearAndMonthTextField.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
             make.leading.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.8)
+            make.width.equalToSuperview().multipliedBy(0.48)
             make.height.equalToSuperview().multipliedBy(0.9)
         }
         
         setPartyTimeTextField.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.15)
+            make.width.equalToSuperview().multipliedBy(0.48)
             make.trailing.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.9)
         }
@@ -405,7 +417,7 @@ final class CreatePartyView: BaseView {
             make.width.equalToSuperview().multipliedBy(0.3)
         }
 
-        numberOfPeopleView.snp.makeConstraints { make in
+        numberOfPeopleTextField.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview()
             make.trailing.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.65)
@@ -418,7 +430,7 @@ final class CreatePartyView: BaseView {
         }
         
         minAndMaxPeople.snp.makeConstraints { make in
-            make.top.equalTo(numberOfPeopleView.snp.bottom).offset(7)
+            make.top.equalTo(numberOfPeopleTextField.snp.bottom).offset(7)
             make.trailing.equalToSuperview().inset(16)
             make.width.equalToSuperview().multipliedBy(0.43)
             make.height.equalTo(24)

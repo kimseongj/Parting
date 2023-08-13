@@ -8,8 +8,10 @@
 import UIKit
 import SnapKit
 
+
 class detailCategoryCollectionViewCell: UICollectionViewCell {
-    static let identifier = "detailCategoryCollectionViewCell"
+//    static let identifier = "detailCategoryCollectionViewCell"
+    var isActivated: Bool
     
     let backGroundView: UIView = {
         let view = UIView()
@@ -26,6 +28,7 @@ class detailCategoryCollectionViewCell: UICollectionViewCell {
     }()
     
     override init(frame: CGRect) {
+        isActivated = false
         super.init(frame: frame)
         setUpview()
         constraints()
@@ -55,6 +58,12 @@ class detailCategoryCollectionViewCell: UICollectionViewCell {
     func configure(_ text: String) {
         self.categoryNameLabel.text = text
     }
-
     
+    func changeCellState(_ isClicked: Bool) {
+        if isClicked {
+            backGroundView.backgroundColor = AppColor.brand
+        } else {
+            backGroundView.backgroundColor = AppColor.gray400
+        }
+    }
 }

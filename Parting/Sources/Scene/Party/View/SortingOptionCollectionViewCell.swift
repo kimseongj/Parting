@@ -9,7 +9,7 @@ import UIKit
 
 class SortingOptionCollectionViewCell: UICollectionViewCell {
     
-	static let identifier = "SortingOptionCollectionViewCell"
+//	static let identifier = "SortingOptionCollectionViewCell"
 	
 	private let cellConatiner: UIView = {
 		let view = UIView()
