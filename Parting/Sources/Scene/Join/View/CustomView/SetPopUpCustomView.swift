@@ -21,6 +21,13 @@ class SetPopUpCustomView: BaseView {
         return view
     }()
     
+    let visualEffectView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .dark)
+        let effectView = UIVisualEffectView(effect: blurEffect)
+        effectView.alpha = 0.8
+        return effectView
+    }()
+    
     let noButton: UIButton = {
         let button = UIButton()
         button.setTitle("아니오", for: .normal)
@@ -55,17 +62,22 @@ class SetPopUpCustomView: BaseView {
         buttonStackView.addArrangedSubview(yesButton)
         popUpView.addSubview(buttonStackView)
         popUpView.addSubview(alertText)
+        backgroundView.addSubview(visualEffectView)
         self.addSubview(backgroundView)
         self.addSubview(popUpView)
     }
     
     override func makeConstraints() {
+        visualEffectView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         backgroundView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
         alertText.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(popUpView.frame.height * 0.358)
+            make.top.equalToSuperview().offset(60)
             make.horizontalEdges.equalToSuperview()
             make.height.equalTo(24)
         }
@@ -81,6 +93,5 @@ class SetPopUpCustomView: BaseView {
             make.height.equalToSuperview().multipliedBy(0.216)
             make.centerY.equalToSuperview()
         }
-        
     }
 }

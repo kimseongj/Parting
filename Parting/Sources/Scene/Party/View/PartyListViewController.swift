@@ -34,19 +34,27 @@ class PartyListViewController: BaseViewController<PartyListView> {
 		navigationUI()
 		bindViewModel()
 		configureTableView()
+        checkMyPartytestAPI()
 	}
-
+    
+    private func checkMyPartytestAPI() {
+        print("🌟🌟🌟MYParty TEST 입니다🌟🌟🌟")
+        APIManager.shared.checkMyParty(
+            pageNumber: 0,
+            lat: 35.88979460661547,
+            lng: 128.61133694145016) { data in
+                print(data, "checkMyPage TEST 입니다🔥🔥")
+            }
+    }
 
 	private func navigationUI() {
 		navigationController?.isNavigationBarHidden = false
 		self.navigationItem.rightBarButtonItem = rootView.bellBarButton
 		self.navigationItem.leftBarButtonItem = rootView.backBarButton
 		self.navigationItem.titleView = rootView.navigationLabel
-
 	}
 
 	private func configureTableView() {
-
 		rootView.partyListTableView.rx.setDelegate(self).disposed(by: disposeBag)
 		rootView.partyListTableView.register(PartyTableViewCell.self, forCellReuseIdentifier: PartyTableViewCell.identifier)
 		rootView.partyListTableView.register(PartyListHeaderView.self, forHeaderFooterViewReuseIdentifier: PartyListHeaderView.identifier)
@@ -63,7 +71,7 @@ class PartyListViewController: BaseViewController<PartyListView> {
 		viewModel.output.partyList.bind(to: rootView.partyListTableView.rx.items(cellIdentifier: PartyTableViewCell.identifier, cellType: PartyTableViewCell.self)) { index, party, cell in
 			cell.selectionStyle = .none
 			cell.configureCell(party: party)
-		}.disposed(by: disposeBag)
+        }.disposed(by: disposeBag)
 	}
 }
 

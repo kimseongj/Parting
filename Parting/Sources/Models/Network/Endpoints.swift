@@ -24,7 +24,7 @@ enum PartingAPI {
     case recentView(partyIdStr: String)
     case region
     case reportParty
-    case checkMyParty(pageNumber: Int)
+    case checkMyParty(pageNumber: Int, lat: Double, lng: Double)
     case partyMember(partyId: Int, userId: Int)
     case checkEnteredParty
     case partyDday
@@ -33,7 +33,6 @@ enum PartingAPI {
     case essentialInfo(birth: String, job: String, nickName: String, sex: String, sigunguCd: Int)
     case interest
     case modifyInfo
-    
 }
 
 extension PartingAPI {
@@ -82,11 +81,11 @@ extension PartingAPI {
         switch self {
         case .oauthKaKao, .oauthLogout, .isMemeber, .tokenReissue, .reportParty, .checkEnteredParty, .partyDday, .checkMypage, .interest, .modifyInfo :
             return [
-                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4OTY2Mjc5NSwiZXhwIjoxNjkyMDgxOTk1fQ.qwKegwOutI8bWPmDBE0jx5KOspSQTVZL_Ucc-I6D_hY"
+                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY5MjE0Nzc2NywiZXhwIjoxNjk0NTY2OTY3fQ.Zl6DpoBsmz7cMlYUWwkRLty_s83-Rxoj2UdwNZkuxjA"
             ]
         case .parties, .associatedCategory, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calender, .region, .recentView, .checkMyParty, .partyMember, .detailCategory, .checkNickname, .essentialInfo:
             return [
-                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY4OTY2Mjc5NSwiZXhwIjoxNjkyMDgxOTk1fQ.qwKegwOutI8bWPmDBE0jx5KOspSQTVZL_Ucc-I6D_hY",
+                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY5MjE0Nzc2NywiZXhwIjoxNjk0NTY2OTY3fQ.Zl6DpoBsmz7cMlYUWwkRLty_s83-Rxoj2UdwNZkuxjA",
                 "Content-Type": "application/json;charset=UTF-8"
             ]
         }
@@ -125,9 +124,11 @@ extension PartingAPI {
             return [
                 "partyIdStr": partyIdStr
             ]
-        case let .checkMyParty(pageNumber):
+        case let .checkMyParty(pageNumber, lat, lng):
             return [
-                "pageNumber": pageNumber
+                "pageNumber": pageNumber,
+                "userLatitude": lat,
+                "userLongitude": lng
             ]
         case let .partyMember(partyId, userId):
             return [

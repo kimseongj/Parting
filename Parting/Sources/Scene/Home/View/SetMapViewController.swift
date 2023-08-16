@@ -13,7 +13,7 @@ import NMapsMap
 // 1. CoreLocation import
 import CoreLocation
 
-protocol SendCoordinate {
+protocol SendCoordinate: AnyObject {
     func sendLatAndLng(_ lat: Double, _ lng: Double)
 }
 
@@ -22,7 +22,7 @@ class SetMapViewController: BaseViewController<MapView> {
     private let marker = NMFMarker()
     
     var locationManger = CLLocationManager()
-    var delegate: SendCoordinate?
+    weak var delegate: SendCoordinate?
     
     init(viewModel: SetMapViewModel) {
         self.viewModel = viewModel

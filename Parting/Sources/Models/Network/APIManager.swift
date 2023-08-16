@@ -27,26 +27,26 @@ struct CreatePartyMockData {
     static let storeName: String = "사군자"
 }
 
-struct CreatePartyPostDataModel {
-//    static var address: String = ""
-//    static let capacity: Int
-//    static let categoryDetailIDList: [Int]
-//    static let categoryID: Int
-//    static let hashTagNameList: [String]
-//    static let maxAge: Int
-//    static let minAge: Int
-//    static let openChattingRoomURL: String
-//    static let partyDescription: String
-//    static let partyEndDateTime: String
-//    static let partyLatitude: Double
-//    static let partyLongitude: Double
-//    static let partyName: String
-//    static let partyStartDateTime: String
-//    static let storeName: String
-}
-
 class APIManager {
     static let shared = APIManager()
+    
+    func checkMyParty(pageNumber: Int, lat: Double, lng: Double, completionHandler: @escaping(CheckMyPartyResponse) -> ()) {
+        let api = PartingAPI.checkMyParty(pageNumber: pageNumber, lat: lat, lng: lng)
+        guard let url = api.url else { return }
+        AF.request(url, method: .get, parameters: api.parameters, headers: api.headers)
+            .validate(statusCode: 200...500)
+            .responseDecodable(of: CheckMyPartyResponse.self) { response in
+                print(response)
+                print("checkMyPage 상태코드 🌟🌟🌟\(response.response?.statusCode)")
+                switch response.result {
+                case .success(let value):
+                    print(value)
+                    completionHandler(value)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+    }
     
     //MARK: - 카테고리 종류 API
     func getCategoryAPI() -> Observable<CategoryResponse> {

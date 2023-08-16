@@ -8,10 +8,18 @@
 import UIKit
 import RxSwift
 
+protocol SetPopUpViewStateProtocol {
+    var popUpButtonIsClicked: PublishSubject<Int> { get }
+    
+    func tapPopUpButton(state: Int)
+}
 
-class SetPopUpViewModel: BaseViewModel {
+
+final class SetPopUpViewModel: BaseViewModel, SetPopUpViewStateProtocol {
+    
     private let disposeBag = DisposeBag()
     private let coordinator: HomeCoordinator?
+    var popUpButtonIsClicked = PublishSubject<Int>()
     
     struct Input {
         let popVCTrigger = PublishSubject<Void>()
@@ -33,6 +41,11 @@ class SetPopUpViewModel: BaseViewModel {
         viewTransition()
     }
     
+    func tapPopUpButton(state: Int) {
+        popUpButtonIsClicked.onNext(state)
+    }
+    
+    
     private func bind() {
         
     }
@@ -44,9 +57,4 @@ class SetPopUpViewModel: BaseViewModel {
             }
             .disposed(by: disposeBag)
     }
-    
-    
-    
-    
-    
 }

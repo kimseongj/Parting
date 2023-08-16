@@ -9,9 +9,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-// VM -> State[Theme?]
-// Theme Enum
-
 final class CreatePartyViewModel: BaseViewModel {
     struct Input {
         let popVCTrigger = PublishSubject<Void>()
@@ -99,10 +96,10 @@ final class CreatePartyViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         input.partyCellClickedState
-            .flatMap { id in
+            .flatMap { [weak self] id in
                 APIManager.shared.getCategoryDetailList(id)
             }
-            .subscribe(onNext: {[weak self] data in
+            .subscribe(onNext: { [weak self] data in
                 self?.categoryDetailListsData = data.result
                 var newData: [CategoryDetailResultContainisSelected] = []
                 guard let arr =  self?.categoryDetailListsData else { return }

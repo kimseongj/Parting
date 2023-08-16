@@ -83,7 +83,6 @@ extension PartyListHeaderView: UICollectionViewDelegate, UICollectionViewDataSou
 		sortingOptionCollectionView.delegate = self
 		sortingOptionCollectionView.dataSource = self
 		sortingOptionCollectionView.register(SortingOptionCollectionViewCell.self, forCellWithReuseIdentifier: SortingOptionCollectionViewCell.identifier)
-		
 		interestCollectionView.delegate = self
 		interestCollectionView.dataSource = self
 		interestCollectionView.register(InterestBarCollectionViewCell.self, forCellWithReuseIdentifier: InterestBarCollectionViewCell.identifier)

@@ -125,15 +125,12 @@ class CreatePartyViewController: BaseViewController<CreatePartyView>, SendCoordi
             })
             .disposed(by: disposeBag)
         
-        
-        
         // MARK: - 세부 카테고리 CellForItemAt(DataSource)
         viewModel.output.categoryDetailLists
             .bind(to: rootView.detailCategoryCollectionView.rx
                 .items(cellIdentifier: detailCategoryCollectionViewCell.identifier, cellType: detailCategoryCollectionViewCell.self)) { [weak self] row, element, cell in
                     cell.configure(self?.viewModel.categoryDetailListsData?[row].categoryDetailName ?? "")
                     cell.changeCellState(element.isClicked)
-                   
                 }
             .disposed(by: disposeBag)
         
@@ -235,9 +232,10 @@ class CreatePartyViewController: BaseViewController<CreatePartyView>, SendCoordi
                     CreatePartyMockData.partyStartDateTime,
                     CreatePartyMockData.storeName
                 )
+                
+                self?.viewModel.input.popVCTrigger.onNext(())
             }
             .disposed(by: disposeBag)
-
     }
     
     private func registerCell() {

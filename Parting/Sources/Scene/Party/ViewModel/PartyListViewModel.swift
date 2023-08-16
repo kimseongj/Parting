@@ -17,8 +17,6 @@ final class PartyListViewModel: BaseViewModel {
 	}
 	
 	struct Output {
-//		let categoryImages: BehaviorRelay<[String]> = BehaviorRelay(value: [])
-//		let categoryNames: BehaviorRelay<[String]> = BehaviorRelay(value: [])
 		let partyList: BehaviorRelay<[PartyListItemModel]> = BehaviorRelay(value: [])
 	}
 	
@@ -71,9 +69,5 @@ final class PartyListViewModel: BaseViewModel {
 			})
 			.disposed(by: disposeBag)
 	}
-	
-	
-	
-	
 }
 

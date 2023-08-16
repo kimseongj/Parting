@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class MyPageViewController: BaseViewController<MyPageView> {
+final class MyPageViewController: BaseViewController<MyPageView> {
     
     private var viewModel: MyPageViewModel
     

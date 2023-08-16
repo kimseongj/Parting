@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 //MARK: - TitleLabel + BackgroundView
-class SetCreatePartyView: UIView {
+final class SetCreatePartyView: UIView {
     
     
     override init(frame: CGRect) {
@@ -41,7 +41,7 @@ class SetCreatePartyView: UIView {
     }
 }
 
-class SetTextField: UITextField {
+final class SetTextField: UITextField {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -56,7 +56,7 @@ class SetTextField: UITextField {
     }
 }
 
-class SetTitleLabel: UILabel {
+final class SetTitleLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         font = notoSansFont.Black.of(size: 15)
@@ -81,7 +81,7 @@ class SetTitleLabel: UILabel {
     }
 }
 
-class SetUnderlineLabel: UILabel {
+final class SetUnderlineLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         layer.borderColor = UIColor(hexcode: "E6E6E6").cgColor
@@ -93,7 +93,7 @@ class SetUnderlineLabel: UILabel {
     }
 }
 
-class SetTextCountLabel: UILabel {
+final class SetTextCountLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         text = "0/20"
@@ -107,7 +107,7 @@ class SetTextCountLabel: UILabel {
 }
 //
 //MARK: - textField + textCount + underLineLabel
-class SetBackGroundView: UIView {
+final class SetBackGroundView: UIView {
     private let disposeBag = DisposeBag()
     
     let textCnt = PublishRelay<Int>()
