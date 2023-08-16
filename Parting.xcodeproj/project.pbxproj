@@ -96,6 +96,7 @@
 		4EF72E012A8C92A7000B7205 /* CheckMyPartyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF72E002A8C92A7000B7205 /* CheckMyPartyViewController.swift */; };
 		4EF72E032A8C92B8000B7205 /* CheckMyPartyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF72E022A8C92B8000B7205 /* CheckMyPartyViewModel.swift */; };
 		4EF72E052A8C9329000B7205 /* CheckMyPartyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF72E042A8C9329000B7205 /* CheckMyPartyView.swift */; };
+		4EF72E092A8D08B1000B7205 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF72E082A8D08B1000B7205 /* NetworkError.swift */; };
 		4EFC951C2A82095700994388 /* CreatePartyPostResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC951B2A82095700994388 /* CreatePartyPostResponseModel.swift */; };
 		4EFCEBCA2A677E3F000F0A2B /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCEBC92A677E3F000F0A2B /* BottomSheetViewController.swift */; };
 		4EFCEBCE2A67A7E2000F0A2B /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCEBCD2A67A7E2000F0A2B /* BottomSheetView.swift */; };
@@ -228,6 +229,7 @@
 		4EF72E002A8C92A7000B7205 /* CheckMyPartyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMyPartyViewController.swift; sourceTree = "<group>"; };
 		4EF72E022A8C92B8000B7205 /* CheckMyPartyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMyPartyViewModel.swift; sourceTree = "<group>"; };
 		4EF72E042A8C9329000B7205 /* CheckMyPartyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMyPartyView.swift; sourceTree = "<group>"; };
+		4EF72E082A8D08B1000B7205 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		4EFC951B2A82095700994388 /* CreatePartyPostResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePartyPostResponseModel.swift; sourceTree = "<group>"; };
 		4EFCEBC92A677E3F000F0A2B /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		4EFCEBCD2A67A7E2000F0A2B /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
@@ -399,6 +401,7 @@
 				9337C01E2A6BD7E000CA572B /* PartyListResponse.swift */,
 				4EFC951B2A82095700994388 /* CreatePartyPostResponseModel.swift */,
 				4EF72DE22A8B597E000B7205 /* CheckMyPartyResponse.swift */,
+				4EF72E082A8D08B1000B7205 /* NetworkError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1021,6 +1024,7 @@
 				933B3CA12A55871100B8D60B /* StackView.swift in Sources */,
 				4E89BC3129C57DE900BAE38A /* CategoryResponse.swift in Sources */,
 				4EFEB0EB2A88966D00CCAE5C /* SetPopUpViewModel.swift in Sources */,
+				4EF72E092A8D08B1000B7205 /* NetworkError.swift in Sources */,
 				4E52228429F141AA000B96B4 /* EssentialInfoViewController.swift in Sources */,
 				4EFFCE552A6DFF080075EF9C /* Label.swift in Sources */,
 				4E52227A29F11788000B96B4 /* JoinCompleteView.swift in Sources */,

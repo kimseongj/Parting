@@ -9,17 +9,6 @@ import Foundation
 import Alamofire
 import RxSwift
 
-enum CreatePartyError: Int, Error {
-    case enterYourJWT = 2001
-    case notValidateJWT = 2002
-    case alreadyLogoutToken = 2004
-    case tokenTypeDoNotMatch = 2005
-    case dataBaseError = 4000
-    case userDoesNotBelongParty = 5002
-    case partyHostCanDelete = 5003
-    case alreadyDelete = 5007
-}
-
 struct CreatePartyMockData {
     static let address: String = "대구 북구 산격동"
     static let capacity: Int = 5
@@ -41,6 +30,7 @@ struct CreatePartyMockData {
 class APIManager {
     static let shared = APIManager()
     
+    // MARK: - 내가 개설한 파티
     func checkMyParty(pageNumber: Int, lat: Double, lng: Double, completionHandler: @escaping(CheckMyPartyResponse) -> ()) {
         let api = PartingAPI.checkMyParty(pageNumber: pageNumber, lat: lat, lng: lng)
         guard let url = api.url else { return }
@@ -173,6 +163,7 @@ class APIManager {
         }
     }
     
+    // MARK: - 파티 생성 
     func createPartyPost(_ address: String, _ capacity: Int, _ categoryDetailIDList: [Int], _ categoryID: Int, _ hashTagNameList: [String], _ maxAge: Int, _ minAge: Int, _ openChattingRoomURL: String, _ partyDescription: String, _ partyEndDateTime: String, _ partyLatitude: Double, _ partyLongitude: Double, _ partyName: String, _ partyStartDateTime: String, _ storeName: String, completion: @escaping (Int?) -> Void) {
         let api = PartingAPI.createParty(
             address: address,
