@@ -78,6 +78,27 @@ final class CreatePartyViewModel: BaseViewModel {
             partyStartDateTime,
             storeName) { statusCode in
             print(statusCode, "상태코드 💜")
+                guard let statusCode else { return }
+                switch CreatePartyError(rawValue: statusCode) {
+                case .enterYourJWT:
+                    print("JWT를 입력해주세요.")
+                case .notValidateJWT:
+                    print("유효하지 않은 JWT 입니다.")
+                case .alreadyLogoutToken:
+                    print("로그아웃 처리된 토큰으로 접속하셨습니다.")
+                case .tokenTypeDoNotMatch:
+                    print("토큰의 타입과 사용 목적이 맞지 않습니다.")
+                case .dataBaseError:
+                    print("데이터베이스 에러입니다.")
+                case .userDoesNotBelongParty:
+                    print("해당 유저가 해당 파티에 속해있지 않습니다.")
+                case .partyHostCanDelete:
+                    print("host유저만이 파티를 삭제할 수 있습니다.")
+                case .alreadyDelete:
+                    print("이미 삭제된 파티입니다.")
+                default:
+                    print("알 수 없는 에러입니다.")
+                }
         }
     }
     

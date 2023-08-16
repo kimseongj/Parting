@@ -9,6 +9,17 @@ import Foundation
 import Alamofire
 import RxSwift
 
+enum CreatePartyError: Int, Error {
+    case enterYourJWT = 2001
+    case notValidateJWT = 2002
+    case alreadyLogoutToken = 2004
+    case tokenTypeDoNotMatch = 2005
+    case dataBaseError = 4000
+    case userDoesNotBelongParty = 5002
+    case partyHostCanDelete = 5003
+    case alreadyDelete = 5007
+}
+
 struct CreatePartyMockData {
     static let address: String = "대구 북구 산격동"
     static let capacity: Int = 5
