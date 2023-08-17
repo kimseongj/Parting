@@ -28,7 +28,7 @@ final class CreatePartyViewModel: BaseViewModel {
     var input: Input
     var output: Output
     
-    var categoryDetailListsData: [CategoryDetailResult]?
+    var categoryDetailListsData: [CategoryDetail]?
     var isSeletedCellIdx: BehaviorSubject<Int?> = BehaviorSubject(value: nil)
     var selectedIndex: Int?
     var selectedDetailCategoryCell = BehaviorRelay<Set<Int>>(value: [])
@@ -79,7 +79,7 @@ final class CreatePartyViewModel: BaseViewModel {
             storeName) { statusCode in
             print(statusCode, "상태코드 💜")
                 guard let statusCode else { return }
-                switch CreatePartyError(rawValue: statusCode) {
+                switch PartingError(rawValue: statusCode) {
                 case .enterYourJWT:
                     print("JWT를 입력해주세요.")
                 case .notValidateJWT:

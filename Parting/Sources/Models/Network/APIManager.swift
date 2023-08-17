@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 import RxSwift
+import CoreLocation
 
 struct CreatePartyMockData {
     static let address: String = "대구 북구 산격동"
@@ -30,6 +31,29 @@ struct CreatePartyMockData {
 class APIManager {
     static let shared = APIManager()
     
+    private init() {}
+    
+    func requestParting<T: Decodable>(type: T.Type = T.self, url: URL, method: HTTPMethod = .get, parameters: [String: String]? = nil, headers: HTTPHeaders, completion: @escaping (Result<T, Error>) -> ()) {
+        AF.request(url, method: method, parameters: parameters, headers: headers)
+            .responseDecodable(of: T.self) { response in
+                switch response.result {
+                case .success(let data):
+                    completion(.success(data))
+                case .failure(_):
+                    guard let statuscode = response.response?.statusCode else { return }
+                    guard let error = PartingError(rawValue: statuscode) else { return }
+                    completion(.failure(error))
+                }
+            }
+    }
+    
+    // MARK: - 내가 개설한 파티 TEST
+//    func checkMyPartyTest<T: Codable>(pageNumber: Int, lat: Double, lng: Double) -> Observable<T> {
+//        return Observable<T>.create {  in
+//
+//        }
+//    }
+    
     // MARK: - 내가 개설한 파티
     func checkMyParty(pageNumber: Int, lat: Double, lng: Double, completionHandler: @escaping(CheckMyPartyResponse) -> ()) {
         let api = PartingAPI.checkMyParty(pageNumber: pageNumber, lat: lat, lng: lng)
@@ -37,13 +61,16 @@ class APIManager {
         AF.request(url, method: .get, parameters: api.parameters, headers: api.headers)
             .validate(statusCode: 200...500)
             .responseDecodable(of: CheckMyPartyResponse.self) { response in
-                print(response)
                 print("checkMyPage 상태코드 🌟🌟🌟\(response.response?.statusCode)")
                 switch response.result {
                 case .success(let value):
                     print(value)
+                    print("서버 상태코드", value.code)
                     completionHandler(value)
-                case .failure(let error):
+                case .failure(_):
+                    print("서버 실패 상태코드😱😱", response.value?.code)
+                    guard let statusCode = response.response?.statusCode else { return }
+                    guard let error = PartingError(rawValue: statusCode) else { return }
                     print(error)
                 }
             }
@@ -108,7 +135,9 @@ class APIManager {
         return Observable.create { emitter in
             let api = PartingAPI.region
             guard let regionURL = api.url else { return Disposables.create() }
-            AF.request(regionURL, method: .get, headers: api.headers).validate(statusCode: 200...500).responseDecodable(of: RegionData.self) {
+            AF.request(regionURL, method: .get, headers: api.headers)
+                .validate(statusCode: 200...500)
+                .responseDecodable(of: RegionData.self) {
                 response in
                 print("시도, 시군구 API 상태코드 \(response.response?.statusCode) 🌱🌱")
                 switch response.result {
@@ -149,7 +178,8 @@ class APIManager {
         return Observable.create { emitter in
             let api = PartingAPI.essentialInfo(birth: birth, job: job, nickName: nickName, sex: sex, sigunguCd: sigunguCd)
             guard let essentialURL = api.url else { return Disposables.create() }
-            AF.request(essentialURL, method: .post, parameters: api.parameters, encoding: JSONEncoding.default, headers: api.headers).responseDecodable(of: NickNameResponse.self) { response in
+            AF.request(essentialURL, method: .post, parameters: api.parameters, encoding: JSONEncoding.default, headers: api.headers)
+                .responseDecodable(of: NickNameResponse.self) { response in
                 print("필수정보 입력 API 상태 코드 \(response.response?.statusCode) 🌱🌱")
                 switch response.result {
                 case let .success(value):
@@ -163,7 +193,7 @@ class APIManager {
         }
     }
     
-    // MARK: - 파티 생성 
+    // MARK: - 파티 생성
     func createPartyPost(_ address: String, _ capacity: Int, _ categoryDetailIDList: [Int], _ categoryID: Int, _ hashTagNameList: [String], _ maxAge: Int, _ minAge: Int, _ openChattingRoomURL: String, _ partyDescription: String, _ partyEndDateTime: String, _ partyLatitude: Double, _ partyLongitude: Double, _ partyName: String, _ partyStartDateTime: String, _ storeName: String, completion: @escaping (Int?) -> Void) {
         let api = PartingAPI.createParty(
             address: address,
@@ -208,7 +238,8 @@ class APIManager {
         return Observable.create { emitter in
             let api = PartingAPI.associatedCategory(categoryId: categoryId)
             guard let associatedCategoryURL = api.url else { return Disposables.create() }
-            AF.request(associatedCategoryURL, method: .get, parameters: api.parameters, encoding: URLEncoding.default, headers: api.headers).responseDecodable(of: CategoryDetailResponse.self) { response in
+            AF.request(associatedCategoryURL, method: .get, parameters: api.parameters, encoding: URLEncoding.default, headers: api.headers)
+                .responseDecodable(of: CategoryDetailResponse.self) { response in
                 print("카테고리별 세부 항복 API 상태코드 \(response.response?.statusCode) 🌱🌱")
                 switch response.result {
                 case let .success(value):
@@ -221,46 +252,101 @@ class APIManager {
             return Disposables.create()
         }
     }
+    
+    func getCategoryDetailList(categoryId: Int) async throws -> [CategoryDetail] {
+        let api = PartingAPI.associatedCategory(categoryId: categoryId)
+        
+        return await withCheckedContinuation({ continuation in
+            guard let url = api.url else { return }
+            AF.request(url, method: .get, parameters: api.parameters, encoding: URLEncoding.default, headers: api.headers).responseDecodable(of: CategoryDetailResponse.self) { response in
+                switch response.result {
+                case .success(let data):
+                    print(data.code)
+                    let associatedCategories = data.result
+                    continuation.resume(returning: associatedCategories)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        })
+           
+         
+    }
 	
 	// MARK: 파티 리스트 API
-	func getPartyList(categoryId: Int, categoryDetailId: Int, orderCondition1: PartingAPI.partySortingCondition.byNumberOfPeople, orderCondition2: PartingAPI.partySortingCondition.byTime, pageNumber: Int) async throws -> [PartyListItemModel]? {
-		
-		let urlParams = PartingAPI.PartyListParams(categoryId: categoryId, categoryDetailId: categoryDetailId, orderCondition1: orderCondition1.rawValue, orderCondition2: orderCondition2.rawValue, pageNumber: pageNumber)
-		
-		let api = PartingAPI.parties(params: urlParams)
-		guard let url = api.url else { return nil }
-		
-		return try await withUnsafeContinuation({ continuation in
-			AF.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: api.headers).responseDecodable(of: PartyListResponse.self) { response in
-				
-				switch response.result {
-					
-				case .success(let data):
-
-					let partyInfoList = data.result.partyInfos
-					
-					let partyList = partyInfoList.map { info in
-						let distanceString = String(info.distance) + info.distanceUnit
-						let partyStatus = PartyStatus.strToStatus(info.status)
-						
-						return PartyListItemModel(id: info.partyId, title: info.partyName, location: info.address, distance: distanceString, currentPartyMemberCount: info.currentPartyMemberCount, maxPartyMemberCount: info.maxPartyMemberCount, partyDuration: info.partyTimeStr, tags: info.hashTagNameList, status: partyStatus, imgURL: info.categoryImg)
-					}
-					
-					continuation.resume(returning: partyList)
-					
-				case .failure(let error):
-					print(error)
-				}
-				
-			} /* AF Request */
-		}) /* End withUnsafeContinuation() */
-			
-		
-	} /* End func getPartyList() */
+//	func getPartyList(categoryId: Int, categoryDetailId: Int, orderCondition1: PartingAPI.partySortingCondition.byNumberOfPeople, orderCondition2: PartingAPI.partySortingCondition.byTime, pageNumber: Int) async throws -> [PartyListItemModel]? {
+//
+//		let urlParams = PartingAPI.PartyListParams(categoryId: categoryId, categoryDetailId: categoryDetailId, orderCondition1: orderCondition1.rawValue, orderCondition2: orderCondition2.rawValue, pageNumber: pageNumber)
+//
+//		let api = PartingAPI.parties(params: urlParams)
+//		guard let url = api.url else { return nil }
+//
+//		return try await withUnsafeContinuation({ continuation in
+//			AF.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: api.headers)
+//                .responseDecodable(of: PartyListResponse.self) { response in
+//
+//				switch response.result {
+//
+//				case .success(let data):
+//
+//					let partyInfoList = data.result.partyInfos
+//
+//					let partyList = partyInfoList.map { info in
+//						let distanceString = String(info.distance) + info.distanceUnit
+//						let partyStatus = PartyStatus.strToStatus(info.status)
+//
+//						return PartyListItemModel(id: info.partyId, title: info.partyName, location: info.address, distance: distanceString, currentPartyMemberCount: info.currentPartyMemberCount, maxPartyMemberCount: info.maxPartyMemberCount, partyDuration: info.partyTimeStr, tags: info.hashTagNameList, status: partyStatus, imgURL: info.categoryImg)
+//					}
+//
+//					continuation.resume(returning: partyList)
+//
+//				case .failure(let error):
+//					print(error)
+//				}
+//
+//			} /* AF Request */
+//		}) /* End withUnsafeContinuation() */
+//
+//
+//	} /* End func getPartyList() */
     
     
     
-	
+    func getPartyList(categoryId: Int, categoryDetailIds: [Int], orderCondition1: SortingOption.NumberOfPeopleType, orderCondition2: SortingOption.TimeType, pageNumber: Int, location: CLLocation) async throws -> [PartyListItemModel] {
+            
+            return await withCheckedContinuation({ continuation in
+                
+//                guard let location = LocationManager.shared.getLocation() else { return }
+                let urlParams = PartingAPI.PartyListParams(categoryId: categoryId, categoryDetailIds: categoryDetailIds, orderCondition1: orderCondition1.rawValue, orderCondition2: orderCondition2.rawValue, pageNumber: pageNumber, userLatitude: location.coordinate.latitude, userLongitude: location.coordinate.longitude)
+                print(urlParams, "urlParmas")
+                let api = PartingAPI.parties(params: urlParams)
+                guard let url = api.url else { return }
+                
+                AF.request(url, method: .get, parameters: api.parameters, encoding: URLEncoding.default, headers: api.headers).responseDecodable(of: PartyListResponse.self) { response in
+                    
+                    switch response.result {
+                    case .success(let data):
+                        print(response.response?.statusCode, "💛💛💛")
+                        let partyInfoList = data.result.partyInfos
+                        
+                        let partyList = partyInfoList.map { info in
+                            let distanceString = String(info.distance) + info.distanceUnit
+                            let partyStatus = PartyStatus.strToStatus(info.status)
+                            
+                            return PartyListItemModel(id: info.partyId, title: info.partyName, location: info.address, distance: distanceString, currentPartyMemberCount: info.currentPartyMemberCount, maxPartyMemberCount: info.maxPartyMemberCount, partyDuration: info.partyTimeStr, tags: info.hashTagNameList, status: partyStatus, imgURL: info.categoryImg)
+                        }
+                        continuation.resume(returning: partyList)
+                        
+                    case .failure(let error):
+                        print(response.response?.statusCode, "💛💛💛")
+                        print(error)
+                    }
+                    
+                } /* AF Request */
+            }) /* End withUnsafeContinuation() */
+                
+            
+        } /* End func getPartyList() */
 	
 }
 

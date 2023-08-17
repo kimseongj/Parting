@@ -12,7 +12,18 @@ struct CategoryDetailResponse: Codable {
     let isSuccess: Bool
     let code: Int
     let message: String
-    let result: [CategoryDetailResult]
+    let result: [CategoryDetail]
+}
+
+// MARK: - Result
+struct CategoryDetail: Codable {
+    let categoryDetailID: Int
+    let categoryDetailName: String
+
+    enum CodingKeys: String, CodingKey {
+        case categoryDetailID = "categoryDetailId"
+        case categoryDetailName
+    }
 }
 
 // MARK: - Result

@@ -12,6 +12,11 @@
 		4E153FA82A34C37600C7F58C /* DetailInterestsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E153FA72A34C37600C7F58C /* DetailInterestsViewModel.swift */; };
 		4E153FAA2A34C39F00C7F58C /* DetailInterestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E153FA92A34C39F00C7F58C /* DetailInterestsViewController.swift */; };
 		4E153FAC2A34C3BB00C7F58C /* DetailInterestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E153FAB2A34C3BB00C7F58C /* DetailInterestsView.swift */; };
+		4E1CE0CF2A8E3B18006855E3 /* SortingOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CE0CE2A8E3B18006855E3 /* SortingOption.swift */; };
+		4E1CE0D22A8E3B86006855E3 /* LocationManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CE0D12A8E3B86006855E3 /* LocationManger.swift */; };
+		4E1CE0D42A8E4170006855E3 /* SortingOptionModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CE0D32A8E4170006855E3 /* SortingOptionModalViewController.swift */; };
+		4E1CE0D62A8E41B1006855E3 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CE0D52A8E41B1006855E3 /* RadioButton.swift */; };
+		4E1CE0D92A8E459B006855E3 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CE0D82A8E459B006855E3 /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		4E2874B92A2D98FB0000B24C /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2874B82A2D98FB0000B24C /* KakaoSDK */; };
 		4E3C856529F7AE920006BEB1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3C856429F7AE920006BEB1 /* BaseViewController.swift */; };
 		4E52227A29F11788000B96B4 /* JoinCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227929F11788000B96B4 /* JoinCompleteView.swift */; };
@@ -149,6 +154,11 @@
 		4E153FA72A34C37600C7F58C /* DetailInterestsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsViewModel.swift; sourceTree = "<group>"; };
 		4E153FA92A34C39F00C7F58C /* DetailInterestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsViewController.swift; sourceTree = "<group>"; };
 		4E153FAB2A34C3BB00C7F58C /* DetailInterestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsView.swift; sourceTree = "<group>"; };
+		4E1CE0CE2A8E3B18006855E3 /* SortingOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingOption.swift; sourceTree = "<group>"; };
+		4E1CE0D12A8E3B86006855E3 /* LocationManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManger.swift; sourceTree = "<group>"; };
+		4E1CE0D32A8E4170006855E3 /* SortingOptionModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingOptionModalViewController.swift; sourceTree = "<group>"; };
+		4E1CE0D52A8E41B1006855E3 /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		4E1CE0D82A8E459B006855E3 /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		4E3C856429F7AE920006BEB1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		4E52227829F10541000B96B4 /* Parting.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Parting.entitlements; sourceTree = "<group>"; };
 		4E52227929F11788000B96B4 /* JoinCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCompleteView.swift; sourceTree = "<group>"; };
@@ -302,6 +312,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E1CE0D02A8E3B6F006855E3 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				4E1CE0D12A8E3B86006855E3 /* LocationManger.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		4E1CE0D72A8E4580006855E3 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				4E1CE0D82A8E459B006855E3 /* LeftAlignedCollectionViewFlowLayout.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
 		4E52228D29F27D97000B96B4 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
@@ -331,6 +357,7 @@
 		4E89BC2029C572C400BAE38A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				4E1CE0D72A8E4580006855E3 /* Layout */,
 				933E58922A690AA5000F945E /* CoreData */,
 				937711E82A4EDFA30019DC6F /* CustomView */,
 				93A09BA32A4D9F490096A1D5 /* Protocols */,
@@ -378,6 +405,7 @@
 		4E89BC2429C57C3500BAE38A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4E1CE0D02A8E3B6F006855E3 /* Location */,
 				9337C0192A6BAF0100CA572B /* CoreData */,
 				4E89BC2529C57C4100BAE38A /* Network */,
 				933E588E2A68D61D000F945E /* CategoryModel.swift */,
@@ -688,6 +716,7 @@
 			children = (
 				930165252A10F7EE00DA1A07 /* Images.swift */,
 				933E58C62A691B06000F945E /* Entity.swift */,
+				4E1CE0CE2A8E3B18006855E3 /* SortingOption.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -732,6 +761,7 @@
 				4EECA7F72A6F4F8900C94417 /* JoinNaviBarButtonItem.swift */,
 				4EECA7F92A6F540C00C94417 /* CreatePartySetStackView.swift */,
 				4EECA7FB2A6F620000C94417 /* LoginButton.swift */,
+				4E1CE0D52A8E41B1006855E3 /* RadioButton.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -764,6 +794,7 @@
 				4EFFCE4C2A6DF56A0075EF9C /* PartyTableViewCell.swift */,
 				4EFFCE4E2A6DF5710075EF9C /* SortingOptionCollectionViewCell.swift */,
 				4EFFCE502A6DF57A0075EF9C /* TagCollectionViewCell.swift */,
+				4E1CE0D32A8E4170006855E3 /* SortingOptionModalViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -938,8 +969,10 @@
 				933B3C9B2A5586D200B8D60B /* HomeViewModel.swift in Sources */,
 				4EF72DE52A8B775B000B7205 /* MyPageCustomTableView.swift in Sources */,
 				4E52228029F14163000B96B4 /* EssentialInfoView.swift in Sources */,
+				4E1CE0D92A8E459B006855E3 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				4EFFCE472A6DF5410075EF9C /* PartyListHeaderView.swift in Sources */,
 				4E89BC3329C57E3C00BAE38A /* Error.swift in Sources */,
+				4E1CE0D22A8E3B86006855E3 /* LocationManger.swift in Sources */,
 				4ECEAE2429ED2A66006AAF6B /* BaseViewModel.swift in Sources */,
 				4E3C856529F7AE920006BEB1 /* BaseViewController.swift in Sources */,
 				933B3CA02A55870E00B8D60B /* BarTitleLabel.swift in Sources */,
@@ -1007,10 +1040,12 @@
 				4EF72DE32A8B597F000B7205 /* CheckMyPartyResponse.swift in Sources */,
 				4EFFCE492A6DF54B0075EF9C /* InterestBarCollectionViewCell.swift in Sources */,
 				4EECA7F82A6F4F8900C94417 /* JoinNaviBarButtonItem.swift in Sources */,
+				4E1CE0D62A8E41B1006855E3 /* RadioButton.swift in Sources */,
 				4E52227E29F11C81000B96B4 /* JoinCompleteViewModel.swift in Sources */,
 				4EA81DDE29ED2D9A0070F1B7 /* SplashViewController.swift in Sources */,
 				4EA81DE429ED36860070F1B7 /* SplashViewModel.swift in Sources */,
 				4E5443192A61323D0074F654 /* MapCoordinator.swift in Sources */,
+				4E1CE0CF2A8E3B18006855E3 /* SortingOption.swift in Sources */,
 				4EECA7F22A6E9FF200C94417 /* CreatePartyViewIntroLabel.swift in Sources */,
 				4E153FAC2A34C3BB00C7F58C /* DetailInterestsView.swift in Sources */,
 				933B3CA32A55871800B8D60B /* Images.swift in Sources */,
@@ -1028,6 +1063,7 @@
 				4E52228429F141AA000B96B4 /* EssentialInfoViewController.swift in Sources */,
 				4EFFCE552A6DFF080075EF9C /* Label.swift in Sources */,
 				4E52227A29F11788000B96B4 /* JoinCompleteView.swift in Sources */,
+				4E1CE0D42A8E4170006855E3 /* SortingOptionModalViewController.swift in Sources */,
 				4EFEB0D12A85BE6900CCAE5C /* ReuseIdentifierProtocol.swift in Sources */,
 				4ECEAE1729ED2116006AAF6B /* AppCoordinator.swift in Sources */,
 				4ECEAE1F29ED298F006AAF6B /* SplahView.swift in Sources */,

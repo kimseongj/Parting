@@ -59,14 +59,16 @@ final class HomeViewModel: BaseViewModel {
 	}
 	
 	private func loadCategories() {
-		CoreDataManager.fetchCategories()
-			.withUnretained(self)
-			.subscribe(onNext: { owner, result in
-				owner.output.categories.accept(result)
-			})
-			.disposed(by: disposeBag)
-        
-        
+        CoreDataManager.fetchCategories()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, result in
+                let inOrder = result.sorted(by: { category1, category2 in
+                    return category1.id < category2.id
+                })
+                                            
+                owner.output.categories.accept(inOrder)
+            })
+            .disposed(by: disposeBag)
 	}
 	
 	

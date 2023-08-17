@@ -38,10 +38,12 @@ enum PartingAPI {
 extension PartingAPI {
     struct PartyListParams {
         let categoryId: Int
-        let categoryDetailId: Int
+        let categoryDetailIds: [Int]
         let orderCondition1: String
         let orderCondition2: String
         let pageNumber: Int
+        let userLatitude: Double
+        let userLongitude: Double
     }
 }
 
@@ -54,8 +56,8 @@ extension PartingAPI {
             return  "\(BaseURL.baseURL)/category-sortby/category-version/0.0.9"
         case .oauthKaKao, .oauthLogout, .isMemeber, .tokenReissue:
             return  "\(BaseURL.oauthURL)/"
-        case .parties(let params):
-            return "\(BaseURL.baseURL)/parties?categoryDetailId=\(params.categoryDetailId)&categoryId=\(params.categoryId)&orderCondition1=\(params.orderCondition1)&orderCondition2=\(params.orderCondition2)&pageNumber=\(params.pageNumber)&categoryVersion=1.0.0&userLatitude=1.00232&userLongitude=223.2345"
+        case .parties:
+            return "\(BaseURL.baseURL)/parties"
         case .createParty:
             return  "\(BaseURL.partyURL)"
         case .getPartyDetail, .modifyParty, .deleteParty, .calender, .recentView, .partyMember, .partyDday:
@@ -93,6 +95,17 @@ extension PartingAPI {
     
     var parameters: [String: Any] {
         switch self {
+        case .parties(let params):
+            return [
+                "categoryId": params.categoryId,
+                "categoryDetailId": params.categoryDetailIds,
+                "orderCondition1": params.orderCondition1,
+                "orderCondition2": params.orderCondition2,
+                "pageNumber": params.pageNumber,
+                "categoryVersion": "1.0.0",
+                "userLatitude": params.userLatitude,
+                "userLongitude": params.userLongitude
+            ]
         case let .createParty(address, capacity, categoryDetailIDList, categoryID, hashTagNameList, maxAge, minAge, openChattingRoomURL, partyDescription, partyEndDateTime, partyLatitude, partyLongitude, partyName, partyStartDateTime, storeName):
             return [
                 "address": address,

@@ -43,7 +43,7 @@ class PartyListView: BaseView {
 	
 	
 	override func makeConfigures() {
-        super.makeConfigures()
+//        super.makeConfigures()
 		self.backgroundColor = .white
 		
 		addSubview(partyListTableView)

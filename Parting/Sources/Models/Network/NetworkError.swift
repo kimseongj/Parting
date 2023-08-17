@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum CreatePartyError: Int, Error {
+enum PartingError: Int, Error {
     case enterYourJWT = 2001
     case notValidateJWT = 2002
     case alreadyLogoutToken = 2004
