@@ -14,8 +14,6 @@ class PartyListViewController: BaseViewController<PartyListView> {
     
     private var viewModel: PartyListViewModel
     
-//    private let disposeBag = DisposeBag()
-    
     private var tableViewReachedEndCount = 0
     
     private let spinner = UIActivityIndicatorView(style: .large)
@@ -26,8 +24,18 @@ class PartyListViewController: BaseViewController<PartyListView> {
         self.rootView.navigationLabel.text = title
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.loadPartyList()
+        rootView.partyListTableView.reloadData()
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("PartyListVC 메모리 해제")
     }
     
     override func viewDidLoad() {
@@ -35,6 +43,7 @@ class PartyListViewController: BaseViewController<PartyListView> {
         navigationUI()
         bindViewModel()
         configureTableView()
+        self.viewModel.loadPartyList()
     }
     
     
@@ -61,7 +70,8 @@ class PartyListViewController: BaseViewController<PartyListView> {
             .rx.tap.bind(to: viewModel.input.pushCreatePartyVCTrigger)
             .disposed(by: disposeBag)
         
-        viewModel.output.partyList.bind(to: rootView.partyListTableView.rx.items(cellIdentifier: PartyTableViewCell.identifier, cellType: PartyTableViewCell.self)) { index, party, cell in
+        viewModel.output.partyList.bind(to: rootView.partyListTableView.rx.items(cellIdentifier: PartyTableViewCell.identifier, cellType: PartyTableViewCell.self)) { [weak self] index, party, cell in
+            print(party, "파티데이터 💢")
             cell.selectionStyle = .none
             cell.configureCell(party: party)
         }.disposed(by: disposeBag)

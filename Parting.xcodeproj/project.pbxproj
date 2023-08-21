@@ -96,6 +96,7 @@
 		4EECA7FC2A6F620000C94417 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECA7FB2A6F620000C94417 /* LoginButton.swift */; };
 		4EF1945D2A77E24D00D34B71 /* SetMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF1945C2A77E24D00D34B71 /* SetMapViewController.swift */; };
 		4EF1945F2A77E29700D34B71 /* SetMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF1945E2A77E29700D34B71 /* SetMapViewModel.swift */; };
+		4EF4D04A2A933E1100A2E8F4 /* MyPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4D0492A933E1100A2E8F4 /* MyPageTableViewCell.swift */; };
 		4EF72DE32A8B597F000B7205 /* CheckMyPartyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF72DE22A8B597E000B7205 /* CheckMyPartyResponse.swift */; };
 		4EF72DE52A8B775B000B7205 /* MyPageCustomTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF72DE42A8B775B000B7205 /* MyPageCustomTableView.swift */; };
 		4EF72E012A8C92A7000B7205 /* CheckMyPartyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF72E002A8C92A7000B7205 /* CheckMyPartyViewController.swift */; };
@@ -234,6 +235,7 @@
 		4EECA7FB2A6F620000C94417 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
 		4EF1945C2A77E24D00D34B71 /* SetMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SetMapViewController.swift; path = Parting/Sources/Scene/Home/View/SetMapViewController.swift; sourceTree = SOURCE_ROOT; };
 		4EF1945E2A77E29700D34B71 /* SetMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetMapViewModel.swift; sourceTree = "<group>"; };
+		4EF4D0492A933E1100A2E8F4 /* MyPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTableViewCell.swift; sourceTree = "<group>"; };
 		4EF72DE22A8B597E000B7205 /* CheckMyPartyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMyPartyResponse.swift; sourceTree = "<group>"; };
 		4EF72DE42A8B775B000B7205 /* MyPageCustomTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCustomTableView.swift; sourceTree = "<group>"; };
 		4EF72E002A8C92A7000B7205 /* CheckMyPartyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMyPartyViewController.swift; sourceTree = "<group>"; };
@@ -510,6 +512,7 @@
 				4EF72DE42A8B775B000B7205 /* MyPageCustomTableView.swift */,
 				4EF72E002A8C92A7000B7205 /* CheckMyPartyViewController.swift */,
 				4EF72E042A8C9329000B7205 /* CheckMyPartyView.swift */,
+				4EF4D0492A933E1100A2E8F4 /* MyPageTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1033,6 +1036,7 @@
 				4E52228F29F27DA8000B96B4 /* customStackView.swift in Sources */,
 				4EA5836D29C04F4200BF4D7A /* SceneDelegate.swift in Sources */,
 				4EB2AC692A3081090023F49A /* NickNameValidateResponse.swift in Sources */,
+				4EF4D04A2A933E1100A2E8F4 /* MyPageTableViewCell.swift in Sources */,
 				4EF72E052A8C9329000B7205 /* CheckMyPartyView.swift in Sources */,
 				933B3CA72A55873E00B8D60B /* ScheduleViewController.swift in Sources */,
 				4EFC951C2A82095700994388 /* CreatePartyPostResponseModel.swift in Sources */,

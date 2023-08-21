@@ -68,7 +68,7 @@ class PartyListViewModel: BaseViewModel {
     
     
     // MARK: Data Fetching
-    private func loadPartyList() {
+    func loadPartyList() {
         
         Task {
             
@@ -78,7 +78,19 @@ class PartyListViewModel: BaseViewModel {
             let firstCategoryDetailId = associatedCategories[0].categoryDetailID
             
             guard let parties = try? await APIManager.shared
-                .getPartyList(categoryId: category.id, categoryDetailIds: [firstCategoryDetailId], orderCondition1: .few, orderCondition2: .latest, pageNumber: 0, location: CLLocation(latitude: 35.232324, longitude: 126.32323)) else { return }
+                .getPartyList(
+                    categoryId: category.id,
+                    categoryDetailIds: [firstCategoryDetailId],
+                    orderCondition1: .few,
+                    orderCondition2: .latest,
+                    pageNumber: 0,
+                    location: CLLocation(
+                        latitude: 35.232324,
+                        longitude: 126.32323
+                    )
+                ) else { return }
+            
+            print(parties, "🌆🌆🌆")
             
             self.output.partyList.accept(parties)
             self.output.associatedCategories.accept(associatedCategories)

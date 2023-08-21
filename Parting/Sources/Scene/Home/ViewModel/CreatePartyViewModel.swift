@@ -96,6 +96,8 @@ final class CreatePartyViewModel: BaseViewModel {
                     print("host유저만이 파티를 삭제할 수 있습니다.")
                 case .alreadyDelete:
                     print("이미 삭제된 파티입니다.")
+                case .success:
+                    print("통신에 성공했습니다.")
                 default:
                     print("알 수 없는 에러입니다.")
                 }

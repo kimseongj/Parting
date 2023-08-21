@@ -20,11 +20,11 @@ struct CreatePartyMockData {
     static let minAge: Int = 22
     static let openChattingRoomURL: String = "https://open.kakao.com/o/gVRPbTzf"
     static let partyDescription: String = "팟팅 POST 통신 테스트"
-    static let partyEndDateTime: String = "2023-04-30 12:30:00"
+    static let partyEndDateTime: String = "2023-12-30 12:30:00"
     static let partyLatitude: Double = 1.00232
     static let partyLongitude: Double = 223.2345
     static let partyName: String = "술먹을 사람"
-    static let partyStartDateTime: String = "2023-04-30 12:00:00"
+    static let partyStartDateTime: String = "2023-12-30 12:00:00"
     static let storeName: String = "사군자"
 }
 
@@ -46,13 +46,6 @@ class APIManager {
                 }
             }
     }
-    
-    // MARK: - 내가 개설한 파티 TEST
-//    func checkMyPartyTest<T: Codable>(pageNumber: Int, lat: Double, lng: Double) -> Observable<T> {
-//        return Observable<T>.create {  in
-//
-//        }
-//    }
     
     // MARK: - 내가 개설한 파티
     func checkMyParty(pageNumber: Int, lat: Double, lng: Double, completionHandler: @escaping(CheckMyPartyResponse) -> ()) {
@@ -221,10 +214,10 @@ class APIManager {
             encoding: JSONEncoding.default,
             headers: api.headers).responseDecodable(of: CreatePartyPostResponseModel.self) { response in
                 switch response.result {
-                case .success(_):
+                case let .success(value):
                     print(response.result, "💛💛")
                     guard let statuscode = response.response?.statusCode else { return }
-                    completion(statuscode)
+                    completion(value.code)
                 case .failure(_):
                     print(response.result, "🥶🥶")
                     guard let statuscode = response.response?.statusCode else { return }

@@ -11,5 +11,5 @@ enum BaseURL {
     static let baseURL = "https://www.devparting.store/api/v1"
     static let oauthURL = "http://www.devparting.store:80/api/oauth"
     static let partyURL = "https://www.devparting.store/api/v1/party"
-    static let userURL = "http://www.devparting.store:80/api/v1/user"
+    static let userURL = "https://www.devparting.store/api/v1/user"
 }

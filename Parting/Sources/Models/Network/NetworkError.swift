@@ -16,4 +16,5 @@ enum PartingError: Int, Error {
     case userDoesNotBelongParty = 5002
     case partyHostCanDelete = 5003
     case alreadyDelete = 5007
+    case success = 1000
 }

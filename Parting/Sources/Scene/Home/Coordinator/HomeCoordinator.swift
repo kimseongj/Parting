@@ -13,7 +13,7 @@ final class HomeCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = .init()
 	var navigationController: UINavigationController
 	var type: CoordinatorStyleCase = .home
-    var currentVC: UIViewController?
+    weak var currentVC: UIViewController?
     
     init(_ navigationController: UINavigationController) {
 		self.navigationController = navigationController

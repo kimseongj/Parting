@@ -9,8 +9,6 @@ import UIKit
 
 class TagCollectionViewCell: UICollectionViewCell {
     
-//    static let identifier = "TagCollectionViewCell"
-    
     private let cellConatiner: UIView = {
         let view = UIView()
         view.backgroundColor = AppColor.gray200

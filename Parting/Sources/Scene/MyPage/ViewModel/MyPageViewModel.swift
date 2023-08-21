@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 final class MyPageViewModel: BaseViewModel {
     struct Input {
@@ -18,6 +20,8 @@ final class MyPageViewModel: BaseViewModel {
     
     var input: Input
     var output: Output
+    var settingUnfoldButtonState: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var etcUnfoldButtonState: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
     private var coordinator: MyPageCoordinator?
     
@@ -25,5 +29,21 @@ final class MyPageViewModel: BaseViewModel {
         self.input = input
         self.output = output
         self.coordinator = coordinator
+    }
+    
+    func setUnfoldButton(state: Bool) {
+        if state == settingUnfoldButtonState.value {
+            settingUnfoldButtonState.accept(false)
+        } else {
+            settingUnfoldButtonState.accept(state)
+        }
+    }
+    
+    func etcUnfoldButton(state: Bool) {
+        if state == etcUnfoldButtonState.value {
+            etcUnfoldButtonState.accept(false)
+        } else {
+            etcUnfoldButtonState.accept(state)
+        }
     }
 }
