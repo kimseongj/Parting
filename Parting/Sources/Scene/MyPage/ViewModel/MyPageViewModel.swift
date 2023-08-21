@@ -46,4 +46,8 @@ final class MyPageViewModel: BaseViewModel {
             etcUnfoldButtonState.accept(state)
         }
     }
+    
+    func pushVC() {
+        self.coordinator?.recentlyPartyVC()
+    }
 }

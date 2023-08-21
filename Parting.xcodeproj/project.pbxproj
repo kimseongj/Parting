@@ -97,6 +97,10 @@
 		4EF1945D2A77E24D00D34B71 /* SetMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF1945C2A77E24D00D34B71 /* SetMapViewController.swift */; };
 		4EF1945F2A77E29700D34B71 /* SetMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF1945E2A77E29700D34B71 /* SetMapViewModel.swift */; };
 		4EF4D04A2A933E1100A2E8F4 /* MyPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4D0492A933E1100A2E8F4 /* MyPageTableViewCell.swift */; };
+		4EF4D04C2A939E6B00A2E8F4 /* RecentlyPartyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4D04B2A939E6B00A2E8F4 /* RecentlyPartyViewController.swift */; };
+		4EF4D04E2A939EA400A2E8F4 /* RecentlyPartyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4D04D2A939EA400A2E8F4 /* RecentlyPartyView.swift */; };
+		4EF4D0502A939FD800A2E8F4 /* RecentlyPartyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4D04F2A939FD800A2E8F4 /* RecentlyPartyViewModel.swift */; };
+		4EF4D0542A942AD700A2E8F4 /* MyPartyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4D0532A942AD700A2E8F4 /* MyPartyViewModel.swift */; };
 		4EF72DE32A8B597F000B7205 /* CheckMyPartyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF72DE22A8B597E000B7205 /* CheckMyPartyResponse.swift */; };
 		4EF72DE52A8B775B000B7205 /* MyPageCustomTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF72DE42A8B775B000B7205 /* MyPageCustomTableView.swift */; };
 		4EF72E012A8C92A7000B7205 /* CheckMyPartyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF72E002A8C92A7000B7205 /* CheckMyPartyViewController.swift */; };
@@ -233,9 +237,13 @@
 		4EECA7F72A6F4F8900C94417 /* JoinNaviBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinNaviBarButtonItem.swift; sourceTree = "<group>"; };
 		4EECA7F92A6F540C00C94417 /* CreatePartySetStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePartySetStackView.swift; sourceTree = "<group>"; };
 		4EECA7FB2A6F620000C94417 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
-		4EF1945C2A77E24D00D34B71 /* SetMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SetMapViewController.swift; path = Parting/Sources/Scene/Home/View/SetMapViewController.swift; sourceTree = SOURCE_ROOT; };
+		4EF1945C2A77E24D00D34B71 /* SetMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SetMapViewController.swift; path = Parting/Sources/Scene/Home/View/SetMap/SetMapViewController.swift; sourceTree = SOURCE_ROOT; };
 		4EF1945E2A77E29700D34B71 /* SetMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetMapViewModel.swift; sourceTree = "<group>"; };
 		4EF4D0492A933E1100A2E8F4 /* MyPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTableViewCell.swift; sourceTree = "<group>"; };
+		4EF4D04B2A939E6B00A2E8F4 /* RecentlyPartyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyPartyViewController.swift; sourceTree = "<group>"; };
+		4EF4D04D2A939EA400A2E8F4 /* RecentlyPartyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyPartyView.swift; sourceTree = "<group>"; };
+		4EF4D04F2A939FD800A2E8F4 /* RecentlyPartyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyPartyViewModel.swift; sourceTree = "<group>"; };
+		4EF4D0532A942AD700A2E8F4 /* MyPartyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPartyViewModel.swift; sourceTree = "<group>"; };
 		4EF72DE22A8B597E000B7205 /* CheckMyPartyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMyPartyResponse.swift; sourceTree = "<group>"; };
 		4EF72DE42A8B775B000B7205 /* MyPageCustomTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCustomTableView.swift; sourceTree = "<group>"; };
 		4EF72E002A8C92A7000B7205 /* CheckMyPartyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMyPartyViewController.swift; sourceTree = "<group>"; };
@@ -280,10 +288,10 @@
 		9348C10A2A5029C6000F25A9 /* BarTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarTitleLabel.swift; sourceTree = "<group>"; };
 		9348C10F2A504680000F25A9 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		935D3A7D2A0A78900033DCCD /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
-		935D3A7F2A0A7B7F0033DCCD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Parting/Sources/Scene/Home/Coordinator/HomeViewController.swift; sourceTree = SOURCE_ROOT; };
-		935D3A812A0A7C210033DCCD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeView.swift; path = Parting/Sources/Scene/Home/Coordinator/HomeView.swift; sourceTree = SOURCE_ROOT; };
+		935D3A7F2A0A7B7F0033DCCD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Parting/Sources/Scene/Home/View/Home/HomeViewController.swift; sourceTree = SOURCE_ROOT; };
+		935D3A812A0A7C210033DCCD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeView.swift; path = Parting/Sources/Scene/Home/View/Home/HomeView.swift; sourceTree = SOURCE_ROOT; };
 		935D3A832A0A7CAF0033DCCD /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewModel.swift; path = Parting/Sources/Scene/Home/Coordinator/HomeViewModel.swift; sourceTree = SOURCE_ROOT; };
-		93653E562A64F2C400BEFD61 /* InterestBarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestBarCollectionViewCell.swift; sourceTree = "<group>"; };
+		93653E562A64F2C400BEFD61 /* InterestBarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InterestBarCollectionViewCell.swift; path = Parting/Sources/Scene/Party/View/InterestBarCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		937711E92A4EDFD00019DC6F /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 		938C902B2A512003007FA45F /* DdayWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DdayWidgetView.swift; sourceTree = "<group>"; };
 		93A09BA12A4D967F0096A1D5 /* CalendarWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWidgetView.swift; sourceTree = "<group>"; };
@@ -407,11 +415,10 @@
 		4E89BC2429C57C3500BAE38A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4EF4D0682A942CF100A2E8F4 /* ResponseModel */,
 				4E1CE0D02A8E3B6F006855E3 /* Location */,
 				9337C0192A6BAF0100CA572B /* CoreData */,
 				4E89BC2529C57C4100BAE38A /* Network */,
-				933E588E2A68D61D000F945E /* CategoryModel.swift */,
-				9337C01C2A6BD24100CA572B /* PartyListItemModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -422,15 +429,8 @@
 				93A17E072A558319004E3F75 /* APIKey.swift */,
 				4E89BC2C29C57D2300BAE38A /* Endpoints.swift */,
 				4E89BC2E29C57DDD00BAE38A /* APIManager.swift */,
-				4E89BC3029C57DE900BAE38A /* CategoryResponse.swift */,
 				4E89BC3229C57E3C00BAE38A /* Error.swift */,
 				4E89BC3429C57E5300BAE38A /* BaseURL.swift */,
-				4EB2AC642A2E09EF0023F49A /* RegionResponse.swift */,
-				4EB2AC682A3081090023F49A /* NickNameValidateResponse.swift */,
-				4E6123BB2A36C1100039307A /* CategoryDetailResponse.swift */,
-				9337C01E2A6BD7E000CA572B /* PartyListResponse.swift */,
-				4EFC951B2A82095700994388 /* CreatePartyPostResponseModel.swift */,
-				4EF72DE22A8B597E000B7205 /* CheckMyPartyResponse.swift */,
 				4EF72E082A8D08B1000B7205 /* NetworkError.swift */,
 			);
 			path = Network;
@@ -507,12 +507,9 @@
 		4E89BC4029C5E10A00BAE38A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4EA633982A5FAB3900F27386 /* MyPageViewController.swift */,
-				4EA6339A2A5FAB6D00F27386 /* MyPageView.swift */,
-				4EF72DE42A8B775B000B7205 /* MyPageCustomTableView.swift */,
-				4EF72E002A8C92A7000B7205 /* CheckMyPartyViewController.swift */,
-				4EF72E042A8C9329000B7205 /* CheckMyPartyView.swift */,
-				4EF4D0492A933E1100A2E8F4 /* MyPageTableViewCell.swift */,
+				4EF4D05A2A942B7D00A2E8F4 /* RecentlyParty */,
+				4EF4D0592A942B6B00A2E8F4 /* MyPage */,
+				4EF4D0582A942AF300A2E8F4 /* CheckMyParty */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -522,6 +519,8 @@
 			children = (
 				4EA6339C2A5FAB9000F27386 /* MyPageViewModel.swift */,
 				4EF72E022A8C92B8000B7205 /* CheckMyPartyViewModel.swift */,
+				4EF4D04F2A939FD800A2E8F4 /* RecentlyPartyViewModel.swift */,
+				4EF4D0532A942AD700A2E8F4 /* MyPartyViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -560,14 +559,11 @@
 		4E89BC4629C5E13100BAE38A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4EF4D0642A942C3400A2E8F4 /* SetMap */,
+				4EF4D0632A942C2000A2E8F4 /* CreateParty */,
+				4EF4D0622A942C0F00A2E8F4 /* Schedule */,
+				4EF4D0612A942C0600A2E8F4 /* Home */,
 				93A09BA02A4D962F0096A1D5 /* Widgets */,
-				9348C0FE2A4FC095000F25A9 /* ScheduleViewController.swift */,
-				935D3A7F2A0A7B7F0033DCCD /* HomeViewController.swift */,
-				935D3A812A0A7C210033DCCD /* HomeView.swift */,
-				9348C1062A500BF3000F25A9 /* ScheduleView.swift */,
-				4E93176B2A6B7AC5001FBDCB /* CreatePartyViewController.swift */,
-				4E93176F2A6B7AEA001FBDCB /* CreatePartyView.swift */,
-				4EF1945C2A77E24D00D34B71 /* SetMapViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -587,20 +583,13 @@
 		4E89BC4829C5E13900BAE38A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4EF4D0602A942BEB00A2E8F4 /* DetailInterests */,
+				4EF4D05F2A942BDE00A2E8F4 /* Interests */,
+				4EF4D05E2A942BD100A2E8F4 /* EssentialInfo */,
+				4EF4D05D2A942BC600A2E8F4 /* JoinComplete */,
+				4EF4D05C2A942BB600A2E8F4 /* Join */,
+				4EF4D05B2A942BA000A2E8F4 /* Splash */,
 				4E52228D29F27D97000B96B4 /* CustomView */,
-				4E783FA929EABF3E008B3E48 /* JoinViewController.swift */,
-				4ECEAE1E29ED298F006AAF6B /* SplahView.swift */,
-				4EA81DDD29ED2D9A0070F1B7 /* SplashViewController.swift */,
-				4EA81DDF29ED2DC00070F1B7 /* JoinView.swift */,
-				4E52227929F11788000B96B4 /* JoinCompleteView.swift */,
-				4E52227B29F119B3000B96B4 /* JoinCompleteViewController.swift */,
-				4E52227F29F14163000B96B4 /* EssentialInfoView.swift */,
-				4E52228329F141AA000B96B4 /* EssentialInfoViewController.swift */,
-				4E52228929F18152000B96B4 /* InterestsView.swift */,
-				4E52228B29F18166000B96B4 /* InterestsViewController.swift */,
-				4E153FAB2A34C3BB00C7F58C /* DetailInterestsView.swift */,
-				4E153FA92A34C39F00C7F58C /* DetailInterestsViewController.swift */,
-				4E6123BD2A3763720039307A /* detailCategoryCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -687,6 +676,169 @@
 				4E3C856429F7AE920006BEB1 /* BaseViewController.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		4EF4D0582A942AF300A2E8F4 /* CheckMyParty */ = {
+			isa = PBXGroup;
+			children = (
+				4EF72E042A8C9329000B7205 /* CheckMyPartyView.swift */,
+				4EF72E002A8C92A7000B7205 /* CheckMyPartyViewController.swift */,
+			);
+			path = CheckMyParty;
+			sourceTree = "<group>";
+		};
+		4EF4D0592A942B6B00A2E8F4 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				4EA633982A5FAB3900F27386 /* MyPageViewController.swift */,
+				4EA6339A2A5FAB6D00F27386 /* MyPageView.swift */,
+				4EF72DE42A8B775B000B7205 /* MyPageCustomTableView.swift */,
+				4EF4D0492A933E1100A2E8F4 /* MyPageTableViewCell.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		4EF4D05A2A942B7D00A2E8F4 /* RecentlyParty */ = {
+			isa = PBXGroup;
+			children = (
+				4EF4D04D2A939EA400A2E8F4 /* RecentlyPartyView.swift */,
+				4EF4D04B2A939E6B00A2E8F4 /* RecentlyPartyViewController.swift */,
+			);
+			path = RecentlyParty;
+			sourceTree = "<group>";
+		};
+		4EF4D05B2A942BA000A2E8F4 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				4ECEAE1E29ED298F006AAF6B /* SplahView.swift */,
+				4EA81DDD29ED2D9A0070F1B7 /* SplashViewController.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		4EF4D05C2A942BB600A2E8F4 /* Join */ = {
+			isa = PBXGroup;
+			children = (
+				4EA81DDF29ED2DC00070F1B7 /* JoinView.swift */,
+				4E783FA929EABF3E008B3E48 /* JoinViewController.swift */,
+			);
+			path = Join;
+			sourceTree = "<group>";
+		};
+		4EF4D05D2A942BC600A2E8F4 /* JoinComplete */ = {
+			isa = PBXGroup;
+			children = (
+				4E52227B29F119B3000B96B4 /* JoinCompleteViewController.swift */,
+				4E52227929F11788000B96B4 /* JoinCompleteView.swift */,
+			);
+			path = JoinComplete;
+			sourceTree = "<group>";
+		};
+		4EF4D05E2A942BD100A2E8F4 /* EssentialInfo */ = {
+			isa = PBXGroup;
+			children = (
+				4E52228329F141AA000B96B4 /* EssentialInfoViewController.swift */,
+				4E52227F29F14163000B96B4 /* EssentialInfoView.swift */,
+			);
+			path = EssentialInfo;
+			sourceTree = "<group>";
+		};
+		4EF4D05F2A942BDE00A2E8F4 /* Interests */ = {
+			isa = PBXGroup;
+			children = (
+				4E52228B29F18166000B96B4 /* InterestsViewController.swift */,
+				4E52228929F18152000B96B4 /* InterestsView.swift */,
+			);
+			path = Interests;
+			sourceTree = "<group>";
+		};
+		4EF4D0602A942BEB00A2E8F4 /* DetailInterests */ = {
+			isa = PBXGroup;
+			children = (
+				4E153FAB2A34C3BB00C7F58C /* DetailInterestsView.swift */,
+				4E153FA92A34C39F00C7F58C /* DetailInterestsViewController.swift */,
+				4E6123BD2A3763720039307A /* detailCategoryCollectionViewCell.swift */,
+			);
+			path = DetailInterests;
+			sourceTree = "<group>";
+		};
+		4EF4D0612A942C0600A2E8F4 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				935D3A812A0A7C210033DCCD /* HomeView.swift */,
+				935D3A7F2A0A7B7F0033DCCD /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		4EF4D0622A942C0F00A2E8F4 /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				9348C0FE2A4FC095000F25A9 /* ScheduleViewController.swift */,
+				9348C1062A500BF3000F25A9 /* ScheduleView.swift */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
+		4EF4D0632A942C2000A2E8F4 /* CreateParty */ = {
+			isa = PBXGroup;
+			children = (
+				4E93176F2A6B7AEA001FBDCB /* CreatePartyView.swift */,
+				4E93176B2A6B7AC5001FBDCB /* CreatePartyViewController.swift */,
+			);
+			path = CreateParty;
+			sourceTree = "<group>";
+		};
+		4EF4D0642A942C3400A2E8F4 /* SetMap */ = {
+			isa = PBXGroup;
+			children = (
+				4EF1945C2A77E24D00D34B71 /* SetMapViewController.swift */,
+			);
+			path = SetMap;
+			sourceTree = "<group>";
+		};
+		4EF4D0652A942C5300A2E8F4 /* SortingOption */ = {
+			isa = PBXGroup;
+			children = (
+				4E1CE0D32A8E4170006855E3 /* SortingOptionModalViewController.swift */,
+				4EFFCE4E2A6DF5710075EF9C /* SortingOptionCollectionViewCell.swift */,
+			);
+			path = SortingOption;
+			sourceTree = "<group>";
+		};
+		4EF4D0662A942C6200A2E8F4 /* InterestBar */ = {
+			isa = PBXGroup;
+			children = (
+				93653E562A64F2C400BEFD61 /* InterestBarCollectionViewCell.swift */,
+				4EFFCE482A6DF54B0075EF9C /* InterestBarCollectionViewCell.swift */,
+			);
+			path = InterestBar;
+			sourceTree = "<group>";
+		};
+		4EF4D0672A942CBD00A2E8F4 /* PartyList */ = {
+			isa = PBXGroup;
+			children = (
+				4EFFCE462A6DF5410075EF9C /* PartyListHeaderView.swift */,
+				4EFFCE4A2A6DF55F0075EF9C /* PartyListView.swift */,
+				4EFFCE522A6DF5830075EF9C /* PartyListViewController.swift */,
+			);
+			path = PartyList;
+			sourceTree = "<group>";
+		};
+		4EF4D0682A942CF100A2E8F4 /* ResponseModel */ = {
+			isa = PBXGroup;
+			children = (
+				4E89BC3029C57DE900BAE38A /* CategoryResponse.swift */,
+				4EB2AC642A2E09EF0023F49A /* RegionResponse.swift */,
+				4EB2AC682A3081090023F49A /* NickNameValidateResponse.swift */,
+				4E6123BB2A36C1100039307A /* CategoryDetailResponse.swift */,
+				9337C01E2A6BD7E000CA572B /* PartyListResponse.swift */,
+				933E588E2A68D61D000F945E /* CategoryModel.swift */,
+				9337C01C2A6BD24100CA572B /* PartyListItemModel.swift */,
+				4EFC951B2A82095700994388 /* CreatePartyPostResponseModel.swift */,
+				4EF72DE22A8B597E000B7205 /* CheckMyPartyResponse.swift */,
+			);
+			path = ResponseModel;
 			sourceTree = "<group>";
 		};
 		72A21366DC79076DB8BCBB63 /* Pods */ = {
@@ -789,15 +941,11 @@
 		93D500292A5CDBC700FCF42C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4EFFCE482A6DF54B0075EF9C /* InterestBarCollectionViewCell.swift */,
-				4EFFCE462A6DF5410075EF9C /* PartyListHeaderView.swift */,
-				93653E562A64F2C400BEFD61 /* InterestBarCollectionViewCell.swift */,
-				4EFFCE4A2A6DF55F0075EF9C /* PartyListView.swift */,
-				4EFFCE522A6DF5830075EF9C /* PartyListViewController.swift */,
+				4EF4D0672A942CBD00A2E8F4 /* PartyList */,
+				4EF4D0662A942C6200A2E8F4 /* InterestBar */,
+				4EF4D0652A942C5300A2E8F4 /* SortingOption */,
 				4EFFCE4C2A6DF56A0075EF9C /* PartyTableViewCell.swift */,
-				4EFFCE4E2A6DF5710075EF9C /* SortingOptionCollectionViewCell.swift */,
 				4EFFCE502A6DF57A0075EF9C /* TagCollectionViewCell.swift */,
-				4E1CE0D32A8E4170006855E3 /* SortingOptionModalViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -995,6 +1143,7 @@
 				933B3C9F2A55870C00B8D60B /* BarImageButton.swift in Sources */,
 				4E89BC2F29C57DDD00BAE38A /* APIManager.swift in Sources */,
 				4EECA7EB2A6E4C1E00C94417 /* DetailCategoryCollectionViewCell.swift in Sources */,
+				4EF4D04C2A939E6B00A2E8F4 /* RecentlyPartyViewController.swift in Sources */,
 				4EF72E032A8C92B8000B7205 /* CheckMyPartyViewModel.swift in Sources */,
 				4EFFCE532A6DF5830075EF9C /* PartyListViewController.swift in Sources */,
 				4E9317702A6B7AEA001FBDCB /* CreatePartyView.swift in Sources */,
@@ -1016,6 +1165,7 @@
 				933E58C32A69166D000F945E /* Model.xcdatamodeld in Sources */,
 				4E52228C29F18166000B96B4 /* InterestsViewController.swift in Sources */,
 				933E58C72A691B06000F945E /* Entity.swift in Sources */,
+				4EF4D04E2A939EA400A2E8F4 /* RecentlyPartyView.swift in Sources */,
 				4E52227C29F119B3000B96B4 /* JoinCompleteViewController.swift in Sources */,
 				4EECA7E92A6E439100C94417 /* CreatePartyViewModel.swift in Sources */,
 				4ECEAE1C29ED25D7006AAF6B /* JoinViewModel.swift in Sources */,
@@ -1075,6 +1225,7 @@
 				4ECEAE2129ED29EF006AAF6B /* BaseView.swift in Sources */,
 				4E89BC3529C57E5300BAE38A /* BaseURL.swift in Sources */,
 				933B3C9E2A5586FD00B8D60B /* HomeView.swift in Sources */,
+				4EF4D0502A939FD800A2E8F4 /* RecentlyPartyViewModel.swift in Sources */,
 				4EA81DE629ED41100070F1B7 /* UIView+Extension.swift in Sources */,
 				4EFFCE452A6DF2170075EF9C /* CategoryImageCollectionViewCell.swift in Sources */,
 				4EA633992A5FAB3900F27386 /* MyPageViewController.swift in Sources */,
@@ -1083,6 +1234,7 @@
 				4E6123BE2A3763720039307A /* detailCategoryCollectionViewCell.swift in Sources */,
 				4E52228A29F18152000B96B4 /* InterestsView.swift in Sources */,
 				4ECEAE1129ED1F7F006AAF6B /* CoordinatorDelegate.swift in Sources */,
+				4EF4D0542A942AD700A2E8F4 /* MyPartyViewModel.swift in Sources */,
 				4EFFCE4B2A6DF55F0075EF9C /* PartyListView.swift in Sources */,
 				4E93176C2A6B7AC5001FBDCB /* CreatePartyViewController.swift in Sources */,
 			);

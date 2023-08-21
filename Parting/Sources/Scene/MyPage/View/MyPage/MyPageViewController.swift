@@ -71,7 +71,6 @@ final class MyPageViewController: BaseViewController<MyPageView> {
         rootView.aboutPartyTableView.register(MyPageTableViewCell.self, forCellReuseIdentifier: MyPageTableViewCell.identifier)
         rootView.setPartyTableView.register(MyPageTableViewCell.self, forCellReuseIdentifier: MyPageTableViewCell.identifier)
         rootView.setETCTableView.register(MyPageTableViewCell.self, forCellReuseIdentifier: MyPageTableViewCell.identifier)
-
     }
     
     private func setDataSourceAndDelegate() {
@@ -165,6 +164,20 @@ extension MyPageViewController: UITableViewDataSource {
             return cell
         default:
             return UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch tableView {
+        case rootView.aboutPartyTableView:
+            print("aboutPartyTableView입니다 \(indexPath.row)")
+            viewModel.pushVC()
+        case rootView.setPartyTableView:
+            print("setPartyTableView입니다 \(indexPath.row)")
+        case rootView.setETCTableView:
+            print("setETCTableView입니다 \(indexPath.row)")
+        default:
+            break
         }
     }
 }

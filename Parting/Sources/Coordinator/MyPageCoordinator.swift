@@ -27,10 +27,20 @@ final class MyPageCoordinator: Coordinator {
         showMyPageVC()
     }
     
+    func popVC() {
+        navigationController.popViewController(animated: true)
+    }
+    
     func showMyPageVC() {
         let viewModel = MyPageViewModel(coordinator: self)
         let vc = MyPageViewController(viewModel: viewModel)
         navigationController.viewControllers = [vc]
+    }
+    
+    func recentlyPartyVC() {
+        let viewModel = RecentlyPartyViewModel(myPageCoordinator: self)
+        let vc = RecentlyPartyViewController(viewModel: viewModel)
+        navigationController.pushViewController(vc, animated: true)
     }
     
 }
