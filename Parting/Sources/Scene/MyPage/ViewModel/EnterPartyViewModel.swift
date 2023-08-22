@@ -1,13 +1,13 @@
 //
-//  CheckMyPartyViewModel.swift
+//  EnterPartyViewModel.swift
 //  Parting
 //
-//  Created by 박시현 on 2023/08/16.
+//  Created by 박시현 on 2023/08/22.
 //
 
-import UIKit
+import Foundation
 
-class CheckMyPartyViewModel: BaseViewModel {
+class EnterPartyViewModel: BaseViewModel {
     struct Input {
         
     }
@@ -30,5 +30,4 @@ class CheckMyPartyViewModel: BaseViewModel {
     func popVC() {
         self.coordinator?.popVC()
     }
-    
 }

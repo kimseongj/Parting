@@ -171,9 +171,19 @@ extension MyPageViewController: UITableViewDataSource {
         switch tableView {
         case rootView.aboutPartyTableView:
             print("aboutPartyTableView입니다 \(indexPath.row)")
-            viewModel.pushVC()
+            switch indexPath.row {
+            case 0:
+                viewModel.pushRecentlyVC()
+            case 1:
+                viewModel.pushMyPartyVC()
+            case 2:
+                print("구현중")
+            default:
+                break
+            }
         case rootView.setPartyTableView:
             print("setPartyTableView입니다 \(indexPath.row)")
+            
         case rootView.setETCTableView:
             print("setETCTableView입니다 \(indexPath.row)")
         default:

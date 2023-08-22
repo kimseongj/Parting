@@ -47,7 +47,11 @@ final class MyPageViewModel: BaseViewModel {
         }
     }
     
-    func pushVC() {
-        self.coordinator?.recentlyPartyVC()
+    func pushRecentlyVC() {
+        self.coordinator?.pushRecentlyPartyVC()
+    }
+    
+    func pushMyPartyVC() {
+        self.coordinator?.pushMyPartyVC()
     }
 }

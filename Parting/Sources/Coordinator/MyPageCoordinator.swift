@@ -37,10 +37,17 @@ final class MyPageCoordinator: Coordinator {
         navigationController.viewControllers = [vc]
     }
     
-    func recentlyPartyVC() {
+    func pushRecentlyPartyVC() {
         let viewModel = RecentlyPartyViewModel(myPageCoordinator: self)
         let vc = RecentlyPartyViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func pushMyPartyVC() {
+        let viewModel = CheckMyPartyViewModel(coordinator: self)
+        let vc = CheckMyPartyViewController(viewModel: viewModel)
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
     
 }
