@@ -26,7 +26,7 @@ enum PartingAPI {
     case reportParty
     case checkMyParty(pageNumber: Int, lat: Double, lng: Double)
     case partyMember(partyId: Int, userId: Int)
-    case checkEnteredParty
+    case checkEnteredParty(pageNumber: Int, lat: Double, lng: Double)
     case partyDday
     case checkMypage
     case checkNickname(nickName: String)
@@ -138,6 +138,12 @@ extension PartingAPI {
                 "partyIdStr": partyIdStr
             ]
         case let .checkMyParty(pageNumber, lat, lng):
+            return [
+                "pageNumber": pageNumber,
+                "userLatitude": lat,
+                "userLongitude": lng
+            ]
+        case let .checkEnteredParty(pageNumber, lat, lng):
             return [
                 "pageNumber": pageNumber,
                 "userLatitude": lat,

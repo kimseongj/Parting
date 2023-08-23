@@ -18,7 +18,6 @@ class RecentlyPartyViewModel: BaseViewModel {
     
     var input: Input
     var output: Output
-    
     private var coordinator: MyPageCoordinator?
     
     init(input: Input = Input(), output: Output = Output(), myPageCoordinator: MyPageCoordinator?) {

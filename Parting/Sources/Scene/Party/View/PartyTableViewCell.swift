@@ -123,6 +123,21 @@ class PartyTableViewCell: UITableViewCell {
         thumbnail.kf.setImage(with: url)
     }
     
+    func configureMyPageCell(party: PartyInfoResponse) {
+        locationLabel.text = party.address + " " + "\(party.distance)"
+        titleLabel.text = party.partyName
+        periodLabel.text = party.partyStartTime + party.partyEndTime
+        statusLabel.text = "\(party.currentPartyMemberCount)/\(party.maxPartyMemberCount)"
+        tagTexts = party.hashTagNameList
+        DispatchQueue.main.async { [weak self] in
+            self?.tagCollectionView.collectionViewLayout.invalidateLayout()
+        }
+        
+        guard let url = URL(string: party.categoryImg) else { return }
+        
+        thumbnail.kf.setImage(with: url)
+    }
+    
     
 }
 

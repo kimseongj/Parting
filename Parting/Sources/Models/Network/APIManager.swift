@@ -33,40 +33,21 @@ class APIManager {
     
     private init() {}
     
-    func requestParting<T: Decodable>(type: T.Type = T.self, url: URL, method: HTTPMethod = .get, parameters: [String: String]? = nil, headers: HTTPHeaders, completion: @escaping (Result<T, Error>) -> ()) {
-        AF.request(url, method: method, parameters: parameters, headers: headers)
-            .responseDecodable(of: T.self) { response in
-                switch response.result {
-                case .success(let data):
-                    completion(.success(data))
-                case .failure(_):
-                    guard let statuscode = response.response?.statusCode else { return }
-                    guard let error = PartingError(rawValue: statuscode) else { return }
-                    completion(.failure(error))
+    func requestPartingWithObservable<T: Decodable>(type: T.Type = T.self, url: URL, method: HTTPMethod = .get, parameters: [String:Any]? = nil, headers: HTTPHeaders) -> Observable<Result<T, Error>> {
+        return Observable.create { emitter in
+            AF.request(url, method: method, parameters: parameters, headers: headers)
+                .validate(statusCode: 200...500)
+                .responseDecodable(of: T.self) { response in
+                    switch response.result {
+                    case let .success(value):
+                        emitter.onNext(.success(value))
+                        emitter.onCompleted()
+                    case let .failure(error):
+                        emitter.onError(error)
+                    }
                 }
-            }
-    }
-    
-    // MARK: - 내가 개설한 파티
-    func checkMyParty(pageNumber: Int, lat: Double, lng: Double, completionHandler: @escaping(CheckMyPartyResponse) -> ()) {
-        let api = PartingAPI.checkMyParty(pageNumber: pageNumber, lat: lat, lng: lng)
-        guard let url = api.url else { return }
-        AF.request(url, method: .get, parameters: api.parameters, headers: api.headers)
-            .validate(statusCode: 200...500)
-            .responseDecodable(of: CheckMyPartyResponse.self) { response in
-                print("checkMyPage 상태코드 🌟🌟🌟\(response.response?.statusCode)")
-                switch response.result {
-                case .success(let value):
-                    print(value)
-                    print("서버 상태코드", value.code)
-                    completionHandler(value)
-                case .failure(_):
-                    print("서버 실패 상태코드😱😱", response.value?.code)
-                    guard let statusCode = response.response?.statusCode else { return }
-                    guard let error = PartingError(rawValue: statusCode) else { return }
-                    print(error)
-                }
-            }
+            return Disposables.create ()
+        }
     }
     
     //MARK: - 카테고리 종류 API
@@ -185,9 +166,26 @@ class APIManager {
             return Disposables.create()
         }
     }
+
     
     // MARK: - 파티 생성
-    func createPartyPost(_ address: String, _ capacity: Int, _ categoryDetailIDList: [Int], _ categoryID: Int, _ hashTagNameList: [String], _ maxAge: Int, _ minAge: Int, _ openChattingRoomURL: String, _ partyDescription: String, _ partyEndDateTime: String, _ partyLatitude: Double, _ partyLongitude: Double, _ partyName: String, _ partyStartDateTime: String, _ storeName: String, completion: @escaping (Int?) -> Void) {
+    func createPartyPost(
+        address: String,
+        capacity: Int,
+        categoryDetailIDList: [Int],
+        categoryID: Int,
+        hashTagNameList: [String],
+        maxAge: Int,
+        minAge: Int,
+        openChattingRoomURL: String,
+        partyDescription: String,
+        partyEndDateTime: String,
+        partyLatitude: Double,
+        partyLongitude: Double,
+        partyName: String,
+        partyStartDateTime: String,
+        storeName: String,
+        completion: @escaping (Int?) -> Void) {
         let api = PartingAPI.createParty(
             address: address,
             capacity: capacity,
@@ -326,7 +324,7 @@ class APIManager {
                             let distanceString = String(info.distance) + info.distanceUnit
                             let partyStatus = PartyStatus.strToStatus(info.status)
                             
-                            return PartyListItemModel(id: info.partyId, title: info.partyName, location: info.address, distance: distanceString, currentPartyMemberCount: info.currentPartyMemberCount, maxPartyMemberCount: info.maxPartyMemberCount, partyDuration: info.partyTimeStr, tags: info.hashTagNameList, status: partyStatus, imgURL: info.categoryImg)
+                            return PartyListItemModel(id: info.partyId, title: info.partyName, location: info.address, distance: distanceString, currentPartyMemberCount: info.currentPartyMemberCount, maxPartyMemberCount: info.maxPartyMemberCount, partyDuration: info.partyStartTime, tags: info.hashTagNameList, status: partyStatus, imgURL: info.categoryImg)
                         }
                         continuation.resume(returning: partyList)
                         
@@ -343,3 +341,75 @@ class APIManager {
 	
 }
 
+// MARK: - Generic 활용해보기
+extension APIManager {
+    func getRequestParting<T: Decodable>(
+        type: T.Type = T.self,
+        url: URL,
+        method: HTTPMethod = .get,
+        parameters: [String: Any]? = nil,
+        headers: HTTPHeaders,
+        completion: @escaping (Result<T, Error>) -> ()) {
+        AF.request(url, method: method, parameters: parameters, headers: headers)
+            .responseDecodable(of: T.self) { response in
+                print(response.response?.statusCode)
+                switch response.result {
+                case .success(let data):
+                    completion(.success(data))
+                case .failure(_):
+                    guard let statuscode = response.response?.statusCode else { return }
+                    guard let error = PartingError(rawValue: statuscode) else { return }
+                    completion(.failure(error))
+                }
+            }
+    }
+    
+    func postRequestParting<T: Decodable>(
+        type: T.Type = T.self,
+        url: URL,
+        method: HTTPMethod = .post,
+        parameters: [String: Any]? = nil,
+        encoding: JSONEncoding = .default,
+        headers: HTTPHeaders,
+        completion: @escaping (Result<T, Error>) -> ()) {
+            AF.request(url, method: method, parameters: parameters, encoding: encoding, headers: headers).responseDecodable(of: T.self) { response in
+                switch response.result {
+                case let .success(value):
+                    print(response.result, "💛💛")
+                    guard let statusCode = response.response?.statusCode else { return }
+                    completion(.success(value))
+                case let .failure(error): // 열거형 에러 타입 만들어 줘도 된다.
+                    guard let statusCode = response.response?.statusCode else { return }
+                    completion(.failure(error))
+                }
+            }
+    }
+    
+    
+}
+
+//MARK: - @escaping closure
+extension APIManager {
+    // MARK: - 내가 개설한 파티
+    func checkMyParty(pageNumber: Int, lat: Double, lng: Double, completionHandler: @escaping(CheckMyPartyResponse) -> ()) {
+        let api = PartingAPI.checkMyParty(pageNumber: pageNumber, lat: lat, lng: lng)
+        guard let url = api.url else { return }
+        AF.request(url, method: .get, parameters: api.parameters, headers: api.headers)
+            .validate(statusCode: 200...500)
+            .responseDecodable(of: CheckMyPartyResponse.self) { response in
+                print("checkMyPage 상태코드 🌟🌟🌟\(response.response?.statusCode)")
+                switch response.result {
+                case .success(let value):
+                    print(value)
+                    print("서버 상태코드", value.code)
+                    completionHandler(value)
+                case let .failure(error):
+                    print(error)
+                    print("서버 실패 상태코드😱😱", response.value?.code)
+                    guard let statusCode = response.response?.statusCode else { return }
+                    guard let error = PartingError(rawValue: statusCode) else { return }
+                    print(error)
+                }
+            }
+    }
+}

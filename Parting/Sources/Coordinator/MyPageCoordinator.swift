@@ -43,11 +43,15 @@ final class MyPageCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func pushMyPartyVC() {
-        let viewModel = CheckMyPartyViewModel(coordinator: self)
+    func pushMyPartyVC(responseData: CheckMyPartyResponse) {
+        let viewModel = CheckMyPartyViewModel(coordinator: self, responseData: responseData)
         let vc = CheckMyPartyViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: true)
     }
     
-    
+    func pushEnteredPartyVC(responseData: CheckMyPartyResponse) {
+        let viewModel = EnterPartyViewModel(coordinator: self, responseData: responseData)
+        let vc = EnterPartyViewController(viewModel: viewModel)
+        navigationController.pushViewController(vc, animated: true)
+    }
 }

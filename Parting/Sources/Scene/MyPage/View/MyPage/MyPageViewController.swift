@@ -119,6 +119,9 @@ final class MyPageViewController: BaseViewController<MyPageView> {
                 owner.rootView.setETCTableViewUIUpdate(state: state)
             })
             .disposed(by: disposeBag)
+        
+        viewModel.checkMyPartyDataRequest()
+        viewModel.checkEnteredPartyRequest()
     }
 }
 
@@ -177,7 +180,7 @@ extension MyPageViewController: UITableViewDataSource {
             case 1:
                 viewModel.pushMyPartyVC()
             case 2:
-                print("구현중")
+                viewModel.pushEnteredPartyVC()
             default:
                 break
             }

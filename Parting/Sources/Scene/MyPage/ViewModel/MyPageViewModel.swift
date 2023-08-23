@@ -20,15 +20,42 @@ final class MyPageViewModel: BaseViewModel {
     
     var input: Input
     var output: Output
+    var checkMyPartyResponseData: CheckMyPartyResponse?
+    var checkEnteredPartyResponseData: CheckMyPartyResponse?
     var settingUnfoldButtonState: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var etcUnfoldButtonState: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
     private var coordinator: MyPageCoordinator?
+    private let disposeBag = DisposeBag()
     
     init(input: Input = Input(), output: Output = Output(), coordinator: MyPageCoordinator?) {
         self.input = input
         self.output = output
         self.coordinator = coordinator
+    }
+    
+    func checkMyPartyDataRequest() {
+        let api = PartingAPI.checkMyParty(pageNumber: 0, lat: 35.232324, lng: 126.32323)
+        guard let url = URL(string: api.url ?? "") else { return }
+
+        APIManager.shared.getRequestParting(type: CheckMyPartyResponse.self, url: url, method: .get, parameters: api.parameters, headers: api.headers) { data in
+            if let response = try? data.get() {
+                self.checkMyPartyResponseData = response
+            }
+            print(data, "CheckMyPartyData + Generic 🤣🤣")
+        }
+    }
+    
+    func checkEnteredPartyRequest() {
+        let api = PartingAPI.checkEnteredParty(pageNumber: 0, lat: 35.232324, lng: 126.32323)
+        guard let url = URL(string: api.url ?? "") else { return }
+            
+        APIManager.shared.getRequestParting(type: CheckMyPartyResponse.self, url: url, method: .get, parameters: api.parameters, headers: api.headers, completion: { data in
+            if let respsonse = try? data.get() {
+                self.checkEnteredPartyResponseData = respsonse
+            }
+            print(data, "CheckEnteredPartyData + Generic 🤣🤣")
+        })
     }
     
     func setUnfoldButton(state: Bool) {
@@ -52,6 +79,14 @@ final class MyPageViewModel: BaseViewModel {
     }
     
     func pushMyPartyVC() {
-        self.coordinator?.pushMyPartyVC()
+        print(checkMyPartyResponseData)
+        guard let checkMyPartyResponseData else { return }
+        self.coordinator?.pushMyPartyVC(responseData: checkMyPartyResponseData)
+    }
+    
+    func pushEnteredPartyVC() {
+        guard let checkEnteredPartyResponseData else { return }
+        self.coordinator?.pushEnteredPartyVC(responseData: checkEnteredPartyResponseData)
+        
     }
 }

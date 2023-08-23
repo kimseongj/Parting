@@ -21,6 +21,7 @@ struct PartyListResult: Codable {
 	let partySize: Int
 }
 
+
 // MARK: - PartyInfo
 struct PartyInfo: Codable {
 	let partyId: Int // Match the key with lowercase "d"
@@ -28,13 +29,15 @@ struct PartyInfo: Codable {
 	let distance: Double
 	let distanceUnit: String
 	let currentPartyMemberCount, maxPartyMemberCount: Int
-	let partyTimeStr: String
+//	let partyTimeStr: String
+    let partyStartTime: String
+    let partyEndTime: String
 	let hashTagNameList: [String]
 	let status: String
 	let categoryImg: String
 
 	enum CodingKeys: String, CodingKey {
 		case partyId // Use lowercase "d" to match the JSON key
-		case partyName, address, distance, distanceUnit, currentPartyMemberCount, maxPartyMemberCount, partyTimeStr, hashTagNameList, status, categoryImg
+		case partyName, address, distance, distanceUnit, currentPartyMemberCount, maxPartyMemberCount, partyStartTime, partyEndTime, hashTagNameList, status, categoryImg
 	}
 }

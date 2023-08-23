@@ -62,21 +62,21 @@ final class CreatePartyViewModel: BaseViewModel {
         _ partyStartDateTime: String,
         _ storeName: String) {
         APIManager.shared.createPartyPost(
-            address,
-            capacity,
-            categoryDetailIDList,
-            categoryId,
-            hashTagNameList,
-            maxAge,
-            minAge,
-            openChattingRoomURL,
-            partyDescription,
-            partyEndDateTime,
-            partyLatitude,
-            partyLongitude,
-            partyName,
-            partyStartDateTime,
-            storeName) { statusCode in
+            address: address,
+            capacity: capacity,
+            categoryDetailIDList: categoryDetailIDList,
+            categoryID: categoryId,
+            hashTagNameList: hashTagNameList,
+            maxAge: maxAge,
+            minAge: minAge,
+            openChattingRoomURL: openChattingRoomURL,
+            partyDescription: partyDescription,
+            partyEndDateTime: partyEndDateTime,
+            partyLatitude: partyLatitude,
+            partyLongitude: partyLongitude,
+            partyName: partyName,
+            partyStartDateTime: partyStartDateTime,
+            storeName: storeName) { statusCode in
             print(statusCode, "상태코드 💜")
                 guard let statusCode else { return }
                 switch PartingError(rawValue: statusCode) {
@@ -160,4 +160,52 @@ final class CreatePartyViewModel: BaseViewModel {
             .disposed(by: disposeBag)
     }
     
+}
+
+extension CreatePartyViewModel {
+    func testPostAPIRequest(
+        _ address: String,
+        _ capacity: Int,
+        _ categoryDetailIDList: [Int],
+        _ categoryId: Int,
+        _ hashTagNameList: [String],
+        _ maxAge: Int,
+        _ minAge: Int,
+        _ openChattingRoomURL: String,
+        _ partyDescription: String,
+        _ partyEndDateTime: String,
+        _ partyLatitude: Double,
+        _ partyLongitude: Double,
+        _ partyName: String,
+        _ partyStartDateTime: String,
+        _ storeName: String
+    ) {
+        print(#function)
+        let api = PartingAPI.createParty(
+            address: address,
+            capacity: capacity,
+            categoryDetailIdList: categoryDetailIDList,
+            categoryId: categoryId,
+            hashTagNameList: hashTagNameList,
+            maxAge: maxAge,
+            minAge: minAge,
+            openChattingRoomURL: openChattingRoomURL,
+            partyDescription: partyDescription,
+            partyEndDateTime: partyEndDateTime,
+            partyLatitude: partyLatitude,
+            partyLongitude: partyLongitude,
+            partyName: partyName,
+            partyStartDateTime: partyStartDateTime,
+            storeName: storeName)
+        guard let url = URL(string: api.url ?? "") else { return }
+        APIManager.shared.postRequestParting(
+            type: CreatePartyPostResponseModel.self,
+            url: url,
+            method: .post,
+            parameters: api.parameters,
+            encoding: .default,
+            headers: api.headers) { result in
+                print(result, "💛💛")
+            }
+    }
 }

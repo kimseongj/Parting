@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class RecentlyPartyViewController: BaseViewController<PartyListView> {
+class RecentlyPartyViewController: BaseViewController<MypageCommonView> {
     
     private var viewModel: RecentlyPartyViewModel
     

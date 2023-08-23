@@ -103,6 +103,9 @@
 		4EF4D06B2A94338600A2E8F4 /* EnterPartyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4D06A2A94338600A2E8F4 /* EnterPartyView.swift */; };
 		4EF4D06D2A94339100A2E8F4 /* EnterPartyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4D06C2A94339100A2E8F4 /* EnterPartyViewController.swift */; };
 		4EF4D06F2A9433A000A2E8F4 /* EnterPartyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4D06E2A9433A000A2E8F4 /* EnterPartyViewModel.swift */; };
+		4EF4D07B2A94D41E00A2E8F4 /* EnteredPartyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4D07A2A94D41D00A2E8F4 /* EnteredPartyResponse.swift */; };
+		4EF4D07E2A95F6CE00A2E8F4 /* MypageCommonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4D07D2A95F6CE00A2E8F4 /* MypageCommonView.swift */; };
+		4EF4D0812A96218800A2E8F4 /* MyPageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4D0802A96218800A2E8F4 /* MyPageProtocol.swift */; };
 		4EF72DE32A8B597F000B7205 /* CheckMyPartyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF72DE22A8B597E000B7205 /* CheckMyPartyResponse.swift */; };
 		4EF72DE52A8B775B000B7205 /* MyPageCustomTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF72DE42A8B775B000B7205 /* MyPageCustomTableView.swift */; };
 		4EF72E012A8C92A7000B7205 /* CheckMyPartyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF72E002A8C92A7000B7205 /* CheckMyPartyViewController.swift */; };
@@ -248,6 +251,9 @@
 		4EF4D06A2A94338600A2E8F4 /* EnterPartyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPartyView.swift; sourceTree = "<group>"; };
 		4EF4D06C2A94339100A2E8F4 /* EnterPartyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPartyViewController.swift; sourceTree = "<group>"; };
 		4EF4D06E2A9433A000A2E8F4 /* EnterPartyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPartyViewModel.swift; sourceTree = "<group>"; };
+		4EF4D07A2A94D41D00A2E8F4 /* EnteredPartyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnteredPartyResponse.swift; sourceTree = "<group>"; };
+		4EF4D07D2A95F6CE00A2E8F4 /* MypageCommonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageCommonView.swift; sourceTree = "<group>"; };
+		4EF4D0802A96218800A2E8F4 /* MyPageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageProtocol.swift; sourceTree = "<group>"; };
 		4EF72DE22A8B597E000B7205 /* CheckMyPartyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMyPartyResponse.swift; sourceTree = "<group>"; };
 		4EF72DE42A8B775B000B7205 /* MyPageCustomTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCustomTableView.swift; sourceTree = "<group>"; };
 		4EF72E002A8C92A7000B7205 /* CheckMyPartyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMyPartyViewController.swift; sourceTree = "<group>"; };
@@ -477,6 +483,7 @@
 		4E89BC3929C57F3F00BAE38A /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				4EF4D07F2A96217600A2E8F4 /* Protocol */,
 				4E89BC4129C5E11000BAE38A /* ViewModel */,
 				4E89BC4029C5E10A00BAE38A /* View */,
 			);
@@ -511,6 +518,7 @@
 		4E89BC4029C5E10A00BAE38A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4EF4D07C2A95F68B00A2E8F4 /* MypageCommonView */,
 				4EF4D0692A94329600A2E8F4 /* EnterParty */,
 				4EF4D05A2A942B7D00A2E8F4 /* RecentlyParty */,
 				4EF4D0592A942B6B00A2E8F4 /* MyPage */,
@@ -842,6 +850,7 @@
 				9337C01C2A6BD24100CA572B /* PartyListItemModel.swift */,
 				4EFC951B2A82095700994388 /* CreatePartyPostResponseModel.swift */,
 				4EF72DE22A8B597E000B7205 /* CheckMyPartyResponse.swift */,
+				4EF4D07A2A94D41D00A2E8F4 /* EnteredPartyResponse.swift */,
 			);
 			path = ResponseModel;
 			sourceTree = "<group>";
@@ -853,6 +862,22 @@
 				4EF4D06C2A94339100A2E8F4 /* EnterPartyViewController.swift */,
 			);
 			path = EnterParty;
+			sourceTree = "<group>";
+		};
+		4EF4D07C2A95F68B00A2E8F4 /* MypageCommonView */ = {
+			isa = PBXGroup;
+			children = (
+				4EF4D07D2A95F6CE00A2E8F4 /* MypageCommonView.swift */,
+			);
+			path = MypageCommonView;
+			sourceTree = "<group>";
+		};
+		4EF4D07F2A96217600A2E8F4 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				4EF4D0802A96218800A2E8F4 /* MyPageProtocol.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		72A21366DC79076DB8BCBB63 /* Pods */ = {
@@ -1152,7 +1177,9 @@
 				4E54431B2A6132990074F654 /* MapViewController.swift in Sources */,
 				4EB2AC652A2E09EF0023F49A /* RegionResponse.swift in Sources */,
 				4EECA7FA2A6F540C00C94417 /* CreatePartySetStackView.swift in Sources */,
+				4EF4D07E2A95F6CE00A2E8F4 /* MypageCommonView.swift in Sources */,
 				933B3C9D2A5586E500B8D60B /* HomeViewController.swift in Sources */,
+				4EF4D07B2A94D41E00A2E8F4 /* EnteredPartyResponse.swift in Sources */,
 				933E58CD2A69422E000F945E /* UITabBarController+Extension.swift in Sources */,
 				933B3C992A55861F00B8D60B /* TabCoordinator.swift in Sources */,
 				933B3C9F2A55870C00B8D60B /* BarImageButton.swift in Sources */,
@@ -1238,6 +1265,7 @@
 				4ECEAE1729ED2116006AAF6B /* AppCoordinator.swift in Sources */,
 				4ECEAE1F29ED298F006AAF6B /* SplahView.swift in Sources */,
 				933E58C92A6920FB000F945E /* Kingfisher+Extension.swift in Sources */,
+				4EF4D0812A96218800A2E8F4 /* MyPageProtocol.swift in Sources */,
 				4ECEAE2129ED29EF006AAF6B /* BaseView.swift in Sources */,
 				4E89BC3529C57E5300BAE38A /* BaseURL.swift in Sources */,
 				933B3C9E2A5586FD00B8D60B /* HomeView.swift in Sources */,
