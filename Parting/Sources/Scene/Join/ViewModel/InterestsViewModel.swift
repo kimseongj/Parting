@@ -11,40 +11,10 @@ import RxCocoa
 
 
 protocol InterestsViewModelProtocol {
-    func viewDidLoadAction()
+    func getCategoryInfo()
 }
 
 final class InterestsViewModel: BaseViewModel, InterestsViewModelProtocol {
-    func testObservableGeneric() {
-        let api = PartingAPI.detailCategory(categoryVersion: "1.0.0")
-        guard let url = URL(string: api.url!) else { return }
-        APIManager.shared.requestPartingWithObservable(type: CategoryResponse.self, url: url, method: .get, parameters: api.parameters,  headers: api.headers)
-            .withUnretained(self)
-            .subscribe(onNext: { owner, response in
-                if let result = try? response.get() {
-                    print(result, "✅✅")
-                    for idx in 0..<result.result.categories.count {
-                        owner.imageDataList.append(result.result.categories[idx].imgURL)
-                        owner.categoryNameList.append(result.result.categories[idx].categoryName)
-                    }
-                    owner.output.categoryImage.accept(owner.imageDataList)
-                }
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    func viewDidLoadAction() {
-        APIManager.shared.getCategoryAPI()
-            .withUnretained(self)
-            .subscribe(onNext: { owner, data in
-                for idx in 0..<data.result.categories.count {
-                    owner.imageDataList.append(data.result.categories[idx].imgURL)
-                    owner.categoryNameList.append(data.result.categories[idx].categoryName)
-                }
-                owner.output.categoryImage.accept(owner.imageDataList)
-            })
-            .disposed(by: disposeBag)
-    }
     
     struct Input {
         let popInterestsViewTrigger: PublishSubject<Void> = PublishSubject()
@@ -74,18 +44,46 @@ final class InterestsViewModel: BaseViewModel, InterestsViewModelProtocol {
         self.output = output
         self.coordinator = coordinator
         viewChangeTrigger()
-//        getCategoryImage()
     }
     
+    func getCategoryInfo() {
+        let api = PartingAPI.detailCategory(categoryVersion: "1.0.0")
+        guard let url = URL(string: api.url!) else { return }
+        APIManager.shared.requestPartingWithObservable(type: CategoryResponse.self, url: url, method: .get, parameters: api.parameters,  headers: api.headers)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, response in
+                if let result = try? response.get() {
+                    print(result, "✅✅")
+                    for idx in 0..<result.result.categories.count {
+                        owner.imageDataList.append(result.result.categories[idx].imgURL)
+                        owner.categoryNameList.append(result.result.categories[idx].categoryName)
+                    }
+                    owner.output.categoryImage.accept(owner.imageDataList)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    //MARK: - 카테고리별 세부 항목 API
     func getAssociatedCategory(_ categoryId: [Int]) {
         let semaphore = DispatchSemaphore(value: 1)
+        
         DispatchQueue.global().async {
             for categoryId in categoryId {
+                let api = PartingAPI.associatedCategory(categoryId: categoryId)
+                guard let apiURL = api.url else { return }
+                guard let url = URL(string: apiURL) else { return }
                 semaphore.wait() // value = 0
                 print("\(categoryId)  💢💢")
-                APIManager.shared.getCategoryDetailList(categoryId)
-                    .withUnretained(self)
-                    .subscribe(onNext: { owner, data in
+                APIManager.shared.requestPartingWithObservable(
+                    type: CategoryDetailResponse.self,
+                    url: url,
+                    method: .get,
+                    parameters: api.parameters,
+                    headers: api.headers)
+                .withUnretained(self)
+                .subscribe(onNext: { owner, response in
+                    if let data = try? response.get() {
                         for idx in 0..<data.result.count {
                             owner.tempAssociatedList.append(data.result[idx].categoryDetailName)
                             print("\(data.result[idx].categoryDetailName) + \(data.result[idx].categoryDetailID) associatedCategoryName ▶️▶️")
@@ -93,8 +91,9 @@ final class InterestsViewModel: BaseViewModel, InterestsViewModelProtocol {
                         owner.associatedNameList.append(owner.tempAssociatedList)
                         owner.tempAssociatedList = []
                         semaphore.signal() // value++
-                    })
-                    .disposed(by: self.disposeBag)
+                    }
+                })
+                .disposed(by: self.disposeBag)
                 print("🎀🎀")
             }
             semaphore.wait()
@@ -124,22 +123,6 @@ final class InterestsViewModel: BaseViewModel, InterestsViewModelProtocol {
                 print("\(owner.associatedNameList) 💜💜")
 
                 owner.pushDetailInterestsViewController(data, owner.selectedCategoryNameList , owner.selectedAssociatedNameList )
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    private func getCategoryImage() {
-        input.getCategoryImageTrigger
-            .flatMap { _ in
-                APIManager.shared.getCategoryAPI()
-            }
-            .withUnretained(self)
-            .subscribe(onNext: { owner, data in
-                for idx in 0..<data.result.categories.count {
-                    owner.imageDataList.append(data.result.categories[idx].imgURL)
-                    owner.categoryNameList.append(data.result.categories[idx].categoryName)
-                }
-                owner.output.categoryImage.accept(owner.imageDataList)
             })
             .disposed(by: disposeBag)
     }

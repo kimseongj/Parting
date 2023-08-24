@@ -12,8 +12,6 @@ import RxCocoa
 final class CreatePartyViewModel: BaseViewModel {
     struct Input {
         let popVCTrigger = PublishSubject<Void>()
-        // 뷰모델이 클릭한 Cell에 대한 상태 물고있어야함
-        let partyCellClickedState =  PublishSubject<Int>()
         let setMapVCTrigger = PublishSubject<Void>()
         let detailCategoryCellSelectedIndexPath = PublishSubject<Int>()
     }
@@ -117,23 +115,36 @@ final class CreatePartyViewModel: BaseViewModel {
                 }
             }
             .disposed(by: disposeBag)
+    }
+    
+    func partyCellClicked(categoryId: Int) {
+        let api = PartingAPI.associatedCategory(categoryId: categoryId)
+        guard let apiURL = api.url else { return }
+        guard let url = URL(string: apiURL) else { return }
         
-        input.partyCellClickedState
-            .flatMap { [weak self] id in
-                APIManager.shared.getCategoryDetailList(id)
-            }
-            .subscribe(onNext: { [weak self] data in
-                self?.categoryDetailListsData = data.result
+        APIManager.shared.requestPartingWithObservable(
+            type: CategoryDetailResponse.self,
+            url: url,
+            method: .get,
+            parameters: api.parameters,
+            headers: api.headers
+        )
+        .withUnretained(self)
+        .subscribe(onNext: { owner, result in
+            if let data = try? result.get() {
+                owner.categoryDetailListsData = data.result
                 var newData: [CategoryDetailResultContainisSelected] = []
-                guard let arr =  self?.categoryDetailListsData else { return }
+                guard let arr =  owner.categoryDetailListsData else { return }
                 for ele in arr {
                     let data = CategoryDetailResultContainisSelected(categoryDetailID: ele.categoryDetailID, categoryDetailName: ele.categoryDetailName)
                     newData.append(data)
                 }
-                self?.output.categoryDetailLists.accept(newData)
-            })
-            .disposed(by: disposeBag)
+                owner.output.categoryDetailLists.accept(newData)
+            }
+        })
+        .disposed(by: disposeBag)
     }
+    
     
     private func loadCategories() {
         CoreDataManager.fetchCategories()
@@ -198,7 +209,7 @@ extension CreatePartyViewModel {
             partyStartDateTime: partyStartDateTime,
             storeName: storeName)
         guard let url = URL(string: api.url ?? "") else { return }
-        APIManager.shared.postRequestParting(
+        APIManager.shared.requestParting(
             type: CreatePartyPostResponseModel.self,
             url: url,
             method: .post,

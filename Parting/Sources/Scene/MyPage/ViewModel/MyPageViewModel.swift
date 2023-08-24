@@ -35,10 +35,23 @@ final class MyPageViewModel: BaseViewModel {
     }
     
     func checkMyPartyDataRequest() {
-        let api = PartingAPI.checkMyParty(pageNumber: 0, lat: 35.232324, lng: 126.32323)
+        let api = PartingAPI.checkMyParty(
+            pageNumber: 0,
+            lat: 35.232324,
+            lng: 126.32323
+        )
+        
         guard let url = URL(string: api.url ?? "") else { return }
+        print(url)
 
-        APIManager.shared.getRequestParting(type: CheckMyPartyResponse.self, url: url, method: .get, parameters: api.parameters, headers: api.headers) { data in
+        APIManager.shared.requestParting(
+            type: CheckMyPartyResponse.self,
+            url: url,
+            method: .get,
+            parameters: api.parameters,
+            headers: api.headers
+        ) { data in
+            print(data)
             if let response = try? data.get() {
                 self.checkMyPartyResponseData = response
             }
@@ -47,10 +60,21 @@ final class MyPageViewModel: BaseViewModel {
     }
     
     func checkEnteredPartyRequest() {
-        let api = PartingAPI.checkEnteredParty(pageNumber: 0, lat: 35.232324, lng: 126.32323)
+        let api = PartingAPI.checkEnteredParty(
+            pageNumber: 0,
+            lat: 35.232324,
+            lng: 126.32323
+        )
         guard let url = URL(string: api.url ?? "") else { return }
             
-        APIManager.shared.getRequestParting(type: CheckMyPartyResponse.self, url: url, method: .get, parameters: api.parameters, headers: api.headers, completion: { data in
+        APIManager.shared.requestParting(
+            type: CheckMyPartyResponse.self,
+            url: url,
+            method: .get,
+            parameters: api.parameters,
+            headers: api.headers,
+            completion: { data in
+            print(data, "🤣🤣")
             if let respsonse = try? data.get() {
                 self.checkEnteredPartyResponseData = respsonse
             }

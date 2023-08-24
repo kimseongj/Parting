@@ -77,8 +77,7 @@ class InterestsViewController: BaseViewController<InterestsView> {
         bindCategoryImage()
         didSelectedCell()
         nextButtonClicked()
-//        viewModel.viewDidLoadAction()
-        viewModel.testObservableGeneric()
+        viewModel.getCategoryInfo()
     }
     
     private func configureCell() {

@@ -33,7 +33,14 @@ class APIManager {
     
     private init() {}
     
-    func requestPartingWithObservable<T: Decodable>(type: T.Type = T.self, url: URL, method: HTTPMethod = .get, parameters: [String:Any]? = nil, headers: HTTPHeaders) -> Observable<Result<T, Error>> {
+    func requestPartingWithObservable<T: Decodable>(
+        type: T.Type = T.self,
+        url: URL,
+        method: HTTPMethod = .get,
+        parameters: [String:Any]? = nil,
+        encoding: JSONEncoding = .default,
+        headers: HTTPHeaders
+    ) -> Observable<Result<T, Error>> {
         return Observable.create { emitter in
             AF.request(url, method: method, parameters: parameters, headers: headers)
                 .validate(statusCode: 200...500)
@@ -48,29 +55,6 @@ class APIManager {
                     }
                 }
             return Disposables.create ()
-        }
-    }
-    
-    //MARK: - 카테고리 종류 API
-    func getCategoryAPI() -> Observable<CategoryResponse> {
-        return Observable.create { emitter in
-            let api = PartingAPI.detailCategory(categoryVersion: "1.0.0")
-            guard let categoryURL = api.url else { return Disposables.create() }
-            AF.request(categoryURL, method: .get, headers: api.headers)
-				.validate(statusCode: 200...500)
-				.responseDecodable(of: CategoryResponse.self) { response in
-                print("카테고리 종류 API 상태코드 \(response.response?.statusCode) 🌱🌱")
-                switch response.result {
-                case let .success(value):
-					print(value)
-                    emitter.onNext(value)
-                    emitter.onCompleted()
-                case let .failure(error):
-                    emitter.onError(error)
-                }
-            }
-
-            return Disposables.create()
         }
     }
 	
@@ -104,71 +88,7 @@ class APIManager {
             return Disposables.create()
         }
     }
-    
-    //MARK: - 시도, 시군구 API
-    func getRegionAPI() -> Observable<RegionData> {
-        return Observable.create { emitter in
-            let api = PartingAPI.region
-            guard let regionURL = api.url else { return Disposables.create() }
-            AF.request(regionURL, method: .get, headers: api.headers)
-                .validate(statusCode: 200...500)
-                .responseDecodable(of: RegionData.self) {
-                response in
-                print("시도, 시군구 API 상태코드 \(response.response?.statusCode) 🌱🌱")
-                switch response.result {
-                case let .success(value):
-                    emitter.onNext(value)
-                    emitter.onCompleted()
-                case let .failure(error):
-                    emitter.onError(error)
-                }
-            }
-            return Disposables.create()
-        }
-    }
-    
-    //MARK: - 닉네임 중복 검사 API
-    func checkNickNameIsDuplicated(_ nickname: String) -> Observable<NickNameResponse> {
-        return Observable.create { emitter in
-            let api = PartingAPI.checkNickname(nickName: nickname)
-            guard let nickNameurl = api
-                .url else { return Disposables.create() }
-            AF.request(nickNameurl, method: .get, parameters: api.parameters, encoding: URLEncoding.default, headers: api.headers).responseDecodable(of: NickNameResponse.self) {
-                response in
-                print("닉네임 중복 검사 API 상태코드 \(response.response?.statusCode) 🌱🌱")
-                switch response.result {
-                case let .success(value):
-                    emitter.onNext(value)
-                    emitter.onCompleted()
-                case let .failure(error):
-                    emitter.onError(error)
-                }
-            }
-            return Disposables.create()
-        }
-    }
-    
-    //MARK: - 필수정보 입력 POST API
-    func enterEssentialInfo(_ birth: String, _ job: String, _ nickName: String, _ sex: String, _ sigunguCd: Int) -> Observable<NickNameResponse> {
-        return Observable.create { emitter in
-            let api = PartingAPI.essentialInfo(birth: birth, job: job, nickName: nickName, sex: sex, sigunguCd: sigunguCd)
-            guard let essentialURL = api.url else { return Disposables.create() }
-            AF.request(essentialURL, method: .post, parameters: api.parameters, encoding: JSONEncoding.default, headers: api.headers)
-                .responseDecodable(of: NickNameResponse.self) { response in
-                print("필수정보 입력 API 상태 코드 \(response.response?.statusCode) 🌱🌱")
-                switch response.result {
-                case let .success(value):
-                    emitter.onNext(value)
-                    emitter.onCompleted()
-                case let .failure(error):
-                    emitter.onError(error)
-                }
-            }
-            return Disposables.create()
-        }
-    }
 
-    
     // MARK: - 파티 생성
     func createPartyPost(
         address: String,
@@ -222,26 +142,6 @@ class APIManager {
                     guard let statuscode = response.response?.statusCode else { return }
                     completion(statuscode)
             }
-        }
-    }
-    
-    //MARK: - 카테고리별 세부 항목 API
-    func getCategoryDetailList(_ categoryId: Int) -> Observable<CategoryDetailResponse> {
-        return Observable.create { emitter in
-            let api = PartingAPI.associatedCategory(categoryId: categoryId)
-            guard let associatedCategoryURL = api.url else { return Disposables.create() }
-            AF.request(associatedCategoryURL, method: .get, parameters: api.parameters, encoding: URLEncoding.default, headers: api.headers)
-                .responseDecodable(of: CategoryDetailResponse.self) { response in
-                print("카테고리별 세부 항복 API 상태코드 \(response.response?.statusCode) 🌱🌱")
-                switch response.result {
-                case let .success(value):
-                    emitter.onNext(value)
-                    emitter.onCompleted()
-                case let .failure(error):
-                    emitter.onError(error)
-                }
-            }
-            return Disposables.create()
         }
     }
     
@@ -305,30 +205,30 @@ class APIManager {
 
 // MARK: - Generic 활용해보기
 extension APIManager {
-    // MARK: - getRequest
-    func getRequestParting<T: Decodable>(
-        type: T.Type = T.self,
-        url: URL,
-        method: HTTPMethod = .get,
-        parameters: [String: Any]? = nil,
-        headers: HTTPHeaders,
-        completion: @escaping (Result<T, Error>) -> ()) {
-        AF.request(url, method: method, parameters: parameters, headers: headers)
-            .responseDecodable(of: T.self) { response in
-                print(response.response?.statusCode)
-                switch response.result {
-                case .success(let data):
-                    completion(.success(data))
-                case .failure(_):
-                    guard let statuscode = response.response?.statusCode else { return }
-                    guard let error = PartingError(rawValue: statuscode) else { return }
-                    completion(.failure(error))
-                }
-            }
-    }
-    
+//    // MARK: - getRequest
+//    func getRequestParting<T: Decodable>(
+//        type: T.Type = T.self,
+//        url: URL,
+//        method: HTTPMethod = .get,
+//        parameters: [String: Any]? = nil,
+//        headers: HTTPHeaders,
+//        completion: @escaping (Result<T, Error>) -> ()) {
+//        AF.request(url, method: method, parameters: parameters, headers: headers)
+//            .responseDecodable(of: T.self) { response in
+//                print(response.response?.statusCode)
+//                switch response.result {
+//                case .success(let data):
+//                    completion(.success(data))
+//                case .failure(_):
+//                    guard let statuscode = response.response?.statusCode else { return }
+//                    guard let error = PartingError(rawValue: statuscode) else { return }
+//                    completion(.failure(error))
+//                }
+//            }
+//    }
+//
     // MARK: - postRequest
-    func postRequestParting<T: Decodable>(
+    func requestParting<T: Decodable>(
         type: T.Type = T.self,
         url: URL,
         method: HTTPMethod = .post,
@@ -336,7 +236,12 @@ extension APIManager {
         encoding: JSONEncoding = .default,
         headers: HTTPHeaders,
         completion: @escaping (Result<T, Error>) -> ()) {
-            AF.request(url, method: method, parameters: parameters, encoding: encoding, headers: headers).responseDecodable(of: T.self) { response in
+            AF.request(
+                url,
+                method: method,
+                parameters: parameters,
+                headers: headers
+            ).responseDecodable(of: T.self) { response in
                 switch response.result {
                 case let .success(value):
                     print(response.result, "💛💛")
@@ -344,6 +249,7 @@ extension APIManager {
                     completion(.success(value))
                 case let .failure(error): // 열거형 에러 타입 만들어 줘도 된다.
                     guard let statusCode = response.response?.statusCode else { return }
+                    print(statusCode)
                     completion(.failure(error))
                 }
             }

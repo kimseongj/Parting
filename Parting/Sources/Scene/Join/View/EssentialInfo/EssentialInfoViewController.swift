@@ -58,8 +58,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.rootView.nickNameTextField.delegate = self
-        self.viewModel.input.getAddressTrigger.onNext(()) // 주소를 불러오는 API통신 트리거
+        viewModel.getAddress()
         navigationUI()
         nextButtonClicked()
         jobCheckButtonClicked()
@@ -415,7 +414,13 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
                 owner.viewModel.tapNextButton(isValid: owner.isValidState)
                 guard let text = owner.rootView.nickNameTextField.text else { return }
                 owner.nickName = text
-                owner.viewModel.postEssentialInfo(owner.birthDate, owner.job, owner.nickName, owner.gender, owner.sigugunCDData?[owner.sigunguRow] ?? 0)
+                owner.viewModel.postEssentialInfo(
+                    owner.birthDate,
+                    owner.job,
+                    owner.nickName,
+                    owner.gender,
+                    owner.sigugunCDData?[owner.sigunguRow] ?? 0
+                )
             })
             .disposed(by: disposeBag)
     }

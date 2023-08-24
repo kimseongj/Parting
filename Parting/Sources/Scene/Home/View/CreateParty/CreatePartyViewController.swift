@@ -167,13 +167,13 @@ class CreatePartyViewController: BaseViewController<CreatePartyView>, SendCoordi
             .zip(rootView.categoryCollectionView.rx.modelSelected(CategoryModel.self), rootView.categoryCollectionView.rx.itemSelected)
             .subscribe(onNext: { [weak self] (item, indexPath) in
                 self?.viewModel.isSeletedCellIdx.onNext(indexPath.item)
-                self?.viewModel.input.partyCellClickedState.onNext(item.id)
+                self?.viewModel.partyCellClicked(categoryId: item.id)
                 self?.viewModel.selectedIndex = indexPath.item
                 self?.rootView.categoryCollectionView.reloadData()
-                
+
                 self?.viewModel.selectedDetailCategoryCell.accept([])
                 self?.rootView.detailCategoryCollectionView.reloadData()
-                
+
                 self?.selectedCategoryID = item.id
             })
             .disposed(by: disposeBag)
@@ -214,24 +214,6 @@ class CreatePartyViewController: BaseViewController<CreatePartyView>, SendCoordi
                 guard let partyName = self?.rootView.setPartyBackgroundView.textField?.text else { return }
                 guard let latitude = self?.latitude else { return }
                 guard let longitude = self?.longitude else { return }
-                
-//                self?.viewModel.createPartyAPICall(
-//                    CreatePartyMockData.address,
-//                    numberOfPeople,
-//                    categoryDetailIDList,
-//                    selectedCategoryID,
-//                    hashTagNameList,
-//                    maxAge,
-//                    minAge,
-//                    openChatURL,
-//                    partyDescription,
-//                    CreatePartyMockData.partyEndDateTime,
-//                    latitude,
-//                    longitude,
-//                    partyName,
-//                    CreatePartyMockData.partyStartDateTime,
-//                    CreatePartyMockData.storeName
-//                )
                 
                 self?.viewModel.testPostAPIRequest(
                     CreatePartyMockData.address,

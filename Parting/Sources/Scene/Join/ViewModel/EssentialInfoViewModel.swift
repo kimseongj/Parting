@@ -25,74 +25,9 @@ protocol EssentialInfoViewModelProtocol {
 
 final class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtocol {
     
-    var nickNameValidateState: PublishRelay<Int> = PublishRelay()
-    var nickNameDuplicateState: PublishRelay<Bool> = PublishRelay()
-    var genderState: PublishRelay<Int> = PublishRelay()
-    var jobState: PublishRelay<Int> = PublishRelay()
-    
-    // MARK: - 성별 직업 버튼 선택 여부
-    var jobAndGenderButtonState: Observable<Bool> {
-        Observable.combineLatest(genderState, jobState) { genderState, jobState  in
-            if (genderState == 0 || genderState == 1) && (jobState == 0 || jobState == 1) {
-                return true
-            } else {
-                return false
-            }
-        }
-    }
-    
-    func tapGenderButton(gender: Int) {
-        genderState.accept(gender)
-    }
-    
-    func tapJobButton(job: Int) {
-        jobState.accept(job)
-        
-    }
-    
-    func tapNextButton(isValid: Bool) {
-        if isValid {
-            self.pushInterestsViewController()
-        }
-    }
-    
-    func tapDuplicatedCheckButton(nickName: String) {
-        APIManager.shared.checkNickNameIsDuplicated(nickName)
-            .withUnretained(self)
-            .subscribe(onNext: { owner, data in
-                print("TEST")
-                owner.nickNameDuplicateState.accept(data.isSuccess)
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    // MARK: - 다음단계로 버튼 활성화 유효성 검사
-    var isValidForm: Observable<Bool> {
-        // check nickNameValidate -> Bool Type
-        // check nickNameDuplicated -> Bool Type
-        // check birth TextField Not empty
-        // check sido, sigungu TextField Not empty
-        // check Button selected -> Bool Type
-        return Observable.combineLatest(checkNicknameValidate, nickNameDuplicateState, checkBirthNotEmpty, checkAddressNotEmpty, jobAndGenderButtonState) { nicknameValidate, nickNameDuplicated, birth, address, jobAndGender in
-         
-            guard birth != nil && address != nil else { return false }
-            print("\(nicknameValidate) \(nickNameDuplicated)  \(jobAndGender)  \(!address!.isEmpty) \(!birth!.isEmpty)")
-            // 위의 조건에 따른 return
-            return nicknameValidate && nickNameDuplicated && jobAndGender && !address!.isEmpty && !birth!.isEmpty
-        }
-    }
-    
-    func postEssentialInfo(_ birth: String, _ job: String, _ nickName: String, _ sex: String, _ sigunguCd: Int) {
-        APIManager.shared.enterEssentialInfo(birth, job, nickName, sex, sigunguCd)
-            .subscribe(onNext: { data in
-            })
-            .disposed(by: disposeBag)
-    }
-    
     struct Input {
         let popEssentialViewTrigger: PublishSubject<Void> = PublishSubject()
         let pushInterestsViewTrigger: PublishSubject<Void> = PublishSubject()
-        let getAddressTrigger: PublishSubject<Void> = PublishSubject()
         let BirthTextFieldTrigger: PublishSubject<Date> = PublishSubject()
         let checkNicknameTrigger: PublishSubject<String?> = PublishSubject()
         let duplicatedNickNameTrigger: PublishSubject<String?> = PublishSubject()
@@ -127,6 +62,11 @@ final class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtoco
     let checkNicknameValidate = BehaviorRelay<Bool>(value: false)
     let checkBirthNotEmpty = BehaviorRelay<String?>(value: nil)
     let checkAddressNotEmpty = BehaviorRelay<String?>(value: nil)
+    
+    var nickNameValidateState: PublishRelay<Int> = PublishRelay()
+    var nickNameDuplicateState: PublishRelay<Bool> = PublishRelay()
+    var genderState: PublishRelay<Int> = PublishRelay()
+    var jobState: PublishRelay<Int> = PublishRelay()
 
     private weak var coordinator: JoinCoordinator?
     private let disposeBag = DisposeBag()
@@ -140,6 +80,107 @@ final class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtoco
         getAddress()
     }
     
+    // MARK: - 성별 직업 버튼 선택 여부
+    var jobAndGenderButtonState: Observable<Bool> {
+        Observable.combineLatest(genderState, jobState) { genderState, jobState  in
+            if (genderState == 0 || genderState == 1) && (jobState == 0 || jobState == 1) {
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+    
+    func tapGenderButton(gender: Int) {
+        genderState.accept(gender)
+    }
+    
+    func tapJobButton(job: Int) {
+        jobState.accept(job)
+        
+    }
+    
+    func tapNextButton(isValid: Bool) {
+        if isValid {
+            self.pushInterestsViewController()
+        }
+    }
+    
+    // MARK: - 닉네임 중복검사 API
+    func tapDuplicatedCheckButton(nickName: String) {
+        let api = PartingAPI.checkNickname(nickName: nickName)
+        guard let apiURL = api.url else { return }
+        guard let url = URL(string: apiURL) else { return }
+        APIManager.shared.requestPartingWithObservable(
+            type: NickNameResponse.self,
+            url: url,
+            method: .get,
+            parameters: api.parameters,
+            headers: api.headers
+        )
+        .withUnretained(self)
+        .subscribe(onNext: { owner, response in
+            if let data = try? response.get() {
+                print("TEST")
+                owner.nickNameDuplicateState.accept(data.isSuccess)
+            }
+        })
+        .disposed(by: disposeBag)
+    }
+    
+    // MARK: - 다음단계로 버튼 활성화 유효성 검사
+    var isValidForm: Observable<Bool> {
+        // check nickNameValidate -> Bool Type
+        // check nickNameDuplicated -> Bool Type
+        // check birth TextField Not empty
+        // check sido, sigungu TextField Not empty
+        // check Button selected -> Bool Type
+        return Observable.combineLatest(
+            checkNicknameValidate,
+            nickNameDuplicateState,
+            checkBirthNotEmpty,
+            checkAddressNotEmpty,
+            jobAndGenderButtonState
+        ) { nicknameValidate, nickNameDuplicated, birth, address, jobAndGender in
+         
+            guard birth != nil && address != nil else { return false }
+            print("\(nicknameValidate) \(nickNameDuplicated)  \(jobAndGender)  \(!address!.isEmpty) \(!birth!.isEmpty)")
+            // 위의 조건에 따른 return
+            return nicknameValidate && nickNameDuplicated && jobAndGender && !address!.isEmpty && !birth!.isEmpty
+        }
+    }
+    
+    //MARK: - 필수정보 입력 POST API
+    func postEssentialInfo(
+        _ birth: String,
+        _ job: String,
+        _ nickName: String,
+        _ sex: String,
+        _ sigunguCd: Int
+    ) {
+        let api = PartingAPI.essentialInfo(
+            birth: birth,
+            job: job,
+            nickName: nickName,
+            sex: sex,
+            sigunguCd: sigunguCd
+        )
+        guard let apiUrl = api.url else { return }
+        guard let url = URL(string: apiUrl) else { return }
+        APIManager.shared.requestPartingWithObservable(
+            type: NickNameResponse.self,
+            url: url,
+            method: .post,
+            parameters: api.parameters,
+            encoding: .default,
+            headers: api.headers)
+        .withUnretained(self)
+        .subscribe(onNext: { owner, response in
+            
+        })
+        .disposed(by: disposeBag)
+    }
+    
     //MARK: - 닉네임 정규식 표현
     func nicknameValidCheck(_ nickname: String) -> Bool {
         let regexPattern = "^[a-zA-Z0-9가-힣_-]{2,16}$"
@@ -148,42 +189,21 @@ final class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtoco
         return nicknamePredicate.evaluate(with: nickname)
     }
     
-    private func datePickerValueChanged() {
-        input.BirthTextFieldTrigger
-            .withUnretained(self)
-            .subscribe(onNext: { owner, date in
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd"
-                let dateString = dateFormatter.string(from: date)
-                let birthDate: [String] = dateString.split(separator: "-").map{String($0)}
-                owner.output.birthDateData.accept(birthDate)
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    private func viewChangeTrigger() {
-        input.popEssentialViewTrigger
-            .withUnretained(self)
-            .subscribe(onNext:{ owner, _ in
-                owner.popEssentialInfoViewController()
-            })
-            .disposed(by: disposeBag)
-        
-        input.pushInterestsViewTrigger
-            .withUnretained(self)
-            .subscribe(onNext: { owner, _ in
-                owner.pushInterestsViewController()
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    private func getAddress() {
-        input.getAddressTrigger
-            .flatMap { _ in
-                APIManager.shared.getRegionAPI()
-            }
-            .withUnretained(self)
-            .subscribe(onNext: { owner, data in
+    // MARK: - 시도, 시군구 API
+    func getAddress() {
+        let api = PartingAPI.region
+        guard let apiUrl = api.url else { return }
+        guard let url = URL(string: apiUrl) else { return }
+        APIManager.shared.requestPartingWithObservable(
+            type: RegionData.self,
+            url: url,
+            method: .get,
+            parameters: api.parameters,
+            headers: api.headers
+        )
+        .withUnretained(self)
+        .subscribe(onNext: { owner, response in
+            if let data = try? response.get() {
                 data.result.sidoInfoList.forEach {
                     owner.sidoList.append($0.sidoNm)
                     owner.sidoCD.append($0.sidoCD)
@@ -217,6 +237,36 @@ final class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtoco
                 owner.output.sigugunCodeData.accept(owner.sigugunCD)
                 owner.output.sidoCDDictData.accept(owner.sidoCDDict)
                 owner.output.sigunguCDDictData.accept(owner.sigunguCDDict)
+            }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func datePickerValueChanged() {
+        input.BirthTextFieldTrigger
+            .withUnretained(self)
+            .subscribe(onNext: { owner, date in
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let dateString = dateFormatter.string(from: date)
+                let birthDate: [String] = dateString.split(separator: "-").map{String($0)}
+                owner.output.birthDateData.accept(birthDate)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func viewChangeTrigger() {
+        input.popEssentialViewTrigger
+            .withUnretained(self)
+            .subscribe(onNext:{ owner, _ in
+                owner.popEssentialInfoViewController()
+            })
+            .disposed(by: disposeBag)
+        
+        input.pushInterestsViewTrigger
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.pushInterestsViewController()
             })
             .disposed(by: disposeBag)
     }
