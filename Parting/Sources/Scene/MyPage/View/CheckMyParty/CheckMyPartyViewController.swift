@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class CheckMyPartyViewController: BaseViewController<PartyListView>, MyPageProtocol {
+class CheckMyPartyViewController: BaseViewController<MypageCommonView>, MyPageProtocol {
     private let viewModel: CheckMyPartyViewModel
 
     override func viewDidLoad() {

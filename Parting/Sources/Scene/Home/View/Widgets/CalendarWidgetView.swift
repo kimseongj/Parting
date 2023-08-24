@@ -53,7 +53,7 @@ extension CalendarWidgetView: ProgrammaticallyInitializableViewProtocol {
 	func makeConstraints() {
 		calendar.snp.makeConstraints { make in
 //			make.edges.equalToSuperview()
-			make.top.equalToSuperview().offset(12)
+            make.top.equalTo(safeAreaLayoutGuide.snp.top)
 			make.bottom.equalToSuperview().offset(-12)
 			make.left.equalToSuperview().offset(12)
 			make.right.equalToSuperview().offset(-12)

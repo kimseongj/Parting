@@ -38,6 +38,7 @@ class APIManager {
             AF.request(url, method: method, parameters: parameters, headers: headers)
                 .validate(statusCode: 200...500)
                 .responseDecodable(of: T.self) { response in
+                    print(response.response?.statusCode, "requestPartingObservable 상태코드 🚫🚫")
                     switch response.result {
                     case let .success(value):
                         emitter.onNext(.success(value))
@@ -263,45 +264,6 @@ class APIManager {
            
          
     }
-	
-	// MARK: 파티 리스트 API
-//	func getPartyList(categoryId: Int, categoryDetailId: Int, orderCondition1: PartingAPI.partySortingCondition.byNumberOfPeople, orderCondition2: PartingAPI.partySortingCondition.byTime, pageNumber: Int) async throws -> [PartyListItemModel]? {
-//
-//		let urlParams = PartingAPI.PartyListParams(categoryId: categoryId, categoryDetailId: categoryDetailId, orderCondition1: orderCondition1.rawValue, orderCondition2: orderCondition2.rawValue, pageNumber: pageNumber)
-//
-//		let api = PartingAPI.parties(params: urlParams)
-//		guard let url = api.url else { return nil }
-//
-//		return try await withUnsafeContinuation({ continuation in
-//			AF.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: api.headers)
-//                .responseDecodable(of: PartyListResponse.self) { response in
-//
-//				switch response.result {
-//
-//				case .success(let data):
-//
-//					let partyInfoList = data.result.partyInfos
-//
-//					let partyList = partyInfoList.map { info in
-//						let distanceString = String(info.distance) + info.distanceUnit
-//						let partyStatus = PartyStatus.strToStatus(info.status)
-//
-//						return PartyListItemModel(id: info.partyId, title: info.partyName, location: info.address, distance: distanceString, currentPartyMemberCount: info.currentPartyMemberCount, maxPartyMemberCount: info.maxPartyMemberCount, partyDuration: info.partyTimeStr, tags: info.hashTagNameList, status: partyStatus, imgURL: info.categoryImg)
-//					}
-//
-//					continuation.resume(returning: partyList)
-//
-//				case .failure(let error):
-//					print(error)
-//				}
-//
-//			} /* AF Request */
-//		}) /* End withUnsafeContinuation() */
-//
-//
-//	} /* End func getPartyList() */
-    
-    
     
     func getPartyList(categoryId: Int, categoryDetailIds: [Int], orderCondition1: SortingOption.NumberOfPeopleType, orderCondition2: SortingOption.TimeType, pageNumber: Int, location: CLLocation) async throws -> [PartyListItemModel] {
             
@@ -343,6 +305,7 @@ class APIManager {
 
 // MARK: - Generic 활용해보기
 extension APIManager {
+    // MARK: - getRequest
     func getRequestParting<T: Decodable>(
         type: T.Type = T.self,
         url: URL,
@@ -364,6 +327,7 @@ extension APIManager {
             }
     }
     
+    // MARK: - postRequest
     func postRequestParting<T: Decodable>(
         type: T.Type = T.self,
         url: URL,

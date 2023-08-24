@@ -301,7 +301,6 @@
 		935D3A7F2A0A7B7F0033DCCD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Parting/Sources/Scene/Home/View/Home/HomeViewController.swift; sourceTree = SOURCE_ROOT; };
 		935D3A812A0A7C210033DCCD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeView.swift; path = Parting/Sources/Scene/Home/View/Home/HomeView.swift; sourceTree = SOURCE_ROOT; };
 		935D3A832A0A7CAF0033DCCD /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewModel.swift; path = Parting/Sources/Scene/Home/Coordinator/HomeViewModel.swift; sourceTree = SOURCE_ROOT; };
-		93653E562A64F2C400BEFD61 /* InterestBarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InterestBarCollectionViewCell.swift; path = Parting/Sources/Scene/Party/View/InterestBarCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		937711E92A4EDFD00019DC6F /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 		938C902B2A512003007FA45F /* DdayWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DdayWidgetView.swift; sourceTree = "<group>"; };
 		93A09BA12A4D967F0096A1D5 /* CalendarWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWidgetView.swift; sourceTree = "<group>"; };
@@ -822,7 +821,6 @@
 		4EF4D0662A942C6200A2E8F4 /* InterestBar */ = {
 			isa = PBXGroup;
 			children = (
-				93653E562A64F2C400BEFD61 /* InterestBarCollectionViewCell.swift */,
 				4EFFCE482A6DF54B0075EF9C /* InterestBarCollectionViewCell.swift */,
 			);
 			path = InterestBar;

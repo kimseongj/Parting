@@ -15,6 +15,24 @@ protocol InterestsViewModelProtocol {
 }
 
 final class InterestsViewModel: BaseViewModel, InterestsViewModelProtocol {
+    func testObservableGeneric() {
+        let api = PartingAPI.detailCategory(categoryVersion: "1.0.0")
+        guard let url = URL(string: api.url!) else { return }
+        APIManager.shared.requestPartingWithObservable(type: CategoryResponse.self, url: url, method: .get, parameters: api.parameters,  headers: api.headers)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, response in
+                if let result = try? response.get() {
+                    print(result, "✅✅")
+                    for idx in 0..<result.result.categories.count {
+                        owner.imageDataList.append(result.result.categories[idx].imgURL)
+                        owner.categoryNameList.append(result.result.categories[idx].categoryName)
+                    }
+                    owner.output.categoryImage.accept(owner.imageDataList)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
     func viewDidLoadAction() {
         APIManager.shared.getCategoryAPI()
             .withUnretained(self)
