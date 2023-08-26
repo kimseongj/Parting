@@ -8,7 +8,6 @@
 import Foundation
 import RxSwift
 import RxCocoa
-import Alamofire
 
 final class MyPageViewModel: BaseViewModel {
     struct Input {
@@ -49,7 +48,6 @@ final class MyPageViewModel: BaseViewModel {
             url: url,
             method: .get,
             parameters: api.parameters,
-            encoding: URLEncoding.queryString,
             headers: api.headers
         ) { data in
             print("getRequest ✅✅")
@@ -72,13 +70,13 @@ final class MyPageViewModel: BaseViewModel {
             url: url,
             method: .get,
             parameters: api.parameters,
-            headers: api.headers,
-            completion: { data in
+            headers: api.headers
+        ) { data in
             print("getRequest ✅✅")
-            if let respsonse = try? data.get() {
-                self.checkEnteredPartyResponseData = respsonse
+            if let response = try? data.get() {
+                self.checkEnteredPartyResponseData = response
             }
-        })
+        }
     }
     
     func setUnfoldButton(state: Bool) {

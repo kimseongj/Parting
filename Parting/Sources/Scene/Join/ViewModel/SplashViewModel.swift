@@ -5,7 +5,7 @@
 //  Created by 박시현 on 2023/04/17.
 //
 
-import UIKit
+import Foundation
 import RxSwift
 
 final class SplashViewModel: BaseViewModel {

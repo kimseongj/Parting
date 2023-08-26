@@ -5,10 +5,9 @@
 //  Created by 박시현 on 2023/04/20.
 //
 
-import UIKit
+import Foundation
 import RxSwift
 import RxCocoa
-import Alamofire
 
 protocol EssentialInfoViewModelProtocol {
     var genderState: PublishRelay<Int> { get }
@@ -173,7 +172,7 @@ final class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtoco
             url: url,
             method: .post,
             parameters: api.parameters,
-            encoding: JSONEncoding.default,
+            encoding: .default,
             headers: api.headers)
         .withUnretained(self)
         .subscribe(onNext: { owner, response in

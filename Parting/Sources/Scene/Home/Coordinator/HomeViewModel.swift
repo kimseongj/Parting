@@ -8,9 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
-import Kingfisher
 import CoreData
-import UIKit
 
 final class HomeViewModel: BaseViewModel {
 	

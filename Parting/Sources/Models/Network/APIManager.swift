@@ -117,27 +117,51 @@ extension APIManager {
         url: URL,
         method: HTTPMethod = .get,
         parameters: [String: Any]? = nil,
-        encoding: ParameterEncoding = URLEncoding.default,
+        encoding: JSONEncoding = .default,
         headers: HTTPHeaders,
         completion: @escaping (Result<T, Error>) -> ()) {
-            AF.request(
-                url,
-                method: method,
-                parameters: parameters,
-                encoding: encoding,
-                headers: headers
-            ).responseDecodable(of: T.self) { response in
-                print(response)
-                switch response.result {
-                case let .success(value):
-                    guard let statusCode = response.response?.statusCode else { return }
-                    completion(.success(value))
-                case let .failure(error): // 열거형 에러 타입 만들어 줘도 된다.
-                    print(error)
-                    guard let statusCode = response.response?.statusCode else { return }
-                    completion(.failure(error))
+            switch method {
+            case .get:
+                AF.request(
+                    url,
+                    method: method,
+                    parameters: parameters,
+                    headers: headers
+                ).responseDecodable(of: T.self) { response in
+                    print(response)
+                    switch response.result {
+                    case let .success(value):
+                        guard let statusCode = response.response?.statusCode else { return }
+                        completion(.success(value))
+                    case let .failure(error): // 열거형 에러 타입 만들어 줘도 된다.
+                        print(error)
+                        guard let statusCode = response.response?.statusCode else { return }
+                        completion(.failure(error))
+                    }
                 }
+            case .post:
+                AF.request(
+                    url,
+                    method: method,
+                    parameters: parameters,
+                    encoding: encoding,
+                    headers: headers
+                ).responseDecodable(of: T.self) { response in
+                    print(response)
+                    switch response.result {
+                    case let .success(value):
+                        guard let statusCode = response.response?.statusCode else { return }
+                        completion(.success(value))
+                    case let .failure(error): // 열거형 에러 타입 만들어 줘도 된다.
+                        print(error)
+                        guard let statusCode = response.response?.statusCode else { return }
+                        completion(.failure(error))
+                    }
+                }
+            default:
+                break
             }
+            
         }
     
     func requestPartingWithObservable<T: Decodable>(
@@ -145,26 +169,50 @@ extension APIManager {
         url: URL,
         method: HTTPMethod = .get,
         parameters: [String:Any]? = nil,
-        encoding: ParameterEncoding = URLEncoding.queryString,
+        encoding: JSONEncoding = .default,
         headers: HTTPHeaders
     ) -> Observable<Result<T, Error>> {
         return Observable.create { emitter in
-            AF.request(
-                url,
-                method: method,
-                parameters: parameters,
-                headers: headers
-            )
-                .validate(statusCode: 200...500)
-                .responseDecodable(of: T.self) { response in
-                    switch response.result {
-                    case let .success(value):
-                        emitter.onNext(.success(value))
-                        emitter.onCompleted()
-                    case let .failure(error):
-                        emitter.onError(error)
+            switch method {
+            case .get:
+                AF.request(
+                    url,
+                    method: method,
+                    parameters: parameters,
+                    headers: headers
+                )
+                    .validate(statusCode: 200...500)
+                    .responseDecodable(of: T.self) { response in
+                        switch response.result {
+                        case let .success(value):
+                            emitter.onNext(.success(value))
+                            emitter.onCompleted()
+                        case let .failure(error):
+                            emitter.onError(error)
+                        }
                     }
-                }
+            case .post:
+                AF.request(
+                    url,
+                    method: method,
+                    parameters: parameters,
+                    encoding: encoding,
+                    headers: headers
+                )
+                    .validate(statusCode: 200...500)
+                    .responseDecodable(of: T.self) { response in
+                        switch response.result {
+                        case let .success(value):
+                            emitter.onNext(.success(value))
+                            emitter.onCompleted()
+                        case let .failure(error):
+                            emitter.onError(error)
+                        }
+                    }
+            default:
+                break
+            }
+            
             return Disposables.create ()
         }
     }

@@ -8,7 +8,6 @@
 import Foundation
 import RxSwift
 import RxCocoa
-import Alamofire
 
 final class CreatePartyViewModel: BaseViewModel {
     struct Input {
@@ -87,7 +86,7 @@ final class CreatePartyViewModel: BaseViewModel {
                 url: url,
                 method: .post,
                 parameters: api.parameters,
-                encoding: JSONEncoding.default,
+                encoding: .default,
                 headers: api.headers
             ) { response in
                 print("postRequest ✅✅")
