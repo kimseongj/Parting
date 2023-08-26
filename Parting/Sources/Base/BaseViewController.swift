@@ -13,7 +13,6 @@ class BaseViewController<T: UIView>: UIViewController {
     public var disposeBag: DisposeBag = .init()
     override open func loadView() {
         self.view = T()
-        print(#function)
     }
 }
 

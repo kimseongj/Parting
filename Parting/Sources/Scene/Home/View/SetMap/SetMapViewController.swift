@@ -73,7 +73,6 @@ class SetMapViewController: BaseViewController<MapView> {
             if CLLocationManager.locationServicesEnabled() {
                 print("위치 서비스 ON 상태")
                 self.locationManger.startUpdatingLocation() // 현재위치 가져오기
-                print(self.locationManger.location?.coordinate) // 위도, 경도 가져오기
             } else {
                 print("위치 서비스 OFF 상태")
             }
@@ -105,7 +104,6 @@ extension SetMapViewController: NMFMapViewCameraDelegate {
     func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
         print("카메라가 변경됨 : reason : \(reason)")
         let cameraPosition = mapView.cameraPosition
-        print(cameraPosition.target.lat, cameraPosition.target.lng)
     }
     
 }
@@ -115,8 +113,6 @@ extension SetMapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("didUpdateLocations")
         if let location = locations.first {
-            print("위도: \(location.coordinate.latitude)")
-            print("경도: \(location.coordinate.longitude)")
         }
     }
     

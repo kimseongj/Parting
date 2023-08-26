@@ -5,9 +5,10 @@
 //  Created by 박시현 on 2023/07/22.
 //
 
-import UIKit
+import Foundation
 import RxSwift
 import RxCocoa
+import Alamofire
 
 final class CreatePartyViewModel: BaseViewModel {
     struct Input {
@@ -59,47 +60,62 @@ final class CreatePartyViewModel: BaseViewModel {
         _ partyName: String,
         _ partyStartDateTime: String,
         _ storeName: String) {
-        APIManager.shared.createPartyPost(
-            address: address,
-            capacity: capacity,
-            categoryDetailIDList: categoryDetailIDList,
-            categoryID: categoryId,
-            hashTagNameList: hashTagNameList,
-            maxAge: maxAge,
-            minAge: minAge,
-            openChattingRoomURL: openChattingRoomURL,
-            partyDescription: partyDescription,
-            partyEndDateTime: partyEndDateTime,
-            partyLatitude: partyLatitude,
-            partyLongitude: partyLongitude,
-            partyName: partyName,
-            partyStartDateTime: partyStartDateTime,
-            storeName: storeName) { statusCode in
-            print(statusCode, "상태코드 💜")
-                guard let statusCode else { return }
-                switch PartingError(rawValue: statusCode) {
-                case .enterYourJWT:
-                    print("JWT를 입력해주세요.")
-                case .notValidateJWT:
-                    print("유효하지 않은 JWT 입니다.")
-                case .alreadyLogoutToken:
-                    print("로그아웃 처리된 토큰으로 접속하셨습니다.")
-                case .tokenTypeDoNotMatch:
-                    print("토큰의 타입과 사용 목적이 맞지 않습니다.")
-                case .dataBaseError:
-                    print("데이터베이스 에러입니다.")
-                case .userDoesNotBelongParty:
-                    print("해당 유저가 해당 파티에 속해있지 않습니다.")
-                case .partyHostCanDelete:
-                    print("host유저만이 파티를 삭제할 수 있습니다.")
-                case .alreadyDelete:
-                    print("이미 삭제된 파티입니다.")
-                case .success:
-                    print("통신에 성공했습니다.")
-                default:
-                    print("알 수 없는 에러입니다.")
+            print(#function)
+            let api = PartingAPI.createParty(
+                address: address,
+                capacity: capacity,
+                categoryDetailIdList: categoryDetailIDList,
+                categoryId: categoryId,
+                hashTagNameList: hashTagNameList,
+                maxAge: maxAge,
+                minAge: minAge,
+                openChattingRoomURL: openChattingRoomURL,
+                partyDescription: partyDescription,
+                partyEndDateTime: partyEndDateTime,
+                partyLatitude: partyLatitude,
+                partyLongitude: partyLongitude,
+                partyName: partyName,
+                partyStartDateTime: partyStartDateTime,
+                storeName: storeName
+            )
+            
+            guard let apiURL = api.url else { return }
+            guard let url = URL(string: apiURL) else { return }
+            
+            APIManager.shared.requestParting(
+                type: CreatePartyPostResponseModel.self,
+                url: url,
+                method: .post,
+                parameters: api.parameters,
+                encoding: JSONEncoding.default,
+                headers: api.headers
+            ) { response in
+                print("postRequest ✅✅")
+                if let result = try? response.get() {
+                    switch PartingError(rawValue: result.code) {
+                    case .enterYourJWT:
+                        print("JWT를 입력해주세요.")
+                    case .notValidateJWT:
+                        print("유효하지 않은 JWT 입니다.")
+                    case .alreadyLogoutToken:
+                        print("로그아웃 처리된 토큰으로 접속하셨습니다.")
+                    case .tokenTypeDoNotMatch:
+                        print("토큰의 타입과 사용 목적이 맞지 않습니다.")
+                    case .dataBaseError:
+                        print("데이터베이스 에러입니다.")
+                    case .userDoesNotBelongParty:
+                        print("해당 유저가 해당 파티에 속해있지 않습니다.")
+                    case .partyHostCanDelete:
+                        print("host유저만이 파티를 삭제할 수 있습니다.")
+                    case .alreadyDelete:
+                        print("이미 삭제된 파티입니다.")
+                    case .success:
+                        print("통신에 성공했습니다.")
+                    @unknown default:
+                        print("알 수 없는 에러입니다.")
+                    }
                 }
-        }
+            }
     }
     
     private func bind() {
@@ -171,52 +187,4 @@ final class CreatePartyViewModel: BaseViewModel {
             .disposed(by: disposeBag)
     }
     
-}
-
-extension CreatePartyViewModel {
-    func testPostAPIRequest(
-        _ address: String,
-        _ capacity: Int,
-        _ categoryDetailIDList: [Int],
-        _ categoryId: Int,
-        _ hashTagNameList: [String],
-        _ maxAge: Int,
-        _ minAge: Int,
-        _ openChattingRoomURL: String,
-        _ partyDescription: String,
-        _ partyEndDateTime: String,
-        _ partyLatitude: Double,
-        _ partyLongitude: Double,
-        _ partyName: String,
-        _ partyStartDateTime: String,
-        _ storeName: String
-    ) {
-        print(#function)
-        let api = PartingAPI.createParty(
-            address: address,
-            capacity: capacity,
-            categoryDetailIdList: categoryDetailIDList,
-            categoryId: categoryId,
-            hashTagNameList: hashTagNameList,
-            maxAge: maxAge,
-            minAge: minAge,
-            openChattingRoomURL: openChattingRoomURL,
-            partyDescription: partyDescription,
-            partyEndDateTime: partyEndDateTime,
-            partyLatitude: partyLatitude,
-            partyLongitude: partyLongitude,
-            partyName: partyName,
-            partyStartDateTime: partyStartDateTime,
-            storeName: storeName)
-        guard let url = URL(string: api.url ?? "") else { return }
-        APIManager.shared.requestParting(
-            type: CreatePartyPostResponseModel.self,
-            url: url,
-            method: .post,
-            parameters: api.parameters,
-            encoding: .default,
-            headers: api.headers) { result in
-                print(result, "💛💛")
-            }
-    }
 }

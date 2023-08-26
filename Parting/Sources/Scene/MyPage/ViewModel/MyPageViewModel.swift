@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import Alamofire
 
 final class MyPageViewModel: BaseViewModel {
     struct Input {
@@ -42,20 +43,19 @@ final class MyPageViewModel: BaseViewModel {
         )
         
         guard let url = URL(string: api.url ?? "") else { return }
-        print(url)
 
         APIManager.shared.requestParting(
             type: CheckMyPartyResponse.self,
             url: url,
             method: .get,
             parameters: api.parameters,
+            encoding: URLEncoding.queryString,
             headers: api.headers
         ) { data in
-            print(data)
+            print("getRequest ✅✅")
             if let response = try? data.get() {
                 self.checkMyPartyResponseData = response
             }
-            print(data, "CheckMyPartyData + Generic 🤣🤣")
         }
     }
     
@@ -66,7 +66,7 @@ final class MyPageViewModel: BaseViewModel {
             lng: 126.32323
         )
         guard let url = URL(string: api.url ?? "") else { return }
-            
+        
         APIManager.shared.requestParting(
             type: CheckMyPartyResponse.self,
             url: url,
@@ -74,11 +74,10 @@ final class MyPageViewModel: BaseViewModel {
             parameters: api.parameters,
             headers: api.headers,
             completion: { data in
-            print(data, "🤣🤣")
+            print("getRequest ✅✅")
             if let respsonse = try? data.get() {
                 self.checkEnteredPartyResponseData = respsonse
             }
-            print(data, "CheckEnteredPartyData + Generic 🤣🤣")
         })
     }
     
@@ -103,7 +102,6 @@ final class MyPageViewModel: BaseViewModel {
     }
     
     func pushMyPartyVC() {
-        print(checkMyPartyResponseData)
         guard let checkMyPartyResponseData else { return }
         self.coordinator?.pushMyPartyVC(responseData: checkMyPartyResponseData)
     }

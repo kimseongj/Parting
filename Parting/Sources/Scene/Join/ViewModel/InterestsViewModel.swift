@@ -49,7 +49,13 @@ final class InterestsViewModel: BaseViewModel, InterestsViewModelProtocol {
     func getCategoryInfo() {
         let api = PartingAPI.detailCategory(categoryVersion: "1.0.0")
         guard let url = URL(string: api.url!) else { return }
-        APIManager.shared.requestPartingWithObservable(type: CategoryResponse.self, url: url, method: .get, parameters: api.parameters,  headers: api.headers)
+        APIManager.shared.requestPartingWithObservable(
+            type: CategoryResponse.self,
+            url: url,
+            method: .get,
+            parameters: api.parameters,
+            headers: api.headers
+        )
             .withUnretained(self)
             .subscribe(onNext: { owner, response in
                 if let result = try? response.get() {

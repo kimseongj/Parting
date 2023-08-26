@@ -54,14 +54,13 @@ class CheckMyPartyViewController: BaseViewController<MypageCommonView>, MyPagePr
     private func bind() {
         rootView.backBarButton.innerButton.rx.tap
             .withUnretained(self)
-            .subscribe(onNext: {owner, _ in
+            .subscribe(onNext: { owner, _ in
                 owner.viewModel.popVC()
             })
             .disposed(by: disposeBag)
         
         viewModel.myPartyList
             .bind(to: rootView.partyListTableView.rx.items(cellIdentifier: PartyTableViewCell.identifier, cellType: PartyTableViewCell.self)) { [weak self] index, party, cell in
-                print(index, party, cell, "partyList 🐼🐼")
                 cell.configureMyPageCell(party: party) 
             }
             .disposed(by: disposeBag)

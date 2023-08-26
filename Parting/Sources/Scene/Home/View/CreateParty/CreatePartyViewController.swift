@@ -215,7 +215,7 @@ class CreatePartyViewController: BaseViewController<CreatePartyView>, SendCoordi
                 guard let latitude = self?.latitude else { return }
                 guard let longitude = self?.longitude else { return }
                 
-                self?.viewModel.testPostAPIRequest(
+                self?.viewModel.createPartyAPICall(
                     CreatePartyMockData.address,
                     numberOfPeople,
                     categoryDetailIDList,

@@ -50,7 +50,6 @@ class MapViewController: BaseViewController<MapView> {
             let bottomSheetViewController = BottomSheetViewController()
             bottomSheetViewController.modalPresentationStyle = .automatic
             self.present(bottomSheetViewController, animated: true)
-            print(CreatePartyViewController.partyTitle)
             return true
         }
     }

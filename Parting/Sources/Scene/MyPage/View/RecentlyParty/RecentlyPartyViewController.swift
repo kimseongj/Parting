@@ -44,7 +44,6 @@ class RecentlyPartyViewController: BaseViewController<MypageCommonView> {
         rootView.backBarButton.innerButton.rx.tap
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
-                print("tap")
                 owner.viewModel.popVC()
             })
             .disposed(by: disposeBag)

@@ -125,7 +125,6 @@ final class MyPageViewController: BaseViewController<MyPageView> {
     }
 }
 
-
 extension MyPageViewController: UITableViewDelegate {
     
 }
@@ -173,7 +172,6 @@ extension MyPageViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch tableView {
         case rootView.aboutPartyTableView:
-            print("aboutPartyTableView입니다 \(indexPath.row)")
             switch indexPath.row {
             case 0:
                 viewModel.pushRecentlyVC()

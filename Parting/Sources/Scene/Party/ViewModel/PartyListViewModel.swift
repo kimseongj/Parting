@@ -90,11 +90,8 @@ class PartyListViewModel: BaseViewModel {
                     )
                 ) else { return }
             
-            print(parties, "🌆🌆🌆")
-            
             self.output.partyList.accept(parties)
             self.output.associatedCategories.accept(associatedCategories)
-            print(parties, "통신성공")
             let categoryDetailsToRequest = associatedCategories.enumerated().map({ (index, categoryDetail) in
                 return index == 0 ? (categoryDetail, true) : (categoryDetail, false)
             })

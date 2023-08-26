@@ -16,7 +16,23 @@ enum PartingAPI {
     case isMemeber
     case tokenReissue
     case parties(params: PartyListParams)
-    case createParty(address: String, capacity: Int, categoryDetailIdList: [Int], categoryId: Int, hashTagNameList: [String], maxAge: Int, minAge: Int, openChattingRoomURL: String, partyDescription: String, partyEndDateTime: String, partyLatitude: Double, partyLongitude: Double, partyName: String, partyStartDateTime: String, storeName: String)
+    case createParty(
+        address: String,
+        capacity: Int,
+        categoryDetailIdList: [Int],
+        categoryId: Int,
+        hashTagNameList: [String],
+        maxAge: Int,
+        minAge: Int,
+        openChattingRoomURL: String,
+        partyDescription: String,
+        partyEndDateTime: String,
+        partyLatitude: Double,
+        partyLongitude: Double,
+        partyName: String,
+        partyStartDateTime: String,
+        storeName: String
+    )
     case getPartyDetail(partyId: Int)
     case modifyParty(partyId: Int)
     case deleteParty(partyId: Int)
@@ -106,7 +122,23 @@ extension PartingAPI {
                 "userLatitude": params.userLatitude,
                 "userLongitude": params.userLongitude
             ]
-        case let .createParty(address, capacity, categoryDetailIDList, categoryID, hashTagNameList, maxAge, minAge, openChattingRoomURL, partyDescription, partyEndDateTime, partyLatitude, partyLongitude, partyName, partyStartDateTime, storeName):
+        case let .createParty(
+            address,
+            capacity,
+            categoryDetailIDList,
+            categoryID,
+            hashTagNameList,
+            maxAge,
+            minAge,
+            openChattingRoomURL,
+            partyDescription,
+            partyEndDateTime,
+            partyLatitude,
+            partyLongitude,
+            partyName,
+            partyStartDateTime,
+            storeName
+        ):
             return [
                 "address": address,
                 "capacity": capacity,

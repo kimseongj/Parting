@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Alamofire
 
 protocol EssentialInfoViewModelProtocol {
     var genderState: PublishRelay<Int> { get }
@@ -172,7 +173,7 @@ final class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtoco
             url: url,
             method: .post,
             parameters: api.parameters,
-            encoding: .default,
+            encoding: JSONEncoding.default,
             headers: api.headers)
         .withUnretained(self)
         .subscribe(onNext: { owner, response in
@@ -194,6 +195,7 @@ final class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtoco
         let api = PartingAPI.region
         guard let apiUrl = api.url else { return }
         guard let url = URL(string: apiUrl) else { return }
+        
         APIManager.shared.requestPartingWithObservable(
             type: RegionData.self,
             url: url,

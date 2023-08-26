@@ -47,8 +47,7 @@ class EnterPartyViewController: BaseViewController<MypageCommonView>, MyPageProt
     }
     
     func setTableViewDelegateAndDataSource() {
-        rootView.partyListTableView.rx.setDelegate(self)
-            .disposed(by: disposeBag)
+        rootView.partyListTableView.delegate = self
     }
     
     private func bind() {
@@ -61,7 +60,6 @@ class EnterPartyViewController: BaseViewController<MypageCommonView>, MyPageProt
         
         viewModel.myPartyList
             .bind(to: rootView.partyListTableView.rx.items(cellIdentifier: PartyTableViewCell.identifier, cellType: PartyTableViewCell.self)) { [weak self] index, party, cell in
-                print(index, party, cell, "partyList 🐼🐼")
                 cell.configureMyPageCell(party: party)
             }
             .disposed(by: disposeBag)
@@ -72,6 +70,16 @@ extension EnterPartyViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let height = rootView.window?.windowScene?.screen.bounds.height
         return (height ?? 852.0) * 0.25
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .normal, title: "나가기") { (_, _, success: @escaping(Bool) -> Void) in
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            success(true)
+        }
+        delete.backgroundColor = AppColor.brand
+        delete.image = UIImage(named: "deleteParty")
+        return UISwipeActionsConfiguration(actions: [delete])
     }
 }
 
