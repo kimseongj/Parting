@@ -48,21 +48,27 @@ class EnterPartyViewController: BaseViewController<MypageCommonView>, MyPageProt
     
     func setTableViewDelegateAndDataSource() {
         rootView.partyListTableView.delegate = self
+        rootView.partyListTableView.dataSource = self
     }
     
     private func bind() {
         rootView.backBarButton.innerButton.rx.tap
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
-                owner.viewModel.popVC()
+                owner.viewModel.input.accept(.popCurrentVC)
             })
             .disposed(by: disposeBag)
         
-        viewModel.myPartyList
-            .bind(to: rootView.partyListTableView.rx.items(cellIdentifier: PartyTableViewCell.identifier, cellType: PartyTableViewCell.self)) { [weak self] index, party, cell in
-                cell.configureMyPageCell(party: party)
-            }
+        viewModel.output
+            .withUnretained(self)
+            .subscribe(onNext: { owner, output in
+                switch output {
+                case .notificationReloadData:
+                    owner.rootView.partyListTableView.reloadData()
+                }
+            })
             .disposed(by: disposeBag)
+
     }
 }
 
@@ -73,8 +79,10 @@ extension EnterPartyViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
         let delete = UIContextualAction(style: .normal, title: "나가기") { (_, _, success: @escaping(Bool) -> Void) in
-            tableView.deleteRows(at: [indexPath], with: .fade)
+                self.viewModel.input.accept(.deleteParty(row: indexPath.row))
+                tableView.deleteRows(at: [indexPath], with: .fade)
             success(true)
         }
         delete.backgroundColor = AppColor.brand
@@ -85,10 +93,14 @@ extension EnterPartyViewController: UITableViewDelegate {
 
 extension EnterPartyViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.myPartyList.value.count
+        print(viewModel.myPartyList.count)
+        return viewModel.myPartyList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell = rootView.partyListTableView.dequeueReusableCell(withIdentifier: PartyTableViewCell.identifier) as? PartyTableViewCell else { return UITableViewCell() }
+        cell.configureMyPageCell(party: viewModel.myPartyList[indexPath.row])
+        print()
+        return cell
     }
 }

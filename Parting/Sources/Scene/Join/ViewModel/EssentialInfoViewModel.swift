@@ -45,7 +45,7 @@ final class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtoco
         let sidoCodeData: BehaviorRelay<[Int]?> = BehaviorRelay(value: nil)
         let nickNameValidate: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         let duplicatedNickNameCheck: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-        let postResponseData: BehaviorRelay<NickNameResponse?> = BehaviorRelay(value: nil)
+        let postResponseData: BehaviorRelay<BasicResponse?> = BehaviorRelay(value: nil)
         let sigunguCDDictData: BehaviorRelay<[Int: [String]]?> = BehaviorRelay(value: [:])
         let sidoCDDictData: BehaviorRelay<[String: Int]?> = BehaviorRelay(value: [:])
     }
@@ -112,7 +112,7 @@ final class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtoco
         guard let apiURL = api.url else { return }
         guard let url = URL(string: apiURL) else { return }
         APIManager.shared.requestPartingWithObservable(
-            type: NickNameResponse.self,
+            type: BasicResponse.self,
             url: url,
             method: .get,
             parameters: api.parameters,
@@ -168,7 +168,7 @@ final class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtoco
         guard let apiUrl = api.url else { return }
         guard let url = URL(string: apiUrl) else { return }
         APIManager.shared.requestPartingWithObservable(
-            type: NickNameResponse.self,
+            type: BasicResponse.self,
             url: url,
             method: .post,
             parameters: api.parameters,

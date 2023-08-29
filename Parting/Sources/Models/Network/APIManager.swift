@@ -131,11 +131,9 @@ extension APIManager {
                     print(response)
                     switch response.result {
                     case let .success(value):
-                        guard let statusCode = response.response?.statusCode else { return }
                         completion(.success(value))
                     case let .failure(error): // 열거형 에러 타입 만들어 줘도 된다.
                         print(error)
-                        guard let statusCode = response.response?.statusCode else { return }
                         completion(.failure(error))
                     }
                 }
@@ -150,11 +148,26 @@ extension APIManager {
                     print(response)
                     switch response.result {
                     case let .success(value):
-                        guard let statusCode = response.response?.statusCode else { return }
                         completion(.success(value))
                     case let .failure(error): // 열거형 에러 타입 만들어 줘도 된다.
                         print(error)
-                        guard let statusCode = response.response?.statusCode else { return }
+                        completion(.failure(error))
+                    }
+                }
+            case .delete:
+                AF.request(
+                    url,
+                    method: method,
+                    parameters: parameters,
+                    encoding: encoding,
+                    headers: headers
+                ).responseDecodable(of: T.self) { response in
+                    print(response)
+                    switch response.result {
+                    case let .success(value):
+                        completion(.success(value))
+                    case let .failure(error): // 열거형 에러 타입 만들어 줘도 된다.
+                        print(error)
                         completion(.failure(error))
                     }
                 }

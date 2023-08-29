@@ -12,7 +12,7 @@ class PartyTableViewCell: UITableViewCell {
 //    static let identifier = "PartyTableViewCell"
     
     private var tagTexts: [String] = []
-    
+    var testId: Int?
     private let cellContainer: UIStackView = {
         let view = StackView(axis: .vertical, alignment: .center, distribution: .equalCentering)
         view.layer.cornerRadius = 16
@@ -124,14 +124,12 @@ class PartyTableViewCell: UITableViewCell {
     }
     
     func configureMyPageCell(party: PartyInfoResponse) {
+        print(party.address, "💛")
         locationLabel.text = party.address + " " + "\(party.distance)"
         titleLabel.text = party.partyName
         periodLabel.text = party.partyStartTime + party.partyEndTime
         statusLabel.text = "\(party.currentPartyMemberCount)/\(party.maxPartyMemberCount)"
         tagTexts = party.hashTagNameList
-        DispatchQueue.main.async { [weak self] in
-            self?.tagCollectionView.collectionViewLayout.invalidateLayout()
-        }
         
         guard let url = URL(string: party.categoryImg) else { return }
         

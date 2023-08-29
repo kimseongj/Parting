@@ -76,8 +76,10 @@ extension PartingAPI {
             return "\(BaseURL.baseURL)/parties"
         case .createParty:
             return  "\(BaseURL.partyURL)"
-        case .getPartyDetail, .modifyParty, .deleteParty, .calender, .recentView, .partyMember, .partyDday:
+        case .getPartyDetail, .modifyParty, .calender, .recentView, .partyMember, .partyDday:
             return  "\(BaseURL.partyURL)/calendar"
+        case let .deleteParty(partyId):
+            return "\(BaseURL.partyURL)/\(partyId)/member"
         case .region:
             return  "\(BaseURL.baseURL)/region"
         case .reportParty:

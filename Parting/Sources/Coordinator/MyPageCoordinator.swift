@@ -54,4 +54,8 @@ final class MyPageCoordinator: Coordinator {
         let vc = EnterPartyViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func pushDetailPartyVC() {
+        
+    }
 }

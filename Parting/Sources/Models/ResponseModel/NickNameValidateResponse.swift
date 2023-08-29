@@ -7,8 +7,8 @@
 
 import Foundation
 
-// MARK: - NickNameResponse
-struct NickNameResponse: Codable {
+// MARK: - BasicResponse
+struct BasicResponse: Codable {
     let code: Int
     let isSuccess: Bool
     let message: String
