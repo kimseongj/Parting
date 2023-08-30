@@ -55,7 +55,9 @@ final class MyPageCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func pushDetailPartyVC() {
-        
+    func pushDetailPartyVC(partyId: Int) {
+        let viewModel = PartyDetailInfoViewModel(coordinator: self, partyId: partyId)
+        let vc = PartyDetailInfoViewController(viewModel: viewModel)
+        navigationController.pushViewController(vc, animated: true)
     }
 }

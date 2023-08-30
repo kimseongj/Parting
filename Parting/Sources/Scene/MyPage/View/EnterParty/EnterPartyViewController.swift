@@ -81,8 +81,10 @@ extension EnterPartyViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let delete = UIContextualAction(style: .normal, title: "나가기") { (_, _, success: @escaping(Bool) -> Void) in
+            tableView.beginUpdates()
                 self.viewModel.input.accept(.deleteParty(row: indexPath.row))
                 tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
             success(true)
         }
         delete.backgroundColor = AppColor.brand

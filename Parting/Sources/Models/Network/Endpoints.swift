@@ -33,7 +33,11 @@ enum PartingAPI {
         partyStartDateTime: String,
         storeName: String
     )
-    case getPartyDetail(partyId: Int)
+    case getPartyDetail(
+        partyId: Int,
+        userLatitude: Double,
+        userLongitude: Double
+    )
     case modifyParty(partyId: Int)
     case deleteParty(partyId: Int)
     case calender(month: Int, year: Int)
@@ -76,8 +80,10 @@ extension PartingAPI {
             return "\(BaseURL.baseURL)/parties"
         case .createParty:
             return  "\(BaseURL.partyURL)"
-        case .getPartyDetail, .modifyParty, .calender, .recentView, .partyMember, .partyDday:
+        case .modifyParty, .calender, .recentView, .partyMember, .partyDday:
             return  "\(BaseURL.partyURL)/calendar"
+        case let .getPartyDetail(partyId, _, _):
+            return "\(BaseURL.partyURL)/\(partyId)"
         case let .deleteParty(partyId):
             return "\(BaseURL.partyURL)/\(partyId)/member"
         case .region:
@@ -158,9 +164,15 @@ extension PartingAPI {
                 "partyStartDateTime": partyStartDateTime,
                 "storeName": storeName
             ]
-        case let .getPartyDetail(partyId), let .modifyParty(partyId), let .deleteParty(partyId):
+        case let .modifyParty(partyId), let .deleteParty(partyId):
             return [
                 "partyId": partyId
+            ]
+        case let .getPartyDetail(partyId, userLatitude, userLongitude):
+            return [
+                "partyId": partyId,
+                "userLatitude": userLatitude,
+                "userLongitude": userLongitude
             ]
         case let .calender(month, year):
             return [

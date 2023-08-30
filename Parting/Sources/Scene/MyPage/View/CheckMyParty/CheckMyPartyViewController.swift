@@ -55,7 +55,7 @@ class CheckMyPartyViewController: BaseViewController<MypageCommonView>, MyPagePr
         rootView.backBarButton.innerButton.rx.tap
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
-                owner.viewModel.popVC()
+                owner.viewModel.input.onNext(.popVC)
             })
             .disposed(by: disposeBag)
         
@@ -63,6 +63,14 @@ class CheckMyPartyViewController: BaseViewController<MypageCommonView>, MyPagePr
             .bind(to: rootView.partyListTableView.rx.items(cellIdentifier: PartyTableViewCell.identifier, cellType: PartyTableViewCell.self)) { [weak self] index, party, cell in
                 cell.configureMyPageCell(party: party) 
             }
+            .disposed(by: disposeBag)
+        
+        rootView.partyListTableView.rx
+            .modelSelected(PartyInfoResponse.self)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, cellModel in
+                owner.viewModel.input.onNext(.pushDetailPartyInfo(partyId: cellModel.partyID))
+            })
             .disposed(by: disposeBag)
     }
 }

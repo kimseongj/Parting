@@ -39,6 +39,7 @@ final class MyPageView: BaseView {
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .blue
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -370,6 +371,5 @@ extension MyPageView {
     
     func makeCircleImageView() {
         profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
-        profileImageView.clipsToBounds = true
     }
 }
