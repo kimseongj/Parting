@@ -6,10 +6,10 @@
 //
 
 // MARK: 어떤 유저인지에 따라서 보여지는 뷰가 달라야 함
-enum PartyDetailInfoViewType {
-    case host
-    case participants
-    case nonParticipants
+enum PartyDetailInfoViewType: String {
+    case host = "HOST"
+    case participants = "zz"
+    case nonParticipants = "zzz"
 }
 
 import UIKit
@@ -50,26 +50,42 @@ class PartyDetailInfoViewController: BaseViewController<PartyDetailInfoView> {
     }
     
     private func bind() {
-        mockDataPersonnel
+        viewModel.perssonalDataList
             .bind(to: rootView.partyPersonnelCollectionView.rx.items(cellIdentifier: PersonnelCollectionViewCell.identifier, cellType: PersonnelCollectionViewCell.self)) { [weak self] index, personnel, cell in
-                cell.configureCell(name: personnel)
                 DispatchQueue.main.async {
-                    cell.profileImageView.layer.cornerRadius = cell.profileImageView.frame.height / 2
-
+                    cell.configureCell(data: personnel)
                 }
             }
             .disposed(by: disposeBag)
         
-        mockDataCategoryName
+        viewModel.partyTypeDataList
             .bind(to: rootView.partyTypeCollectionView.rx.items(cellIdentifier: PartyTypeCollectionViewCell.identifier, cellType: PartyTypeCollectionViewCell.self)) { [weak self] index, partyType, cell in
                 cell.configureCell(name: partyType)
             }
             .disposed(by: disposeBag)
         
-        mockDataHashTagName
+        viewModel.hashTagDataList
             .bind(to: rootView.hashTagCategoryCollectionView.rx.items(cellIdentifier: HashTagCollectionViewCell.identifier, cellType: HashTagCollectionViewCell.self)) { [weak self] index, hashtag, cell in
                 cell.configureCell(name: hashtag)
             }
+            .disposed(by: disposeBag)
+        
+        viewModel.ouput
+            .withUnretained(self)
+            .subscribe(onNext: { owner, output in
+                switch output {
+                case .detailPartyResponseData:
+                    guard let partyDetailData = owner.viewModel.partyDetailData else { return }
+                    owner.rootView.configureViews(data: partyDetailData, type: "HOST")
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        rootView.partyPersonnelCollectionView.rx.modelSelected(PartyMemberList.self)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, model in
+                owner.viewModel.input.onNext(.perssonelInfo(userId: model.userID))
+            })
             .disposed(by: disposeBag)
     }
 }

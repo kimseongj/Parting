@@ -98,7 +98,16 @@ class PartyListViewController: BaseViewController<PartyListView> {
                     owner.rootView.partyListTableView.setContentOffset(bottomOffset, animated: true)
                 }
             }
-        }).disposed(by: disposeBag)
+        })
+            .disposed(by: disposeBag)
+        
+        rootView.partyListTableView.rx
+            .modelSelected(PartyInfoResponse.self)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, cellModel in
+                owner.viewModel.input.didSelectCell.onNext(cellModel.partyID)
+            })
+            .disposed(by: disposeBag)
         
     }
     

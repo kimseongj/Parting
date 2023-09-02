@@ -29,7 +29,6 @@ class DdayWidgetView: UIView {
 		label.font = notoSansFont.Bold.of(size: 60)
 		label.textColor = AppColor.brand
 		label.text = "D-7"
-//		label.backgroundColor = .blue
 		label.setContentHuggingPriority(.defaultHigh, for: .vertical)
 		return label
 	}()

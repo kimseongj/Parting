@@ -17,6 +17,7 @@ class PartyListViewModel: BaseViewModel {
         let pushCreatePartyVCTrigger = PublishSubject<Void>()
         let updateAssociatedCategoriesTrigger = PublishSubject<IndexPath>()
         let updateSortingOptionTrigger = PublishSubject<SortingOption>()
+        let didSelectCell = PublishSubject<Int>()
     }
     
     struct Output {
@@ -241,10 +242,18 @@ class PartyListViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
+        input.didSelectCell
+            .withUnretained(self)
+            .subscribe(onNext: { owner, partyId in
+                
+            })
+            .disposed(by: disposeBag)
+        
     } /* End func setupBindings() */
     
     
-    
-    
+    private func pushDetailInfoVC(partyId: Int) {
+        
+    }
 }
 

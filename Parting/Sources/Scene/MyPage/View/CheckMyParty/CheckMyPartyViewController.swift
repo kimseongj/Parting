@@ -72,6 +72,7 @@ class CheckMyPartyViewController: BaseViewController<MypageCommonView>, MyPagePr
                 owner.viewModel.input.onNext(.pushDetailPartyInfo(partyId: cellModel.partyID))
             })
             .disposed(by: disposeBag)
+        
     }
 }
 

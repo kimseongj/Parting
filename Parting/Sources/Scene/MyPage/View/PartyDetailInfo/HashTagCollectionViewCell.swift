@@ -10,7 +10,6 @@ import UIKit
 class HashTagCollectionViewCell: UICollectionViewCell {
     let hashTagNameLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
         label.layer.cornerRadius = 8
         label.clipsToBounds = true
         label.font = notoSansFont.Bold.of(size: 13)

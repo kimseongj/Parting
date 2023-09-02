@@ -16,7 +16,6 @@ final class EnterPartyViewModel{
     }
     
     enum Output {
-        case notificationReloadData
     }
     
     var deleteRows = PublishSubject<Int>()
@@ -54,7 +53,6 @@ final class EnterPartyViewModel{
         let partyId = myPartyList[row].partyID
         // MARK: - PartyId 삭제
         myPartyList.removeAll(where: {$0.partyID == partyId})
-        output.accept(.notificationReloadData)
         let api = PartingAPI.deleteParty(partyId: partyId)
         
         guard let apiURL = api.url else { return }

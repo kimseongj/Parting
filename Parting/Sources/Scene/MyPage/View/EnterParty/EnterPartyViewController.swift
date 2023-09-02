@@ -59,15 +59,6 @@ class EnterPartyViewController: BaseViewController<MypageCommonView>, MyPageProt
             })
             .disposed(by: disposeBag)
         
-        viewModel.output
-            .withUnretained(self)
-            .subscribe(onNext: { owner, output in
-                switch output {
-                case .notificationReloadData:
-                    owner.rootView.partyListTableView.reloadData()
-                }
-            })
-            .disposed(by: disposeBag)
 
     }
 }
@@ -82,8 +73,8 @@ extension EnterPartyViewController: UITableViewDelegate {
         
         let delete = UIContextualAction(style: .normal, title: "나가기") { (_, _, success: @escaping(Bool) -> Void) in
             tableView.beginUpdates()
-                self.viewModel.input.accept(.deleteParty(row: indexPath.row))
-                tableView.deleteRows(at: [indexPath], with: .fade)
+            self.viewModel.input.accept(.deleteParty(row: indexPath.row))
+            tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
             success(true)
         }

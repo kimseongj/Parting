@@ -80,8 +80,12 @@ extension PartingAPI {
             return "\(BaseURL.baseURL)/parties"
         case .createParty:
             return  "\(BaseURL.partyURL)"
-        case .modifyParty, .calender, .recentView, .partyMember, .partyDday:
+        case .modifyParty, .calender, .recentView:
             return  "\(BaseURL.partyURL)/calendar"
+        case .partyDday:
+            return "\(BaseURL.partyURL)/d-day"
+        case let .partyMember(partyId, userId):
+            return "\(BaseURL.partyURL)/\(partyId)/\(userId)"
         case let .getPartyDetail(partyId, _, _):
             return "\(BaseURL.partyURL)/\(partyId)"
         case let .deleteParty(partyId):

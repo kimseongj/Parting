@@ -128,7 +128,6 @@ extension APIManager {
                     parameters: parameters,
                     headers: headers
                 ).responseDecodable(of: T.self) { response in
-                    print(response)
                     switch response.result {
                     case let .success(value):
                         completion(.success(value))

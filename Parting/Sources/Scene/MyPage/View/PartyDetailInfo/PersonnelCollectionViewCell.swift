@@ -57,10 +57,10 @@ class PersonnelCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configureCell(name: String) {
-        profileImageView.kf.setImage(with: URL(string: "https://parting-dev.s3.ap-northeast-2.amazonaws.com/categoryImage/%EC%9E%90%EA%B8%B0%EA%B0%9C%EB%B0%9C%ED%8C%9F.png"))
+    func configureCell(data: PartyMemberList) {
+        profileImageView.kf.setImage(with: URL(string: data.profileImgURL))
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
         profileImageView.clipsToBounds = true
-        profileNameLabel.text = name
+        profileNameLabel.text = data.userName
     }
 }

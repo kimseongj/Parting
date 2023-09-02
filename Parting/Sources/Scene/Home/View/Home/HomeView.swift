@@ -38,8 +38,8 @@ class HomeView: BaseView {
 		return widget
 	}()
 	
-	let dDayWidget: UIView = {
-		let view = DdayWidgetView()
+	let dDayWidget: DdayWidgetView = {
+        let view = DdayWidgetView()
 						  
 		view.backgroundColor = .white
 		return view
@@ -109,3 +109,9 @@ class HomeView: BaseView {
 }
 
 
+extension HomeView {
+    func configureView(widgetData: WidgetResult) {
+        dDayWidget.dDay = widgetData.dday
+        dDayWidget.meetingName = widgetData.partyName
+    }
+}

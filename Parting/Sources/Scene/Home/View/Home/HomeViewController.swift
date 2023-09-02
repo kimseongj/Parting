@@ -24,6 +24,7 @@ class HomeViewController: BaseViewController<HomeView> {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+        viewModel.input.viewDidLoadTrigger.onNext(())
 		navigationUI()
 		bindViewModel()
 		configureCell()
@@ -34,7 +35,6 @@ class HomeViewController: BaseViewController<HomeView> {
 		navigationController?.isNavigationBarHidden = false
 		self.navigationItem.rightBarButtonItem = rootView.bellBarButton
 		self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: rootView.navigationLabel)
-		
 	}
 	
 	private func configureCell() {
@@ -61,7 +61,6 @@ class HomeViewController: BaseViewController<HomeView> {
 			.bind(to: viewModel.input.pushScheduleVCTrigger)
 			.disposed(by: disposeBag)
 		
-		
 		viewModel.output.categories
 			.bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: CategoryImageCollectionViewCell.identifier, cellType: CategoryImageCollectionViewCell.self)) { index, category, cell in
                 print("\(category.localImgSrc)")
@@ -71,6 +70,15 @@ class HomeViewController: BaseViewController<HomeView> {
 				cell.interestsLabel.text = category.name
 				cell.configureCell(type: .normal, size: .md)
 			}.disposed(by: disposeBag)
+        
+        viewModel.output.widgetData
+            .filter { $0 != nil}
+            .withUnretained(self)
+            .subscribe(onNext: { owner, widget in
+                guard let widget else { return }
+                owner.rootView.configureView(widgetData: widget)
+            })
+            .disposed(by: disposeBag)
 	}
 }
 
@@ -103,3 +111,4 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 		
 	}
 }
+

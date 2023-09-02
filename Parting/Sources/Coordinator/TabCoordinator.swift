@@ -10,7 +10,7 @@ import UIKit
 // Reference: https://somevitalyz123.medium.com/coordinator-pattern-with-tab-bar-controller-33e08d39d7d
 // Ref 2: https://labs.brandi.co.kr/2020/06/16/kimjh.html
 
-class TabCoordinator:  NSObject, Coordinator {
+class TabCoordinator: NSObject, Coordinator {
 	var delegate: CoordinatorDelegate?
 	var navigationController: UINavigationController
 	var tabBarController: UITabBarController

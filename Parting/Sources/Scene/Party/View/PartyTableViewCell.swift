@@ -34,7 +34,7 @@ class PartyTableViewCell: UITableViewCell {
     
     private let tagCollectionView: UICollectionView = {
         let layout = LeftAlignedCollectionViewFlowLayout()
-        
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         

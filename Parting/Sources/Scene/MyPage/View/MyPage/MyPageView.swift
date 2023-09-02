@@ -38,7 +38,8 @@ final class MyPageView: BaseView {
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .blue
+        imageView.backgroundColor = AppColor.brand
+        imageView.image = UIImage(systemName: "person")
         imageView.clipsToBounds = true
         return imageView
     }()

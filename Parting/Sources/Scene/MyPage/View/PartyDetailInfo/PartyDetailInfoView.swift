@@ -33,6 +33,7 @@ class PartyDetailInfoView: BaseView {
     let partyTitle: UILabel = {
         let label = UILabel()
         label.font = notoSansFont.Bold.of(size: 20)
+        label.sizeToFit()
         label.text = "OO하는 모임"
         return label
     }()
@@ -75,8 +76,7 @@ class PartyDetailInfoView: BaseView {
     let hashTagCategoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize.height = 18
-        layout.itemSize.width = 70
-        layout.minimumLineSpacing = 8
+        layout.itemSize.width = 120
         layout.scrollDirection = .horizontal
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return view
@@ -212,11 +212,20 @@ class PartyDetailInfoView: BaseView {
         return label
     }()
     
-    let leavePartyButton = CompleteAndNextButton("파티 나가기")
     
-    override func layoutSubviews() {
-        configureViews()
-    }
+    let openChatButton = CompleteAndNextButton("카카오 오픈채팅방 바로가기")
+    let leavePartyButton = CompleteAndNextButton("파티 나가기")
+    let enterPartyButton = CompleteAndNextButton("이 파티에 참여하기")
+    
+    let partyButtonStackView: UIStackView = {
+        let view = UIStackView()
+        view.distribution = .fillProportionally
+        view.spacing = 8
+        view.axis = .vertical
+        return view
+    }()
+    
+    
     
     override func makeConfigures() {
         super.makeConfigures()
@@ -244,7 +253,11 @@ class PartyDetailInfoView: BaseView {
             descriptionPartyBackgroundView.addSubview($0)
         }
         
-        [testImageView, partyTitle, partyPersonnel, reportOrshareButton, categoryImage, partyTypeCollectionView, hashTagCategoryCollectionView, deadLineLabel, partyPersonnelBackgroundView, partyInfoBackgroundView, descriptionPartyBackgroundView, leavePartyButton].forEach {
+        [openChatButton, enterPartyButton, leavePartyButton].forEach {
+            partyButtonStackView.addArrangedSubview($0)
+        }
+        
+        [testImageView, partyTitle, partyPersonnel, reportOrshareButton, categoryImage, partyTypeCollectionView, hashTagCategoryCollectionView, deadLineLabel, partyPersonnelBackgroundView, partyInfoBackgroundView, descriptionPartyBackgroundView, partyButtonStackView].forEach {
             contentsView.addSubview($0)
         }
         
@@ -271,15 +284,13 @@ class PartyDetailInfoView: BaseView {
         partyTitle.snp.makeConstraints { make in
             make.top.equalTo(testImageView.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(20)
-            make.width.equalToSuperview().multipliedBy(0.3)
-            make.height.equalTo(23)
         }
         
         partyPersonnel.snp.makeConstraints { make in
-            make.top.equalTo(testImageView.snp.bottom).offset(10)
+            make.top.equalTo(partyTitle.snp.top)
             make.leading.equalTo(partyTitle.snp.trailing).offset(9)
             make.width.equalTo(47)
-            make.height.equalTo(26)
+            make.height.equalTo(partyTitle.snp.height)
         }
         
         reportOrshareButton.snp.makeConstraints { make in
@@ -412,17 +423,31 @@ class PartyDetailInfoView: BaseView {
             make.height.equalTo(85)
         }
         
-        leavePartyButton.snp.makeConstraints { make in
+        partyButtonStackView.snp.makeConstraints { make in
             make.top.equalTo(descriptionPartyBackgroundView.snp.bottom).offset(23)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(50)
             make.bottom.equalToSuperview().inset(40)
         }
     }
 }
 
 extension PartyDetailInfoView {
-    func configureViews() {
-        categoryImage.kf.setImage(with: URL(string: "https://parting-dev.s3.ap-northeast-2.amazonaws.com/categoryImage/%EC%9E%90%EA%B8%B0%EA%B0%9C%EB%B0%9C%ED%8C%9F.png"))
+    func configureViews(data: DetailPartyInfoResponse, type: String) {
+        if type == "HOST" {
+            openChatButton.isHidden = true
+            leavePartyButton.isHidden = true
+//            enterPartyButton.isHidden = true
+        }
+        partyTitle.text = data.result.partyName
+        partyPersonnel.text = "\(data.result.currentPartyMemberCount)/\(data.result.maxPartyMemberCount)"
+        partyPeriodLabel.text = "\(data.result.partyStartDateTime) ~ \(data.result.partyEndDateTime)"
+        locationLabel.text = data.result.address
+        deadLineLabel.text = data.result.deadLineDate
+        ageGroupLabel.text = "\(data.result.minAge)세 ~ \(data.result.maxAge)세"
+        categoryImage.kf.setImage(with: URL(string: data.result.categoryImg))
+        print(data.result.categoryImg, "🌱🌱")
+        descriptionPartyContentsLabel.text = data.result.partyDescription
     }
+    
+    
 }
