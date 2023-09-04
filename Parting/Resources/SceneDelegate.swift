@@ -28,8 +28,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-//        let vc = CreatePartyViewController()
-//        let nav: UINavigationController = .init(rootViewController: vc)
         let nav = UINavigationController()
 //        appCoordinator = AppCoordinator.init(nav)
         homeCoordinator = TabCoordinator.init(nav)

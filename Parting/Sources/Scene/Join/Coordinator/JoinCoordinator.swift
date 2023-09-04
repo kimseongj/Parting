@@ -21,6 +21,11 @@ final class JoinCoordinator: Coordinator {
         showSplashViewController()
     }
     
+    func connectTabBarCoordinator() {
+        let tabBarCoordinator = TabCoordinator(self.navigationController)
+        tabBarCoordinator.start()
+    }
+    
     func showSplashViewController() {
         let viewModel = SplashViewModel(coordinator: self)
         let vc = SplashViewController(viewModel: viewModel)

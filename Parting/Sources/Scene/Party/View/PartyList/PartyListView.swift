@@ -54,8 +54,7 @@ class PartyListView: BaseView {
 	override func makeConstraints() {
 		partyListTableView.snp.makeConstraints { make in
 			make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
-			make.left.equalToSuperview().offset(0)
-			make.right.equalToSuperview().offset(-0)
+            make.horizontalEdges.equalToSuperview().inset(16)
 			make.bottom.equalToSuperview()
 		}
 		

@@ -5,7 +5,6 @@
 //  Created by 김민규 on 2023/07/01.
 //
 
-import Foundation
 import UIKit
 import SnapKit
 
@@ -45,6 +44,8 @@ extension BarImageButton: ProgrammaticallyInitializableViewProtocol {
 	func makeConstraints() {
 		imageView.snp.makeConstraints { make in
 			make.center.equalToSuperview()
+            
+//            make.edges.equalToSuperview()
 		}
 	}
 	

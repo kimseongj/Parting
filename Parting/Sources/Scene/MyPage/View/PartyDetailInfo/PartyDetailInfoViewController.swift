@@ -76,7 +76,7 @@ class PartyDetailInfoViewController: BaseViewController<PartyDetailInfoView> {
                 switch output {
                 case .detailPartyResponseData:
                     guard let partyDetailData = owner.viewModel.partyDetailData else { return }
-                    owner.rootView.configureViews(data: partyDetailData, type: "HOST")
+                    owner.rootView.configureViews(data: partyDetailData, type: "NORMAL_MEMBER")
                 }
             })
             .disposed(by: disposeBag)

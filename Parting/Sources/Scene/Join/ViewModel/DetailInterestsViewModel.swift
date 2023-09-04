@@ -48,7 +48,8 @@ final class DetailInterestsViewModel: BaseViewModel {
 		input.naviagteToPublicScreenTrigger
             .withUnretained(self)
 			.subscribe(onNext: { owner, _ in
-				(owner.coordinator?.delegate as? AppCoordinator)?.connectMainFlow()
+//				(owner.coordinator?.delegate as? AppCoordinator)?.connectMainFlow()
+                owner.coordinator?.connectTabBarCoordinator()
 			})
 			.disposed(by: disposeBag)
     }

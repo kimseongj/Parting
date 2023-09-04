@@ -10,17 +10,25 @@ import UIKit
 // Reference: https://somevitalyz123.medium.com/coordinator-pattern-with-tab-bar-controller-33e08d39d7d
 // Ref 2: https://labs.brandi.co.kr/2020/06/16/kimjh.html
 
-class TabCoordinator: NSObject, Coordinator {
+final class TabCoordinator: Coordinator {
 	var delegate: CoordinatorDelegate?
 	var navigationController: UINavigationController
 	var tabBarController: UITabBarController
 	var childCoordinators: [Coordinator] = []
+    var parentsCoordinator: Coordinator?
 	var type: CoordinatorStyleCase = .tab
+    
+    init(_ navigationController: UINavigationController) {
+        self.navigationController = navigationController
+        navigationController.setNavigationBarHidden(true, animated: false)
+        self.tabBarController = UITabBarController()
+    }
+    
 	
-	required init(_ navigationController: UINavigationController) {
-		self.navigationController = navigationController
-        self.tabBarController = .init()
-	}
+//	required init(_ navigationController: UINavigationController) {
+//		self.navigationController = navigationController
+//        self.tabBarController = .init()
+//	}
 	
 	func start() {
 		startChildCoordinators()
@@ -29,7 +37,6 @@ class TabCoordinator: NSObject, Coordinator {
 	}
 	
 	private func startChildCoordinators() {
-        
         //MARK: - tabBar에 넣는 순서대로 chilcCoordi에 추가
         
 		let homeCoordinator = HomeCoordinator(StyledNavigationController())

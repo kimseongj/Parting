@@ -117,8 +117,7 @@ class PartyListViewController: BaseViewController<PartyListView> {
 extension PartyListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let height = rootView.window?.windowScene?.screen.bounds.height
-        return (height ?? 852.0) * 0.25
+        return 148
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

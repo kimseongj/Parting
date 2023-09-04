@@ -61,7 +61,8 @@ class CheckMyPartyViewController: BaseViewController<MypageCommonView>, MyPagePr
         
         viewModel.myPartyList
             .bind(to: rootView.partyListTableView.rx.items(cellIdentifier: PartyTableViewCell.identifier, cellType: PartyTableViewCell.self)) { [weak self] index, party, cell in
-                cell.configureMyPageCell(party: party) 
+                cell.configureMyPageCell(party: party)
+                cell.selectionStyle = .none
             }
             .disposed(by: disposeBag)
         
@@ -78,8 +79,8 @@ class CheckMyPartyViewController: BaseViewController<MypageCommonView>, MyPagePr
 
 extension CheckMyPartyViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let height = rootView.window?.windowScene?.screen.bounds.height
-        return (height ?? 852.0) * 0.25
+        
+        return 148
     }
 }
 

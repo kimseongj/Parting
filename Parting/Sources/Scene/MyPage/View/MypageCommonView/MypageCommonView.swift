@@ -29,7 +29,8 @@ class MypageCommonView: BaseView {
     override func makeConstraints() {
         partyListTableView.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide.snp.top)
-            make.horizontalEdges.bottom.equalToSuperview()
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(16)
+            make.bottom.equalToSuperview()
         }
     }
 }

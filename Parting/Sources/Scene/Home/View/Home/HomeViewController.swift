@@ -21,6 +21,10 @@ class HomeViewController: BaseViewController<HomeView> {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+    
+    deinit {
+        print("HomeVC 메모리해제 🌟")
+    }
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -79,6 +83,14 @@ class HomeViewController: BaseViewController<HomeView> {
                 owner.rootView.configureView(widgetData: widget)
             })
             .disposed(by: disposeBag)
+        
+        viewModel.output.calendarData
+            .filter { $0 != nil}
+            .withUnretained(self)
+            .subscribe(onNext: { owner, day in
+                guard let day else { return }
+            })
+            .disposed(by: disposeBag)
 	}
 }
 
@@ -111,4 +123,5 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 		
 	}
 }
+
 

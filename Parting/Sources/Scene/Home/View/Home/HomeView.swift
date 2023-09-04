@@ -115,3 +115,4 @@ extension HomeView {
         dDayWidget.meetingName = widgetData.partyName
     }
 }
+

@@ -10,12 +10,6 @@ import SnapKit
 import Kingfisher
 
 class PartyDetailInfoView: BaseView {
-    let testImageView: UIImageView = {
-        let view = UIImageView()
-        view.backgroundColor = .lightGray
-        return view
-    }()
-    
     let scrollView: UIScrollView = {
         let view = UIScrollView()
         return view
@@ -54,6 +48,33 @@ class PartyDetailInfoView: BaseView {
     let reportOrshareButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "reportAndShare"), for: .normal)
+        button.showsMenuAsPrimaryAction = true
+        
+        let modify = UIAction(
+            title: "수정"
+        ) { _ in
+                print("수정")
+            }
+        
+        let delete = UIAction(
+            title: "삭제"
+        ) { _ in
+                print("삭제")
+            }
+        
+        let share = UIAction(
+            title: "공유"
+        ) { _ in
+            print("공유")
+        }
+        
+        button.menu = UIMenu(
+            title: "선택하세요",
+            image: UIImage(systemName: "heart.fill"),
+            identifier: nil,
+            options: .displayInline,
+            children: [modify, delete, share]
+        )
         return button
     }()
     
@@ -257,7 +278,7 @@ class PartyDetailInfoView: BaseView {
             partyButtonStackView.addArrangedSubview($0)
         }
         
-        [testImageView, partyTitle, partyPersonnel, reportOrshareButton, categoryImage, partyTypeCollectionView, hashTagCategoryCollectionView, deadLineLabel, partyPersonnelBackgroundView, partyInfoBackgroundView, descriptionPartyBackgroundView, partyButtonStackView].forEach {
+        [partyTitle, partyPersonnel, reportOrshareButton, categoryImage, partyTypeCollectionView, hashTagCategoryCollectionView, deadLineLabel, partyPersonnelBackgroundView, partyInfoBackgroundView, descriptionPartyBackgroundView, partyButtonStackView].forEach {
             contentsView.addSubview($0)
         }
         
@@ -266,11 +287,6 @@ class PartyDetailInfoView: BaseView {
     }
     
     override func makeConstraints() {
-        testImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(300)
-        }
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -282,7 +298,7 @@ class PartyDetailInfoView: BaseView {
         }
         
         partyTitle.snp.makeConstraints { make in
-            make.top.equalTo(testImageView.snp.bottom).offset(10)
+            make.top.equalToSuperview().offset(10)
             make.leading.equalToSuperview().offset(20)
         }
         
@@ -294,7 +310,7 @@ class PartyDetailInfoView: BaseView {
         }
         
         reportOrshareButton.snp.makeConstraints { make in
-            make.top.equalTo(testImageView.snp.bottom).offset(10)
+            make.top.equalToSuperview().offset(10)
             make.trailing.equalToSuperview().inset(20)
             make.width.height.equalTo(24)
         }
@@ -433,11 +449,23 @@ class PartyDetailInfoView: BaseView {
 
 extension PartyDetailInfoView {
     func configureViews(data: DetailPartyInfoResponse, type: String) {
-        if type == "HOST" {
+        switch type {
+        case "HOST":
+            //            openChatButton.isHidden = true
+            leavePartyButton.isHidden = true
+            enterPartyButton.isHidden = true
+        case "NORMAL_MEMBER":
+//            openChatButton.isHidden = true
+//            leavePartyButton.isHidden = true
+                        enterPartyButton.isHidden = true
+        case "NOT_MEMBER":
             openChatButton.isHidden = true
             leavePartyButton.isHidden = true
-//            enterPartyButton.isHidden = true
+            //            enterPartyButton.isHidden = true
+        default:
+            break
         }
+        
         partyTitle.text = data.result.partyName
         partyPersonnel.text = "\(data.result.currentPartyMemberCount)/\(data.result.maxPartyMemberCount)"
         partyPeriodLabel.text = "\(data.result.partyStartDateTime) ~ \(data.result.partyEndDateTime)"

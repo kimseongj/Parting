@@ -29,6 +29,7 @@ final class HomeViewModel: BaseViewModel {
         let categories: BehaviorRelay<[CategoryModel]> = BehaviorRelay(value: [])
 		let categoryImages: BehaviorRelay<[CategoryModel]> = BehaviorRelay(value: [])
         let widgetData: BehaviorRelay<WidgetResult?> = BehaviorRelay<WidgetResult?>(value: nil)
+        let calendarData: BehaviorRelay<[Int]?> = BehaviorRelay<[Int]?>(value: nil)
 	}
 	
 	private let disposeBag = DisposeBag()
@@ -96,6 +97,7 @@ final class HomeViewModel: BaseViewModel {
             parameters: api.parameters,
             headers: api.headers) { data in
                 if let response = try? data.get() {
+                    self.output.calendarData.accept(response.result)
                     print(response.result)
                 }
             }

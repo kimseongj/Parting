@@ -16,11 +16,8 @@ class PartyTableViewCell: UITableViewCell {
     private let cellContainer: UIStackView = {
         let view = StackView(axis: .vertical, alignment: .center, distribution: .equalCentering)
         view.layer.cornerRadius = 16
-        view.layer.shadowColor = AppColor.baseText.cgColor
-        view.layer.shadowOpacity = 0.1
-        view.layer.shadowRadius = 16
-        view.layer.shadowOffset = CGSize(width: 0.1, height: 0.1)
-        view.layer.shadowPath = nil
+        view.layer.borderColor = UIColor.black.cgColor
+        view.layer.borderWidth = 1
         view.backgroundColor = .white
         return view
     }()
@@ -34,10 +31,12 @@ class PartyTableViewCell: UITableViewCell {
     
     private let tagCollectionView: UICollectionView = {
         let layout = LeftAlignedCollectionViewFlowLayout()
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        layout.itemSize.height = 18
+        layout.itemSize.width = 150
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
-        
+        collectionView.isScrollEnabled = false
         return collectionView
     }()
     
@@ -49,7 +48,7 @@ class PartyTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let locationLabel = Label(text: "대한민국 어딘가", weight: .Light, size: 16)
+    private let locationLabel = Label(text: "대한민국 어딘가", weight: .Light, size: 15)
     
     private let locationHStack = StackView(axis: .horizontal, alignment: .center, distribution: .equalSpacing, spacing: 8.0)
     
@@ -66,7 +65,7 @@ class PartyTableViewCell: UITableViewCell {
     
     
     // MARK: Content Stack Components
-    private let contentVStack = StackView(axis: .vertical, alignment: .leading, distribution: .fill, spacing: 4.0)
+    private let contentVStack = StackView(axis: .vertical, alignment: .leading, distribution: .fillProportionally, spacing: 4.0)
     
     private let thumbnail: UIImageView = {
         let imageView = UIImageView()
@@ -77,11 +76,12 @@ class PartyTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let titleLabel = Label(text: "파티 이름", font: notoSansFont.Bold.of(size: 20))
+    private let titleLabel = Label(text: "파티 이름", font: notoSansFont.Bold.of(size: 13))
     
     private let periodLabel: UILabel = {
-        let label = Label(text: "2023. 1. 1 - 1시 ~ 2시", font: notoSansFont.Regular.of(size: 16))
+        let label = Label(text: "2023. 1. 1 - 1시 ~ 2시", font: notoSansFont.Regular.of(size: 15))
         label.numberOfLines = 0
+        label.sizeToFit()
         return label
     }()
     
@@ -100,6 +100,7 @@ class PartyTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 13, right: 0))
         makeConstraints()
         
     }
@@ -147,7 +148,7 @@ extension PartyTableViewCell: ProgrammaticallyInitializableViewProtocol {
     }
     
     func addSubviews() {
-        addSubview(cellContainer)
+        contentView.addSubview(cellContainer)
         cellContainer.addSubview(mainVStack)
         mainVStack.addArrangedSubview(topHStack)
         mainVStack.addArrangedSubview(contentHStack)
@@ -175,22 +176,23 @@ extension PartyTableViewCell: ProgrammaticallyInitializableViewProtocol {
         let cellHeight = self.frame.height
         
         cellContainer.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(16)
-            make.bottom.equalToSuperview().offset(-16)
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
+            make.edges.equalToSuperview()
+//            make.top.equalToSuperview().offset(16)
+//            make.bottom.equalToSuperview().offset(-16)
+//            make.left.equalToSuperview().offset(16)
+//            make.right.equalToSuperview().offset(-16)
         }
         
         mainVStack.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(16)
-            make.bottom.equalToSuperview().offset(-16)
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
+            make.edges.equalToSuperview()
+//            make.top.equalToSuperview().offset(16)
+//            make.bottom.equalToSuperview().offset(-16)
+//            make.left.equalToSuperview().offset(16)
+//            make.right.equalToSuperview().offset(-16)
         }
         
         topHStack.snp.makeConstraints { make in
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(14)
             make.height.equalTo(24)
         }
         
@@ -199,18 +201,22 @@ extension PartyTableViewCell: ProgrammaticallyInitializableViewProtocol {
             make.width.equalTo(16)
         }
         
+        periodLabel.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+        }
+        
         statusLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview().offset(-1)
         }
         
         contentHStack.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            //            make.height.equalTo(cellHeight * 0.43)
+            make.leading.equalToSuperview().inset(14)
+            make.trailing.equalToSuperview()
         }
         
         tagCollectionView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(14)
             make.height.equalTo(24)
         }
         
@@ -222,10 +228,6 @@ extension PartyTableViewCell: ProgrammaticallyInitializableViewProtocol {
         thumbnail.snp.makeConstraints { make in
             make.height.equalToSuperview()
             make.width.equalTo(thumbnail.snp.height)
-        }
-        
-        contentVStack.snp.makeConstraints { make in
-            //            make.height.equalToSuperview()
         }
     }
     
@@ -262,7 +264,6 @@ extension PartyTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let cell = collectionView.cellForItem(at: indexPath) as? TagCollectionViewCell
-        
         let text = cell?.textLabel.text ?? "세글자"
         let width = text.size(withAttributes: [
             NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 12)

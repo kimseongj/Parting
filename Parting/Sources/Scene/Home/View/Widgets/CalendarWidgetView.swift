@@ -64,3 +64,9 @@ extension CalendarWidgetView: ProgrammaticallyInitializableViewProtocol {
 		addSubview(calendar)
 	}
 }
+
+extension CalendarWidgetView: FSCalendarDelegateAppearance {
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        return AppColor.brand
+    }
+}
