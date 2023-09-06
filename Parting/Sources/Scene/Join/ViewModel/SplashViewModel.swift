@@ -11,7 +11,6 @@ import RxCocoa
 
 final class SplashViewModel: BaseViewModel {
     struct Input {
-        let showJoinViewController: PublishSubject<Void> = PublishSubject()
         let viewDidLoadTrigger: PublishSubject<Void> = PublishSubject()
     }
     
@@ -24,53 +23,25 @@ final class SplashViewModel: BaseViewModel {
     
     private weak var coordinator: AppCoordinator?
     private let disposeBag = DisposeBag()
+    var isLogin: Bool = true
     
     init(input: Input = Input(), output: Output = Output(), coordinator: AppCoordinator?) {
         self.input = input
         self.output = output
         self.coordinator = coordinator
-        viewChangeTrgger()
-        binding()
+        viewTransition()
     }
     
-    private func binding() {
+    // MARK: - Coordinator
+    private func viewTransition() {
+        // 1. 로그인 여부 데이터 얻기
         input.viewDidLoadTrigger
             .withUnretained(self)
-            .subscribe(onNext: { owner, _ in
-                owner.getCalendarInfo()
+            .subscribe(onNext: { owner, action in
+                // 2. AppCoordinator에 로그인 여부 보내기
+                owner.coordinator?.checkLogin(isLogin: owner.isLogin)
             })
             .disposed(by: disposeBag)
-    }
-    
-    private func getCalendarInfo() {
-        let api = PartingAPI.calender(
-            month: 8,
-            year: 2023
-        )
-        guard let apiURL = api.url else { return }
-        guard let url = URL(string: apiURL) else { return }
         
-        APIManager.shared.requestParting(
-            type: CalendarResponse.self,
-            url: url,
-            method: .get,
-            parameters: api.parameters,
-            headers: api.headers) { data in
-                if let response = try? data.get() {
-                    self.output.calendarDays.accept(response.result)
-                }
-            }
-    }
-    
-    private func viewChangeTrgger() {
-        input.showJoinViewController
-            .subscribe(onNext: { _ in
-                self.showJoinViewController()
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    func showJoinViewController() {
-//        self.coordinator?.showJoinViewController()
     }
 }

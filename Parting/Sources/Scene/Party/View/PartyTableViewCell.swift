@@ -33,7 +33,6 @@ class PartyTableViewCell: UITableViewCell {
         let layout = LeftAlignedCollectionViewFlowLayout()
 //        layout.itemSize.height = 18
 //        layout.itemSize.width = 150
-//
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
@@ -62,7 +61,7 @@ class PartyTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let statusLabel = Label(text: "2/5", weight: .Regular, size: 16, color: AppColor.white)
+    private let statusLabel = Label(text: "2/5", weight: .Regular, size: 13, color: AppColor.white)
     
     
     // MARK: Content Stack Components
@@ -77,7 +76,7 @@ class PartyTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let titleLabel = Label(text: "파티 이름", font: notoSansFont.Bold.of(size: 13))
+    private let titleLabel = Label(text: "파티 이름", font: notoSansFont.Medium.of(size: 13))
     
     private let periodLabel: UILabel = {
         let label = Label(text: "2023. 1. 1 - 1시 ~ 2시", font: notoSansFont.Regular.of(size: 15))
@@ -85,8 +84,6 @@ class PartyTableViewCell: UITableViewCell {
         label.sizeToFit()
         return label
     }()
-    
-    //    private let detailLabel = Label(text: "같이 공부합시다", font: notoSansFont.Regular.of(size: 16), color: AppColor.gray600)
     
     // MARK: init
     override init(
@@ -96,14 +93,13 @@ class PartyTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
         addSubviews()
-        
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 13, right: 0))
         makeConstraints()
-        
+        statusView.layer.cornerRadius = statusView.frame.height / 2
     }
     
     required init?(coder: NSCoder) {
@@ -176,10 +172,6 @@ extension PartyTableViewCell: ProgrammaticallyInitializableViewProtocol {
     func makeConstraints() {
         cellContainer.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-//            make.top.equalToSuperview().offset(16)
-//            make.bottom.equalToSuperview().offset(-16)
-//            make.left.equalToSuperview().offset(16)
-//            make.right.equalToSuperview().offset(-16)
         }
         
         locationHStack.snp.makeConstraints { make in
@@ -188,10 +180,6 @@ extension PartyTableViewCell: ProgrammaticallyInitializableViewProtocol {
         
         mainVStack.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-//            make.top.equalToSuperview().offset(16)
-//            make.bottom.equalToSuperview().offset(-16)
-//            make.left.equalToSuperview().offset(16)
-//            make.right.equalToSuperview().offset(-16)
         }
         
         topHStack.snp.makeConstraints { make in
@@ -224,7 +212,7 @@ extension PartyTableViewCell: ProgrammaticallyInitializableViewProtocol {
         }
         
         statusView.snp.makeConstraints { make in
-            make.height.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.8)
             make.width.equalTo(52)
         }
         
@@ -250,33 +238,12 @@ extension PartyTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = tagCollectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.identifier, for: indexPath) as? TagCollectionViewCell
-        else { return UICollectionViewCell() }
+        guard let cell = tagCollectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.identifier, for: indexPath) as? TagCollectionViewCell else { return UICollectionViewCell() }
 
-        
         if indexPath[1] < tagTexts.count {
             cell.configureCell(with: tagTexts[indexPath[1]])
         }
-        
-        
-        
         return cell
     }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let cell = collectionView.cellForItem(at: indexPath) as? TagCollectionViewCell
-        let text = cell?.textLabel.text ?? "세글자"
-        let width = text.size(withAttributes: [
-            NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 12)
-        ]).width + 20
-        return CGSize(width: width, height: self.frame.height / 2)
-        
-        
-        
-    } /* End sizeForItemAt */
-    
-
 }
 

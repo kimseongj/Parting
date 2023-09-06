@@ -146,7 +146,7 @@ final class CreatePartyView: BaseView {
     let setLocationButton: UIButton = {
         let button = UIButton()
         button.setTitle("지도에서 위치 설정", for: .normal)
-        button.titleLabel?.font = notoSansFont.Black.of(size: 16)
+        button.titleLabel?.font = notoSansFont.Medium.of(size: 16)
         button.setTitleColor(UIColor(hexcode: "676767"), for: .normal)
         button.setImage(UIImage(named: Images.icon.compass), for: .normal)
         button.layer.cornerRadius = 5
@@ -160,7 +160,7 @@ final class CreatePartyView: BaseView {
         let label = UILabel()
         label.text = "파티 인원수"
         label.textAlignment = .center
-        label.font = notoSansFont.Black.of(size: 15)
+        label.font = notoSansFont.Medium.of(size: 15)
         label.textColor = UIColor(hexcode: "676767")
         return label
     }()
@@ -189,7 +189,7 @@ final class CreatePartyView: BaseView {
         let label = UILabel()
         label.text = "연령대 설정"
         label.textAlignment = .center
-        label.font = notoSansFont.Black.of(size: 15)
+        label.font = notoSansFont.Medium.of(size: 15)
         label.textColor = UIColor(hexcode: "676767")
         return label
     }()
@@ -267,7 +267,7 @@ final class CreatePartyView: BaseView {
                                                                         elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [sectionHeader]
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 16, trailing: 8)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 16, trailing: 6)
         section.interGroupSpacing = 8 // 그룹간 간격(세로)
         section.decorationItems = [
             NSCollectionLayoutDecorationItem.background(elementKind: CustomGroupView.reuseIdentifier)

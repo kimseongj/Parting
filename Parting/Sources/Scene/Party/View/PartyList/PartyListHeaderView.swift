@@ -26,7 +26,7 @@ class PartyListHeaderView: UITableViewHeaderFooterView {
     // Prevents multiple setDelegate()
     var didConfiguredCell: Bool
     
-    private let mainVStack = StackView(axis: .vertical, alignment: .fill, distribution: .fillEqually, spacing: 22)
+    private let mainVStack = StackView(axis: .vertical, alignment: .fill, distribution: .fillEqually, spacing: 15)
     
     private let interestCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

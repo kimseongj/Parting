@@ -47,7 +47,7 @@ final class HomeViewModel: BaseViewModel {
 		setupBindings()
 		loadCategories()
 	}
-	
+    
 	private func setupBindings() {
 		input.pushScheduleVCTrigger
             .withUnretained(self)

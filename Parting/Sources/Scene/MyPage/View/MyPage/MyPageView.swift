@@ -227,7 +227,7 @@ final class MyPageView: BaseView {
         aboutPartyTableView.snp.makeConstraints { make in
             make.top.equalTo(editButton.snp.bottom).offset(20)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(189)
+            make.height.equalTo(150)
         }
         
         settingStackView.snp.makeConstraints { make in
@@ -239,7 +239,7 @@ final class MyPageView: BaseView {
         setPartyTableView.snp.makeConstraints { make in
             make.top.equalTo(settingStackView.snp.bottom)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(setPartyTableView.contentSize.height)
+            make.height.equalTo(160)
         }
         
         etcStackView.snp.makeConstraints { make in
@@ -251,7 +251,7 @@ final class MyPageView: BaseView {
         setETCTableView.snp.makeConstraints { make in
             make.top.equalTo(etcStackView.snp.bottom)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(setETCTableView.contentSize.height)
+            make.height.equalTo(150)
         }
         
         bottomEmptyView.snp.makeConstraints { make in

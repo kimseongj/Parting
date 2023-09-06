@@ -31,26 +31,23 @@ class TagCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-    
         cellConatiner.layer.cornerRadius = cellConatiner.frame.height / 2
-        
     }
     
     func configureCell(with text: String) {
         textLabel.text = text
     }
-    
 }
 
 extension TagCollectionViewCell: ProgrammaticallyInitializableViewProtocol {
     func addSubviews() {
-        addSubview(cellConatiner)
+        contentView.addSubview(cellConatiner)
         cellConatiner.addSubview(textLabel)
     }
     
     func makeConstraints() {
         cellConatiner.snp.makeConstraints { make in
-            make.height.equalTo(24)
+            make.height.equalToSuperview()
             make.width.equalToSuperview()
         }
         
@@ -58,6 +55,4 @@ extension TagCollectionViewCell: ProgrammaticallyInitializableViewProtocol {
             make.center.equalToSuperview()
         }
     }
-    
-    
 }

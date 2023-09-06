@@ -20,52 +20,38 @@ final class AppCoordinator: Coordinator {
         self.navigationController = navigationController
         navigationController.setNavigationBarHidden(true, animated: false)
     }
+    
+    func checkLogin(isLogin: Bool) {
+        if isLogin { // 로그인이 이미 되어있는 경우
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                let mainCoordinator = TabCoordinator(self.navigationController)
+                mainCoordinator.delegate = self
+                mainCoordinator.start()
+                self.childCoordinators.append(mainCoordinator)
+            }
+        } else { // 로그인이 안되어 있는 경우
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                let joinCoordinator = JoinCoordinator(self.navigationController)
+                joinCoordinator.delegate = self
+                joinCoordinator.start()
+                self.childCoordinators.append(joinCoordinator)
+            }
+        }
+    }
 
     func start() {
         let viewModel = SplashViewModel(coordinator: self)
         let vc = SplashViewController(viewModel: viewModel, navigationController)
         navigationController.pushViewController(vc, animated: true)
-//		if isLoggedIn {
-//			connectMainFlow()
-//		} else {
-//			connectJoinFlow()
-//		}
     }
-
-//    private func connectJoinFlow() {
-//        let joinCoordinator = JoinCoordinator(self.navigationController)
-//        joinCoordinator.delegate = self
-//		print(joinCoordinator.delegate)
-//        joinCoordinator.start()
-//        childCoordinators.append(joinCoordinator)
-//    }
-//
-	func connectMainFlow() {
-		let mainCoordinator = TabCoordinator(self.navigationController)
-		mainCoordinator.delegate = self
-		mainCoordinator.start()
-		childCoordinators.append(mainCoordinator)
-    }
-	
-
-	
-	
 }
 
 extension AppCoordinator: CoordinatorDelegate {
 
     func didFinish(childCoordinator: Coordinator) {
         self.childCoordinators = self.childCoordinators.filter({ $0.type != childCoordinator.type })
-
-        //self.navigationController.view.backgroundColor = .systemBackground
+        
         self.navigationController.viewControllers.removeAll()
-
-//        switch childCoordinator.type {
-//        case .join:
-////			self.connectJoinFlow()
-//        default:
-//            break
-//        }
     }
 }
 

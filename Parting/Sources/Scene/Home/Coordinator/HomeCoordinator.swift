@@ -18,6 +18,10 @@ final class HomeCoordinator: Coordinator {
 		self.navigationController = navigationController
 	}
 	
+    deinit {
+        print("HomeCoordi 메모리해제")
+    }
+    
     func start() {
 		showHomeVC()
 	}

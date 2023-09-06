@@ -24,11 +24,14 @@ class SplashViewController: BaseViewController<SplashView>, CoordinatorDelegate 
         self.navigation = navigationController
         navigation.setNavigationBarHidden(true, animated: false)
         super.init(nibName: nil, bundle: nil)
-        bind()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("SplashView 메모리해제")
     }
     
     override func viewDidLayoutSubviews() {
@@ -39,42 +42,9 @@ class SplashViewController: BaseViewController<SplashView>, CoordinatorDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.input.viewDidLoadTrigger.onNext(())
-        DispatchQueue.main.asyncAfter(deadline: .now()+3) {
-            if self.로그인여부 { // 로그인 되었다고 가정 => 나중에 토큰으로 판단
-                let mainCoordinator = TabCoordinator(self.navigation)
-                mainCoordinator.delegate = self
-                mainCoordinator.start()
-                self.childCoordinators.append(mainCoordinator)
-            } else {
-                (self.viewModel as! SplashViewModel).showJoinViewController()
-            }
-            
-        }
-        print(#function)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        print(#function)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        print(#function)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        print(#function)
     }
     
     private func backgroundUI() {
         rootView.setGradient(UIColor(hexcode: "FFEAD4"), AppColor.brand)
     }
-    
-    func bind() {
-        viewModel.output.calendarDays
-            .withUnretained(self)
-            .subscribe(onNext: { owner, data in
-            })
-            .disposed(by: disposeBag)
-    }
-    
 }

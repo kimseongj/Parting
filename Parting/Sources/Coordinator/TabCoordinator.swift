@@ -12,7 +12,7 @@ import UIKit
 
 final class TabCoordinator: Coordinator {
     
-	var delegate: CoordinatorDelegate?
+	weak var delegate: CoordinatorDelegate?
 	var navigationController: UINavigationController
 	var tabBarController: UITabBarController
 	var childCoordinators: [Coordinator] = []
@@ -34,7 +34,7 @@ final class TabCoordinator: Coordinator {
 	private func startChildCoordinators() {
         //MARK: - tabBar에 넣는 순서대로 chilcCoordi에 추가
         
-		let homeCoordinator = HomeCoordinator(StyledNavigationController())
+        let homeCoordinator = HomeCoordinator(StyledNavigationController())
 		homeCoordinator.delegate = self
 		homeCoordinator.start()
 		childCoordinators.append(homeCoordinator)
@@ -43,7 +43,7 @@ final class TabCoordinator: Coordinator {
         let mapCoordinator = MapCoordinator(StyledNavigationController())
         mapCoordinator.start()
         childCoordinators.append(mapCoordinator)
-        
+
         let myPageCoordinator = MyPageCoordinator(StyledNavigationController())
         myPageCoordinator.start()
         childCoordinators.append(myPageCoordinator)

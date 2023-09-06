@@ -56,7 +56,7 @@ class PartyListViewController: BaseViewController<PartyListView> {
     }
     
     private func configureTableView() {
-        rootView.partyListTableView.sectionHeaderTopPadding = 8
+        rootView.partyListTableView.sectionHeaderTopPadding = 0
         rootView.partyListTableView.rx.setDelegate(self).disposed(by: disposeBag)
         rootView.partyListTableView.register(PartyTableViewCell.self, forCellReuseIdentifier: PartyTableViewCell.identifier)
         rootView.partyListTableView.register(PartyListHeaderView.self, forHeaderFooterViewReuseIdentifier: PartyListHeaderView.identifier)
@@ -134,7 +134,7 @@ extension PartyListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let height = rootView.window?.windowScene?.screen.bounds.height
-        return 114
+        return 100
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
