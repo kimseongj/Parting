@@ -17,7 +17,7 @@ class PartyTableViewCell: UITableViewCell {
         let view = StackView(axis: .vertical, alignment: .center, distribution: .equalCentering)
         view.layer.cornerRadius = 16
         view.layer.borderColor = UIColor.black.cgColor
-        view.layer.borderWidth = 1
+//        view.layer.borderWidth = 1
         view.backgroundColor = .white
         return view
     }()
@@ -25,18 +25,19 @@ class PartyTableViewCell: UITableViewCell {
     // MARK: Cell Components
     private let mainVStack = StackView(axis: .vertical, alignment: .firstBaseline, distribution: .equalSpacing, spacing: 12.0)
     
-    private let topHStack = StackView(axis: .horizontal, alignment: .center, distribution: .fill, spacing: 16.0)
+    private let topHStack = StackView(axis: .horizontal, alignment: .center, distribution: .fillProportionally, spacing: 16.0)
     
     private let contentHStack = StackView(axis: .horizontal, alignment: .center, distribution: .equalCentering, spacing: 32.0)
     
     private let tagCollectionView: UICollectionView = {
         let layout = LeftAlignedCollectionViewFlowLayout()
-        layout.itemSize.height = 18
-        layout.itemSize.width = 150
-        
+//        layout.itemSize.height = 18
+//        layout.itemSize.width = 150
+//
+        layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
-        collectionView.isScrollEnabled = false
+        collectionView.isScrollEnabled = true
         return collectionView
     }()
     
@@ -173,14 +174,16 @@ extension PartyTableViewCell: ProgrammaticallyInitializableViewProtocol {
     }
     
     func makeConstraints() {
-        let cellHeight = self.frame.height
-        
         cellContainer.snp.makeConstraints { make in
             make.edges.equalToSuperview()
 //            make.top.equalToSuperview().offset(16)
 //            make.bottom.equalToSuperview().offset(-16)
 //            make.left.equalToSuperview().offset(16)
 //            make.right.equalToSuperview().offset(-16)
+        }
+        
+        locationHStack.snp.makeConstraints { make in
+            make.trailing.equalTo(statusView.snp.leading)
         }
         
         mainVStack.snp.makeConstraints { make in

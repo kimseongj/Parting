@@ -11,6 +11,7 @@ import UIKit
 // Ref 2: https://labs.brandi.co.kr/2020/06/16/kimjh.html
 
 final class TabCoordinator: Coordinator {
+    
 	var delegate: CoordinatorDelegate?
 	var navigationController: UINavigationController
 	var tabBarController: UITabBarController
@@ -23,12 +24,6 @@ final class TabCoordinator: Coordinator {
         navigationController.setNavigationBarHidden(true, animated: false)
         self.tabBarController = UITabBarController()
     }
-    
-	
-//	required init(_ navigationController: UINavigationController) {
-//		self.navigationController = navigationController
-//        self.tabBarController = .init()
-//	}
 	
 	func start() {
 		startChildCoordinators()

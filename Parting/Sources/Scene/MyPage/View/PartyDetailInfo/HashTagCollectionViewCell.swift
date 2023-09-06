@@ -8,6 +8,13 @@
 import UIKit
 
 class HashTagCollectionViewCell: UICollectionViewCell {
+    private let cellConatiner: UIView = {
+        let view = UIView()
+        view.backgroundColor = AppColor.gray200
+        view.clipsToBounds = true
+        return view
+    }()
+    
     let hashTagNameLabel: UILabel = {
         let label = UILabel()
         label.layer.cornerRadius = 8
@@ -15,6 +22,11 @@ class HashTagCollectionViewCell: UICollectionViewCell {
         label.font = notoSansFont.Bold.of(size: 13)
         return label
     }()
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        cellConatiner.layer.cornerRadius = cellConatiner.frame.height / 2
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,12 +39,19 @@ class HashTagCollectionViewCell: UICollectionViewCell {
     }
     
     func makeConfigures() {
-        contentView.addSubview(hashTagNameLabel)
+        
+        contentView.addSubview(cellConatiner)
+        cellConatiner.addSubview(hashTagNameLabel)
     }
     
     func makeConstraints() {
+        cellConatiner.snp.makeConstraints { make in
+            make.height.equalTo(24)
+            make.width.equalToSuperview()
+        }
+        
         hashTagNameLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.center.equalToSuperview()
         }
     }
     

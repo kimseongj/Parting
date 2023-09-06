@@ -17,21 +17,21 @@ final class JoinCoordinator: Coordinator {
         self.navigationController = navigationController
     }
     
-    func start() {
-        showSplashViewController()
-    }
+//    func start() {
+//        showSplashViewController()
+//    }
     
     func connectTabBarCoordinator() {
         let tabBarCoordinator = TabCoordinator(self.navigationController)
         tabBarCoordinator.start()
     }
     
-    func showSplashViewController() {
-        let viewModel = SplashViewModel(coordinator: self)
-        let vc = SplashViewController(viewModel: viewModel)
-        navigationController.viewControllers = [vc]
-    }
-    
+//    func showSplashViewController() {
+//        let viewModel = SplashViewModel(coordinator: self)
+//        let vc = SplashViewController(viewModel: viewModel)
+//        navigationController.viewControllers = [vc]
+//    }
+//
     func showJoinViewController() {
         let viewModel = JoinViewModel(coordinator: self)
         let vc = JoinViewController(viewModel: viewModel)

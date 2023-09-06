@@ -31,13 +31,15 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
     let interestsLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.sizeToFit()
+        label.numberOfLines = 0
         label.font = notoSansFont.Medium.of(size: 14)
         label.textColor = AppColor.gray400
         return label
     }()
     
     let interestStackView: UIStackView = {
-        let view = StackView(axis: .vertical, alignment: .fill, distribution: .equalSpacing, spacing: 8.0)
+        let view = StackView(axis: .vertical, alignment: .fill, distribution: .fillProportionally, spacing: 8.0)
         //        view.axis = .vertical
         //        view.distribution = .fillProportionally
         return view
@@ -46,9 +48,10 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
-        configureCell(type: .deselectable, size: .lg)
+        configureCell(type: .deselectable, size: .md)
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -73,7 +76,7 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
         case .lg:
             imageViewWidth = 77
         case .md:
-            imageViewWidth = 66.33
+            imageViewWidth = 55
         }
         
         interestsImageView.snp.remakeConstraints { make in
@@ -102,7 +105,7 @@ extension CategoryImageCollectionViewCell: ProgrammaticallyInitializableViewProt
         interestStackView.addArrangedSubview(interestsImageView)
         interestStackView.addArrangedSubview(interestsLabel)
         
-        self.addSubview(interestStackView)
+        contentView.addSubview(interestStackView)
     }
     
     func makeConstraints() {

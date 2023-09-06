@@ -4,13 +4,11 @@
 //
 //  Created by 김민규 on 2023/05/09.
 //
-
-import Foundation
 import UIKit
 import SnapKit
+import FSCalendar
 
 class HomeView: BaseView {
-
 	let bellBarButton = BarImageButton(imageName: Images.sfSymbol.bell)
 	
 	let searchBar: UISearchBar = {
@@ -33,10 +31,15 @@ class HomeView: BaseView {
 		return view
 	}()
 	
-	let calendarWidget: UIButton = {
+	let calendarWidget: CalendarWidgetView = {
 		let widget = CalendarWidgetView()
 		return widget
 	}()
+    
+//    let calendarWidget: UIButton = {
+//        let widget = CalendarWidgetView()
+//        return widget
+//    }()
 	
 	let dDayWidget: DdayWidgetView = {
         let view = DdayWidgetView()
@@ -101,18 +104,24 @@ class HomeView: BaseView {
 		}
 
 		categoryCollectionView.snp.makeConstraints { make in
-			make.left.equalToSuperview().offset(16)
-			make.right.equalToSuperview().offset(-16)
-			make.height.equalTo(UIScreen.main.bounds.height * 0.25)
+            make.horizontalEdges.equalToSuperview().inset(16)
+			make.height.equalTo(230)
 		}
 	}
 }
 
-
 extension HomeView {
     func configureView(widgetData: WidgetResult) {
+        // 여기서 날짜 데이터 받기
         dDayWidget.dDay = widgetData.dday
         dDayWidget.meetingName = widgetData.partyName
+    }
+    
+    func receiveData(calendarDays: [Int]) {
+//        let testView = CalendarWidgetView() // 새로운 인스턴스 생성
+//        testView.receiveCalendarDays(calendarDays: calendarDays)
+        
+        calendarWidget.receiveCalendarDays(calendarDays: calendarDays)
     }
 }
 

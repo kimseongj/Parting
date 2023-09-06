@@ -36,6 +36,7 @@ final class SetCreatePartyView: UIView {
         }
     }
     
+    @available(*, unavailable)
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -51,6 +52,7 @@ final class SetTextField: UITextField {
         self.placeholder = placeHolder
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -76,6 +78,7 @@ final class SetTitleLabel: UILabel {
         }
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -88,6 +91,7 @@ final class SetUnderlineLabel: UILabel {
         layer.borderWidth = 1
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -101,6 +105,7 @@ final class SetTextCountLabel: UILabel {
         textColor = UIColor(hexcode: "D3D3D3")
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -154,6 +159,7 @@ final class SetBackGroundView: UIView {
         }
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

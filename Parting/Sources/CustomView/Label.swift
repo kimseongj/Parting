@@ -11,6 +11,7 @@ class Label: UILabel {
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
+        sizeToFit()
 		self.textColor = AppColor.baseText
 	}
 	
@@ -40,6 +41,7 @@ class Label: UILabel {
 		self.textColor = color
 	}
 	
+    @available(*, unavailable)
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}

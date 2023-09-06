@@ -6,13 +6,25 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-class SplashViewController: BaseViewController<SplashView> {
-    private var viewModel: SplashViewModel
+class SplashViewController: BaseViewController<SplashView>, CoordinatorDelegate {
+    func didFinish(childCoordinator: Coordinator) {
+        print("didfinish")
+    }
     
-    init(viewModel: SplashViewModel) {
+    private var viewModel: SplashViewModel
+    private var 로그인여부: Bool = true
+    var navigation: UINavigationController
+    var childCoordinators = [Coordinator]()
+    
+    init(viewModel: SplashViewModel, _ navigationController: UINavigationController) {
 		self.viewModel = viewModel
+        self.navigation = navigationController
+        navigation.setNavigationBarHidden(true, animated: false)
         super.init(nibName: nil, bundle: nil)
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -26,8 +38,17 @@ class SplashViewController: BaseViewController<SplashView> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.input.viewDidLoadTrigger.onNext(())
         DispatchQueue.main.asyncAfter(deadline: .now()+3) {
-            (self.viewModel as! SplashViewModel).showJoinViewController()
+            if self.로그인여부 { // 로그인 되었다고 가정 => 나중에 토큰으로 판단
+                let mainCoordinator = TabCoordinator(self.navigation)
+                mainCoordinator.delegate = self
+                mainCoordinator.start()
+                self.childCoordinators.append(mainCoordinator)
+            } else {
+                (self.viewModel as! SplashViewModel).showJoinViewController()
+            }
+            
         }
         print(#function)
     }
@@ -43,7 +64,17 @@ class SplashViewController: BaseViewController<SplashView> {
     override func viewDidAppear(_ animated: Bool) {
         print(#function)
     }
+    
     private func backgroundUI() {
         rootView.setGradient(UIColor(hexcode: "FFEAD4"), AppColor.brand)
     }
+    
+    func bind() {
+        viewModel.output.calendarDays
+            .withUnretained(self)
+            .subscribe(onNext: { owner, data in
+            })
+            .disposed(by: disposeBag)
+    }
+    
 }

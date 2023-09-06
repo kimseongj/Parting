@@ -26,7 +26,7 @@ class PartyListHeaderView: UITableViewHeaderFooterView {
     // Prevents multiple setDelegate()
     var didConfiguredCell: Bool
     
-    private let mainVStack = StackView(axis: .vertical, alignment: .fill, distribution: .fillEqually, spacing: 0)
+    private let mainVStack = StackView(axis: .vertical, alignment: .fill, distribution: .fillEqually, spacing: 22)
     
     private let interestCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -55,7 +55,7 @@ class PartyListHeaderView: UITableViewHeaderFooterView {
         //        configureCollectionViews()
     }
     
-    
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -82,11 +82,14 @@ extension PartyListHeaderView: ProgrammaticallyInitializableViewProtocol {
         interestCollectionView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.5)
+//            make.height.equalTo(22)
         }
         
         sortingOptionCollectionView.snp.makeConstraints { make in
+//            make.top.equalTo(interestCollectionView.snp.bottom).offset(13)
             make.horizontalEdges.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.5)
+//            make.height.equalTo(22)
         }
         
     }

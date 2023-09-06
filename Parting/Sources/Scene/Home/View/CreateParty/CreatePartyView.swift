@@ -358,7 +358,7 @@ final class CreatePartyView: BaseView {
         categoryCollectionView.snp.makeConstraints { make in
             make.top.equalTo(themeLabel.snp.bottom).offset(8)
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.height.equalTo(UIScreen.main.bounds.height * 0.25)
+            make.height.equalTo(250)
         }
         
         detailCategoryLabel.snp.makeConstraints { make in

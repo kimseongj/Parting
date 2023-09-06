@@ -10,14 +10,16 @@ import UIKit
 import RxSwift
 import Kingfisher
 
+
+
 class HomeViewController: BaseViewController<HomeView> {
 	
 	private var viewModel: HomeViewModel
-	init(viewModel: HomeViewModel) {
+    init(viewModel: HomeViewModel) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
 	}
-	
+
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -55,8 +57,6 @@ class HomeViewController: BaseViewController<HomeView> {
 				owner.viewModel.pushPartyListVC(category: categories[index])
 			}
 			.disposed(by: disposeBag)
-		
-		
 	}
 	
 	
@@ -89,6 +89,7 @@ class HomeViewController: BaseViewController<HomeView> {
             .withUnretained(self)
             .subscribe(onNext: { owner, day in
                 guard let day else { return }
+                owner.rootView.receiveData(calendarDays: day)
             })
             .disposed(by: disposeBag)
 	}

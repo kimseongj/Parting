@@ -13,7 +13,7 @@ final class AppCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     var type: CoordinatorStyleCase = .app
-
+    
     private let userDefaults = UserDefaults.standard
 
     init(_ navigationController: UINavigationController) {
@@ -22,21 +22,24 @@ final class AppCoordinator: Coordinator {
     }
 
     func start() {
-		if isLoggedIn {
-			connectMainFlow()
-		} else {
-			connectJoinFlow()
-		}
+        let viewModel = SplashViewModel(coordinator: self)
+        let vc = SplashViewController(viewModel: viewModel, navigationController)
+        navigationController.pushViewController(vc, animated: true)
+//		if isLoggedIn {
+//			connectMainFlow()
+//		} else {
+//			connectJoinFlow()
+//		}
     }
 
-    private func connectJoinFlow() {
-        let joinCoordinator = JoinCoordinator(self.navigationController)
-        joinCoordinator.delegate = self
-		print(joinCoordinator.delegate)
-        joinCoordinator.start()
-        childCoordinators.append(joinCoordinator)
-    }
-	
+//    private func connectJoinFlow() {
+//        let joinCoordinator = JoinCoordinator(self.navigationController)
+//        joinCoordinator.delegate = self
+//		print(joinCoordinator.delegate)
+//        joinCoordinator.start()
+//        childCoordinators.append(joinCoordinator)
+//    }
+//
 	func connectMainFlow() {
 		let mainCoordinator = TabCoordinator(self.navigationController)
 		mainCoordinator.delegate = self
@@ -57,12 +60,12 @@ extension AppCoordinator: CoordinatorDelegate {
         //self.navigationController.view.backgroundColor = .systemBackground
         self.navigationController.viewControllers.removeAll()
 
-        switch childCoordinator.type {
-        case .join:
-			self.connectJoinFlow()
-        default:
-            break
-        }
+//        switch childCoordinator.type {
+//        case .join:
+////			self.connectJoinFlow()
+//        default:
+//            break
+//        }
     }
 }
 

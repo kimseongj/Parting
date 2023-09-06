@@ -44,6 +44,7 @@ class RadioButton: UIButton {
         self.titleLabel?.font = weight.of(size: textSize)
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

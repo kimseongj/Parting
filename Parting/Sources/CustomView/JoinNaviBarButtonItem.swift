@@ -17,6 +17,7 @@ class JoinNaviBarButtonItem: UIBarButtonItem {
         self.init(image: UIImage(named: "backBarButton"), style: .plain, target: self, action: action)
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
