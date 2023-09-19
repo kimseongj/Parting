@@ -24,6 +24,10 @@ final class TabCoordinator: Coordinator {
         navigationController.setNavigationBarHidden(true, animated: false)
         self.tabBarController = UITabBarController()
     }
+    
+    deinit {
+        print("tabcoordinator 해제")
+    }
 	
 	func start() {
 		startChildCoordinators()

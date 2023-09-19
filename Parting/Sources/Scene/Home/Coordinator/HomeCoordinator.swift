@@ -31,6 +31,7 @@ final class HomeCoordinator: Coordinator {
     }
 	
     func showHomeVC() {
+        navigationController.viewControllers = []
 		let viewModel = HomeViewModel(coordinator: self)
 		let vc = HomeViewController(viewModel: viewModel)
 		navigationController.viewControllers = [vc]

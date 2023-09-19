@@ -24,6 +24,7 @@ final class JoinCoordinator: Coordinator {
     func connectTabBarCoordinator() {
         let tabBarCoordinator = TabCoordinator(self.navigationController)
         tabBarCoordinator.start()
+        self.childCoordinators.append(tabBarCoordinator)
     }
     
     func showJoinViewController() {
@@ -74,5 +75,11 @@ final class JoinCoordinator: Coordinator {
     
     func popDetailInterestsViewController() {
         navigationController.popViewController(animated: true)
+    }
+}
+
+extension JoinCoordinator: CoordinatorDelegate {
+    func didFinish(childCoordinator: Coordinator) {
+        print("didFinish")
     }
 }

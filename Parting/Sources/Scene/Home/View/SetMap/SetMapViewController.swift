@@ -44,6 +44,7 @@ class SetMapViewController: BaseViewController<MapView> {
         naverMap()
         setLocationDelegate()
         setNaverMapDelegate()
+        checkDeviceLocationAuthorization()
         moveCurrentPositionCamera()
     }
     
@@ -57,6 +58,27 @@ class SetMapViewController: BaseViewController<MapView> {
         rootView.mapView.mapView.touchDelegate = self
     }
     
+    private func checkDeviceLocationAuthorization() {
+        // MARK: - 지도 위치 권한 설정
+        DispatchQueue.global().async {
+            if CLLocationManager.locationServicesEnabled() {
+                let authorization: CLAuthorizationStatus
+                if #available(iOS 14.0, *) {
+                    authorization = self.locationManger.authorizationStatus
+                } else {
+                    authorization = CLLocationManager.authorizationStatus()
+                }
+                print(authorization, "✅")
+                DispatchQueue.main.async {
+                    self.checkCurrentLocationAuthorization(status: authorization)
+                }
+                
+            } else {
+                print("위치 서비스 OFF 상태, 위치 권한 요청을 못합니다.")
+            }
+        }
+    }
+    
     private func moveCurrentPositionCamera() {
         let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: locationManger.location?.coordinate.latitude ?? 35.88979460661547 , lng: locationManger.location?.coordinate.latitude ?? 128.61133694145016))
         cameraUpdate.animation = .easeIn
@@ -67,16 +89,54 @@ class SetMapViewController: BaseViewController<MapView> {
         locationManger.delegate = self
         locationManger.desiredAccuracy = kCLLocationAccuracyBest
         locationManger.requestWhenInUseAuthorization() // 위치 서비스 권한 허용 팝업
-        
-        // MARK: - 지도 위치 권한 설정
-        DispatchQueue.global().async {
-            if CLLocationManager.locationServicesEnabled() {
-                print("위치 서비스 ON 상태")
-                self.locationManger.startUpdatingLocation() // 현재위치 가져오기
-            } else {
-                print("위치 서비스 OFF 상태")
-            }
+    }
+    
+    // MARK: - 사용자의 현재 권한 허용 상태 확인
+    private func checkCurrentLocationAuthorization(status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedAlways:
+            print("authorizedAlways")
+        case .notDetermined:
+            locationManger.desiredAccuracy = kCLLocationAccuracyBest // 정확도 설정
+            locationManger.requestWhenInUseAuthorization() // 위치 사용 허용 팝업
+        case .authorizedWhenInUse:
+            locationManger.startUpdatingLocation() // 현재 위치 가져오기
+        case .denied:
+            print("denied")
+            showLocationSettingAlert()
+        case .restricted:
+            print("restricted")
+        default:
+            break
         }
+    }
+    
+    // MARK: - 위치 권환 허용 유도 알럿
+    private func showLocationSettingAlert() {
+            let alert = UIAlertController(
+                title: "위치 정보 이용",
+                message: "위치 서비스를 사용할 수 없습니다. 기기의 '설정>개인정보 보호'에서 위치 서비스를 켜주세요",
+                preferredStyle: .alert
+            )
+            
+            let goSetting = UIAlertAction(
+                title: "설정으로 이동",
+                style: .default
+            ) { _ in
+                if let appSetting = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(appSetting)
+                }
+            }
+            
+            let cancel = UIAlertAction(
+                title: "취소",
+                style: .cancel
+            )
+            
+            alert.addAction(goSetting)
+            alert.addAction(cancel)
+            
+            self.present(alert, animated: true)
     }
     
     private func navigationUI() {
@@ -113,12 +173,22 @@ extension SetMapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("didUpdateLocations")
         if let location = locations.first {
+            print("위도: \(location.coordinate.latitude) 경도: \(location.coordinate.longitude)")
         }
+        
+        locationManger.stopUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
+    
+    func locationManager(_ manager: CLLocationManager) {
+        print("권한 상태 바뀜", #function)
+        
+    }
+    
+    
 }
 
 //MARK: - 클릭한 위치에 대한 액션 1. 좌표 얻기 2. 팝업 띄우기

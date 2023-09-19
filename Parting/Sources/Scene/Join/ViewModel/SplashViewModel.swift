@@ -23,7 +23,7 @@ final class SplashViewModel: BaseViewModel {
     
     private weak var coordinator: AppCoordinator?
     private let disposeBag = DisposeBag()
-    var isLogin: Bool = true
+    var isLogin: Bool = false
     
     init(input: Input = Input(), output: Output = Output(), coordinator: AppCoordinator?) {
         self.input = input
