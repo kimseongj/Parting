@@ -12,7 +12,7 @@ class CompleteAndNextButton: UIButton {
         super.init(frame: frame)
         setTitleColor(AppColor.white, for: .normal)
         titleLabel?.font = AppFont.Bold.of(size: 20)
-        layer.backgroundColor = AppColor.brand.cgColor
+        layer.backgroundColor = AppColor.brandNotValidate.cgColor
         layer.cornerRadius = 8
     }
     

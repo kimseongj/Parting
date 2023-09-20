@@ -37,13 +37,13 @@ final class JoinCoordinator: Coordinator {
 
     }
     
-    func pushJoinCompleteViewController() {
-        let viewModel = JoinCompleteViewModel(coordinator: self)
-        let vc = JoinCompleteViewController(viewModel: viewModel)
+    func pushUserAgreementViewController() {
+        let viewModel = UserAgreementViewModel(coordinator: self)
+        let vc = UserAgreementViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func popJoinCompleteViewController() {
+    func popUserAgreementVC() {
         navigationController.popViewController(animated: true)
     }
     

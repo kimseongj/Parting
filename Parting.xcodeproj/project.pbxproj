@@ -19,9 +19,6 @@
 		4E1CE0D92A8E459B006855E3 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CE0D82A8E459B006855E3 /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		4E2874B92A2D98FB0000B24C /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2874B82A2D98FB0000B24C /* KakaoSDK */; };
 		4E3C856529F7AE920006BEB1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3C856429F7AE920006BEB1 /* BaseViewController.swift */; };
-		4E52227A29F11788000B96B4 /* JoinCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227929F11788000B96B4 /* JoinCompleteView.swift */; };
-		4E52227C29F119B3000B96B4 /* JoinCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227B29F119B3000B96B4 /* JoinCompleteViewController.swift */; };
-		4E52227E29F11C81000B96B4 /* JoinCompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227D29F11C81000B96B4 /* JoinCompleteViewModel.swift */; };
 		4E52228029F14163000B96B4 /* EssentialInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227F29F14163000B96B4 /* EssentialInfoView.swift */; };
 		4E52228229F1417A000B96B4 /* EssentialInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52228129F1417A000B96B4 /* EssentialInfoViewModel.swift */; };
 		4E52228429F141AA000B96B4 /* EssentialInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52228329F141AA000B96B4 /* EssentialInfoViewController.swift */; };
@@ -185,9 +182,6 @@
 		4E1CE0D82A8E459B006855E3 /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		4E3C856429F7AE920006BEB1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		4E52227829F10541000B96B4 /* Parting.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Parting.entitlements; sourceTree = "<group>"; };
-		4E52227929F11788000B96B4 /* JoinCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCompleteView.swift; sourceTree = "<group>"; };
-		4E52227B29F119B3000B96B4 /* JoinCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCompleteViewController.swift; sourceTree = "<group>"; };
-		4E52227D29F11C81000B96B4 /* JoinCompleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCompleteViewModel.swift; sourceTree = "<group>"; };
 		4E52227F29F14163000B96B4 /* EssentialInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialInfoView.swift; sourceTree = "<group>"; };
 		4E52228129F1417A000B96B4 /* EssentialInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialInfoViewModel.swift; sourceTree = "<group>"; };
 		4E52228329F141AA000B96B4 /* EssentialInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialInfoViewController.swift; sourceTree = "<group>"; };
@@ -653,7 +647,6 @@
 				4EF4D0602A942BEB00A2E8F4 /* DetailInterests */,
 				4EF4D05F2A942BDE00A2E8F4 /* Interests */,
 				4EF4D05E2A942BD100A2E8F4 /* EssentialInfo */,
-				4EF4D05D2A942BC600A2E8F4 /* JoinComplete */,
 				4EF4D05C2A942BB600A2E8F4 /* Join */,
 				4EF4D05B2A942BA000A2E8F4 /* Splash */,
 				4E52228D29F27D97000B96B4 /* CustomView */,
@@ -666,7 +659,6 @@
 			children = (
 				4ECEAE1B29ED25D7006AAF6B /* JoinViewModel.swift */,
 				4EA81DE329ED36860070F1B7 /* SplashViewModel.swift */,
-				4E52227D29F11C81000B96B4 /* JoinCompleteViewModel.swift */,
 				4E52228129F1417A000B96B4 /* EssentialInfoViewModel.swift */,
 				4E52228729F1813C000B96B4 /* InterestsViewModel.swift */,
 				4E153FA72A34C37600C7F58C /* DetailInterestsViewModel.swift */,
@@ -790,15 +782,6 @@
 				4E783FA929EABF3E008B3E48 /* JoinViewController.swift */,
 			);
 			path = Join;
-			sourceTree = "<group>";
-		};
-		4EF4D05D2A942BC600A2E8F4 /* JoinComplete */ = {
-			isa = PBXGroup;
-			children = (
-				4E52227929F11788000B96B4 /* JoinCompleteView.swift */,
-				4E52227B29F119B3000B96B4 /* JoinCompleteViewController.swift */,
-			);
-			path = JoinComplete;
 			sourceTree = "<group>";
 		};
 		4EF4D05E2A942BD100A2E8F4 /* EssentialInfo */ = {
@@ -1276,7 +1259,6 @@
 				4E52228C29F18166000B96B4 /* InterestsViewController.swift in Sources */,
 				933E58C72A691B06000F945E /* Entity.swift in Sources */,
 				4E82F7F72ABA724E00C06CFB /* UserAgreementView.swift in Sources */,
-				4E52227C29F119B3000B96B4 /* JoinCompleteViewController.swift in Sources */,
 				4EECA7E92A6E439100C94417 /* CreatePartyViewModel.swift in Sources */,
 				4ECEAE1C29ED25D7006AAF6B /* JoinViewModel.swift in Sources */,
 				4EECA7FC2A6F620000C94417 /* LoginButton.swift in Sources */,
@@ -1308,7 +1290,6 @@
 				4EFFCE492A6DF54B0075EF9C /* InterestBarCollectionViewCell.swift in Sources */,
 				4EECA7F82A6F4F8900C94417 /* JoinNaviBarButtonItem.swift in Sources */,
 				4E1CE0D62A8E41B1006855E3 /* RadioButton.swift in Sources */,
-				4E52227E29F11C81000B96B4 /* JoinCompleteViewModel.swift in Sources */,
 				4EA81DDE29ED2D9A0070F1B7 /* SplashViewController.swift in Sources */,
 				4EA81DE429ED36860070F1B7 /* SplashViewModel.swift in Sources */,
 				4E5443192A61323D0074F654 /* MapCoordinator.swift in Sources */,
@@ -1329,7 +1310,6 @@
 				4EF72E092A8D08B1000B7205 /* NetworkError.swift in Sources */,
 				4E52228429F141AA000B96B4 /* EssentialInfoViewController.swift in Sources */,
 				4EFFCE552A6DFF080075EF9C /* Label.swift in Sources */,
-				4E52227A29F11788000B96B4 /* JoinCompleteView.swift in Sources */,
 				4E1CE0D42A8E4170006855E3 /* SortingOptionModalViewController.swift in Sources */,
 				4EFEB0D12A85BE6900CCAE5C /* ReuseIdentifierProtocol.swift in Sources */,
 				4ECEAE1729ED2116006AAF6B /* AppCoordinator.swift in Sources */,

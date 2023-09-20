@@ -268,6 +268,14 @@ class EssentialInfoView: BaseView {
     
     let nextStepButton = CompleteAndNextButton("다음 단계로")
     
+    func changeButtonColor(state: Bool) {
+        if state {
+            nextStepButton.backgroundColor = AppColor.brand
+        } else {
+            nextStepButton.backgroundColor = AppColor.brandNotValidate
+        }
+    }
+    
     override func makeConfigures() {
         super.makeConfigures()
         [yearTextField,yearLiteralLabel].forEach {

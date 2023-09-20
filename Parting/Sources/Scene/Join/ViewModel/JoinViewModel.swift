@@ -36,12 +36,12 @@ final class JoinViewModel: BaseViewModel{
         input.viewChangeTrigger
             .subscribe(onNext: { [weak self] _ in
                 print(self?.coordinator, "coordi")
-                self?.pushJoinCompleteViewController()
+                self?.pushUserAgreementVC()
             })
             .disposed(by: disposeBag)
     }
     
-    func pushJoinCompleteViewController() {
-        self.coordinator?.pushJoinCompleteViewController()
+    func pushUserAgreementVC() {
+        self.coordinator?.pushUserAgreementViewController()
     }
 }

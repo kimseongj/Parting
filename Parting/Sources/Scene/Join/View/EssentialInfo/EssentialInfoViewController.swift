@@ -350,6 +350,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
             .withUnretained(self)
             .subscribe(onNext: {owner, flag in
                 owner.isValidState = flag
+                owner.rootView.changeButtonColor(state: owner.isValidState)
             })
             .disposed(by: disposeBag)
     }

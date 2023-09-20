@@ -273,7 +273,7 @@ final class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtoco
     }
     
     private func popEssentialInfoViewController() {
-        self.coordinator?.popJoinCompleteViewController()
+        self.coordinator?.popEssentialInfoViewController()
     }
     
     private func pushInterestsViewController() {

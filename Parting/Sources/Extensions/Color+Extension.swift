@@ -30,6 +30,7 @@ extension UIColor {
 
 enum AppColor {
     static let brand: UIColor = UIColor(hexcode: "F85376")
+    static let brandNotValidate: UIColor = UIColor(hexcode: "FA8CA3")
     static let kakaoButton: UIColor = UIColor(hexcode: "FEE500")
     static let onboardingBackground: UIColor = UIColor(hexcode: "F85276")
     static let gray50: UIColor = UIColor(hexcode: "f1f1f1")
