@@ -46,7 +46,7 @@ final class MyPageView: BaseView {
     
     let nickname: UILabel = {
         let name = UILabel()
-        name.font = notoSansFont.Medium.of(size: 16)
+        name.font = AppleSDGothicNeoFont.Medium.of(size: 16)
         name.textColor = UIColor(hexcode: "363636")
         name.textAlignment = .center
         name.layer.borderColor = UIColor.black.cgColor

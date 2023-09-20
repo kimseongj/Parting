@@ -30,14 +30,14 @@ class RadioButton: UIButton {
         self.setTitle("기본 텍스트", for: .normal)
         self.setTitleColor(AppColor.baseText, for: .normal)
         self.setTitleColor(AppColor.baseText, for: .highlighted)
-        self.titleLabel?.font = notoSansFont.Medium.of(size: 16)
+        self.titleLabel?.font = AppleSDGothicNeoFont.Medium.of(size: 16)
         self.tintColor = AppColor.brand
         var config = UIButton.Configuration.plain()
         config.imagePadding = 8
         self.configuration = config
     }
     
-    convenience init(text: String, weight: notoSansFont, textSize: CGFloat) {
+    convenience init(text: String, weight: AppleSDGothicNeoFont, textSize: CGFloat) {
         self.init()
         self.setTitle(text, for: .normal)
 //        self.addTarget(self, action:#selector(buttonTapped(sender:)), for: .touchUpInside)

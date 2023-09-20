@@ -28,7 +28,7 @@ class JoinNavigationBar: UILabel {
         super.init(frame: frame)
         textColor = AppColor.joinText
         textAlignment = .center
-        font = notoSansFont.Regular.of(size: 20)
+        font = AppleSDGothicNeoFont.Regular.of(size: 20)
         sizeToFit()
     }
     

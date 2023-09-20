@@ -22,7 +22,7 @@ class JoinView: BaseView {
         label.textColor = AppColor.white
         label.text = "간편하게 로그인하고 서비스를 이용해보세요"
         label.textAlignment = .center
-        label.font = notoSansFont.Regular.of(size: 13)
+        label.font = AppleSDGothicNeoFont.Regular.of(size: 13)
         return label
     }()
     

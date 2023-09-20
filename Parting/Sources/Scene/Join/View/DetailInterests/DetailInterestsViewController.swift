@@ -123,8 +123,8 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
         let leftBarButtonItem = UIBarButtonItem.init(image:  UIImage(named: "backBarButton"), style: .plain, target: self, action: #selector(backBarButtonClicked))
         leftBarButtonItem.tintColor = AppColor.joinText
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
-        let titleLabel = JoinNavigationBar(type: .DetailInterests)
-        navigationItem.titleView = titleLabel
+        let titleImage = UIImage(named: "JoinFlowDetailinterest")
+        navigationItem.titleView = UIImageView(image: titleImage)
     }
     
     @objc func backBarButtonClicked() {

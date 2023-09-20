@@ -35,7 +35,7 @@ class ScheduleView: BaseView {
 		
 		calendar.appearance.weekdayTextColor = AppColor.white
 		calendar.appearance.headerTitleColor = AppColor.white
-		calendar.appearance.headerTitleFont = notoSansFont.Bold.of(size: 24)
+		calendar.appearance.headerTitleFont = AppleSDGothicNeoFont.Bold.of(size: 24)
 		calendar.appearance.todayColor = AppColor.brand
 		calendar.headerHeight = height * 0.08
 		

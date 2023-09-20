@@ -21,10 +21,16 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
     }
     
     private let cellType: CellType = .deselectable
+    let bgView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 16
+        view.layer.borderColor = UIColor(hexcode: "F1F1F1").cgColor
+        view.layer.borderWidth = 1
+        return view
+    }()
     
     let interestsImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.alpha = 0.6
         return imageView
     }()
     
@@ -33,8 +39,8 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
         label.textAlignment = .center
         label.sizeToFit()
         label.numberOfLines = 0
-        label.font = notoSansFont.Medium.of(size: 14)
-        label.textColor = AppColor.gray400
+        label.font = AppleSDGothicNeoFont.Medium.of(size: 16)
+        label.textColor = AppColor.gray700
         return label
     }()
     
@@ -48,7 +54,7 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
-        configureCell(type: .deselectable, size: .md)
+//        configureCell(type: .deselectable, size: .md)
     }
     
     @available(*, unavailable)
@@ -60,30 +66,13 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
         makeConstraints()
     }
     
+    func configureCell(item: String) {
+        interestsImageView.image = UIImage(named: item)
+        interestsLabel.text = item
+    }
+    
     func configureCell(type: CategoryImageCollectionViewCell.CellType, size: CategoryImageCollectionViewCell.CellSize) {
         var imageViewWidth: CGFloat
-        
-        switch type {
-        case .deselectable:
-            interestsImageView.alpha = 0.6
-            interestsLabel.textColor = AppColor.gray400
-        case .normal:
-            interestsImageView.alpha = 1
-            interestsLabel.textColor = AppColor.baseText
-        }
-        
-        switch size {
-        case .lg:
-            imageViewWidth = 77
-        case .md:
-            imageViewWidth = 55
-        }
-        
-        interestsImageView.snp.remakeConstraints { make in
-            make.height.equalTo(imageViewWidth)
-            make.width.equalTo(imageViewWidth)
-        }
-        
         
     }
     
@@ -93,8 +82,7 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        interestsImageView.alpha = 0.6
-        interestsLabel.textColor = AppColor.gray400
+        interestsLabel.textColor = AppColor.gray50
     }
 }
 
@@ -102,18 +90,21 @@ extension CategoryImageCollectionViewCell: ProgrammaticallyInitializableViewProt
     
     
     func addSubviews() {
-        interestStackView.addArrangedSubview(interestsImageView)
+        bgView.addSubview(interestsImageView)
+        interestStackView.addArrangedSubview(bgView)
         interestStackView.addArrangedSubview(interestsLabel)
         
         contentView.addSubview(interestStackView)
     }
     
     func makeConstraints() {
-        interestStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+        interestsImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(16)
         }
         
-        
+        interestStackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     

@@ -46,7 +46,7 @@ class SetPopUpCustomView: BaseView {
         let label = UILabel()
         label.textAlignment = .center
         label.text = "해당 장소로 위치를 설정 하시겠습니까?"
-        label.font = notoSansFont.Bold.of(size: 18)
+        label.font = AppleSDGothicNeoFont.Bold.of(size: 18)
         return label
     }()
     

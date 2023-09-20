@@ -76,10 +76,10 @@ class PartyTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let titleLabel = Label(text: "파티 이름", font: notoSansFont.Medium.of(size: 13))
+    private let titleLabel = Label(text: "파티 이름", font: AppleSDGothicNeoFont.Medium.of(size: 13))
     
     private let periodLabel: UILabel = {
-        let label = Label(text: "2023. 1. 1 - 1시 ~ 2시", font: notoSansFont.Regular.of(size: 15))
+        let label = Label(text: "2023. 1. 1 - 1시 ~ 2시", font: AppleSDGothicNeoFont.Regular.of(size: 15))
         label.numberOfLines = 0
         label.sizeToFit()
         return label

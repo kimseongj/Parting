@@ -26,7 +26,7 @@ class PartyDetailInfoView: BaseView {
     
     let partyTitle: UILabel = {
         let label = UILabel()
-        label.font = notoSansFont.Bold.of(size: 20)
+        label.font = AppleSDGothicNeoFont.Bold.of(size: 20)
         label.sizeToFit()
         label.text = "OO하는 모임"
         return label
@@ -40,7 +40,7 @@ class PartyDetailInfoView: BaseView {
         label.layer.cornerRadius = 8
         label.clipsToBounds = true
         label.textAlignment = .center
-        label.font = notoSansFont.Medium.of(size: 11)
+        label.font = AppleSDGothicNeoFont.Medium.of(size: 11)
         label.textColor = AppColor.white
         return label
     }()
@@ -111,7 +111,7 @@ class PartyDetailInfoView: BaseView {
         label.textColor = AppColor.brand
         label.textAlignment = .center
         label.layer.borderWidth = 3
-        label.font = notoSansFont.Bold.of(size: 20)
+        label.font = AppleSDGothicNeoFont.Bold.of(size: 20)
         return label
     }()
     
@@ -125,7 +125,7 @@ class PartyDetailInfoView: BaseView {
     let partyPersonnelLabel: UILabel = {
         let label = UILabel()
         label.text = "파티 인원"
-        label.font = notoSansFont.Medium.of(size: 12)
+        label.font = AppleSDGothicNeoFont.Medium.of(size: 12)
         label.textColor = UIColor(hexcode: "BABABA")
         return label
     }()
@@ -152,7 +152,7 @@ class PartyDetailInfoView: BaseView {
     let partyInfoLabel: UILabel = {
         let label = UILabel()
         label.text = "파티 정보"
-        label.font = notoSansFont.Medium.of(size: 12)
+        label.font = AppleSDGothicNeoFont.Medium.of(size: 12)
         label.textColor = UIColor(hexcode: "BABABA")
         return label
     }()
@@ -166,7 +166,7 @@ class PartyDetailInfoView: BaseView {
     let ageGroupLabel: UILabel = {
         let label = UILabel()
         label.text = "22세 ~ 26세"
-        label.font = notoSansFont.Medium.of(size: 12)
+        label.font = AppleSDGothicNeoFont.Medium.of(size: 12)
         return label
     }()
     
@@ -184,7 +184,7 @@ class PartyDetailInfoView: BaseView {
     let partyPeriodLabel: UILabel = {
         let label = UILabel()
         label.text = "2022.11.11 ~ 13시 ~ 15시"
-        label.font = notoSansFont.Medium.of(size: 12)
+        label.font = AppleSDGothicNeoFont.Medium.of(size: 12)
         return label
     }()
     
@@ -202,7 +202,7 @@ class PartyDetailInfoView: BaseView {
     let locationLabel: UILabel = {
         let label = UILabel()
         label.text = "대구 산격동 140"
-        label.font = notoSansFont.Medium.of(size: 12)
+        label.font = AppleSDGothicNeoFont.Medium.of(size: 12)
         return label
     }()
     
@@ -221,7 +221,7 @@ class PartyDetailInfoView: BaseView {
     let descriptionPartyLabel: UILabel = {
         let label = UILabel()
         label.text = "파티 정보"
-        label.font = notoSansFont.Medium.of(size: 12)
+        label.font = AppleSDGothicNeoFont.Medium.of(size: 12)
         label.textColor = UIColor(hexcode: "BABABA")
         return label
     }()
@@ -229,7 +229,7 @@ class PartyDetailInfoView: BaseView {
     let descriptionPartyContentsLabel: UILabel = {
         let label = UILabel()
         label.text = "같이 열심히 공부합시다!"
-        label.font = notoSansFont.Medium.of(size: 12)
+        label.font = AppleSDGothicNeoFont.Medium.of(size: 12)
         return label
     }()
     

@@ -96,8 +96,8 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
                     //MARK: - 버튼 활성화
                     print("가입 가능한 닉네임 입니다✅✅")
                     owner.rootView.duplicatedNickNameCheckButton.isEnabled = true
-                    owner.rootView.duplicatedNickNameCheckButton.setTitleColor(.black, for: .normal)
-                    owner.rootView.duplicatedNickNameCheckButton.layer.borderColor = UIColor.black.cgColor
+                    owner.rootView.duplicatedNickNameCheckButton.setTitleColor(AppColor.brand, for: .normal)
+                    owner.rootView.duplicatedNickNameCheckButton.layer.borderColor = AppColor.brand.cgColor
                     owner.checkNicknameValidate = true
                 } else {
                     owner.rootView.duplicatedNickNameCheckButton.isEnabled = false
@@ -204,9 +204,9 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         let leftBarButtonItem = UIBarButtonItem.init(image:  UIImage(named: "backBarButton"), style: .plain, target: self, action: #selector(backBarButtonClicked))
         leftBarButtonItem.tintColor = AppColor.joinText
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
-        
-        let titleLabel = JoinNavigationBar(type: .EssentialInfo)
-        navigationItem.titleView = titleLabel
+//        let titleLabel = JoinNavigationBar(type: .EssentialInfo)
+        let titleImage = UIImage(named: "JoinFlowEssentialInfo")
+        navigationItem.titleView = UIImageView(image: titleImage)
     }
     
     // MARK: - 직업 체크 버튼
@@ -235,25 +235,25 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         if job == 0 {
             self.rootView.checkJobFirstStackView.checkButton.backgroundColor = AppColor.brand
             self.rootView.checkJobFirstStackView.checkButton.setImage(UIImage(named: "clickedCheckButton"), for: .normal)
-            self.rootView.checkJobFirstStackView.checkAnswerLabel.textColor = UIColor(hexcode: "393939")
+            self.rootView.checkJobFirstStackView.checkAnswerLabel.textColor = AppColor.gray800
             self.rootView.checkJobFirstStackView.checkButton.layer.borderWidth = 0
 
-            self.rootView.checkJobSecondStackView.checkButton.layer.borderColor = AppColor.gray500.cgColor
+            self.rootView.checkJobSecondStackView.checkButton.layer.borderColor = AppColor.gray200.cgColor
             self.rootView.checkJobSecondStackView.checkButton.backgroundColor = AppColor.white
             self.rootView.checkJobSecondStackView.checkButton.layer.borderWidth = 1
             self.rootView.checkJobSecondStackView.checkButton.setImage(UIImage(named: "checkButton"), for: .normal)
-            self.rootView.checkJobSecondStackView.checkAnswerLabel.textColor = AppColor.gray500
+            self.rootView.checkJobSecondStackView.checkAnswerLabel.textColor = AppColor.gray200
         } else {
             self.rootView.checkJobSecondStackView.checkButton.backgroundColor = AppColor.brand
             self.rootView.checkJobSecondStackView.checkButton.setImage(UIImage(named: "clickedCheckButton"), for: .normal)
-            self.rootView.checkJobSecondStackView.checkAnswerLabel.textColor = UIColor(hexcode: "393939")
+            self.rootView.checkJobSecondStackView.checkAnswerLabel.textColor = AppColor.gray800
             self.rootView.checkJobSecondStackView.checkButton.layer.borderWidth = 0
             
-            self.rootView.checkJobFirstStackView.checkButton.layer.borderColor = AppColor.gray500.cgColor
+            self.rootView.checkJobFirstStackView.checkButton.layer.borderColor = AppColor.gray200.cgColor
             self.rootView.checkJobFirstStackView.checkButton.backgroundColor = AppColor.white
             self.rootView.checkJobFirstStackView.checkButton.layer.borderWidth = 1
             self.rootView.checkJobFirstStackView.checkButton.setImage(UIImage(named: "checkButton"), for: .normal)
-            self.rootView.checkJobFirstStackView.checkAnswerLabel.textColor = AppColor.gray500
+            self.rootView.checkJobFirstStackView.checkAnswerLabel.textColor = AppColor.gray200
         }
     }
     
@@ -286,22 +286,22 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
             self.rootView.checkGenderFirstStackView.checkAnswerLabel.textColor = UIColor(hexcode: "393939")
             self.rootView.checkGenderFirstStackView.checkButton.layer.borderWidth = 0
 
-            self.rootView.checkGenderSecondStackView.checkButton.layer.borderColor = AppColor.gray500.cgColor
+            self.rootView.checkGenderSecondStackView.checkButton.layer.borderColor = AppColor.gray200.cgColor
             self.rootView.checkGenderSecondStackView.checkButton.backgroundColor = AppColor.white
             self.rootView.checkGenderSecondStackView.checkButton.layer.borderWidth = 1
             self.rootView.checkGenderSecondStackView.checkButton.setImage(UIImage(named: "checkButton"), for: .normal)
-            self.rootView.checkGenderSecondStackView.checkAnswerLabel.textColor = AppColor.gray500
+            self.rootView.checkGenderSecondStackView.checkAnswerLabel.textColor = AppColor.gray200
         } else {
             self.rootView.checkGenderSecondStackView.checkButton.backgroundColor = AppColor.brand
             self.rootView.checkGenderSecondStackView.checkButton.setImage(UIImage(named: "clickedCheckButton"), for: .normal)
             self.rootView.checkGenderSecondStackView.checkAnswerLabel.textColor = UIColor(hexcode: "393939")
             self.rootView.checkGenderSecondStackView.checkButton.layer.borderWidth = 0
             
-            self.rootView.checkGenderFirstStackView.checkButton.layer.borderColor = AppColor.gray500.cgColor
+            self.rootView.checkGenderFirstStackView.checkButton.layer.borderColor = AppColor.gray200.cgColor
             self.rootView.checkGenderFirstStackView.checkButton.backgroundColor = AppColor.white
             self.rootView.checkGenderFirstStackView.checkButton.layer.borderWidth = 1
             self.rootView.checkGenderFirstStackView.checkButton.setImage(UIImage(named: "checkButton"), for: .normal)
-            self.rootView.checkGenderFirstStackView.checkAnswerLabel.textColor = AppColor.gray500
+            self.rootView.checkGenderFirstStackView.checkAnswerLabel.textColor = AppColor.gray200
         }
     }
     
@@ -429,11 +429,11 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     private func checkButtonUI() {
         rootView.checkJobFirstStackView.checkButton.layer.cornerRadius = rootView.checkJobFirstStackView.checkButton.bounds.size.width / 2
         rootView.checkJobFirstStackView.checkButton.clipsToBounds = true
-        rootView.checkJobFirstStackView.checkAnswerLabel.text = "네, 직장인입니다."
+        rootView.checkJobFirstStackView.checkAnswerLabel.text = "네"
         
         rootView.checkJobSecondStackView.checkButton.layer.cornerRadius = rootView.checkJobSecondStackView.checkButton.bounds.size.width / 2
         rootView.checkJobSecondStackView.checkButton.clipsToBounds = true
-        rootView.checkJobSecondStackView.checkAnswerLabel.text = "아니오, 학생입니다."
+        rootView.checkJobSecondStackView.checkAnswerLabel.text = "아니오"
         
         rootView.checkGenderFirstStackView.checkButton.layer.cornerRadius = rootView.checkGenderFirstStackView.checkButton.bounds.size.width / 2
         rootView.checkGenderFirstStackView.checkButton.clipsToBounds = true

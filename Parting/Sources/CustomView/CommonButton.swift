@@ -11,7 +11,7 @@ class CompleteAndNextButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setTitleColor(AppColor.white, for: .normal)
-        titleLabel?.font = notoSansFont.Bold.of(size: 20)
+        titleLabel?.font = AppleSDGothicNeoFont.Bold.of(size: 20)
         layer.backgroundColor = AppColor.brand.cgColor
         layer.cornerRadius = 8
     }

@@ -15,7 +15,6 @@ import KakaoSDKCommon
 
 class JoinViewController: BaseViewController<JoinView> {
 	private let viewModel: JoinViewModel
-//    private let disposeBag = DisposeBag()
     
     init(viewModel: JoinViewModel) {
 		self.viewModel = viewModel
@@ -40,7 +39,7 @@ class JoinViewController: BaseViewController<JoinView> {
     }
     
     private func navigationUI() {
-        
+       
     }
     
     override func viewDidLoad() {

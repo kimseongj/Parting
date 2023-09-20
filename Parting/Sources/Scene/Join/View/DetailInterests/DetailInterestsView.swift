@@ -9,16 +9,19 @@ import UIKit
 import SnapKit
 
 class DetailInterestsView: BaseView {
-    let duplicatedChooseLabel: UILabel = {
+    let detailCategoryTitle: UILabel = {
         let label = UILabel()
-        label.text = "중복 선택 가능"
-        label.textColor = UIColor(hexcode: "9E9EA9")
-        label.textAlignment = .center
-        label.font = notoSansFont.Regular.of(size: 16)
+        label.text = """
+세부 카테고리를
+선택해주세요
+"""
+        label.numberOfLines = 2
+        label.sizeToFit()
+        label.font = AppleSDGothicNeoFont.Medium.of(size: 22)
         return label
     }()
     
-    let serviceStartButton = CompleteAndNextButton("서비스 이용하기")
+    let serviceStartButton = CompleteAndNextButton("완료")
     
     lazy var detailCategoryCollectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
@@ -56,20 +59,20 @@ class DetailInterestsView: BaseView {
     
     override func makeConfigures() {
         super.makeConfigures()
-        [duplicatedChooseLabel, detailCategoryCollectionView, serviceStartButton].forEach {
+        [detailCategoryTitle, detailCategoryCollectionView, serviceStartButton].forEach {
             self.addSubview($0)
         }
     }
     
     override func makeConstraints() {
-        duplicatedChooseLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(0.1736 * UIScreen.main.bounds.height)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalToSuperview().multipliedBy(0.03)
+        detailCategoryTitle.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide)
+            make.leading.equalTo(safeAreaLayoutGuide).inset(24)
+            make.width.equalTo(140)
         }
         
         detailCategoryCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(duplicatedChooseLabel.snp.bottom).offset(0.032 * UIScreen.main.bounds.height)
+            make.top.equalTo(detailCategoryTitle.snp.bottom).offset(36)
             make.horizontalEdges.equalToSuperview().inset(25)
             make.height.equalToSuperview().multipliedBy(0.5)
         }

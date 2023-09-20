@@ -7,16 +7,17 @@
 
 import UIKit
 
-enum notoSansFont: String, CaseIterable {
-    case Black = "NotoSansKR-Black"
-    case Bold = "NotoSansKR-Bold"
-    case Light = "NotoSansKR-Light"
-    case Medium = "NotoSansKR-Medium"
-    case Regular = "NotoSansKR-Regular"
-    case Thin = "NotoSansKR-Thin"
+enum AppleSDGothicNeoFont: String, CaseIterable {
+    case Bold = "AppleSDGothicNeo-Bold"
+    case SemiBold = "AppleSDGothicNeo-SemiBold"
+    case Light = "AppleSDGothicNeo-Light"
+    case Medium = "AppleSDGothicNeo-Medium"
+    case Regular = "AppleSDGothicNeo-Regular"
+    case Thin = "AppleSDGothicNeo-Thin"
+    case UltraLight = "AppleSDGothicNeo-UltraLight"
     
     func of(size: CGFloat) -> UIFont {
-            return UIFont(name: self.rawValue, size: size)!
+        return UIFont(name: self.rawValue, size: size) ?? UIFont.systemFont(ofSize: 13)
     }
 }
 

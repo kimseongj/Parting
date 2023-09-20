@@ -28,13 +28,13 @@ class Label: UILabel {
 		self.textColor = color
 	}
 
-	convenience init(text: String, weight: notoSansFont, size: CGFloat) {
+	convenience init(text: String, weight: AppleSDGothicNeoFont, size: CGFloat) {
 		self.init()
 		self.text = text
 		self.font = weight.of(size: size)
 	}
 
-	convenience init(text: String, weight: notoSansFont, size: CGFloat, color: UIColor) {
+	convenience init(text: String, weight: AppleSDGothicNeoFont, size: CGFloat, color: UIColor) {
 		self.init()
 		self.text = text
 		self.font = weight.of(size: size)

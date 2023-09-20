@@ -11,7 +11,7 @@ import SnapKit
 class essentialInfoStackView: UIStackView {
     let checkButton: UIButton = {
         let button = UIButton()
-        button.layer.borderColor = AppColor.gray500.cgColor
+        button.layer.borderColor = AppColor.gray200.cgColor
         button.setImage(UIImage(named: "checkButton"), for: .normal)
         button.layer.borderWidth = 1
         return button
@@ -19,8 +19,8 @@ class essentialInfoStackView: UIStackView {
 
     let checkAnswerLabel: UILabel = {
         let label = UILabel()
-        label.textColor = AppColor.gray500
-        label.font = notoSansFont.Regular.of(size: 13)
+        label.textColor = AppColor.gray200
+        label.font = AppleSDGothicNeoFont.Regular.of(size: 13)
         return label
     }()
     

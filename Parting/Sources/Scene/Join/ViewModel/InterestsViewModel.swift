@@ -9,6 +9,37 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+enum CategoryTitleImage: Int, CaseIterable {
+    case 관람
+    case 문화생활
+    case 술
+    case 오락
+    case 음식
+    case 운동
+    case 자기개발
+    case 카페
+    
+    var item: String {
+        switch self {
+        case .관람:
+            return "관람"
+        case .문화생활:
+            return "문화생활"
+        case .술:
+            return "술"
+        case .오락:
+            return "오락"
+        case .음식:
+            return "음식"
+        case .운동:
+            return "운동"
+        case .자기개발:
+            return "자기개발"
+        case .카페:
+            return "카페"
+        }
+    }
+}
 
 protocol InterestsViewModelProtocol {
     func getCategoryInfo()

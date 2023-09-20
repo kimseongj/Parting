@@ -9,58 +9,58 @@ import UIKit
 import SnapKit
 
 class InterestsView: BaseView {
-    let duplicatedChooseLabel: UILabel = {
+    let setThemeLabel: UILabel = {
         let label = UILabel()
-        label.text = "중복 선택 가능"
-        label.textColor = UIColor(hexcode: "9E9EA9")
-        label.textAlignment = .center
-        label.font = notoSansFont.Regular.of(size: 16)
+        label.text = """
+모임 테마를
+선택해주세요
+"""
+        label.numberOfLines = 2
+        label.sizeToFit()
+        label.font = AppleSDGothicNeoFont.Medium.of(size: 22)
         return label
     }()
     
     let categoryCollectionView: UICollectionView = {
+        let itemColumnSpacing: CGFloat = 30
+        let sectionSpacing: CGFloat = 32
+        let width: CGFloat = (UIScreen.main.bounds.width - (itemColumnSpacing * 2)) - (sectionSpacing * 2)
+        let itemWidth: CGFloat = width / 3
         let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: itemWidth, height: 110)
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 32
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return view
     }()
     
     let nextStepButton = CompleteAndNextButton("다음 단계로")
     
-//    let nextStepButton: UIButton = {
-//        let button = UIButton()
-//        button.setTitle("다음 단계로", for: .normal)
-//        button.layer.cornerRadius = 8
-//        button.backgroundColor = AppColor.brand
-//        button.titleLabel?.font = notoSansFont.Bold.of(size: 20)
-//        button.setTitleColor(AppColor.white, for: .normal)
-//        return button
-//    }()
-    
     override func makeConfigures() {
         super.makeConfigures()
-        [duplicatedChooseLabel, categoryCollectionView, nextStepButton].forEach {
+        [setThemeLabel, categoryCollectionView, nextStepButton].forEach {
             self.addSubview($0)
         }
     }
     
     override func makeConstraints() {
-        duplicatedChooseLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(0.1736 * UIScreen.main.bounds.height)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalToSuperview().multipliedBy(0.03)
+        setThemeLabel.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide)
+            make.leading.equalTo(safeAreaLayoutGuide).inset(24)
+            make.width.equalTo(115)
         }
         
         categoryCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(duplicatedChooseLabel.snp.bottom).offset(0.032 * UIScreen.main.bounds.height)
-            make.horizontalEdges.equalToSuperview().inset(25)
-            make.height.equalToSuperview().multipliedBy(0.516)
+            make.top.equalTo(setThemeLabel.snp.bottom).offset(52)
+            make.horizontalEdges.equalToSuperview().inset(24)
+            make.height.equalTo(376)
         }
         
         nextStepButton.snp.makeConstraints { make in
-            make.top.equalTo(categoryCollectionView.snp.bottom).offset(0.065 * UIScreen.main.bounds.height)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.872)
             make.height.equalToSuperview().multipliedBy(0.061)
+            make.bottom.equalTo(safeAreaLayoutGuide).inset(38)
         }
     }
 }

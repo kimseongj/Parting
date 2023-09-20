@@ -48,10 +48,9 @@ enum InterestsCategory: Int, CaseIterable {
 
 class InterestsViewController: BaseViewController<InterestsView> {
     private let viewModel: InterestsViewModel
-//    private let disposeBag = DisposeBag()
+    
     private var checkedCategoryList: [Int] = [1,2,3,4,5,6,7,8]
     private var selectedCellIndex: [Int] = []
-    
     init(viewModel: InterestsViewModel) {
 		self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -82,9 +81,6 @@ class InterestsViewController: BaseViewController<InterestsView> {
     
     private func configureCell() {
         rootView.categoryCollectionView.register(CategoryImageCollectionViewCell.self, forCellWithReuseIdentifier: CategoryImageCollectionViewCell.identifier)
-        
-        rootView.categoryCollectionView.rx.setDelegate(self)
-            .disposed(by: disposeBag)
     }
     
     private func bindCategoryImage() {
@@ -92,8 +88,8 @@ class InterestsViewController: BaseViewController<InterestsView> {
             .bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: CategoryImageCollectionViewCell.identifier, cellType: CategoryImageCollectionViewCell.self)) {
                 index, categoryImage, cell in
                 print("\(categoryImage) ▶️▶️")
-                cell.interestsImageView.kf.setImage(with: URL(string: categoryImage))
-                cell.interestsLabel.text = InterestsCategory(rawValue: index)?.category
+                cell.configureCell(item: CategoryTitleImage(rawValue: index)?.item ?? "관람")
+
             }
             .disposed(by: disposeBag)
     }
@@ -106,18 +102,25 @@ class InterestsViewController: BaseViewController<InterestsView> {
             .subscribe(onNext: { owner, indexPath in
                 print("\(indexPath[1]) 🚫🚫")
                 guard let cell = owner.rootView.categoryCollectionView.cellForItem(at: indexPath) as? CategoryImageCollectionViewCell else { return }
-                if cell.interestsImageView.alpha == 1 { // 선택이 이미 된 상태
+                if  cell.bgView.layer.borderColor == UIColor(hexcode: "FBB0C0").cgColor { // 선택이 이미 된 상태
                     if let firstIndex = owner.selectedCellIndex.firstIndex(of: indexPath[1]+1) {
                         owner.selectedCellIndex.remove(at: firstIndex)  // 1
                         print("\(owner.selectedCellIndex) + 체크 안됐을 때")
                     }
-                    cell.interestsImageView.alpha = 0.6
                     cell.interestsLabel.textColor = AppColor.gray400
+                    cell.bgView.layer.borderColor = UIColor(hexcode: "F1F1F1").cgColor
                 } else { // 선택이 안된 상태
+                    let shadowPath0 = UIBezierPath(roundedRect: cell.bgView.bounds, cornerRadius: 16)
                     owner.selectedCellIndex.append(indexPath[1]+1)
                     print("\(owner.selectedCellIndex) + 체크됐을 때")
-                    cell.interestsImageView.alpha = 1
                     cell.interestsLabel.textColor = UIColor(hexcode: "65656D")
+                    cell.bgView.layer.borderColor = UIColor(hexcode: "FBB0C0").cgColor
+                    cell.bgView.layer.shadowPath
+                    cell.bgView.layer.shadowPath = shadowPath0.cgPath
+                    cell.bgView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1).cgColor
+                    cell.bgView.layer.shadowOpacity = 1
+                    cell.bgView.layer.shadowRadius = 1
+                    cell.bgView.layer.shadowOffset = CGSize(width: 0, height: 0)
                 }
             })
             .disposed(by: disposeBag)
@@ -138,28 +141,11 @@ class InterestsViewController: BaseViewController<InterestsView> {
         let leftBarButtonItem = UIBarButtonItem.init(image:  UIImage(named: "backBarButton"), style: .plain, target: self, action: #selector(backBarButtonClicked))
         leftBarButtonItem.tintColor = AppColor.joinText
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
-        let titleLabel = JoinNavigationBar(type: .Interests)
-        navigationItem.titleView = titleLabel
+        let titleImage = UIImage(named: "JoinFlowInterest")
+        navigationItem.titleView = UIImageView(image: titleImage)
     }
     
     @objc func backBarButtonClicked() {
         self.viewModel.input.popInterestsViewTrigger.onNext(())
-    }
-}
-
-extension InterestsViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width: CGFloat = collectionView.frame.width / 4
-        let height: CGFloat = collectionView.frame.height / 3.5
-        
-        return CGSize(width: width, height: height)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return UIScreen.main.bounds.height * 0.0418
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return UIScreen.main.bounds.width * 0.098
     }
 }

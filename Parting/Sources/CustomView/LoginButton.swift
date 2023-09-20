@@ -43,7 +43,7 @@ class LoginButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         layer.cornerRadius = 8
-        titleLabel?.font = notoSansFont.Regular.of(size: 16)
+        titleLabel?.font = AppleSDGothicNeoFont.Regular.of(size: 16)
         setTitleColor(AppColor.baseText, for: .normal)
         imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: UIScreen.main.bounds.width * 0.457)
     }

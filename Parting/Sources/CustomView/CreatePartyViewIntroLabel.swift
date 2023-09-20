@@ -27,7 +27,7 @@ enum IntroLabelType {
 class IntroLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        font = notoSansFont.Black.of(size: 12)
+        font = AppleSDGothicNeoFont.Bold.of(size: 12)
         textColor = UIColor(hexcode: "D0D0D0")
     }
     

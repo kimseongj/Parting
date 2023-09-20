@@ -146,7 +146,7 @@ final class CreatePartyView: BaseView {
     let setLocationButton: UIButton = {
         let button = UIButton()
         button.setTitle("지도에서 위치 설정", for: .normal)
-        button.titleLabel?.font = notoSansFont.Medium.of(size: 16)
+        button.titleLabel?.font = AppleSDGothicNeoFont.Medium.of(size: 16)
         button.setTitleColor(UIColor(hexcode: "676767"), for: .normal)
         button.setImage(UIImage(named: Images.icon.compass), for: .normal)
         button.layer.cornerRadius = 5
@@ -160,7 +160,7 @@ final class CreatePartyView: BaseView {
         let label = UILabel()
         label.text = "파티 인원수"
         label.textAlignment = .center
-        label.font = notoSansFont.Medium.of(size: 15)
+        label.font = AppleSDGothicNeoFont.Medium.of(size: 15)
         label.textColor = UIColor(hexcode: "676767")
         return label
     }()
@@ -189,7 +189,7 @@ final class CreatePartyView: BaseView {
         let label = UILabel()
         label.text = "연령대 설정"
         label.textAlignment = .center
-        label.font = notoSansFont.Medium.of(size: 15)
+        label.font = AppleSDGothicNeoFont.Medium.of(size: 15)
         label.textColor = UIColor(hexcode: "676767")
         return label
     }()
@@ -207,7 +207,7 @@ final class CreatePartyView: BaseView {
         multislider.valueLabelPosition = .bottom
         multislider.valueLabelColor = UIColor(hexcode: "D0D0D0")
         multislider.snapStepSize = 1.0 // value값 Int형
-        multislider.valueLabelFont = notoSansFont.Black.of(size: 12)
+        multislider.valueLabelFont = AppleSDGothicNeoFont.Bold.of(size: 12)
         return multislider
     }()
     
@@ -236,7 +236,7 @@ final class CreatePartyView: BaseView {
         textView.layer.borderColor = UIColor(hexcode: "EEEEEE").cgColor
         textView.layer.borderWidth = 1
         textView.layer.cornerRadius = 5
-        textView.font = notoSansFont.Medium.of(size: 13)
+        textView.font = AppleSDGothicNeoFont.Medium.of(size: 13)
         return textView
     }()
     
@@ -246,7 +246,7 @@ final class CreatePartyView: BaseView {
         let label = UILabel()
         label.text = "0/200"
         label.textAlignment = .center
-        label.font = notoSansFont.Regular.of(size: 12)
+        label.font = AppleSDGothicNeoFont.Regular.of(size: 12)
         label.textColor = UIColor(hexcode: "D3D3D3")
         return label
     }()

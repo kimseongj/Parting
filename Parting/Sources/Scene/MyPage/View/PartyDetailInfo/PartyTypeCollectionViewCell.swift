@@ -15,7 +15,7 @@ class PartyTypeCollectionViewCell: UICollectionViewCell {
         label.layer.cornerRadius = 8
         label.clipsToBounds = true
         label.backgroundColor = UIColor(hexcode: "FFD1D1")
-        label.font = notoSansFont.Bold.of(size: 13)
+        label.font = AppleSDGothicNeoFont.Bold.of(size: 13)
         return label
     }()
     
