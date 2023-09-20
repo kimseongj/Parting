@@ -26,7 +26,7 @@ class DdayWidgetView: UIView {
 	
 	private let dDayLabel: UILabel = {
 		let label = UILabel()
-		label.font = AppleSDGothicNeoFont.Bold.of(size: 60)
+		label.font = AppFont.Bold.of(size: 60)
 		label.textColor = AppColor.brand
 		label.text = "D-7"
 		label.setContentHuggingPriority(.defaultHigh, for: .vertical)
@@ -35,7 +35,7 @@ class DdayWidgetView: UIView {
 	
 	private let meetingLabel: UILabel = {
 		let label = UILabel()
-		label.font = AppleSDGothicNeoFont.Regular.of(size: 16)
+		label.font = AppFont.Regular.of(size: 16)
 		label.textColor = AppColor.brand
 		
 		label.text = "OOO 하는 모임"

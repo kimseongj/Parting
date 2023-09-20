@@ -19,7 +19,7 @@ class PersonnelCollectionViewCell: UICollectionViewCell {
     
     let profileNameLabel: UILabel = {
         let label = UILabel()
-        label.font = AppleSDGothicNeoFont.Medium.of(size: 10)
+        label.font = AppFont.Medium.of(size: 10)
         label.textAlignment = .center
         return label
     }()

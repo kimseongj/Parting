@@ -22,7 +22,7 @@ class SplashView: BaseView {
         label.numberOfLines = 0
         label.setLineSpacing()
         label.textAlignment = .center
-        label.font = AppleSDGothicNeoFont.Bold.of(size: 20)
+        label.font = AppFont.Bold.of(size: 20)
         label.textColor = AppColor.white
         return label
     }()

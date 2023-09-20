@@ -35,10 +35,10 @@ class CalendarWidgetView: UIButton {
 		fsCalendar.appearance.weekdayFont = .systemFont(ofSize: 0.0)
 		fsCalendar.appearance.todayColor = .clear
 		fsCalendar.appearance.headerTitleColor = AppColor.white
-		fsCalendar.appearance.headerTitleFont = AppleSDGothicNeoFont.Medium.of(size: 16)
+		fsCalendar.appearance.headerTitleFont = AppFont.Medium.of(size: 16)
 		fsCalendar.weekdayHeight = 0.0
 		fsCalendar.appearance.titleDefaultColor = .white
-		fsCalendar.appearance.titleFont = AppleSDGothicNeoFont.Regular.of(size: 12)
+		fsCalendar.appearance.titleFont = AppFont.Regular.of(size: 12)
 		fsCalendar.placeholderType = .none
 	}
 }

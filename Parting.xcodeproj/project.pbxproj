@@ -43,6 +43,7 @@
 		4E783FAA29EABF3E008B3E48 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E783FA929EABF3E008B3E48 /* JoinViewController.swift */; };
 		4E82F7F72ABA724E00C06CFB /* UserAgreementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E82F7F62ABA724E00C06CFB /* UserAgreementView.swift */; };
 		4E82F7F92ABA726B00C06CFB /* UserAgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E82F7F82ABA726B00C06CFB /* UserAgreementViewController.swift */; };
+		4E82F7FB2ABA72DE00C06CFB /* UserAgreementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E82F7FA2ABA72DE00C06CFB /* UserAgreementViewModel.swift */; };
 		4E87B4502AA0F42900B3AD94 /* UserInPartyInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87B44F2AA0F42900B3AD94 /* UserInPartyInfoResponse.swift */; };
 		4E87B4552AA2D88E00B3AD94 /* WidgetResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87B4542AA2D88E00B3AD94 /* WidgetResponse.swift */; };
 		4E87B4572AA2E5DF00B3AD94 /* CalendarResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87B4562AA2E5DF00B3AD94 /* CalendarResponse.swift */; };
@@ -205,6 +206,7 @@
 		4E783FA929EABF3E008B3E48 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		4E82F7F62ABA724E00C06CFB /* UserAgreementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgreementView.swift; sourceTree = "<group>"; };
 		4E82F7F82ABA726B00C06CFB /* UserAgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgreementViewController.swift; sourceTree = "<group>"; };
+		4E82F7FA2ABA72DE00C06CFB /* UserAgreementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgreementViewModel.swift; sourceTree = "<group>"; };
 		4E87B44F2AA0F42900B3AD94 /* UserInPartyInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInPartyInfoResponse.swift; sourceTree = "<group>"; };
 		4E87B4542AA2D88E00B3AD94 /* WidgetResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetResponse.swift; sourceTree = "<group>"; };
 		4E87B4562AA2E5DF00B3AD94 /* CalendarResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarResponse.swift; sourceTree = "<group>"; };
@@ -668,6 +670,7 @@
 				4E52228129F1417A000B96B4 /* EssentialInfoViewModel.swift */,
 				4E52228729F1813C000B96B4 /* InterestsViewModel.swift */,
 				4E153FA72A34C37600C7F58C /* DetailInterestsViewModel.swift */,
+				4E82F7FA2ABA72DE00C06CFB /* UserAgreementViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1207,6 +1210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E82F7FB2ABA72DE00C06CFB /* UserAgreementViewModel.swift in Sources */,
 				4E52228829F1813C000B96B4 /* InterestsViewModel.swift in Sources */,
 				4E6123C02A39B0BC0039307A /* CustomGroupView.swift in Sources */,
 				4EA81DE029ED2DC00070F1B7 /* JoinView.swift in Sources */,

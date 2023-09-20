@@ -20,7 +20,7 @@ class essentialInfoStackView: UIStackView {
     let checkAnswerLabel: UILabel = {
         let label = UILabel()
         label.textColor = AppColor.gray200
-        label.font = AppleSDGothicNeoFont.Regular.of(size: 13)
+        label.font = AppFont.Regular.of(size: 13)
         return label
     }()
     

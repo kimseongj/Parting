@@ -22,7 +22,7 @@ class detailCategoryCollectionViewCell: UICollectionViewCell {
     
     let categoryNameLabel: UILabel = {
         let label = UILabel()
-        label.font = AppleSDGothicNeoFont.Regular.of(size: 16)
+        label.font = AppFont.Regular.of(size: 16)
         label.textColor = AppColor.white
         return label
     }()

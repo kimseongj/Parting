@@ -30,7 +30,7 @@ class EssentialInfoView: BaseView {
 """
         label.numberOfLines = 2
         label.sizeToFit()
-        label.font = AppleSDGothicNeoFont.Medium.of(size: 22)
+        label.font = AppFont.Medium.of(size: 22)
         return label
     }()
     
@@ -38,7 +38,7 @@ class EssentialInfoView: BaseView {
         let label = UILabel()
         label.text = "직업이 있으신가요?"
         label.sizeToFit()
-        label.font = AppleSDGothicNeoFont.Regular.of(size: 16)
+        label.font = AppFont.Regular.of(size: 16)
         return label
     }()
     
@@ -46,7 +46,7 @@ class EssentialInfoView: BaseView {
         let label = UILabel()
         label.text = "성별을 입력해주세요"
         label.sizeToFit()
-        label.font = AppleSDGothicNeoFont.Regular.of(size: 16)
+        label.font = AppFont.Regular.of(size: 16)
         return label
     }()
     
@@ -90,7 +90,7 @@ class EssentialInfoView: BaseView {
         let label = UILabel()
         label.text = "생년월일을 입력해주세요"
         label.sizeToFit()
-        label.font = AppleSDGothicNeoFont.Regular.of(size: 16)
+        label.font = AppFont.Regular.of(size: 16)
         return label
     }()
     
@@ -99,7 +99,7 @@ class EssentialInfoView: BaseView {
         textField.backgroundColor = UIColor(hexcode: "F8FAFD")
         textField.layer.cornerRadius = 8
         textField.layer.borderColor = AppColor.gray200.cgColor
-        textField.font = AppleSDGothicNeoFont.Regular.of(size: 13)
+        textField.font = AppFont.Regular.of(size: 13)
         textField.layer.borderWidth = 1
         textField.textAlignment = .center
         return textField
@@ -109,7 +109,7 @@ class EssentialInfoView: BaseView {
         let label = UILabel()
         label.textColor = UIColor(hexcode: "A7B0C0")
         label.text = "년"
-        label.font = AppleSDGothicNeoFont.Regular.of(size: 13)
+        label.font = AppFont.Regular.of(size: 13)
         return label
     }()
     
@@ -127,7 +127,7 @@ class EssentialInfoView: BaseView {
         textField.layer.cornerRadius = 8
         textField.layer.borderColor = AppColor.gray200.cgColor
         textField.layer.borderWidth = 1
-        textField.font = AppleSDGothicNeoFont.Regular.of(size: 13)
+        textField.font = AppFont.Regular.of(size: 13)
         textField.textAlignment = .center
         return textField
     }()
@@ -136,7 +136,7 @@ class EssentialInfoView: BaseView {
         let label = UILabel()
         label.textColor = UIColor(hexcode: "A7B0C0")
         label.text = "월"
-        label.font = AppleSDGothicNeoFont.Regular.of(size: 13)
+        label.font = AppFont.Regular.of(size: 13)
         return label
     }()
     
@@ -154,7 +154,7 @@ class EssentialInfoView: BaseView {
         textField.layer.cornerRadius = 8
         textField.layer.borderColor = AppColor.gray200.cgColor
         textField.layer.borderWidth = 1
-        textField.font = AppleSDGothicNeoFont.Regular.of(size: 13)
+        textField.font = AppFont.Regular.of(size: 13)
         textField.textAlignment = .center
         return textField
     }()
@@ -163,7 +163,7 @@ class EssentialInfoView: BaseView {
         let label = UILabel()
         label.textColor = UIColor(hexcode: "A7B0C0")
         label.text = "일"
-        label.font = AppleSDGothicNeoFont.Regular.of(size: 13)
+        label.font = AppFont.Regular.of(size: 13)
         return label
     }()
     
@@ -177,7 +177,7 @@ class EssentialInfoView: BaseView {
     
     let addressLabel: UILabel = {
         let label = UILabel()
-        label.font = AppleSDGothicNeoFont.Regular.of(size: 16)
+        label.font = AppFont.Regular.of(size: 16)
         label.text = "주소를 입력해주세요"
         label.sizeToFit()
         return label
@@ -185,8 +185,8 @@ class EssentialInfoView: BaseView {
     
     let sidoTextField: UITextField = {
         let textField = UITextField()
-        textField.font = AppleSDGothicNeoFont.Regular.of(size: 13)
-        textField.attributedPlaceholder = NSAttributedString(string: "시도 선택", attributes: [.foregroundColor: AppColor.gray200, .font: AppleSDGothicNeoFont.Regular.of(size: 13)])
+        textField.font = AppFont.Regular.of(size: 13)
+        textField.attributedPlaceholder = NSAttributedString(string: "시도 선택", attributes: [.foregroundColor: AppColor.gray200, .font: AppFont.Regular.of(size: 13)])
         textField.backgroundColor = UIColor(hexcode: "F8FAFD")
         textField.layer.cornerRadius = 8
         textField.layer.borderColor = AppColor.gray200.cgColor
@@ -197,8 +197,8 @@ class EssentialInfoView: BaseView {
     
     let sigugunTextField: UITextField = {
         let textField = UITextField()
-        textField.font = AppleSDGothicNeoFont.Regular.of(size: 13)
-        textField.attributedPlaceholder = NSAttributedString(string: "시군구 선택", attributes: [.foregroundColor: AppColor.gray200, .font: AppleSDGothicNeoFont.Regular.of(size: 13)])
+        textField.font = AppFont.Regular.of(size: 13)
+        textField.attributedPlaceholder = NSAttributedString(string: "시군구 선택", attributes: [.foregroundColor: AppColor.gray200, .font: AppFont.Regular.of(size: 13)])
         textField.backgroundColor = UIColor(hexcode: "F8FAFD")
         textField.layer.cornerRadius = 8
         textField.layer.borderColor = AppColor.gray200.cgColor
@@ -218,7 +218,7 @@ class EssentialInfoView: BaseView {
     let nickNameLabel: UILabel = {
         let label = UILabel()
         label.sizeToFit()
-        label.font = AppleSDGothicNeoFont.Regular.of(size: 11)
+        label.font = AppFont.Regular.of(size: 11)
         label.textColor = AppColor.gray500
         label.text = "앱 이용 시 나의 프로필 이름으로 표시됩니다"
         return label
@@ -226,8 +226,8 @@ class EssentialInfoView: BaseView {
     
     let nickNameTextField: UITextField = {
         let textField = UITextField()
-        textField.font = AppleSDGothicNeoFont.Regular.of(size: 13)
-        textField.attributedPlaceholder = NSAttributedString(string: "닉네임", attributes: [.foregroundColor: AppColor.gray200, .font: AppleSDGothicNeoFont.Regular.of(size: 13)])
+        textField.font = AppFont.Regular.of(size: 13)
+        textField.attributedPlaceholder = NSAttributedString(string: "닉네임", attributes: [.foregroundColor: AppColor.gray200, .font: AppFont.Regular.of(size: 13)])
         textField.backgroundColor = UIColor(hexcode: "F8FAFD")
         textField.layer.cornerRadius = 8
         textField.layer.borderColor = AppColor.gray200.cgColor
@@ -241,7 +241,7 @@ class EssentialInfoView: BaseView {
         let label = UILabel()
         label.text = "닉네임을 입력해주세요"
         label.sizeToFit()
-        label.font = AppleSDGothicNeoFont.Regular.of(size: 16)
+        label.font = AppFont.Regular.of(size: 16)
         return label
     }()
     
@@ -252,7 +252,7 @@ class EssentialInfoView: BaseView {
         button.backgroundColor = UIColor(hexcode: "F8FAFD")
         button.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
         button.layer.borderWidth = 1
-        button.titleLabel?.font = AppleSDGothicNeoFont.Regular.of(size: 13)
+        button.titleLabel?.font = AppFont.Regular.of(size: 13)
         button.setTitle("중복확인", for: .normal)
         button.setTitleColor(UIColor(hexcode: "A7B0C0"), for: .normal)
         return button

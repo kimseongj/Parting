@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum AppleSDGothicNeoFont: String, CaseIterable {
+enum AppFont: String, CaseIterable {
     case Bold = "AppleSDGothicNeo-Bold"
     case SemiBold = "AppleSDGothicNeo-SemiBold"
     case Light = "AppleSDGothicNeo-Light"

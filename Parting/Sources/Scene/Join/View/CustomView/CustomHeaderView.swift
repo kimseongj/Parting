@@ -15,7 +15,7 @@ class CustomHeaderView: UICollectionReusableView {
     let categoryLabel: UILabel = {
         let label = UILabel()
         label.text = "TEST"
-        label.font = AppleSDGothicNeoFont.Regular.of(size: 16)
+        label.font = AppFont.Regular.of(size: 16)
         return label
     }()
     

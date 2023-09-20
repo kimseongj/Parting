@@ -12,7 +12,7 @@ class JoinCompleteView: BaseView {
     let completeLabel: UILabel = {
         let label = UILabel()
         label.text = "회원가입이 완료되었습니다!"
-        label.font = AppleSDGothicNeoFont.Regular.of(size: 24)
+        label.font = AppFont.Regular.of(size: 24)
         label.textAlignment = .center
         return label
     }()

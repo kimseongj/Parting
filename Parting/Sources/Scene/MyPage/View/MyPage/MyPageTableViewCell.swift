@@ -16,7 +16,7 @@ class MyPageTableViewCell: UITableViewCell {
     
     private let listTitle: UILabel = {
         let label = UILabel()
-        label.font = AppleSDGothicNeoFont.Medium.of(size: 15)
+        label.font = AppFont.Medium.of(size: 15)
         return label
     }()
     

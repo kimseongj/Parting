@@ -7,10 +7,11 @@
 
 import UIKit
 
-class UserAgreementViewController: UIViewController {
+class UserAgreementViewController: BaseViewController<UserAgreementView> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
+    
 }

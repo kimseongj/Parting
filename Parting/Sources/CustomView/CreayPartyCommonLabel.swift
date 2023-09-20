@@ -11,7 +11,7 @@ class CreatePartyCommonLabel: UILabel {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        font = AppleSDGothicNeoFont.Medium.of(size: 15)
+        font = AppFont.Medium.of(size: 15)
         textAlignment = .center
         textColor = AppColor.brand
         clipsToBounds = true

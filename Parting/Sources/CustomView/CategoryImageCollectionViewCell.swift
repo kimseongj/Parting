@@ -39,7 +39,7 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
         label.textAlignment = .center
         label.sizeToFit()
         label.numberOfLines = 0
-        label.font = AppleSDGothicNeoFont.Medium.of(size: 16)
+        label.font = AppFont.Medium.of(size: 16)
         label.textColor = AppColor.gray700
         return label
     }()

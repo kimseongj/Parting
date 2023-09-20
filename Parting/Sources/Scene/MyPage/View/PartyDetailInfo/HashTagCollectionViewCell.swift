@@ -19,7 +19,7 @@ class HashTagCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.layer.cornerRadius = 8
         label.clipsToBounds = true
-        label.font = AppleSDGothicNeoFont.Bold.of(size: 13)
+        label.font = AppFont.Bold.of(size: 13)
         return label
     }()
     

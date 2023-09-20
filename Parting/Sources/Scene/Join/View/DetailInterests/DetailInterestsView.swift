@@ -17,7 +17,7 @@ class DetailInterestsView: BaseView {
 """
         label.numberOfLines = 2
         label.sizeToFit()
-        label.font = AppleSDGothicNeoFont.Medium.of(size: 22)
+        label.font = AppFont.Medium.of(size: 22)
         return label
     }()
     
