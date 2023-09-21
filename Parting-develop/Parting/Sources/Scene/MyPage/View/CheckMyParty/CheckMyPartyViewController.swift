@@ -1,0 +1,95 @@
+//
+//  CheckMyPartyViewController.swift
+//  Parting
+//
+//  Created by 박시현 on 2023/08/16.
+//
+
+import UIKit
+import RxSwift
+import RxCocoa
+
+class CheckMyPartyViewController: BaseViewController<MypageCommonView>, MyPageProtocol {
+    private let viewModel: CheckMyPartyViewModel
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationUI()
+        cellRegister()
+        setTableViewDelegateAndDataSource()
+        bind()
+    }
+    
+    init(viewModel: CheckMyPartyViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("CheckMyPartyVC 메모리 해제")
+    }
+    
+    private func navigationUI() {
+        navigationController?.isNavigationBarHidden = false
+        self.navigationItem.rightBarButtonItem = rootView.bellBarButton
+        self.navigationItem.leftBarButtonItem = rootView.backBarButton
+        self.navigationItem.titleView = BarTitleLabel(text: "내가 개설한 파티")
+    }
+    
+    func cellRegister() {
+        rootView.partyListTableView.register(PartyTableViewCell.self, forCellReuseIdentifier: PartyTableViewCell.identifier)
+        
+    }
+    
+    func setTableViewDelegateAndDataSource() {
+        rootView.partyListTableView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
+    }
+    
+    private func bind() {
+        rootView.backBarButton.innerButton.rx.tap
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.viewModel.input.onNext(.popVC)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.myPartyList
+            .bind(to: rootView.partyListTableView.rx.items(cellIdentifier: PartyTableViewCell.identifier, cellType: PartyTableViewCell.self)) { [weak self] index, party, cell in
+                cell.configureMyPageCell(party: party)
+                cell.selectionStyle = .none
+            }
+            .disposed(by: disposeBag)
+        
+        rootView.partyListTableView.rx
+            .modelSelected(PartyInfoResponse.self)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, cellModel in
+                owner.viewModel.input.onNext(.pushDetailPartyInfo(partyId: cellModel.partyID))
+            })
+            .disposed(by: disposeBag)
+        
+    }
+}
+
+extension CheckMyPartyViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return 148
+    }
+}
+
+extension CheckMyPartyViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.myPartyList.value.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+}
