@@ -12,7 +12,6 @@ import RxCocoa
 class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
     static let sectionBackgroundDecorationElementKind = "background"
     private let viewModel: DetailInterestsViewModel
-//    private let disposeBag = DisposeBag()
     private var categoryTitle: [String] = []
     private var categoryDetailLists: [[String]] = []
     private var cellIdxList: [Int] = []
@@ -42,6 +41,9 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
         headerViewResist()
         bindingCategoryData()
         serviceStartButtonClicked()
+        
+        rootView.detailCategoryCollectionView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
     }
     
     private func setDataSource() {
@@ -97,6 +99,15 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
 		rootView.serviceStartButton.rx.tap
 			.bind(to: viewModel.input.naviagteToPublicScreenTrigger)
 			.disposed(by: disposeBag)
+        
+//        Observable
+//            .zip(rootView.detailCategoryCollectionView.rx.modelSelected(CategoryDetailResultContainisSelected.self), rootView.detailCategoryCollectionView.rx.itemSelected)
+//            .subscribe(onNext: { [weak self] (item, indexPath) in
+////                item.isClicked = false
+//                item.isClicked.toggle()
+//                print(item.isClicked, "✅")
+//            })
+//            .disposed(by: disposeBag)
     }
     
     private func headerViewResist() {
@@ -131,3 +142,13 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
         self.viewModel.input.popDetailInterestsViewTrigger.onNext(())
     }
 }
+
+extension DetailInterestsViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: detailCategoryCollectionViewCell.identifier, for: indexPath) as? detailCategoryCollectionViewCell else { return }
+        
+        print(cell.isSelected, "✅")
+    }
+}
+
+

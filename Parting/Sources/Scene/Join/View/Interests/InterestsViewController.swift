@@ -87,7 +87,6 @@ class InterestsViewController: BaseViewController<InterestsView> {
         viewModel.output.categoryImage
             .bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: CategoryImageCollectionViewCell.identifier, cellType: CategoryImageCollectionViewCell.self)) {
                 index, categoryImage, cell in
-                print("\(categoryImage) ▶️▶️")
                 cell.configureCell(item: CategoryTitleImage(rawValue: index)?.item ?? "관람")
 
             }
@@ -100,27 +99,22 @@ class InterestsViewController: BaseViewController<InterestsView> {
             .observe(on: MainScheduler.instance)
             .withUnretained(self)
             .subscribe(onNext: { owner, indexPath in
-                print("\(indexPath[1]) 🚫🚫")
                 guard let cell = owner.rootView.categoryCollectionView.cellForItem(at: indexPath) as? CategoryImageCollectionViewCell else { return }
                 if  cell.bgView.layer.borderColor == UIColor(hexcode: "FBB0C0").cgColor { // 선택이 이미 된 상태
                     if let firstIndex = owner.selectedCellIndex.firstIndex(of: indexPath[1]+1) {
                         owner.selectedCellIndex.remove(at: firstIndex)  // 1
-                        print("\(owner.selectedCellIndex) + 체크 안됐을 때")
                     }
-                    cell.interestsLabel.textColor = AppColor.gray400
+                    cell.interestsLabel.textColor = AppColor.gray700
                     cell.bgView.layer.borderColor = UIColor(hexcode: "F1F1F1").cgColor
                 } else { // 선택이 안된 상태
-                    let shadowPath0 = UIBezierPath(roundedRect: cell.bgView.bounds, cornerRadius: 16)
                     owner.selectedCellIndex.append(indexPath[1]+1)
-                    print("\(owner.selectedCellIndex) + 체크됐을 때")
-                    cell.interestsLabel.textColor = UIColor(hexcode: "65656D")
+                    cell.interestsLabel.textColor = AppColor.gray900
                     cell.bgView.layer.borderColor = UIColor(hexcode: "FBB0C0").cgColor
-                    cell.bgView.layer.shadowPath
-                    cell.bgView.layer.shadowPath = shadowPath0.cgPath
-                    cell.bgView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1).cgColor
-                    cell.bgView.layer.shadowOpacity = 1
-                    cell.bgView.layer.shadowRadius = 1
-                    cell.bgView.layer.shadowOffset = CGSize(width: 0, height: 0)
+                }
+                if owner.selectedCellIndex.count > 0 {
+                    owner.rootView.changeButtonColor(state: true)
+                } else {
+                    owner.rootView.changeButtonColor(state: false)
                 }
             })
             .disposed(by: disposeBag)
@@ -131,7 +125,12 @@ class InterestsViewController: BaseViewController<InterestsView> {
         rootView.nextStepButton.rx.tap
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
-                owner.viewModel.input.pushDetailInterestViewTrigger.onNext(owner.selectedCellIndex)
+                if owner.selectedCellIndex.count > 0 {
+                    owner.viewModel.input.pushDetailInterestViewTrigger.onNext(owner.selectedCellIndex)
+                } else {
+                    print("선택한 카테고리가 없습니다.")
+                }
+                
             })
             .disposed(by: disposeBag)
     }

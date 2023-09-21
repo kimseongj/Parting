@@ -81,7 +81,7 @@ class DetailInterestsView: BaseView {
             make.top.equalTo(detailCategoryCollectionView.snp.bottom).offset(27)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.872)
-            make.height.equalToSuperview().multipliedBy(0.061)
+            make.height.equalTo(50)
         }
     }
 }

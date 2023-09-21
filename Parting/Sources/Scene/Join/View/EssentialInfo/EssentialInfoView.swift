@@ -109,7 +109,7 @@ class EssentialInfoView: BaseView {
         let label = UILabel()
         label.textColor = UIColor(hexcode: "A7B0C0")
         label.text = "년"
-        label.font = AppFont.Regular.of(size: 13)
+        label.font = AppFont.Regular.of(size: 15)
         return label
     }()
     
@@ -136,7 +136,7 @@ class EssentialInfoView: BaseView {
         let label = UILabel()
         label.textColor = UIColor(hexcode: "A7B0C0")
         label.text = "월"
-        label.font = AppFont.Regular.of(size: 13)
+        label.font = AppFont.Regular.of(size: 15)
         return label
     }()
     
@@ -163,7 +163,7 @@ class EssentialInfoView: BaseView {
         let label = UILabel()
         label.textColor = UIColor(hexcode: "A7B0C0")
         label.text = "일"
-        label.font = AppFont.Regular.of(size: 13)
+        label.font = AppFont.Regular.of(size: 15)
         return label
     }()
     
@@ -186,7 +186,7 @@ class EssentialInfoView: BaseView {
     let sidoTextField: UITextField = {
         let textField = UITextField()
         textField.font = AppFont.Regular.of(size: 13)
-        textField.attributedPlaceholder = NSAttributedString(string: "시도 선택", attributes: [.foregroundColor: AppColor.gray200, .font: AppFont.Regular.of(size: 13)])
+        textField.attributedPlaceholder = NSAttributedString(string: "시/도 선택", attributes: [.foregroundColor: AppColor.gray200, .font: AppFont.Regular.of(size: 13)])
         textField.backgroundColor = UIColor(hexcode: "F8FAFD")
         textField.layer.cornerRadius = 8
         textField.layer.borderColor = AppColor.gray200.cgColor
@@ -198,7 +198,7 @@ class EssentialInfoView: BaseView {
     let sigugunTextField: UITextField = {
         let textField = UITextField()
         textField.font = AppFont.Regular.of(size: 13)
-        textField.attributedPlaceholder = NSAttributedString(string: "시군구 선택", attributes: [.foregroundColor: AppColor.gray200, .font: AppFont.Regular.of(size: 13)])
+        textField.attributedPlaceholder = NSAttributedString(string: "시/군/구 선택", attributes: [.foregroundColor: AppColor.gray200, .font: AppFont.Regular.of(size: 13)])
         textField.backgroundColor = UIColor(hexcode: "F8FAFD")
         textField.layer.cornerRadius = 8
         textField.layer.borderColor = AppColor.gray200.cgColor
@@ -266,7 +266,7 @@ class EssentialInfoView: BaseView {
         return view
     }()
     
-    let nextStepButton = CompleteAndNextButton("다음 단계로")
+    let nextStepButton = CompleteAndNextButton("다음")
     
     func changeButtonColor(state: Bool) {
         if state {
@@ -431,10 +431,10 @@ class EssentialInfoView: BaseView {
         }
         
         nextStepButton.snp.makeConstraints { make in
-            
+            make.top.equalTo(nickNameLabel.snp.bottom).offset(41)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.872)
-            make.height.equalToSuperview().multipliedBy(0.061)
+            make.height.equalTo(50)
             make.bottom.equalToSuperview().inset(46)
         }
     }

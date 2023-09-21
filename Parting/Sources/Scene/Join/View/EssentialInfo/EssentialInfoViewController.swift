@@ -55,6 +55,14 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         checkButtonUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        addKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        removeKeyboardNotifications()
+    }
+    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,9 +76,39 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         configurePickerView()
         regionDataBind()
         configureToolBar()
+        configureDateToolBAR()
         enterYourNickname()
         checkDuplicatedNickName()
         bind()
+    }
+    
+    private func addKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func removeKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+
+    }
+    
+    @objc func keyboardWillShow(_ noti: NSNotification) {
+        if let keyboardFrame: NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            rootView.frame.origin.y -= keyboardHeight
+        }
+    }
+    
+    @objc func keyBoardWillHide(_ noti: NSNotification) {
+        if let keyboardFrame: NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            rootView.frame.origin.y += keyboardHeight
+        }
     }
     
     // MARK: - 닉네임 중복 검사
@@ -374,6 +412,24 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         rootView.sigugunTextField.inputAccessoryView = toolBar
     }
     
+    private func configureDateToolBAR() {
+        let toolBar = UIToolbar()
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.black
+        toolBar.sizeToFit()
+        
+        let completeButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(dateCompleteButtonClicked))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(dateCancelButtonClicked))
+        
+        toolBar.setItems([cancelButton,flexibleSpace,completeButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        rootView.yearTextField.inputAccessoryView = toolBar
+        rootView.monthTextField.inputAccessoryView = toolBar
+        rootView.dayTextField.inputAccessoryView = toolBar
+    }
+    
     // MARK: - 피커뷰 완료버튼
     @objc private func completeButtonClicked() {
         guard let sidoData = sidoListData else { return }
@@ -389,12 +445,28 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         regionPicker.reloadComponent(1)
         rootView.sidoTextField.resignFirstResponder()
         rootView.sigugunTextField.resignFirstResponder()
+        
+        rootView.yearTextField.resignFirstResponder()
+        rootView.monthTextField.resignFirstResponder()
+        rootView.dayTextField.resignFirstResponder()
     }
     
     // MARK: 데이트 피커 취소버튼
     @objc private func cancelButtonClicked() {
         rootView.sidoTextField.text = nil
         rootView.sigugunTextField.text = nil
+        rootView.resignFirstResponder()
+    }
+    
+    // MARK: - 년,월,일 완료버튼
+    @objc private func dateCompleteButtonClicked() {
+        rootView.yearTextField.resignFirstResponder()
+        rootView.monthTextField.resignFirstResponder()
+        rootView.dayTextField.resignFirstResponder()
+    }
+    
+    // MARK: 년,월,일 취소버튼
+    @objc private func dateCancelButtonClicked() {
         rootView.resignFirstResponder()
     }
     

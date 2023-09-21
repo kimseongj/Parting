@@ -10,13 +10,12 @@ import SnapKit
 
 
 class detailCategoryCollectionViewCell: UICollectionViewCell {
-//    static let identifier = "detailCategoryCollectionViewCell"
     var isActivated: Bool
     
     let backGroundView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 8
-        view.backgroundColor = AppColor.gray400
+        view.backgroundColor = UIColor(hexcode: "D9D9E2")
         return view
     }()
     

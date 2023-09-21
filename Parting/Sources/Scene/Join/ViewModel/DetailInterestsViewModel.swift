@@ -23,7 +23,6 @@ final class DetailInterestsViewModel: BaseViewModel {
     var count: BehaviorRelay<[Int]>
     var categoryNameList: BehaviorRelay<[String]>
     var associatedNameList: BehaviorRelay<[[String]]>
-    
     private weak var coordinator: JoinCoordinator?
     private let disposeBag = DisposeBag()
     

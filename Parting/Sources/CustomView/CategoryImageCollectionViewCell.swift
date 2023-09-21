@@ -9,7 +9,6 @@ import UIKit
 import RxSwift
 
 class CategoryImageCollectionViewCell: UICollectionViewCell {
-//    static let identifier = "CategoryImageCollectionViewCell"
     enum CellType {
         case normal
         case deselectable
@@ -29,6 +28,8 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    var shadows = UIView()
+    
     let interestsImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
@@ -46,15 +47,12 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
     
     let interestStackView: UIStackView = {
         let view = StackView(axis: .vertical, alignment: .fill, distribution: .fillProportionally, spacing: 8.0)
-        //        view.axis = .vertical
-        //        view.distribution = .fillProportionally
         return view
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
-//        configureCell(type: .deselectable, size: .md)
     }
     
     @available(*, unavailable)
@@ -82,7 +80,7 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        interestsLabel.textColor = AppColor.gray50
+        interestsLabel.textColor = AppColor.gray700
     }
 }
 
@@ -90,6 +88,7 @@ extension CategoryImageCollectionViewCell: ProgrammaticallyInitializableViewProt
     
     
     func addSubviews() {
+        bgView.addSubview(shadows)
         bgView.addSubview(interestsImageView)
         interestStackView.addArrangedSubview(bgView)
         interestStackView.addArrangedSubview(interestsLabel)

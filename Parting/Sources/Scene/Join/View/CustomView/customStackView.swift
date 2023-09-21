@@ -20,7 +20,7 @@ class essentialInfoStackView: UIStackView {
     let checkAnswerLabel: UILabel = {
         let label = UILabel()
         label.textColor = AppColor.gray200
-        label.font = AppFont.Regular.of(size: 13)
+        label.font = AppFont.Regular.of(size: 15)
         return label
     }()
     
@@ -36,8 +36,9 @@ class essentialInfoStackView: UIStackView {
     
     private func buttonConstraints() {
         checkButton.snp.makeConstraints { make in
-            make.height.equalToSuperview().multipliedBy(0.85)
-            make.width.equalTo(checkButton.snp.height)
+            make.width.height.equalTo(17)
+//            make.height.equalToSuperview().multipliedBy(0.85)
+//            make.width.equalTo(checkButton.snp.height)
         }
     }
     
