@@ -8,8 +8,21 @@
 import UIKit
 import SnapKit
 
+protocol ButtonColorChange: AnyObject {
+    func changeButtonColor(state: Bool)
+}
+
 
 class detailCategoryCollectionViewCell: UICollectionViewCell {
+    
+    weak var delegate: ButtonColorChange?
+    
+    override var isSelected: Bool {
+        didSet {
+            configureUI()
+            delegate?.changeButtonColor(state: isSelected)
+        }
+    }
     var isActivated: Bool
     
     let backGroundView: UIView = {
@@ -37,8 +50,19 @@ class detailCategoryCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configureUI() {
+        if isSelected {
+            backGroundView.backgroundColor = AppColor.brand
+            categoryNameLabel.textColor = AppColor.white
+        } else {
+            backGroundView.backgroundColor = UIColor(hexcode: "D9D9E2")
+            categoryNameLabel.textColor = AppColor.white
+        }
+    }
+    
     private func setUpview() {
-        [backGroundView,categoryNameLabel].forEach {
+        backGroundView.addSubview(categoryNameLabel)
+        [backGroundView].forEach {
             self.contentView.addSubview($0)
         }
     }
