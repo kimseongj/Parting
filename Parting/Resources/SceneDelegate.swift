@@ -12,7 +12,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var appCoordinator: AppCoordinator?
-//    var homeCoordinator: TabCoordinator?
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         if let url = URLContexts.first?.url {
@@ -30,9 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         let nav = UINavigationController()
         appCoordinator = AppCoordinator.init(nav)
-//        homeCoordinator = TabCoordinator.init(nav)
         appCoordinator?.start()
-//        homeCoordinator?.start()
         
         window?.rootViewController = nav
         window?.makeKeyAndVisible()
