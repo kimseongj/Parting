@@ -16,6 +16,7 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
     private var categoryDetailLists: [[String]] = []
     private var cellIdxList: [Int] = []
     
+    
 
     var dataSource: UICollectionViewDiffableDataSource<String, String>?
     
@@ -41,27 +42,13 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
         headerViewResist()
         bindingCategoryData()
         serviceStartButtonClicked()
-        
-        rootView.detailCategoryCollectionView.rx.setDelegate(self)
-            .disposed(by: disposeBag)
+        rootView.detailCategoryCollectionView.allowsMultipleSelection = true
     }
     
     private func setDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<String, String>(collectionView: self.rootView.detailCategoryCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            guard let cell = self.rootView.detailCategoryCollectionView.dequeueReusableCell(withReuseIdentifier: detailCategoryCollectionViewCell.identifier, for: indexPath) as? detailCategoryCollectionViewCell else { return nil }
-            cell.configure(itemIdentifier)
-            return cell
-        })
+        rootView.detailCategoryCollectionView.rx.setDataSource(self)
+            .disposed(by: disposeBag)
         
-        dataSource?.supplementaryViewProvider = {
-            collectionView, kind, indexPath in
-            guard kind == UICollectionView.elementKindSectionHeader else { return UICollectionReusableView() }
-            guard let view = self.rootView.detailCategoryCollectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CustomHeaderView.elementKind, for: indexPath) as? CustomHeaderView else { return UICollectionReusableView() }
-        
-            view.categoryLabel.text = self.categoryTitle[indexPath.section]
-            
-            return view
-        }
     }
     
     private func serviceStartButtonClicked() {
@@ -92,22 +79,13 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
             .withUnretained(self)
             .subscribe(onNext: { owner, data in
                 owner.categoryDetailLists = data
-                owner.snapShotTest()
+                print(owner.categoryDetailLists)
             })
             .disposed(by: disposeBag)
 		
 		rootView.serviceStartButton.rx.tap
 			.bind(to: viewModel.input.naviagteToPublicScreenTrigger)
 			.disposed(by: disposeBag)
-        
-//        Observable
-//            .zip(rootView.detailCategoryCollectionView.rx.modelSelected(CategoryDetailResultContainisSelected.self), rootView.detailCategoryCollectionView.rx.itemSelected)
-//            .subscribe(onNext: { [weak self] (item, indexPath) in
-////                item.isClicked = false
-//                item.isClicked.toggle()
-//                print(item.isClicked, "✅")
-//            })
-//            .disposed(by: disposeBag)
     }
     
     private func headerViewResist() {
@@ -116,17 +94,6 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
     
     private func cellResist() {
         self.rootView.detailCategoryCollectionView.register(detailCategoryCollectionViewCell.self, forCellWithReuseIdentifier: detailCategoryCollectionViewCell.identifier)
-    }
-    
-    private func snapShotTest() {
-        var snapshot = NSDiffableDataSourceSnapshot<String, String>()
-        snapshot.appendSections(categoryTitle)
-        
-        for (idx,section) in snapshot.sectionIdentifiers.enumerated() {
-            snapshot.appendItems(categoryDetailLists[idx], toSection: section)
-        }
-        
-        self.dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
     private func navigationUI() {
@@ -143,12 +110,26 @@ class DetailInterestsViewController: BaseViewController<DetailInterestsView> {
     }
 }
 
-extension DetailInterestsViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: detailCategoryCollectionViewCell.identifier, for: indexPath) as? detailCategoryCollectionViewCell else { return }
-        
-        print(cell.isSelected, "✅")
+
+
+extension DetailInterestsViewController: UICollectionViewDataSource, ButtonColorChange {
+    func changeButtonColor(state: Bool) {
+        rootView.changeCompleteButtonColor(state: state)
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return categoryTitle.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return categoryDetailLists[section].count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: detailCategoryCollectionViewCell.identifier, for: indexPath) as? detailCategoryCollectionViewCell else { return UICollectionViewCell() }
+        cell.categoryNameLabel.text = categoryDetailLists[indexPath.section][indexPath.item]
+        cell.delegate = self
+                
+        return cell
     }
 }
-
-

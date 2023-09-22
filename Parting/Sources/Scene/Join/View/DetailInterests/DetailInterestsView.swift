@@ -23,7 +23,7 @@ class DetailInterestsView: BaseView {
     
     let serviceStartButton = CompleteAndNextButton("완료")
     
-    lazy var detailCategoryCollectionView: UICollectionView = {
+lazy var detailCategoryCollectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         return view
     }()
@@ -55,6 +55,14 @@ class DetailInterestsView: BaseView {
         let layout = UICollectionViewCompositionalLayout(section: section, configuration: config)
         layout.register(CustomGroupView.self, forDecorationViewOfKind: CustomGroupView.reuseIdentifier)
         return layout
+    }
+    
+    func changeCompleteButtonColor(state: Bool) {
+        if state {
+            serviceStartButton.backgroundColor = AppColor.brand
+        } else {
+            serviceStartButton.backgroundColor = AppColor.brandNotValidate
+        }
     }
     
     override func makeConfigures() {

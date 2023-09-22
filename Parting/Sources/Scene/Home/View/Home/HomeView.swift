@@ -35,11 +35,6 @@ class HomeView: BaseView {
 		let widget = CalendarWidgetView()
 		return widget
 	}()
-    
-//    let calendarWidget: UIButton = {
-//        let widget = CalendarWidgetView()
-//        return widget
-//    }()
 	
 	let dDayWidget: DdayWidgetView = {
         let view = DdayWidgetView()

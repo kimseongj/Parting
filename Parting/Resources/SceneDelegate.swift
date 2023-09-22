@@ -12,7 +12,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var appCoordinator: AppCoordinator?
-//    var homeCoordinator: TabCoordinator?
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         if let url = URLContexts.first?.url {
@@ -28,11 +27,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        let nav = UINavigationController()
-        appCoordinator = AppCoordinator.init(nav)
-//        homeCoordinator = TabCoordinator.init(nav)
-        appCoordinator?.start()
-//        homeCoordinator?.start()
+        
+//        appCoordinator = AppCoordinator.init(nav)
+//        appCoordinator?.start()
+        
+        let testViewController = TestHomeViewController()
+        let nav = UINavigationController(rootViewController: testViewController)
         
         window?.rootViewController = nav
         window?.makeKeyAndVisible()
