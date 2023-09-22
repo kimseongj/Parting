@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2FD54E872ABDA82C00C9216A /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54E862ABDA82C00C9216A /* APIKey.swift */; };
+		2FD54E8A2ABDA9CD00C9216A /* LogoutAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54E882ABDA9CD00C9216A /* LogoutAlertViewModel.swift */; };
+		2FD54E8B2ABDA9CD00C9216A /* NotificationSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54E892ABDA9CD00C9216A /* NotificationSettingViewModel.swift */; };
+		2FD54E902ABDA9E900C9216A /* EditMyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54E8D2ABDA9E900C9216A /* EditMyPageViewController.swift */; };
+		2FD54E912ABDA9E900C9216A /* InterestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54E8E2ABDA9E900C9216A /* InterestCollectionViewCell.swift */; };
+		2FD54E922ABDA9E900C9216A /* EditMyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54E8F2ABDA9E900C9216A /* EditMyPageView.swift */; };
+		2FD54E9D2ABDA9FE00C9216A /* NotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54E952ABDA9FE00C9216A /* NotificationSettingViewController.swift */; };
+		2FD54E9E2ABDA9FE00C9216A /* NotificationSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54E962ABDA9FE00C9216A /* NotificationSettingView.swift */; };
+		2FD54E9F2ABDA9FE00C9216A /* LogoutAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54E982ABDA9FE00C9216A /* LogoutAlertViewController.swift */; };
+		2FD54EA02ABDA9FE00C9216A /* LogoutAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54E992ABDA9FE00C9216A /* LogoutAlertView.swift */; };
+		2FD54EA12ABDA9FE00C9216A /* SettingAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54E9B2ABDA9FE00C9216A /* SettingAlertView.swift */; };
+		2FD54EA22ABDA9FE00C9216A /* SettingAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54E9C2ABDA9FE00C9216A /* SettingAlertViewController.swift */; };
+		2FD54EA42ABDAA1F00C9216A /* CustomTwoButtonAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54EA32ABDAA1F00C9216A /* CustomTwoButtonAlertView.swift */; };
+		2FD54EA62ABDAA3000C9216A /* EditMyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54EA52ABDAA3000C9216A /* EditMyPageViewModel.swift */; };
 		4E0DCE502A7CC2D200DEB3B5 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0DCE4F2A7CC2D100DEB3B5 /* Toast */; };
 		4E0DCE562A7CF0BF00DEB3B5 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0DCE552A7CF0BF00DEB3B5 /* RxDataSources */; };
 		4E153FA82A34C37600C7F58C /* DetailInterestsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E153FA72A34C37600C7F58C /* DetailInterestsViewModel.swift */; };
@@ -167,11 +181,24 @@
 		933E58C72A691B06000F945E /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E58C62A691B06000F945E /* Entity.swift */; };
 		933E58C92A6920FB000F945E /* Kingfisher+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E58C82A6920FB000F945E /* Kingfisher+Extension.swift */; };
 		933E58CD2A69422E000F945E /* UITabBarController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E58CC2A69422E000F945E /* UITabBarController+Extension.swift */; };
-		93A17E082A558319004E3F75 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A17E072A558319004E3F75 /* APIKey.swift */; };
 		A73FD08B699AC59F80404D13 /* Pods_Parting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD59E7956BC0D337F1F0F17 /* Pods_Parting.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2FD54E862ABDA82C00C9216A /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		2FD54E882ABDA9CD00C9216A /* LogoutAlertViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutAlertViewModel.swift; sourceTree = "<group>"; };
+		2FD54E892ABDA9CD00C9216A /* NotificationSettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewModel.swift; sourceTree = "<group>"; };
+		2FD54E8D2ABDA9E900C9216A /* EditMyPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMyPageViewController.swift; sourceTree = "<group>"; };
+		2FD54E8E2ABDA9E900C9216A /* InterestCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestCollectionViewCell.swift; sourceTree = "<group>"; };
+		2FD54E8F2ABDA9E900C9216A /* EditMyPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMyPageView.swift; sourceTree = "<group>"; };
+		2FD54E952ABDA9FE00C9216A /* NotificationSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewController.swift; sourceTree = "<group>"; };
+		2FD54E962ABDA9FE00C9216A /* NotificationSettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingView.swift; sourceTree = "<group>"; };
+		2FD54E982ABDA9FE00C9216A /* LogoutAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutAlertViewController.swift; sourceTree = "<group>"; };
+		2FD54E992ABDA9FE00C9216A /* LogoutAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutAlertView.swift; sourceTree = "<group>"; };
+		2FD54E9B2ABDA9FE00C9216A /* SettingAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingAlertView.swift; sourceTree = "<group>"; };
+		2FD54E9C2ABDA9FE00C9216A /* SettingAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingAlertViewController.swift; sourceTree = "<group>"; };
+		2FD54EA32ABDAA1F00C9216A /* CustomTwoButtonAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTwoButtonAlertView.swift; sourceTree = "<group>"; };
+		2FD54EA52ABDAA3000C9216A /* EditMyPageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMyPageViewModel.swift; sourceTree = "<group>"; };
 		3BD59E7956BC0D337F1F0F17 /* Pods_Parting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Parting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E153FA72A34C37600C7F58C /* DetailInterestsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsViewModel.swift; sourceTree = "<group>"; };
 		4E153FA92A34C39F00C7F58C /* DetailInterestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsViewController.swift; sourceTree = "<group>"; };
@@ -329,7 +356,6 @@
 		938C902B2A512003007FA45F /* DdayWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DdayWidgetView.swift; sourceTree = "<group>"; };
 		93A09BA12A4D967F0096A1D5 /* CalendarWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWidgetView.swift; sourceTree = "<group>"; };
 		93A09BA42A4DA0ED0096A1D5 /* ProgrammaticallyInitializableViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammaticallyInitializableViewProtocol.swift; sourceTree = "<group>"; };
-		93A17E072A558319004E3F75 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		9715D71F64F4ADB1531E9A14 /* Pods-Parting.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Parting.release.xcconfig"; path = "Target Support Files/Pods-Parting/Pods-Parting.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -355,6 +381,53 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2FD54E8C2ABDA9E900C9216A /* EditMyPage */ = {
+			isa = PBXGroup;
+			children = (
+				2FD54E8D2ABDA9E900C9216A /* EditMyPageViewController.swift */,
+				2FD54E8E2ABDA9E900C9216A /* InterestCollectionViewCell.swift */,
+				2FD54E8F2ABDA9E900C9216A /* EditMyPageView.swift */,
+			);
+			path = EditMyPage;
+			sourceTree = "<group>";
+		};
+		2FD54E932ABDA9FE00C9216A /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				2FD54E942ABDA9FE00C9216A /* NotificationSetting */,
+				2FD54E972ABDA9FE00C9216A /* Logout */,
+				2FD54E9A2ABDA9FE00C9216A /* SettingAlert */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		2FD54E942ABDA9FE00C9216A /* NotificationSetting */ = {
+			isa = PBXGroup;
+			children = (
+				2FD54E952ABDA9FE00C9216A /* NotificationSettingViewController.swift */,
+				2FD54E962ABDA9FE00C9216A /* NotificationSettingView.swift */,
+			);
+			path = NotificationSetting;
+			sourceTree = "<group>";
+		};
+		2FD54E972ABDA9FE00C9216A /* Logout */ = {
+			isa = PBXGroup;
+			children = (
+				2FD54E982ABDA9FE00C9216A /* LogoutAlertViewController.swift */,
+				2FD54E992ABDA9FE00C9216A /* LogoutAlertView.swift */,
+			);
+			path = Logout;
+			sourceTree = "<group>";
+		};
+		2FD54E9A2ABDA9FE00C9216A /* SettingAlert */ = {
+			isa = PBXGroup;
+			children = (
+				2FD54E9B2ABDA9FE00C9216A /* SettingAlertView.swift */,
+				2FD54E9C2ABDA9FE00C9216A /* SettingAlertViewController.swift */,
+			);
+			path = SettingAlert;
+			sourceTree = "<group>";
+		};
 		4E1CE0D02A8E3B6F006855E3 /* Location */ = {
 			isa = PBXGroup;
 			children = (
@@ -491,12 +564,12 @@
 		4E89BC2529C57C4100BAE38A /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				93A17E072A558319004E3F75 /* APIKey.swift */,
 				4E89BC2C29C57D2300BAE38A /* Endpoints.swift */,
 				4E89BC2E29C57DDD00BAE38A /* APIManager.swift */,
 				4E89BC3229C57E3C00BAE38A /* Error.swift */,
 				4E89BC3429C57E5300BAE38A /* BaseURL.swift */,
 				4EF72E082A8D08B1000B7205 /* NetworkError.swift */,
+				2FD54E862ABDA82C00C9216A /* APIKey.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -573,6 +646,8 @@
 		4E89BC4029C5E10A00BAE38A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2FD54E932ABDA9FE00C9216A /* Setting */,
+				2FD54E8C2ABDA9E900C9216A /* EditMyPage */,
 				4EF4D07C2A95F68B00A2E8F4 /* MypageCommonView */,
 				4EF4D0592A942B6B00A2E8F4 /* MyPage */,
 				4E892CFC2A9EB44D0075F56F /* PartyDetailInfo */,
@@ -591,6 +666,9 @@
 				4EF4D04F2A939FD800A2E8F4 /* RecentlyPartyViewModel.swift */,
 				4EF4D06E2A9433A000A2E8F4 /* EnterPartyViewModel.swift */,
 				4E892CF82A9E217F0075F56F /* PartyDetailInfoViewModel.swift */,
+				2FD54EA52ABDAA3000C9216A /* EditMyPageViewModel.swift */,
+				2FD54E882ABDA9CD00C9216A /* LogoutAlertViewModel.swift */,
+				2FD54E892ABDA9CD00C9216A /* NotificationSettingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1000,6 +1078,7 @@
 				4EFFCE442A6DF2170075EF9C /* CategoryImageCollectionViewCell.swift */,
 				4EECA7EA2A6E4C1E00C94417 /* DetailCategoryCollectionViewCell.swift */,
 				4EECA7EF2A6E9B2E00C94417 /* CommonButton.swift */,
+				2FD54EA32ABDAA1F00C9216A /* CustomTwoButtonAlertView.swift */,
 				4EECA7F12A6E9FF200C94417 /* CreatePartyViewIntroLabel.swift */,
 				4EECA7F32A6EA43700C94417 /* JoinNavigationBar.swift */,
 				4EECA7F72A6F4F8900C94417 /* JoinNaviBarButtonItem.swift */,
@@ -1212,10 +1291,12 @@
 				4EFFCE3D2A6DECB90075EF9C /* PartyListItemModel.swift in Sources */,
 				933B3C9B2A5586D200B8D60B /* HomeViewModel.swift in Sources */,
 				4EF72DE52A8B775B000B7205 /* MyPageCustomTableView.swift in Sources */,
+				2FD54EA22ABDA9FE00C9216A /* SettingAlertViewController.swift in Sources */,
 				4E52228029F14163000B96B4 /* EssentialInfoView.swift in Sources */,
 				4E1CE0D92A8E459B006855E3 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				4EFFCE472A6DF5410075EF9C /* PartyListHeaderView.swift in Sources */,
 				4E82F7F92ABA726B00C06CFB /* UserAgreementViewController.swift in Sources */,
+				2FD54E9F2ABDA9FE00C9216A /* LogoutAlertViewController.swift in Sources */,
 				4E89BC3329C57E3C00BAE38A /* Error.swift in Sources */,
 				4E1CE0D22A8E3B86006855E3 /* LocationManger.swift in Sources */,
 				4ECEAE2429ED2A66006AAF6B /* BaseViewModel.swift in Sources */,
@@ -1229,9 +1310,13 @@
 				4E87B4552AA2D88E00B3AD94 /* WidgetResponse.swift in Sources */,
 				4EA81DE229ED32680070F1B7 /* UILabel+Extension.swift in Sources */,
 				4E892D122A9F42530075F56F /* HashTagCollectionViewCell.swift in Sources */,
+				2FD54E912ABDA9E900C9216A /* InterestCollectionViewCell.swift in Sources */,
 				933B3CA62A55873A00B8D60B /* DdayWidgetView.swift in Sources */,
 				4EFFCE4F2A6DF5710075EF9C /* SortingOptionCollectionViewCell.swift in Sources */,
+				2FD54E9D2ABDA9FE00C9216A /* NotificationSettingViewController.swift in Sources */,
 				4E54431B2A6132990074F654 /* MapViewController.swift in Sources */,
+				2FD54E9E2ABDA9FE00C9216A /* NotificationSettingView.swift in Sources */,
+				2FD54EA62ABDAA3000C9216A /* EditMyPageViewModel.swift in Sources */,
 				4EB2AC652A2E09EF0023F49A /* RegionResponse.swift in Sources */,
 				4EECA7FA2A6F540C00C94417 /* CreatePartySetStackView.swift in Sources */,
 				4EF4D07E2A95F6CE00A2E8F4 /* MypageCommonView.swift in Sources */,
@@ -1259,6 +1344,7 @@
 				933B3CA52A55873700B8D60B /* CalendarWidgetView.swift in Sources */,
 				4E54431F2A61342C0074F654 /* MapView.swift in Sources */,
 				4EFFCE3B2A6DECB30075EF9C /* PartyListResponse.swift in Sources */,
+				2FD54E872ABDA82C00C9216A /* APIKey.swift in Sources */,
 				4EFEB0E72A888E7700CCAE5C /* SetPopUpCustomView.swift in Sources */,
 				4EA6339D2A5FAB9000F27386 /* MyPageViewModel.swift in Sources */,
 				4E892D0C2A9F0E6C0075F56F /* PersonnelCollectionViewCell.swift in Sources */,
@@ -1269,20 +1355,24 @@
 				933E58C32A69166D000F945E /* Model.xcdatamodeld in Sources */,
 				4E892D102A9F3A010075F56F /* PartyTypeCollectionViewCell.swift in Sources */,
 				4E52228C29F18166000B96B4 /* InterestsViewController.swift in Sources */,
+				2FD54EA42ABDAA1F00C9216A /* CustomTwoButtonAlertView.swift in Sources */,
 				933E58C72A691B06000F945E /* Entity.swift in Sources */,
 				4E82F7F72ABA724E00C06CFB /* UserAgreementView.swift in Sources */,
 				4EECA7E92A6E439100C94417 /* CreatePartyViewModel.swift in Sources */,
 				4ECEAE1C29ED25D7006AAF6B /* JoinViewModel.swift in Sources */,
 				4EECA7FC2A6F620000C94417 /* LoginButton.swift in Sources */,
+				2FD54E8A2ABDA9CD00C9216A /* LogoutAlertViewModel.swift in Sources */,
 				4E87B4502AA0F42900B3AD94 /* UserInPartyInfoResponse.swift in Sources */,
 				4E52228229F1417A000B96B4 /* EssentialInfoViewModel.swift in Sources */,
 				933B3CAC2A55876D00B8D60B /* UIImage+Extension.swift in Sources */,
 				4EECA7F42A6EA43700C94417 /* JoinNavigationBar.swift in Sources */,
 				4E153FA82A34C37600C7F58C /* DetailInterestsViewModel.swift in Sources */,
+				2FD54E8B2ABDA9CD00C9216A /* NotificationSettingViewModel.swift in Sources */,
 				933B3C9C2A5586D500B8D60B /* ScheduleViewModel.swift in Sources */,
 				4E89BC5C29CC34AC00BAE38A /* enum+Font.swift in Sources */,
 				4EFEB0E92A888E8D00CCAE5C /* SetPopUpViewController.swift in Sources */,
 				4EF72E012A8C92A7000B7205 /* CheckMyPartyViewController.swift in Sources */,
+				2FD54E922ABDA9E900C9216A /* EditMyPageView.swift in Sources */,
 				4EF1945D2A77E24D00D34B71 /* SetMapViewController.swift in Sources */,
 				933B3CA42A55871C00B8D60B /* StyledNavigationController.swift in Sources */,
 				4E6123BC2A36C1100039307A /* CategoryDetailResponse.swift in Sources */,
@@ -1302,6 +1392,7 @@
 				4EFFCE492A6DF54B0075EF9C /* InterestBarCollectionViewCell.swift in Sources */,
 				4EECA7F82A6F4F8900C94417 /* JoinNaviBarButtonItem.swift in Sources */,
 				4E1CE0D62A8E41B1006855E3 /* RadioButton.swift in Sources */,
+				2FD54E902ABDA9E900C9216A /* EditMyPageViewController.swift in Sources */,
 				4EA81DDE29ED2D9A0070F1B7 /* SplashViewController.swift in Sources */,
 				4EA81DE429ED36860070F1B7 /* SplashViewModel.swift in Sources */,
 				4E5443192A61323D0074F654 /* MapCoordinator.swift in Sources */,
@@ -1312,12 +1403,13 @@
 				4E89BC2D29C57D2300BAE38A /* Endpoints.swift in Sources */,
 				4EFFCE4D2A6DF56A0075EF9C /* PartyTableViewCell.swift in Sources */,
 				4ECEAE1529ED20F3006AAF6B /* CoordinatorStyleCase.swift in Sources */,
+				2FD54EA02ABDA9FE00C9216A /* LogoutAlertView.swift in Sources */,
 				4E89BC3129C57DE900BAE38A /* CategoryResponse.swift in Sources */,
 				4E6123C22A3AC2100039307A /* CustomHeaderView.swift in Sources */,
 				4EFCEBCA2A677E3F000F0A2B /* BottomSheetViewController.swift in Sources */,
-				93A17E082A558319004E3F75 /* APIKey.swift in Sources */,
 				933B3CA12A55871100B8D60B /* StackView.swift in Sources */,
 				4E89BC3129C57DE900BAE38A /* CategoryResponse.swift in Sources */,
+				2FD54EA12ABDA9FE00C9216A /* SettingAlertView.swift in Sources */,
 				4EFEB0EB2A88966D00CCAE5C /* SetPopUpViewModel.swift in Sources */,
 				4EF72E092A8D08B1000B7205 /* NetworkError.swift in Sources */,
 				4E52228429F141AA000B96B4 /* EssentialInfoViewController.swift in Sources */,

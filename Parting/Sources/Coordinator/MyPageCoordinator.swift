@@ -60,4 +60,28 @@ final class MyPageCoordinator: Coordinator {
         let vc = PartyDetailInfoViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func pushEditMyPageVC() {
+        let viewModel = EditMyPageViewModel(coordinator: self)
+        let vc = EditMyPageViewController(viewModel: viewModel)
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func presentNotificationSettingVC() {
+        let viewModel = NotificationSettingViewModel(coordinator: self)
+        let vc = NotificationSettingViewController(viewModel: viewModel)
+        vc.modalPresentationStyle = .overFullScreen
+        navigationController.present(vc, animated: true)
+    }
+    
+    func presentLogoutAlertVC() {
+        let viewModel = LogoutAlertViewModel(coordinator: self)
+        let vc = LogoutAlertViewController(viewModel: viewModel)
+        vc.modalPresentationStyle = .overFullScreen
+        navigationController.present(vc, animated: true)
+    }
+    
+    func dismissVC() {
+        navigationController.dismiss(animated: true)
+    }
 }

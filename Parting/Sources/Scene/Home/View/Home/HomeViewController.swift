@@ -10,7 +10,41 @@ import UIKit
 import RxSwift
 import Kingfisher
 
+enum PartyList: Int, CaseIterable {
+    case 관람팟
+    case 자기개발팟
+    case 문화생활팟
+    case 음식팟
+    case 운동팟
+    case 오락팟
+    case 카페팟
+    case 한잔팟
 
+    var imageNameList: String {
+        switch self {
+        case .관람팟:
+            return "관람"
+        case .자기개발팟:
+            return "자기개발"
+        case .문화생활팟:
+            return "문화생활"
+        case .음식팟:
+            return "음식"
+        case .운동팟:
+            return "운동"
+        case .오락팟:
+            return "오락"
+        case .카페팟:
+            return "카페"
+        case .한잔팟:
+            return "술"
+        }
+    }
+
+    static var numberOfItems: Int {
+        return Self.allCases.count
+    }
+}
 
 class HomeViewController: BaseViewController<HomeView> {
     

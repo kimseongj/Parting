@@ -109,4 +109,16 @@ final class MyPageViewModel: BaseViewModel {
         self.coordinator?.pushEnteredPartyVC(responseData: checkEnteredPartyResponseData)
         
     }
+    
+    func pushEditMyPageVC() {
+        self.coordinator?.pushEditMyPageVC()
+    }
+    
+    func presentNotificationSettingVC() {
+        self.coordinator?.presentNotificationSettingVC()
+    }
+    
+    func presentLogoutAlertVC() {
+        self.coordinator?.presentLogoutAlertVC()
+    }
 }

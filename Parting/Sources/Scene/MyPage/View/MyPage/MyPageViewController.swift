@@ -120,6 +120,13 @@ final class MyPageViewController: BaseViewController<MyPageView> {
             })
             .disposed(by: disposeBag)
         
+        rootView.editButton.rx.tap
+            .withUnretained(self)
+            .subscribe { onwer, _ in
+                onwer.viewModel.pushEditMyPageVC()
+            }
+            .disposed(by: disposeBag)
+        
         viewModel.checkMyPartyDataRequest()
         viewModel.checkEnteredPartyRequest()
     }
@@ -183,8 +190,15 @@ extension MyPageViewController: UITableViewDataSource {
                 break
             }
         case rootView.setPartyTableView:
+            switch indexPath.row {
+            case 2:
+                viewModel.presentNotificationSettingVC()
+            case 3:
+                viewModel.presentLogoutAlertVC()
+            default:
+                break
+            }
             print("setPartyTableView입니다 \(indexPath.row)")
-            
         case rootView.setETCTableView:
             print("setETCTableView입니다 \(indexPath.row)")
         default:
