@@ -389,6 +389,13 @@
 			path = CustomView;
 			sourceTree = "<group>";
 		};
+		4E70E4122ABD619C007F640A /* FSCalendar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FSCalendar;
+			sourceTree = "<group>";
+		};
 		4E82F7F52ABA723400C06CFB /* UserAgreement */ = {
 			isa = PBXGroup;
 			children = (
@@ -425,6 +432,7 @@
 		4E89BC2029C572C400BAE38A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				4E70E4122ABD619C007F640A /* FSCalendar */,
 				4E1CE0D72A8E4580006855E3 /* Layout */,
 				933E58922A690AA5000F945E /* CoreData */,
 				937711E82A4EDFA30019DC6F /* CustomView */,
