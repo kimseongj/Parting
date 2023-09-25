@@ -10,7 +10,7 @@ import UIKit
 class HashTagCollectionViewCell: UICollectionViewCell {
     private let cellConatiner: UIView = {
         let view = UIView()
-        view.backgroundColor = AppColor.gray200
+        view.backgroundColor = AppColor.gray50
         view.clipsToBounds = true
         return view
     }()
@@ -19,13 +19,17 @@ class HashTagCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.layer.cornerRadius = 8
         label.clipsToBounds = true
-        label.font = AppFont.Bold.of(size: 13)
+        label.font = AppFont.Regular.of(size: 11)
+        label.textColor = AppColor.gray500
         return label
     }()
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        cellConatiner.layer.cornerRadius = cellConatiner.frame.height / 2
+        DispatchQueue.main.async {
+            self.cellConatiner.layer.cornerRadius = self.cellConatiner.frame.height / 2
+        }
+        
     }
     
     override init(frame: CGRect) {
