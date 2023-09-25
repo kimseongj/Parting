@@ -49,6 +49,7 @@
 		4E6123C02A39B0BC0039307A /* CustomGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6123BF2A39B0BC0039307A /* CustomGroupView.swift */; };
 		4E6123C22A3AC2100039307A /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6123C12A3AC2100039307A /* CustomHeaderView.swift */; };
 		4E63C85C2A6E07C8009AC011 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9337C01A2A6BAF1F00CA572B /* CoreDataManager.swift */; };
+		4E70E4142AC1AFAE007F640A /* AroundPartyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E70E4132AC1AFAE007F640A /* AroundPartyResponse.swift */; };
 		4E783FA229EABC54008B3E48 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 4E783FA129EABC54008B3E48 /* RxCocoa */; };
 		4E783FA429EABC54008B3E48 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E783FA329EABC54008B3E48 /* RxSwift */; };
 		4E783FAA29EABF3E008B3E48 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E783FA929EABF3E008B3E48 /* JoinViewController.swift */; };
@@ -225,6 +226,7 @@
 		4E6123BD2A3763720039307A /* detailCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E6123BF2A39B0BC0039307A /* CustomGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGroupView.swift; sourceTree = "<group>"; };
 		4E6123C12A3AC2100039307A /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
+		4E70E4132AC1AFAE007F640A /* AroundPartyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AroundPartyResponse.swift; sourceTree = "<group>"; };
 		4E783FA929EABF3E008B3E48 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		4E82F7F62ABA724E00C06CFB /* UserAgreementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgreementView.swift; sourceTree = "<group>"; };
 		4E82F7F82ABA726B00C06CFB /* UserAgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgreementViewController.swift; sourceTree = "<group>"; };
@@ -980,6 +982,7 @@
 				4E87B44F2AA0F42900B3AD94 /* UserInPartyInfoResponse.swift */,
 				4E87B4542AA2D88E00B3AD94 /* WidgetResponse.swift */,
 				4E87B4562AA2E5DF00B3AD94 /* CalendarResponse.swift */,
+				4E70E4132AC1AFAE007F640A /* AroundPartyResponse.swift */,
 			);
 			path = ResponseModel;
 			sourceTree = "<group>";
@@ -1283,6 +1286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E70E4142AC1AFAE007F640A /* AroundPartyResponse.swift in Sources */,
 				4E82F7FB2ABA72DE00C06CFB /* UserAgreementViewModel.swift in Sources */,
 				4E52228829F1813C000B96B4 /* InterestsViewModel.swift in Sources */,
 				4E6123C02A39B0BC0039307A /* CustomGroupView.swift in Sources */,

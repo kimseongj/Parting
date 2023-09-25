@@ -38,6 +38,16 @@ final class MapViewModel {
     }
     
     private func getAroundParty() {
-        
+        APIManager.shared.requestParting(
+            type: <#T##Decodable.Protocol#>,
+            url: <#T##URL#>,
+            method: <#T##HTTPMethod#>,
+            parameters: <#T##[String : Any]?#>,
+            encoding: <#T##JSONEncoding#>,
+            headers: <#T##HTTPHeaders#>) { response in
+                switch response {
+                
+                }
+            }
     }
 }
