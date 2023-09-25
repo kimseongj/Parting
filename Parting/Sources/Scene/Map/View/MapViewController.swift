@@ -174,6 +174,7 @@ extension MapViewController: CLLocationManagerDelegate {
             let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: location.coordinate.latitude ?? 35.88979460661547 , lng: location.coordinate.longitude ?? 128.61133694145016))
             cameraUpdate.animation = .easeIn
             rootView.mapView.mapView.moveCamera(cameraUpdate)
+            viewModel.input.onNext(.viewDidLoadTrigger)
         }
         
         locationManager.stopUpdatingLocation()

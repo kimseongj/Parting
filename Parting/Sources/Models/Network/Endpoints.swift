@@ -55,10 +55,10 @@ enum PartingAPI {
     case interest
     case modifyInfo
     case getAroundParty(
-        beforeSearchHighLatitude: Double?,
-        beforeSearchHighLongitude: Double?,
-        beforeSearchLowLatitude: Double?,
-        beforeSearchLowLongitude: Double?,
+        beforeSearchHighLatitude: Double? = nil,
+        beforeSearchHighLongitude: Double? = nil,
+        beforeSearchLowLatitude: Double? = nil,
+        beforeSearchLowLongitude: Double? = nil,
         searchHighLatitude: Double,
         searchHighLongitude: Double,
         searchLowLatitude: Double,
@@ -131,120 +131,128 @@ extension PartingAPI {
                 "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY5NDI2MjY5MywiZXhwIjoxNjk2NjgxODkzfQ.7a6FASp4Us1RPdtONo3hNyqOFOQ-d0GhAT3gD0x5rew",
                 "Content-Type": "application/json;charset=UTF-8"
             ]
-    }
-    
-    var parameters: [String: Any] {
-        switch self {
-        case .parties(let params):
-            return [
-                "categoryId": params.categoryId,
-                "categoryDetailId": params.categoryDetailIds,
-                "orderCondition1": params.orderCondition1,
-                "orderCondition2": params.orderCondition2,
-                "pageNumber": params.pageNumber,
-                "categoryVersion": "1.0.0",
-                "userLatitude": params.userLatitude,
-                "userLongitude": params.userLongitude
-            ]
-        case let .createParty(
-            address,
-            capacity,
-            categoryDetailIDList,
-            categoryID,
-            hashTagNameList,
-            maxAge,
-            minAge,
-            openChattingRoomURL,
-            partyDescription,
-            partyEndDateTime,
-            partyLatitude,
-            partyLongitude,
-            partyName,
-            partyStartDateTime,
-            storeName
-        ):
-            return [
-                "address": address,
-                "capacity": capacity,
-                "categoryDetailIdList": categoryDetailIDList,
-                "categoryId": categoryID,
-                "hashTagNameList": hashTagNameList,
-                "maxAge": maxAge,
-                "minAge": minAge,
-                "openChattingRoomURL": openChattingRoomURL,
-                "partyDescription": partyDescription,
-                "partyEndDateTime": partyEndDateTime,
-                "partyLatitude": partyLatitude,
-                "partyLongitude": partyLongitude,
-                "partyName": partyName,
-                "partyStartDateTime": partyStartDateTime,
-                "storeName": storeName
-            ]
-        case let .modifyParty(partyId), let .deleteParty(partyId):
-            return [
-                "partyId": partyId
-            ]
-        case let .getPartyDetail(partyId, userLatitude, userLongitude):
-            return [
-                "partyId": partyId,
-                "userLatitude": userLatitude,
-                "userLongitude": userLongitude
-            ]
-        case let .calender(month, year):
-            return [
-                "month": month,
-                "year": year
-            ]
-        case let .recentView(partyIdStr):
-            return [
-                "partyIdStr": partyIdStr
-            ]
-        case let .checkMyParty(pageNumber, lat, lng):
-            return [
-                "pageNumber": pageNumber,
-                "userLatitude": lat,
-                "userLongitude": lng
-            ]
-        case let .checkEnteredParty(pageNumber, lat, lng):
-            return [
-                "pageNumber": pageNumber,
-                "userLatitude": lat,
-                "userLongitude": lng
-            ]
-        case let .partyMember(partyId, userId):
-            return [
-                "partyId": partyId,
-                "userId": userId
-            ]
-        case let .checkNickname(nickName):
-            return [
-                "nickName": nickName
-            ]
-        case let .essentialInfo(birth, job, nickName, sex, sigunguCd):
-            return [
-                "birth": birth,
-                "job": job,
-                "nickName": nickName,
-                "sex": sex,
-                "sigunguCd": sigunguCd
-            ]
-        case let .getAroundParty(beforeSearchHighLatitude, beforeSearchHighLongitude, beforeSearchLowLatitude, beforeSearchLowLongitude, searchHighLatitude, searchHighLongitude, searchLowLatitude, searchLowLongitude):
-            return [
-                "beforeSearchHighLatitude": beforeSearchHighLatitude,
-                "beforeSearchHighLongitude": beforeSearchHighLongitude,
-                "beforeSearchLowLatitude": beforeSearchLowLatitude,
-                "beforeSearchLowLongitude": beforeSearchLowLongitude,
-                "searchHighLatitude": searchHighLatitude,
-                "searchHighLongitude": searchHighLongitude,
-                "searchLowLatitude": searchLowLatitude,
-                "searchLowLongitude": searchLowLongitude
-            ]
-        default:
-            return ["":""]
         }
     }
-}
-
+        
+        var parameters: [String: Any] {
+            switch self {
+            case .parties(let params):
+                return [
+                    "categoryId": params.categoryId,
+                    "categoryDetailId": params.categoryDetailIds,
+                    "orderCondition1": params.orderCondition1,
+                    "orderCondition2": params.orderCondition2,
+                    "pageNumber": params.pageNumber,
+                    "categoryVersion": "1.0.0",
+                    "userLatitude": params.userLatitude,
+                    "userLongitude": params.userLongitude
+                ]
+            case let .createParty(
+                address,
+                capacity,
+                categoryDetailIDList,
+                categoryID,
+                hashTagNameList,
+                maxAge,
+                minAge,
+                openChattingRoomURL,
+                partyDescription,
+                partyEndDateTime,
+                partyLatitude,
+                partyLongitude,
+                partyName,
+                partyStartDateTime,
+                storeName
+            ):
+                return [
+                    "address": address,
+                    "capacity": capacity,
+                    "categoryDetailIdList": categoryDetailIDList,
+                    "categoryId": categoryID,
+                    "hashTagNameList": hashTagNameList,
+                    "maxAge": maxAge,
+                    "minAge": minAge,
+                    "openChattingRoomURL": openChattingRoomURL,
+                    "partyDescription": partyDescription,
+                    "partyEndDateTime": partyEndDateTime,
+                    "partyLatitude": partyLatitude,
+                    "partyLongitude": partyLongitude,
+                    "partyName": partyName,
+                    "partyStartDateTime": partyStartDateTime,
+                    "storeName": storeName
+                ]
+            case let .modifyParty(partyId), let .deleteParty(partyId):
+                return [
+                    "partyId": partyId
+                ]
+            case let .getPartyDetail(partyId, userLatitude, userLongitude):
+                return [
+                    "partyId": partyId,
+                    "userLatitude": userLatitude,
+                    "userLongitude": userLongitude
+                ]
+            case let .calender(month, year):
+                return [
+                    "month": month,
+                    "year": year
+                ]
+            case let .recentView(partyIdStr):
+                return [
+                    "partyIdStr": partyIdStr
+                ]
+            case let .checkMyParty(pageNumber, lat, lng):
+                return [
+                    "pageNumber": pageNumber,
+                    "userLatitude": lat,
+                    "userLongitude": lng
+                ]
+            case let .checkEnteredParty(pageNumber, lat, lng):
+                return [
+                    "pageNumber": pageNumber,
+                    "userLatitude": lat,
+                    "userLongitude": lng
+                ]
+            case let .partyMember(partyId, userId):
+                return [
+                    "partyId": partyId,
+                    "userId": userId
+                ]
+            case let .checkNickname(nickName):
+                return [
+                    "nickName": nickName
+                ]
+            case let .essentialInfo(birth, job, nickName, sex, sigunguCd):
+                return [
+                    "birth": birth,
+                    "job": job,
+                    "nickName": nickName,
+                    "sex": sex,
+                    "sigunguCd": sigunguCd
+                ]
+            case let .getAroundParty(
+                beforeSearchHighLatitude,
+                beforeSearchHighLongitude,
+                beforeSearchLowLatitude,
+                beforeSearchLowLongitude,
+                searchHighLatitude,
+                searchHighLongitude,
+                searchLowLatitude,
+                searchLowLongitude):
+                return [
+//                    "beforeSearchHighLatitude": beforeSearchHighLatitude,
+//                    "beforeSearchHighLongitude": beforeSearchHighLongitude,
+//                    "beforeSearchLowLatitude": beforeSearchLowLatitude,
+//                    "beforeSearchLowLongitude": beforeSearchLowLongitude,
+                    "searchHighLatitude": searchHighLatitude,
+                    "searchHighLongitude": searchHighLongitude,
+                    "searchLowLatitude": searchLowLatitude,
+                    "searchLowLongitude": searchLowLongitude
+                ]
+            default:
+                return ["":""]
+            }
+        }
+    }
 extension PartingAPI {
     enum partySortingCondition {
         enum byNumberOfPeople: String {
@@ -260,3 +268,4 @@ extension PartingAPI {
         }
     }
 }
+
