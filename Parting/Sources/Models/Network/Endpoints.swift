@@ -54,6 +54,16 @@ enum PartingAPI {
     case essentialInfo(birth: String, job: String, nickName: String, sex: String, sigunguCd: Int)
     case interest
     case modifyInfo
+    case getAroundParty(
+        beforeSearchHighLatitude: Double?,
+        beforeSearchHighLongitude: Double?,
+        beforeSearchLowLatitude: Double?,
+        beforeSearchLowLongitude: Double?,
+        searchHighLatitude: Double,
+        searchHighLongitude: Double,
+        searchLowLatitude: Double,
+        searchLowLongitude: Double
+    )
 }
 
 extension PartingAPI {
@@ -105,6 +115,8 @@ extension PartingAPI {
             return  "\(BaseURL.userURL)/check"
         case .essentialInfo, .interest, .modifyInfo:
             return  "\(BaseURL.userURL)/essential-information"
+        case .getAroundParty:
+            return "\(BaseURL.partyURL)/map"
         }
     }
     
@@ -114,12 +126,11 @@ extension PartingAPI {
             return [
                 "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY5NDI2MjY5MywiZXhwIjoxNjk2NjgxODkzfQ.7a6FASp4Us1RPdtONo3hNyqOFOQ-d0GhAT3gD0x5rew"
             ]
-        case .parties, .associatedCategory, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calender, .region, .recentView, .checkMyParty, .partyMember, .detailCategory, .checkNickname, .essentialInfo:
+        case .parties, .associatedCategory, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calender, .region, .recentView, .checkMyParty, .partyMember, .detailCategory, .checkNickname, .essentialInfo, .getAroundParty:
             return [
                 "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY5NDI2MjY5MywiZXhwIjoxNjk2NjgxODkzfQ.7a6FASp4Us1RPdtONo3hNyqOFOQ-d0GhAT3gD0x5rew",
                 "Content-Type": "application/json;charset=UTF-8"
             ]
-        }
     }
     
     var parameters: [String: Any] {
@@ -216,6 +227,17 @@ extension PartingAPI {
                 "nickName": nickName,
                 "sex": sex,
                 "sigunguCd": sigunguCd
+            ]
+        case let .getAroundParty(beforeSearchHighLatitude, beforeSearchHighLongitude, beforeSearchLowLatitude, beforeSearchLowLongitude, searchHighLatitude, searchHighLongitude, searchLowLatitude, searchLowLongitude):
+            return [
+                "beforeSearchHighLatitude": beforeSearchHighLatitude,
+                "beforeSearchHighLongitude": beforeSearchHighLongitude,
+                "beforeSearchLowLatitude": beforeSearchLowLatitude,
+                "beforeSearchLowLongitude": beforeSearchLowLongitude,
+                "searchHighLatitude": searchHighLatitude,
+                "searchHighLongitude": searchHighLongitude,
+                "searchLowLatitude": searchLowLatitude,
+                "searchLowLongitude": searchLowLongitude
             ]
         default:
             return ["":""]

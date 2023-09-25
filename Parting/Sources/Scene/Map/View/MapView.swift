@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import NMapsMap
 
-class MapView: BaseView {
+final class MapView: BaseView {
 
     let bellBarButton = BarImageButton(imageName: Images.sfSymbol.bell)
     
