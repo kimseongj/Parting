@@ -7,32 +7,38 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class EditMyPageView: BaseView {
     
     var backBarButton = BarImageButton(imageName: Images.icon.back)
-
     let navigationLabel: BarTitleLabel = BarTitleLabel(text: "프로필 수정")
-
+    
     
     let profileImageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = AppColor.brand
+        view.clipsToBounds = true
         return view
     }()
     
     let profileEditButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = AppColor.brand
+        button.setImage(UIImage(named: "camera"), for: .normal)
         return button
+    }()
+    
+    let nameTextFieldContainView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(hexcode: "F8FAFD")
+        view.layer.cornerRadius = 8
+        view.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
+        view.layer.borderWidth = 1
+        return view
     }()
     
     let nameTextField: UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = UIColor(hexcode: "F8FAFD")
-        textField.layer.cornerRadius = 8
-        textField.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
-        textField.layer.borderWidth = 1
         return textField
     }()
     
@@ -75,7 +81,7 @@ final class EditMyPageView: BaseView {
         button.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
         button.layer.borderWidth = 1
         button.titleLabel?.font = AppFont.Regular.of(size: 13)
-        button.setTitle("남", for: .normal)
+        button.setTitle("여", for: .normal)
         button.setTitleColor(UIColor(hexcode: "A7B0C0"), for: .normal)
         return button
     }()
@@ -161,6 +167,7 @@ final class EditMyPageView: BaseView {
         let label = UILabel()
         label.font = AppFont.Regular.of(size: 14)
         label.textColor = AppColor.gray400
+        label.textAlignment = .right
         label.text = "0/40"
         return label
     }()
@@ -175,7 +182,7 @@ final class EditMyPageView: BaseView {
     
     let myInterestButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "editProfileButtonImage"), for: .normal)
+        button.setImage(UIImage(named: "arrowRight"), for: .normal)
         return button
     }()
     
@@ -192,6 +199,7 @@ final class EditMyPageView: BaseView {
         
         self.addSubview(profileImageView)
         self.addSubview(profileEditButton)
+        self.addSubview(nameTextFieldContainView)
         self.addSubview(nameTextField)
         self.addSubview(duplicatedNickNameCheckButton)
         self.addSubview(genderLabel)
@@ -208,6 +216,11 @@ final class EditMyPageView: BaseView {
         self.addSubview(finishButton)
         self.addSubview(introduceExplainTextView)
         self.addSubview(introduceTextCountLabel)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        profileImageView.layer.cornerRadius = 65 / 2
     }
     
     override func makeConstraints() {
@@ -230,10 +243,15 @@ final class EditMyPageView: BaseView {
             make.height.equalTo(37)
         }
         
-        nameTextField.snp.makeConstraints { make in
+        nameTextFieldContainView.snp.makeConstraints { make in
             make.verticalEdges.equalTo(duplicatedNickNameCheckButton)
             make.leading.equalTo(profileImageView.snp.trailing).offset(12)
             make.trailing.equalTo(duplicatedNickNameCheckButton.snp.leading).offset(-12)
+        }
+        
+        nameTextField.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(nameTextFieldContainView).inset(8)
+            make.verticalEdges.equalTo(nameTextFieldContainView)
         }
         
         genderLabel.snp.makeConstraints { make in
@@ -268,7 +286,7 @@ final class EditMyPageView: BaseView {
             make.height.equalTo(37)
             make.width.equalTo(103)
         }
-
+        
         addressLabel.snp.makeConstraints { make in
             make.top.equalTo(birthLabel.snp.bottom).offset(33)
             make.leading.equalTo(safeAreaLayoutGuide).offset(24)
@@ -324,7 +342,7 @@ final class EditMyPageView: BaseView {
             make.bottom.equalTo(introduceExplainTextView.snp.bottom).inset(10)
             make.trailing.equalTo(introduceExplainTextView.snp.trailing).inset(13)
             make.height.equalTo(17)
-            make.width.equalTo(30)
+            make.width.equalTo(48)
         }
     }
 }
@@ -358,10 +376,80 @@ extension EditMyPageView {
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 20)
-
+        
         let section = NSCollectionLayoutSection(group: group)
         
         section.orthogonalScrollingBehavior = .groupPaging /// Set Scroll Direction
         return section
+    }
+}
+
+extension EditMyPageView {
+    func genderButtonTap(genderCase: GenderCase) {
+        switch genderCase {
+            
+        case .man:
+            manButtonTapped()
+        case .woman:
+            womanButtonTapped()
+        }
+    }
+}
+
+extension EditMyPageView {
+    private func manButtonTapped() {
+        womanButton.backgroundColor = UIColor(hexcode: "F8FAFD")
+        womanButton.setTitleColor(UIColor(hexcode: "A7B0C0"), for: .normal)
+        manButton.backgroundColor = AppColor.brand
+        manButton.setTitleColor(AppColor.white, for: .normal)
+    }
+    
+    private func womanButtonTapped() {
+        manButton.backgroundColor = UIColor(hexcode: "F8FAFD")
+        manButton.setTitleColor(UIColor(hexcode: "A7B0C0"), for: .normal)
+        womanButton.backgroundColor = AppColor.brand
+        womanButton.setTitleColor(AppColor.white, for: .normal)
+    }
+}
+
+extension EditMyPageView {
+    func updateDupricatedButton(text: String) {
+        if text.count >= 2 {
+            duplicatedNickNameCheckButton.layer.borderColor = AppColor.brand.cgColor
+            duplicatedNickNameCheckButton.setTitleColor(AppColor.brand, for: .normal)
+        } else {
+            duplicatedNickNameCheckButton.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
+            duplicatedNickNameCheckButton.setTitleColor(UIColor(hexcode: "A7B0C0"), for: .normal)
+        }
+    }
+}
+
+extension EditMyPageView {
+    func updateTextCountLabel(text: String) {
+        introduceTextCountLabel.text = "\(text.count)/40"
+    }
+}
+
+extension EditMyPageView {
+    func configureEditMyPageUI(_ item: MyPageResponse) {
+        introduceExplainTextView.text = item.result.introduce
+        birthTextField.text = item.result.birth
+        nameTextField.text = item.result.nickName
+
+        if item.result.sex == "M" {
+            self.genderButtonTap(genderCase: .man)
+        } else {
+            self.genderButtonTap(genderCase: .woman)
+        }
+        guard let url = URL(string: item.result.profileImgUrl) else { return }
+        profileImageView.kf.setImage(with: url)
+    }
+}
+
+extension EditMyPageView {
+    func updateProfileImage(image: UIImage) {
+        self.profileImageView.contentMode = .scaleToFill
+        let resizeImage = image.resizeImageTo(size: CGSize(width: self.profileImageView.frame.width, height: self.profileImageView.frame.height))
+        self.profileImageView.image = resizeImage
     }
 }

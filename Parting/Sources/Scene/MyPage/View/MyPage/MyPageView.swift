@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 enum FoldButton {
     case fold
@@ -48,9 +49,7 @@ final class MyPageView: BaseView {
         let name = UILabel()
         name.font = AppFont.Medium.of(size: 16)
         name.textColor = UIColor(hexcode: "363636")
-        name.textAlignment = .center
-        name.layer.borderColor = UIColor.black.cgColor
-        name.layer.borderWidth = 1
+        name.textAlignment = .left
         name.text = "닉네임"
         return name
     }()
@@ -68,18 +67,15 @@ final class MyPageView: BaseView {
     
     let editButton: UIButton = {
         let button = UIButton()
-        button.setTitle("편집", for: .normal)
-        button.setTitleColor(UIColor(hexcode: "D9D9E2"), for: .normal)
         return button
     }()
     
-    let categoryCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.backgroundColor = .systemPink
+    let tipView: TopTipView = {
+        let view = TopTipView(viewColor: AppColor.lightPink, tipStartX: 12, tipWidth: 11, tipHeight: 6, text: "")
         return view
     }()
+    
+    lazy var categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: partyCellLayout())
     
     let aboutPartyTableView: UITableView = {
         let view = UITableView()
@@ -99,6 +95,8 @@ final class MyPageView: BaseView {
     
     let settingLabel: UILabel = {
         let label = UILabel()
+        label.font = AppFont.Medium.of(size: 16)
+        label.textColor = UIColor(hexcode: "363636")
         label.text = "설정"
         return label
     }()
@@ -111,9 +109,10 @@ final class MyPageView: BaseView {
     
     let setPartyTableView: UITableView = {
         let view = UITableView()
-        view.layer.borderColor = UIColor.black.cgColor
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 8
+//        view.layer.borderColor = UIColor.black.cgColor
+//        view.layer.borderWidth = 1
+//        view.layer.cornerRadius = 8
+        view.isScrollEnabled = false
         view.separatorStyle = .none
         return view
     }()
@@ -127,8 +126,16 @@ final class MyPageView: BaseView {
     
     let etcLabel: UILabel = {
         let label = UILabel()
+        label.font = AppFont.Medium.of(size: 16)
+        label.textColor = UIColor(hexcode: "363636")
         label.text = "기타"
         return label
+    }()
+    
+    let lineView: UIView = {
+       let view = UIView()
+        view.backgroundColor = AppColor.gray50
+        return view
     }()
     
     let etcUnfoldButton: UIButton = {
@@ -139,9 +146,10 @@ final class MyPageView: BaseView {
     
     let setETCTableView: UITableView = {
         let view = UITableView()
-        view.layer.borderColor = UIColor.black.cgColor
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 8
+//        view.layer.borderColor = UIColor.black.cgColor
+//        view.layer.borderWidth = 1
+//        view.layer.cornerRadius = 8
+        view.isScrollEnabled = false
         view.separatorStyle = .none
         return view
     }()
@@ -159,7 +167,7 @@ final class MyPageView: BaseView {
     override func makeConfigures() {
         super.makeConfigures()
         
-        [profileImageView, nickname, editProfileButton, categoryCollectionView, editButtonBackgroundView, aboutPartyTableView, settingStackView, setPartyTableView,  etcStackView, setETCTableView, bottomEmptyView].forEach {
+        [profileImageView, nickname, editProfileButton, tipView, categoryCollectionView, editButtonBackgroundView, aboutPartyTableView, settingStackView, setPartyTableView,  etcStackView, setETCTableView, lineView, bottomEmptyView].forEach {
             contentView.addSubview($0)
         }
         
@@ -206,28 +214,30 @@ final class MyPageView: BaseView {
             make.height.equalTo(profileImageView.snp.height)
         }
         
+        tipView.snp.makeConstraints { make in
+            make.top.equalTo(nickname.snp.bottom).offset(8)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(36)
+        }
+        
         categoryCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(nickname.snp.bottom).offset(20)
-            make.leading.equalToSuperview().inset(20)
-            make.height.equalTo(profileImageView.snp.height)
-            make.width.equalToSuperview().multipliedBy(0.7)
+            make.top.equalTo(tipView.snp.bottom).offset(20)
+            make.horizontalEdges.equalToSuperview().inset(20)
+            make.height.equalTo(103)
         }
         
         editButtonBackgroundView.snp.makeConstraints { make in
-            make.top.equalTo(nickname.snp.bottom).offset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.leading.equalTo(categoryCollectionView.snp.trailing).offset(10)
-            make.height.equalTo(profileImageView.snp.height)
+            make.leading.verticalEdges.equalTo(profileImageView)
+            make.trailing.equalTo(safeAreaLayoutGuide).offset(-20)
         }
         
         editButton.snp.makeConstraints { make in
-            make.verticalEdges.horizontalEdges.equalToSuperview().inset(5)
+            make.edges.equalTo(editButtonBackgroundView)
         }
         
         aboutPartyTableView.snp.makeConstraints { make in
-            make.top.equalTo(editButton.snp.bottom).offset(20)
+            make.top.equalTo(categoryCollectionView.snp.bottom).offset(20)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(150)
+            make.height.equalTo(0)
         }
         
         settingStackView.snp.makeConstraints { make in
@@ -252,6 +262,12 @@ final class MyPageView: BaseView {
             make.top.equalTo(etcStackView.snp.bottom)
             make.horizontalEdges.equalToSuperview().inset(20)
             make.height.equalTo(150)
+        }
+        
+        lineView.snp.makeConstraints { make in
+            make.bottom.equalTo(etcLabel.snp.top).offset(-8)
+            make.height.equalTo(1)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(20)
         }
         
         bottomEmptyView.snp.makeConstraints { make in
@@ -372,5 +388,61 @@ extension MyPageView {
     
     func makeCircleImageView() {
         profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
+    }
+}
+
+extension MyPageView {
+    func configureMyPageUI(_ item: MyPageResponse) {
+        nickname.text = item.result.nickName
+        tipView.updateLabel(text: item.result.introduce)
+        updateUI()
+        guard let url = URL(string: item.result.profileImgUrl) else { return }
+        profileImageView.kf.setImage(with: url)
+    }
+    
+    private func updateUI() {
+        tipView.snp.removeConstraints()
+        tipView.snp.remakeConstraints { make in
+            make.top.equalTo(nickname.snp.bottom).offset(8)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(36)
+        }
+    }
+}
+
+extension MyPageView {
+    private func partyCellLayout() -> UICollectionViewLayout {
+        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+        let collectionViewLayout = UICollectionViewCompositionalLayout(
+            sectionProvider:
+                { sectionIndex, layoutEnvironment in
+                    return self.partyLayout()
+                },
+            configuration: configuration)
+        return collectionViewLayout
+    }
+    
+    
+    private func partyLayout() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .absolute(103),
+            heightDimension: .fractionalHeight(1.0)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalHeight(1.0)
+        )
+        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+
+        
+        group.interItemSpacing = NSCollectionLayoutSpacing.flexible(8)
+        
+        let section = NSCollectionLayoutSection(group: group)
+        
+        section.orthogonalScrollingBehavior = .groupPaging /// Set Scroll Direction
+        return section
     }
 }
