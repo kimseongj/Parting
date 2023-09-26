@@ -37,6 +37,11 @@ enum TableViewList {
     }
 }
 
+struct MyPageModel: Hashable {
+    let image: UIImage
+    let title: String
+}
+
 
 final class MyPageViewController: BaseViewController<MyPageView> {
     
@@ -51,14 +56,27 @@ final class MyPageViewController: BaseViewController<MyPageView> {
         fatalError("init(coder:) has not been implemented")
     }
     
-
+    private var dataSource: UICollectionViewDiffableDataSource<Int, MyPageModel>!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationUI()
+        viewModel.input.viewDidLoadTrigger.accept(())
         bind()
+        setDataSource()
+        setDelegate()
         setDataSourceAndDelegate()
         cellRegister()
         setTableViewHeight()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, MyPageModel>()
+        snapshot.appendSections([0])
+        var arr: [MyPageModel] = [MyPageModel(image: UIImage(named: "currentParty")!, title: MyPageCellTitle.current.rawValue), MyPageModel(image: UIImage(named: "createParty")!, title: MyPageCellTitle.create.rawValue), MyPageModel(image: UIImage(named: "participateParty")!, title: MyPageCellTitle.participate.rawValue)]
+        snapshot.appendItems(arr)
+        self.dataSource.apply(snapshot)
+    }
+    
+    private func setDelegate() {
+        rootView.categoryCollectionView.delegate = self
     }
     
     private func setTableViewHeight() {
@@ -124,6 +142,13 @@ final class MyPageViewController: BaseViewController<MyPageView> {
             .withUnretained(self)
             .subscribe { onwer, _ in
                 onwer.viewModel.pushEditMyPageVC()
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.myPageData
+            .withUnretained(self)
+            .bind { owner, data in
+                owner.rootView.configureMyPageUI(data)
             }
             .disposed(by: disposeBag)
         
@@ -203,6 +228,30 @@ extension MyPageViewController: UITableViewDataSource {
             print("setETCTableView입니다 \(indexPath.row)")
         default:
             break
+        }
+    }
+}
+
+extension MyPageViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        dataFetchingToMyPageCell(indexPath: indexPath)
+    }
+    
+    func dataFetchingToMyPageCell(indexPath: IndexPath) {
+        let selectedItem = dataSource.snapshot().itemIdentifiers(inSection: 0)[indexPath.row]
+        viewModel.input.cellSelected.accept(selectedItem)
+    }
+}
+
+extension MyPageViewController {
+    private func setDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<MyPageCollectionViewCell, MyPageModel> { cell, indexPath, itemIdentifier in
+            cell.configure(itemIdentifier)
+        }
+        
+        dataSource = UICollectionViewDiffableDataSource(collectionView: rootView.categoryCollectionView) { collectionView, indexPath, itemIdentifier in
+            let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+            return cell
         }
     }
 }

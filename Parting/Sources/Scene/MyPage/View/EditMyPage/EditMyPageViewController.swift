@@ -7,6 +7,7 @@
 
 import UIKit
 import RxCocoa
+import Toast
 
 final class EditMyPageViewController: BaseViewController<EditMyPageView> {
     
@@ -101,6 +102,28 @@ extension EditMyPageViewController {
                 owner.viewModel.duplicationNickname(nickname: owner.rootView.nameTextField.text ?? "")
             }
             .disposed(by: disposeBag)
+        
+        viewModel.nickNameDuplicateState
+            .withUnretained(self)
+            .bind { owner, valid in
+                switch valid {
+                case true:
+                    owner.view.makeToast("사용이 가능한 닉네임입니다.")
+                case false:
+                    owner.view.makeToast("중복된 닉네임입니다.")
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        rootView.profileEditButton
+            .rx.tap
+            .withUnretained(self)
+            .bind { owner, _ in
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = owner
+                owner.present(imagePicker, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -158,5 +181,23 @@ extension EditMyPageViewController {
                 print(date)
             })
             .disposed(by: disposeBag)
+    }
+}
+
+extension EditMyPageViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.rootView.updateProfileImage(image: pickedImage)
+            
+            if let data = pickedImage.jpegData(compressionQuality: 1) {
+                let base64 = data.base64EncodedString()
+            }
+        }
+        self.dismiss(animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true)
     }
 }

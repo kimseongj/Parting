@@ -24,16 +24,21 @@ final class EditMyPageView: BaseView {
     
     let profileEditButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = AppColor.brand
+        button.setImage(UIImage(named: "camera"), for: .normal)
         return button
+    }()
+    
+    let nameTextFieldContainView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(hexcode: "F8FAFD")
+        view.layer.cornerRadius = 8
+        view.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
+        view.layer.borderWidth = 1
+        return view
     }()
     
     let nameTextField: UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = UIColor(hexcode: "F8FAFD")
-        textField.layer.cornerRadius = 8
-        textField.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
-        textField.layer.borderWidth = 1
         return textField
     }()
     
@@ -177,7 +182,7 @@ final class EditMyPageView: BaseView {
     
     let myInterestButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "editProfileButtonImage"), for: .normal)
+        button.setImage(UIImage(named: "arrowRight"), for: .normal)
         return button
     }()
     
@@ -194,6 +199,7 @@ final class EditMyPageView: BaseView {
         
         self.addSubview(profileImageView)
         self.addSubview(profileEditButton)
+        self.addSubview(nameTextFieldContainView)
         self.addSubview(nameTextField)
         self.addSubview(duplicatedNickNameCheckButton)
         self.addSubview(genderLabel)
@@ -237,10 +243,15 @@ final class EditMyPageView: BaseView {
             make.height.equalTo(37)
         }
         
-        nameTextField.snp.makeConstraints { make in
+        nameTextFieldContainView.snp.makeConstraints { make in
             make.verticalEdges.equalTo(duplicatedNickNameCheckButton)
             make.leading.equalTo(profileImageView.snp.trailing).offset(12)
             make.trailing.equalTo(duplicatedNickNameCheckButton.snp.leading).offset(-12)
+        }
+        
+        nameTextField.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(nameTextFieldContainView).inset(8)
+            make.verticalEdges.equalTo(nameTextFieldContainView)
         }
         
         genderLabel.snp.makeConstraints { make in
@@ -432,5 +443,13 @@ extension EditMyPageView {
         }
         guard let url = URL(string: item.result.profileImgUrl) else { return }
         profileImageView.kf.setImage(with: url)
+    }
+}
+
+extension EditMyPageView {
+    func updateProfileImage(image: UIImage) {
+        self.profileImageView.contentMode = .scaleToFill
+        let resizeImage = image.resizeImageTo(size: CGSize(width: self.profileImageView.frame.width, height: self.profileImageView.frame.height))
+        self.profileImageView.image = resizeImage
     }
 }

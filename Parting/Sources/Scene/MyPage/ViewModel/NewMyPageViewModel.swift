@@ -1,24 +1,17 @@
 //
-//  MyPageViewModel.swift
+//  NewMyPageViewModel.swift
 //  Parting
 //
-//  Created by 박시현 on 2023/07/13.
+//  Created by 이병현 on 2023/09/25.
 //
 
 import Foundation
 import RxSwift
 import RxCocoa
 
-enum MyPageCellTitle: String {
-    case current = "최근 본 파티"
-    case create = "개설한 파티"
-    case participate = "참여한 파티"
-}
-
-final class MyPageViewModel: BaseViewModel {
+final class NewMyPageViewModel: BaseViewModel {
     struct Input {
-        let viewDidLoadTrigger: PublishRelay<Void> = PublishRelay()
-        let cellSelected: PublishRelay<MyPageModel> = PublishRelay()
+        
     }
     
     struct Output {
@@ -34,36 +27,11 @@ final class MyPageViewModel: BaseViewModel {
     
     private var coordinator: MyPageCoordinator?
     private let disposeBag = DisposeBag()
-    let myPageData = PublishRelay<MyPageResponse>()
     
     init(input: Input = Input(), output: Output = Output(), coordinator: MyPageCoordinator?) {
         self.input = input
         self.output = output
         self.coordinator = coordinator
-        bind()
-
-    }
-    
-    private func bind() {
-        input.viewDidLoadTrigger
-            .withUnretained(self)
-            .bind { vm, _ in
-                vm.getMyPageData()
-            }
-            .disposed(by: disposeBag)
-        
-        input.cellSelected
-            .withUnretained(self)
-            .bind { vm, cellItem in
-                if cellItem.title == MyPageCellTitle.current.rawValue {
-                    vm.pushRecentlyVC()
-                } else if cellItem.title == MyPageCellTitle.create.rawValue {
-                    vm.pushMyPartyVC()
-                } else {
-                    vm.pushEnteredPartyVC()
-                }
-            }
-            .disposed(by: disposeBag)
     }
     
     func checkMyPartyDataRequest() {
@@ -152,19 +120,5 @@ final class MyPageViewModel: BaseViewModel {
     
     func presentLogoutAlertVC() {
         self.coordinator?.presentLogoutAlertVC()
-    }
-}
-
-extension MyPageViewModel {
-    func getMyPageData() {
-        APIManager.shared.requestGetMyPageData()
-            .subscribe { [weak self] data in
-                guard let self else { return }
-                print(data)
-                self.myPageData.accept(data)
-            } onError: { error in
-                print(error)
-            }
-            .disposed(by: disposeBag)
     }
 }

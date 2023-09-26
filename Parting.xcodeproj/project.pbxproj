@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2FBF584D2AC16BFC00D227E6 /* MyPageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBF584C2AC16BFC00D227E6 /* MyPageResponse.swift */; };
+		2FBF58502AC1822F00D227E6 /* TopTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBF584F2AC1822F00D227E6 /* TopTipView.swift */; };
+		2FBF58562AC1999900D227E6 /* NewMyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBF58552AC1999900D227E6 /* NewMyPageViewModel.swift */; };
+		2FBF58582AC1B01D00D227E6 /* DiffableDatasource+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBF58572AC1B01D00D227E6 /* DiffableDatasource+Extension.swift */; };
 		2FD54E872ABDA82C00C9216A /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54E862ABDA82C00C9216A /* APIKey.swift */; };
 		2FD54E8A2ABDA9CD00C9216A /* LogoutAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54E882ABDA9CD00C9216A /* LogoutAlertViewModel.swift */; };
 		2FD54E8B2ABDA9CD00C9216A /* NotificationSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54E892ABDA9CD00C9216A /* NotificationSettingViewModel.swift */; };
@@ -22,6 +25,7 @@
 		2FD54EA22ABDA9FE00C9216A /* SettingAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54E9C2ABDA9FE00C9216A /* SettingAlertViewController.swift */; };
 		2FD54EA42ABDAA1F00C9216A /* CustomTwoButtonAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54EA32ABDAA1F00C9216A /* CustomTwoButtonAlertView.swift */; };
 		2FD54EA62ABDAA3000C9216A /* EditMyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54EA52ABDAA3000C9216A /* EditMyPageViewModel.swift */; };
+		2FF8F47E2AC2647300A46FAF /* MyPageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF8F47D2AC2647300A46FAF /* MyPageCollectionViewCell.swift */; };
 		4E0DCE502A7CC2D200DEB3B5 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0DCE4F2A7CC2D100DEB3B5 /* Toast */; };
 		4E0DCE562A7CF0BF00DEB3B5 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0DCE552A7CF0BF00DEB3B5 /* RxDataSources */; };
 		4E153FA82A34C37600C7F58C /* DetailInterestsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E153FA72A34C37600C7F58C /* DetailInterestsViewModel.swift */; };
@@ -191,6 +195,9 @@
 
 /* Begin PBXFileReference section */
 		2FBF584C2AC16BFC00D227E6 /* MyPageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageResponse.swift; sourceTree = "<group>"; };
+		2FBF584F2AC1822F00D227E6 /* TopTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTipView.swift; sourceTree = "<group>"; };
+		2FBF58552AC1999900D227E6 /* NewMyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMyPageViewModel.swift; sourceTree = "<group>"; };
+		2FBF58572AC1B01D00D227E6 /* DiffableDatasource+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiffableDatasource+Extension.swift"; sourceTree = "<group>"; };
 		2FD54E862ABDA82C00C9216A /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		2FD54E882ABDA9CD00C9216A /* LogoutAlertViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutAlertViewModel.swift; sourceTree = "<group>"; };
 		2FD54E892ABDA9CD00C9216A /* NotificationSettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewModel.swift; sourceTree = "<group>"; };
@@ -205,6 +212,7 @@
 		2FD54E9C2ABDA9FE00C9216A /* SettingAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingAlertViewController.swift; sourceTree = "<group>"; };
 		2FD54EA32ABDAA1F00C9216A /* CustomTwoButtonAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTwoButtonAlertView.swift; sourceTree = "<group>"; };
 		2FD54EA52ABDAA3000C9216A /* EditMyPageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMyPageViewModel.swift; sourceTree = "<group>"; };
+		2FF8F47D2AC2647300A46FAF /* MyPageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCollectionViewCell.swift; sourceTree = "<group>"; };
 		3BD59E7956BC0D337F1F0F17 /* Pods_Parting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Parting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E153FA72A34C37600C7F58C /* DetailInterestsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsViewModel.swift; sourceTree = "<group>"; };
 		4E153FA92A34C39F00C7F58C /* DetailInterestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsViewController.swift; sourceTree = "<group>"; };
@@ -391,6 +399,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2FBF584E2AC181D500D227E6 /* NewMyPage */ = {
+			isa = PBXGroup;
+			children = (
+				2FBF584F2AC1822F00D227E6 /* TopTipView.swift */,
+			);
+			path = NewMyPage;
+			sourceTree = "<group>";
+		};
 		2FD54E8C2ABDA9E900C9216A /* EditMyPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -556,6 +572,7 @@
 				933E58C82A6920FB000F945E /* Kingfisher+Extension.swift */,
 				933E58CC2A69422E000F945E /* UITabBarController+Extension.swift */,
 				4EFEB0D02A85BE6900CCAE5C /* ReuseIdentifierProtocol.swift */,
+				2FBF58572AC1B01D00D227E6 /* DiffableDatasource+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -656,6 +673,7 @@
 		4E89BC4029C5E10A00BAE38A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2FBF584E2AC181D500D227E6 /* NewMyPage */,
 				2FD54E932ABDA9FE00C9216A /* Setting */,
 				2FD54E8C2ABDA9E900C9216A /* EditMyPage */,
 				4EF4D07C2A95F68B00A2E8F4 /* MypageCommonView */,
@@ -679,6 +697,7 @@
 				2FD54EA52ABDAA3000C9216A /* EditMyPageViewModel.swift */,
 				2FD54E882ABDA9CD00C9216A /* LogoutAlertViewModel.swift */,
 				2FD54E892ABDA9CD00C9216A /* NotificationSettingViewModel.swift */,
+				2FBF58552AC1999900D227E6 /* NewMyPageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -853,6 +872,7 @@
 				4EA6339A2A5FAB6D00F27386 /* MyPageView.swift */,
 				4EF72DE42A8B775B000B7205 /* MyPageCustomTableView.swift */,
 				4EF4D0492A933E1100A2E8F4 /* MyPageTableViewCell.swift */,
+				2FF8F47D2AC2647300A46FAF /* MyPageCollectionViewCell.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1305,6 +1325,7 @@
 				4EA81DE029ED2DC00070F1B7 /* JoinView.swift in Sources */,
 				4E63C85C2A6E07C8009AC011 /* CoreDataManager.swift in Sources */,
 				4EFFCE3D2A6DECB90075EF9C /* PartyListItemModel.swift in Sources */,
+				2FBF58502AC1822F00D227E6 /* TopTipView.swift in Sources */,
 				933B3C9B2A5586D200B8D60B /* HomeViewModel.swift in Sources */,
 				4EF72DE52A8B775B000B7205 /* MyPageCustomTableView.swift in Sources */,
 				2FD54EA22ABDA9FE00C9216A /* SettingAlertViewController.swift in Sources */,
@@ -1330,6 +1351,7 @@
 				933B3CA62A55873A00B8D60B /* DdayWidgetView.swift in Sources */,
 				4EFFCE4F2A6DF5710075EF9C /* SortingOptionCollectionViewCell.swift in Sources */,
 				2FD54E9D2ABDA9FE00C9216A /* NotificationSettingViewController.swift in Sources */,
+				2FBF58582AC1B01D00D227E6 /* DiffableDatasource+Extension.swift in Sources */,
 				4E54431B2A6132990074F654 /* MapViewController.swift in Sources */,
 				2FD54E9E2ABDA9FE00C9216A /* NotificationSettingView.swift in Sources */,
 				2FD54EA62ABDAA3000C9216A /* EditMyPageViewModel.swift in Sources */,
@@ -1345,6 +1367,7 @@
 				4EECA7EB2A6E4C1E00C94417 /* DetailCategoryCollectionViewCell.swift in Sources */,
 				4EF4D04C2A939E6B00A2E8F4 /* RecentlyPartyViewController.swift in Sources */,
 				4EF72E032A8C92B8000B7205 /* CheckMyPartyViewModel.swift in Sources */,
+				2FBF58562AC1999900D227E6 /* NewMyPageViewModel.swift in Sources */,
 				4E892CFE2A9EB47D0075F56F /* PartyDetailInfoViewController.swift in Sources */,
 				4EFFCE532A6DF5830075EF9C /* PartyListViewController.swift in Sources */,
 				4E87B4572AA2E5DF00B3AD94 /* CalendarResponse.swift in Sources */,
@@ -1453,6 +1476,7 @@
 				4E6123BE2A3763720039307A /* detailCategoryCollectionViewCell.swift in Sources */,
 				4E52228A29F18152000B96B4 /* InterestsView.swift in Sources */,
 				4ECEAE1129ED1F7F006AAF6B /* CoordinatorDelegate.swift in Sources */,
+				2FF8F47E2AC2647300A46FAF /* MyPageCollectionViewCell.swift in Sources */,
 				4EFFCE4B2A6DF55F0075EF9C /* PartyListView.swift in Sources */,
 				4E93176C2A6B7AC5001FBDCB /* CreatePartyViewController.swift in Sources */,
 			);
