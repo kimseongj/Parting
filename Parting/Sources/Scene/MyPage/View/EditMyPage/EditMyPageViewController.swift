@@ -12,6 +12,8 @@ final class EditMyPageViewController: BaseViewController<EditMyPageView> {
     
     private var viewModel: EditMyPageViewModel
     
+    private let datePicker = UIDatePicker()
+    
     init(viewModel: EditMyPageViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -26,6 +28,8 @@ final class EditMyPageViewController: BaseViewController<EditMyPageView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationUI()
+        setDelegate()
+        viewModel.input.viewDidLoadTrigger.accept(())
         bind()
         setMyInterestDataSource()
         var snapshot = NSDiffableDataSourceSnapshot<Int, UIImage>()
@@ -42,6 +46,59 @@ extension EditMyPageViewController {
             .withUnretained(self)
             .bind { owner, _ in
                 owner.viewModel.popVC()
+            }
+            .disposed(by: disposeBag)
+        
+        rootView.manButton.rx.tap
+            .withUnretained(self)
+            .bind { owner, _ in
+                owner.viewModel.selectedGender.accept(.man)
+            }
+            .disposed(by: disposeBag)
+        
+        rootView.womanButton.rx.tap
+            .withUnretained(self)
+            .bind { owner, _ in
+                owner.viewModel.selectedGender.accept(.woman)
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.selectedGender
+            .withUnretained(self)
+            .bind { owner, gender in
+                owner.rootView.genderButtonTap(genderCase: gender)
+            }
+            .disposed(by: disposeBag)
+        
+        rootView.nameTextField.rx.text
+            .withUnretained(self)
+            .bind { owner, text in
+                guard let text else { return }
+                owner.rootView.updateDupricatedButton(text: text)
+            }
+            .disposed(by: disposeBag)
+        
+        rootView.introduceExplainTextView.rx.text
+            .withUnretained(self)
+            .bind { owner, text in
+                guard let text else { return }
+                owner.rootView.updateTextCountLabel(text: text)
+                
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.myPageData
+            .withUnretained(self)
+            .bind { owner, data in
+                owner.rootView.configureEditMyPageUI(data)
+            }
+            .disposed(by: disposeBag)
+        
+        rootView.duplicatedNickNameCheckButton
+            .rx.tap
+            .withUnretained(self)
+            .bind { owner, _ in
+                owner.viewModel.duplicationNickname(nickname: owner.rootView.nameTextField.text ?? "")
             }
             .disposed(by: disposeBag)
     }
@@ -65,5 +122,41 @@ extension EditMyPageViewController {
             let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
             return cell
         }
+    }
+}
+
+extension EditMyPageViewController {
+    private func setDelegate() {
+        rootView.introduceExplainTextView.delegate = self
+    }
+}
+
+extension EditMyPageViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let currentText = rootView.introduceExplainTextView.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false}
+        let changeText = currentText.replacingCharacters(in: stringRange, with: text)
+        
+        return changeText.count < 41
+    }
+}
+
+extension EditMyPageViewController {
+    private func configureDatePicker() {
+        datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.addTarget(self, action: #selector(datePickerValueDidChange(_:)), for: .valueChanged)
+        datePicker.locale = Locale(identifier: "ko_KR")
+        rootView.birthTextField.inputView = self.datePicker
+    }
+    
+    @objc private func datePickerValueDidChange(_ datePicker: UIDatePicker) {
+        datePicker.rx.date
+            .withUnretained(self)
+            .subscribe(onNext:{ owner, date in
+                owner.viewModel.input.BirthTextFieldTrigger.onNext(date)
+                print(date)
+            })
+            .disposed(by: disposeBag)
     }
 }

@@ -229,3 +229,24 @@ extension APIManager {
         }
     }
 }
+
+extension APIManager {
+    func requestGetMyPageData() -> Observable<MyPageResponse> {
+        return Observable.create { emitter in
+            let api = PartingAPI.getMypage
+            guard let myPageURL = api.url else { return Disposables.create() }
+            AF.request(myPageURL, method: .get, headers: api.headers)
+                .validate(statusCode: 200...500)
+                .responseDecodable(of: MyPageResponse.self) { response in
+                    switch response.result {
+                    case let .success(value):
+                        emitter.onNext(value)
+                        emitter.onCompleted()
+                    case let .failure(error):
+                        emitter.onError(error)
+                    }
+                }
+            return Disposables.create()
+        }
+    }
+}
