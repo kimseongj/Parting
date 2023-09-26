@@ -91,7 +91,7 @@ extension EnterPartyViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = rootView.partyListTableView.dequeueReusableCell(withIdentifier: PartyTableViewCell.identifier) as? PartyTableViewCell else { return UITableViewCell() }
-        cell.configureMyPageCell(party: viewModel.myPartyList[indexPath.row])
+//        cell.configureMyPageCell(party: viewModel.myPartyList[indexPath.row])
         print()
         return cell
     }

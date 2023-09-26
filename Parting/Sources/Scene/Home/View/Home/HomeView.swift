@@ -145,6 +145,26 @@ class HomeView: BaseView {
         return label
     }()
     
+    let notYetParticipatePartyLabel: UILabel = {
+        let label = UILabel()
+        label.text = """
+아직 참여한 파티가 없어요.
+파티를 시작해볼까요?
+"""
+        label.font = AppFont.Medium.of(size: 14)
+        label.textColor = AppColor.gray900
+        label.sizeToFit()
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        return label
+    }()
+    
+    let addPartyButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "addButton"), for: .normal)
+        return button
+    }()
+    
     let myPartyListView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 15
@@ -188,6 +208,9 @@ class HomeView: BaseView {
     override func makeConfigures() {
         super.makeConfigures()
         naviCustomView.addSubview(naviImageView)
+        
+        myPartyListView.addSubview(notYetParticipatePartyLabel)
+        myPartyListView.addSubview(addPartyButton)
         
         [leftButton, rightButton].forEach {
             pageButtonStackView.addArrangedSubview($0)
@@ -279,6 +302,18 @@ class HomeView: BaseView {
             make.top.equalTo(calendarView.snp.bottom).offset(24)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24)
             make.height.equalTo(20)
+        }
+        
+        notYetParticipatePartyLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(19)
+            make.horizontalEdges.equalToSuperview().inset(80)
+            make.height.equalTo(46)
+        }
+        
+        addPartyButton.snp.makeConstraints { make in
+            make.top.equalTo(notYetParticipatePartyLabel.snp.bottom).offset(14)
+            make.size.equalTo(29)
+            make.centerX.equalToSuperview()
         }
         
         myPartyListView.snp.makeConstraints { make in

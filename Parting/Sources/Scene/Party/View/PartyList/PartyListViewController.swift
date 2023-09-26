@@ -49,9 +49,9 @@ class PartyListViewController: BaseViewController<PartyListView> {
     
     private func navigationUI() {
         navigationController?.isNavigationBarHidden = false
-        self.navigationItem.rightBarButtonItem = rootView.bellBarButton
         self.navigationItem.leftBarButtonItem = rootView.backBarButton
         self.navigationItem.titleView = rootView.navigationLabel
+        rootView.navigationLabel.textAlignment = .left
         
     }
     
@@ -72,7 +72,7 @@ class PartyListViewController: BaseViewController<PartyListView> {
         
         viewModel.output.partyList.bind(to: rootView.partyListTableView.rx.items(cellIdentifier: PartyTableViewCell.identifier, cellType: PartyTableViewCell.self)) { [weak self] index, party, cell in
             cell.selectionStyle = .none
-            cell.configureCell(party: party)
+//            cell.configureCell(party: party)
         }.disposed(by: disposeBag)
         
         viewModel.output.isLoadingMore
