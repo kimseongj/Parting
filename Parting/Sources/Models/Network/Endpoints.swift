@@ -64,6 +64,11 @@ enum PartingAPI {
         searchLowLatitude: Double,
         searchLowLongitude: Double
     )
+    case getMapPartyDetailInfo(
+        partyIdList: [Int],
+        userLatitude: Double,
+        userLongitude: Double
+    )
 }
 
 extension PartingAPI {
@@ -117,6 +122,8 @@ extension PartingAPI {
             return  "\(BaseURL.userURL)/essential-information"
         case .getAroundParty:
             return "\(BaseURL.partyURL)/map"
+        case .getMapPartyDetailInfo:
+            return "\(BaseURL.partyURL)/map/detail"
         }
     }
     
@@ -126,7 +133,7 @@ extension PartingAPI {
             return [
                 "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY5NDI2MjY5MywiZXhwIjoxNjk2NjgxODkzfQ.7a6FASp4Us1RPdtONo3hNyqOFOQ-d0GhAT3gD0x5rew"
             ]
-        case .parties, .associatedCategory, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calender, .region, .recentView, .checkMyParty, .partyMember, .detailCategory, .checkNickname, .essentialInfo, .getAroundParty:
+        case .parties, .associatedCategory, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calender, .region, .recentView, .checkMyParty, .partyMember, .detailCategory, .checkNickname, .essentialInfo, .getAroundParty, .getMapPartyDetailInfo:
             return [
                 "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY5NDI2MjY5MywiZXhwIjoxNjk2NjgxODkzfQ.7a6FASp4Us1RPdtONo3hNyqOFOQ-d0GhAT3gD0x5rew",
                 "Content-Type": "application/json;charset=UTF-8"
@@ -247,6 +254,16 @@ extension PartingAPI {
                     "searchHighLongitude": searchHighLongitude,
                     "searchLowLatitude": searchLowLatitude,
                     "searchLowLongitude": searchLowLongitude
+                ]
+            case let .getMapPartyDetailInfo(
+                partyIdList,
+                userLatitude,
+                userLongitude
+            ):
+                return [
+                    "partyIdList": partyIdList,
+                    "userLatitude": userLatitude,
+                    "userLongitude": userLongitude
                 ]
             default:
                 return ["":""]

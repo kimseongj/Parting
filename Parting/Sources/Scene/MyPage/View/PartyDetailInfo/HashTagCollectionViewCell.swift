@@ -29,7 +29,6 @@ class HashTagCollectionViewCell: UICollectionViewCell {
         DispatchQueue.main.async {
             self.cellConatiner.layer.cornerRadius = self.cellConatiner.frame.height / 2
         }
-        
     }
     
     override init(frame: CGRect) {

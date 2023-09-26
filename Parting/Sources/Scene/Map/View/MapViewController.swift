@@ -13,7 +13,7 @@ import CoreLocation
 final class MapViewController: BaseViewController<MapView> {
 
     private let viewModel: MapViewModel
-    private let marker = NMFMarker() // 마커 인스턴스 생성
+    private var markers = [NMFMarker]() // 마커배열 인스턴스 생성
     var locationManager = CLLocationManager()
     
     init(viewModel: MapViewModel) {
@@ -32,11 +32,11 @@ final class MapViewController: BaseViewController<MapView> {
         setLocationDelegate()
         navigationUI()
         configureMarker()
-        markerClicked()
         checkDeviceLocationAuthorization()
         naverMap()
         moveCurrentPositionCamera()
         setNaverMapDelegate()
+        
     }
     
     private func naverMap() {
@@ -50,12 +50,48 @@ final class MapViewController: BaseViewController<MapView> {
         locationOverlay.location = NMGLatLng(lat: lat, lng: lng)
     }
     
-    // MARK: - Marker
+    //MARK: - lat, lng에 해당하는 마커 생성
     private func configureMarker() {
-        //MARK: - lat, lng에 해당하는 마커 생성
-        marker.position = NMGLatLng(lat:35.88979460661547, lng: 128.61133694145016)
-        marker.mapView = rootView.mapView.mapView
-        marker.iconTintColor = UIColor.red
+        viewModel.state.aroundPartyList
+            .withUnretained(self)
+            .subscribe(onNext: { owner, partyList in
+                for idx in 0..<partyList.count {
+                    let marker = NMFMarker()
+                    marker.position = NMGLatLng(
+                        lat: partyList[idx].partyLatitude,
+                        lng: partyList[idx].partyLongitude
+                    )
+                    owner.viewModel.partyDetailInfo.append(partyList[idx])
+                    owner.markers.append(marker)
+                }
+                
+                DispatchQueue.main.async {
+                    for marker in owner.markers {
+                        marker.mapView = owner.rootView.mapView.mapView
+                    }
+                }
+                owner.markerClicked()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    // MARK: - Marker 클릭
+    private func markerClicked() {
+        for marker in markers {
+            marker.touchHandler = { (marker: NMFOverlay?) -> Bool in
+                if let marker = marker as? NMFMarker {
+                    print(marker.position.lat, marker.position.lng)
+                    let mapDetailDTO = MapDetailPartyDTO(
+                        partyLatitude: marker.position.lat,
+                        partyLongitude: marker.position.lng
+                    )
+                    
+                    self.viewModel.input.onNext(.markerClicked(data: mapDetailDTO))
+                }
+                return true
+            }
+        }
+        
     }
     
     // MARK: - naverMapDelegate
@@ -108,7 +144,6 @@ final class MapViewController: BaseViewController<MapView> {
     private func checkCurrentLocationAuthorization(status: CLAuthorizationStatus) {
         switch status {
         case .authorizedAlways:
-//            locationManager.startUpdatingLocation()
             print("authorizedAlways")
         case .notDetermined:
             locationManager.desiredAccuracy = kCLLocationAccuracyBest // 정확도 설정
@@ -151,16 +186,6 @@ final class MapViewController: BaseViewController<MapView> {
             alert.addAction(cancel)
             
             self.present(alert, animated: true)
-    }
-    
-    private func markerClicked() {
-        marker.touchHandler = { (marker: NMFOverlay?) -> Bool in
-            //MARK: - bottom sheet 띄우기
-            let bottomSheetViewController = BottomSheetViewController()
-            bottomSheetViewController.modalPresentationStyle = .automatic
-            self.present(bottomSheetViewController, animated: true)
-            return true
-        }
     }
 }
 
@@ -206,9 +231,5 @@ extension MapViewController: NMFMapViewCameraDelegate {
 
 //MARK: - 클릭한 위치에 대한 액션 1. 좌표 얻기 2. 팝업 띄우기
 extension MapViewController: NMFMapViewTouchDelegate {
-    func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
-        print("\(latlng.lat), \(latlng.lng)")
-        marker.position = NMGLatLng(lat: latlng.lat, lng: latlng.lng)
-        marker.mapView = rootView.mapView.mapView
-    }
+    
 }

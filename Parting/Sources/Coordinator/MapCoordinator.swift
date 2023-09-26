@@ -18,6 +18,7 @@ final class MapCoordinator: Coordinator {
     var navigationController: UINavigationController
     var childCoordinators: [Coordinator] = .init()
     var type: CoordinatorStyleCase = .tab
+    weak var currentVC: UIViewController?
     
     init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -30,8 +31,20 @@ final class MapCoordinator: Coordinator {
     func showMapVC() {
         let viewModel = MapViewModel(mapCoordinator: self)
         let vc = MapViewController(viewModel: viewModel)
+        currentVC = vc
         navigationController.viewControllers = [vc]
     }
     
+    func showPartyDetailBottomsheetVC(data: AroundPartyDetailResponse) {
+        let viewModel = BottomSheetViewModel(coorinator: self, data: data)
+        let vc = BottomSheetViewController(viewModel: viewModel)
+        if let currentVC = currentVC as? MapViewController {
+            currentVC.present(vc, animated: true)
+        }
+    }
+    
+    func dismissPartyDetailBottomSheetVC() {
+        currentVC?.dismiss(animated: true)
+    }
 }
 
