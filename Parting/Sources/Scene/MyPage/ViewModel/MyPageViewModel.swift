@@ -153,6 +153,10 @@ final class MyPageViewModel: BaseViewModel {
     func presentLogoutAlertVC() {
         self.coordinator?.presentLogoutAlertVC()
     }
+    
+    func pushInquireVC() {
+        self.coordinator?.pushInquireVC()
+    }
 }
 
 extension MyPageViewModel {
