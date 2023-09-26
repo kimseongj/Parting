@@ -13,7 +13,8 @@ class BarTitleLabel: UILabel {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
         font = AppFont.SemiBold.of(size: 20)
-		textColor = AppColor.baseText
+        textAlignment = .left
+		textColor = AppColor.gray900
 	}
 	
 	convenience init(text: String) {

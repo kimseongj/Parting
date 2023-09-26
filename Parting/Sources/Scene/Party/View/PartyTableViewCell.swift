@@ -8,39 +8,7 @@
 import UIKit
 
 class PartyTableViewCell: UITableViewCell {
-    
-//    static let identifier = "PartyTableViewCell"
-    
-    private var tagTexts: [String] = []
-    var testId: Int?
-    private let cellContainer: UIStackView = {
-        let view = StackView(axis: .vertical, alignment: .center, distribution: .equalCentering)
-        view.layer.cornerRadius = 16
-        view.layer.borderColor = UIColor.black.cgColor
-//        view.layer.borderWidth = 1
-        view.backgroundColor = .white
-        return view
-    }()
-    
-    // MARK: Cell Components
-    private let mainVStack = StackView(axis: .vertical, alignment: .firstBaseline, distribution: .equalSpacing, spacing: 12.0)
-    
-    private let topHStack = StackView(axis: .horizontal, alignment: .center, distribution: .fillProportionally, spacing: 16.0)
-    
-    private let contentHStack = StackView(axis: .horizontal, alignment: .center, distribution: .equalCentering, spacing: 32.0)
-    
-    private let tagCollectionView: UICollectionView = {
-        let layout = LeftAlignedCollectionViewFlowLayout()
-//        layout.itemSize.height = 18
-//        layout.itemSize.width = 150
-        layout.scrollDirection = .horizontal
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .clear
-        collectionView.isScrollEnabled = true
-        return collectionView
-    }()
-    
-    
+
     // MARK: Top Stack Components
     private let locationIcon: UIImageView = {
         let icon = UIImage(named: Images.icon.locationMarker)
@@ -48,42 +16,74 @@ class PartyTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let locationLabel = Label(text: "대한민국 어딘가", weight: .Light, size: 15)
-    
-    private let locationHStack = StackView(axis: .horizontal, alignment: .center, distribution: .equalSpacing, spacing: 8.0)
-    
-    private let spacerView = UIView()
-    
-    private let statusView: UIView = {
-        let view = UIView()
-        view.backgroundColor = AppColor.brand
-        view.layer.cornerRadius = 12
-        return view
-    }()
-    
-    private let statusLabel = Label(text: "2/5", weight: .Regular, size: 13, color: AppColor.white)
-    
-    
-    // MARK: Content Stack Components
-    private let contentVStack = StackView(axis: .vertical, alignment: .leading, distribution: .fillProportionally, spacing: 4.0)
-    
-    private let thumbnail: UIImageView = {
-        let imageView = UIImageView()
-        let url = URL(string: "https://picsum.photos/200/300")
-        imageView.kf.setImage(with: url)
-        imageView.layer.cornerRadius = 16
-        imageView.clipsToBounds = true
-        return imageView
-    }()
-    
-    private let titleLabel = Label(text: "파티 이름", font: AppFont.Medium.of(size: 13))
-    
-    private let periodLabel: UILabel = {
-        let label = Label(text: "2023. 1. 1 - 1시 ~ 2시", font: AppFont.Regular.of(size: 15))
-        label.numberOfLines = 0
+    private let locationLabel: UILabel = {
+        let label = UILabel()
+        label.font = AppFont.Regular.of(size: 11)
+        label.textColor = AppColor.gray500
+        label.text = "대구 중구 1km"
         label.sizeToFit()
         return label
     }()
+    
+    private let statusLabel: UILabel = {
+        let label = UILabel()
+        label.font = AppFont.Medium.of(size: 11)
+        label.textColor = AppColor.white
+        label.backgroundColor = AppColor.brand
+        label.clipsToBounds = true
+        label.textAlignment = .center
+        label.text = "2/5"
+        return label
+    }()
+    
+    private let centerView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    private let partyImage: UIImageView = {
+        let view = UIImageView()
+        view.layer.cornerRadius = 5
+        view.image = UIImage(systemName: "person")
+        view.clipsToBounds = true
+        return view
+    }()
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = AppFont.Medium.of(size: 16)
+        label.textColor = AppColor.gray900
+        label.text = "공무원 스터디"
+        return label
+    }()
+    
+    private let periodLabel: UILabel = {
+        let label = UILabel()
+        label.font = AppFont.Medium.of(size: 10)
+        label.textColor = AppColor.gray400
+        label.numberOfLines = 0
+        label.text = "2022년 11월 11일 13시 ~ 15시"
+        label.sizeToFit()
+        return label
+    }()
+    
+    private let partyDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = AppColor.gray700
+        label.font = AppFont.Regular.of(size: 12)
+        return label
+    }()
+    
+    private let tagCollectionView: UICollectionView = {
+        let layout = LeftAlignedCollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
+        collectionView.isScrollEnabled = true
+        return collectionView
+    }()
+    
+   
     
     // MARK: init
     override init(
@@ -97,113 +97,91 @@ class PartyTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 13, right: 0))
+        contentView.layer.cornerRadius = 10
+        contentView.layer.borderColor = AppColor.gray100.cgColor
+        contentView.layer.borderWidth = 1
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 0))
         makeConstraints()
-        statusView.layer.cornerRadius = statusView.frame.height / 2
+        DispatchQueue.main.async {
+            self.statusLabel.layer.cornerRadius = self.statusLabel.frame.height / 2
+        }
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(party: PartyListItemModel) {
-        locationLabel.text = party.location + " " + party.distance
-        titleLabel.text = party.title
-        periodLabel.text = party.partyDuration
-        statusLabel.text = "\(party.currentPartyMemberCount)/\(party.maxPartyMemberCount)"
-        tagTexts = party.tags
-        DispatchQueue.main.async { [weak self] in
-            self?.tagCollectionView.collectionViewLayout.invalidateLayout()
-        }
-        
-        guard let url = URL(string: party.imgURL) else { return }
-        
-        thumbnail.kf.setImage(with: url)
-    }
-    
     func configureMyPageCell(party: PartyInfoResponse) {
-        print(party.address, "💛")
-        locationLabel.text = party.address + " " + "\(party.distance)"
+        locationLabel.text = party.address
+        partyImage.kf.setImage(with: URL(string: party.categoryImg))
         titleLabel.text = party.partyName
-        periodLabel.text = party.partyStartTime + party.partyEndTime
+        periodLabel.text = party.partyEndTime
         statusLabel.text = "\(party.currentPartyMemberCount)/\(party.maxPartyMemberCount)"
-        tagTexts = party.hashTagNameList
-        
-        guard let url = URL(string: party.categoryImg) else { return }
-        
-        thumbnail.kf.setImage(with: url)
+        partyDescriptionLabel.text = party.description
     }
-    
-    
 }
 
 // MARK: ProgrammaticallyInitializableViewProtocol
 extension PartyTableViewCell: ProgrammaticallyInitializableViewProtocol {
-    func setupView() {
-        backgroundColor = AppColor.white
-        configureCollectionView()
-    }
-    
     func addSubviews() {
-        contentView.addSubview(cellContainer)
-        cellContainer.addSubview(mainVStack)
-        mainVStack.addArrangedSubview(topHStack)
-        mainVStack.addArrangedSubview(contentHStack)
-        mainVStack.addArrangedSubview(tagCollectionView)
+        [partyImage, titleLabel, periodLabel, partyDescriptionLabel].forEach {
+            centerView.addSubview($0)
+        }
         
-        topHStack.addArrangedSubview(locationHStack)
-        topHStack.addArrangedSubview(spacerView)
-        topHStack.addArrangedSubview(statusView)
-        locationHStack.addArrangedSubview(locationIcon)
-        locationHStack.addArrangedSubview(locationLabel)
-        statusView.addSubview(statusLabel)
-        
-        
-        contentHStack.addArrangedSubview(thumbnail)
-        contentHStack.addArrangedSubview(contentVStack)
-        
-        contentVStack.addArrangedSubview(titleLabel)
-        contentVStack.addArrangedSubview(periodLabel)
-        //        contentVStack.addArrangedSubview(detailLabel)
-        contentVStack.setCustomSpacing(0.0, after: titleLabel)
-        
+        [locationIcon, locationLabel, statusLabel, centerView, tagCollectionView].forEach {
+            contentView.addSubview($0)
+        }
     }
     
     func makeConstraints() {
-        cellContainer.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        locationHStack.snp.makeConstraints { make in
-            make.trailing.equalTo(statusView.snp.leading)
-        }
-        
-        mainVStack.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        topHStack.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(14)
-            make.height.equalTo(24)
-        }
-        
         locationIcon.snp.makeConstraints { make in
-            make.height.equalTo(16)
-            make.width.equalTo(16)
+            make.top.equalToSuperview().inset(8)
+            make.leading.equalToSuperview().inset(12)
+            make.height.equalTo(14)
+            make.width.equalTo(14)
         }
         
-        periodLabel.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
+        locationLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(8)
+            make.leading.equalTo(locationIcon.snp.trailing).offset(4)
+            
         }
         
         statusLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().offset(-1)
+            make.top.equalToSuperview().inset(8)
+            make.trailing.equalToSuperview().inset(12)
+            make.width.equalTo(34)
         }
         
-        contentHStack.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(14)
-            make.trailing.equalToSuperview()
+        centerView.snp.makeConstraints { make in
+            make.top.equalTo(locationIcon.snp.bottom).offset(6)
+            make.horizontalEdges.equalToSuperview().inset(12)
+            make.height.equalTo(80)
+        }
+        
+        partyImage.snp.makeConstraints { make in
+            make.top.leading.bottom.equalToSuperview().inset(4)
+            make.size.equalTo(72)
+                
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.leading.equalTo(partyImage.snp.trailing).offset(10)
+            make.top.equalToSuperview().inset(4)
+        }
+        
+        periodLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(4)
+            make.leading.equalTo(partyImage.snp.trailing).offset(10)
+
+        }
+        
+        partyDescriptionLabel.snp.makeConstraints { make in
+            make.top.equalTo(periodLabel.snp.bottom).offset(4)
+            make.leading.equalTo(partyImage.snp.trailing).offset(10)
+            make.bottom.equalToSuperview()
+
         }
         
         tagCollectionView.snp.makeConstraints { make in
@@ -211,39 +189,19 @@ extension PartyTableViewCell: ProgrammaticallyInitializableViewProtocol {
             make.height.equalTo(24)
         }
         
-        statusView.snp.makeConstraints { make in
-            make.height.equalToSuperview().multipliedBy(0.8)
-            make.width.equalTo(52)
-        }
-        
-        thumbnail.snp.makeConstraints { make in
-            make.height.equalToSuperview()
-            make.width.equalTo(thumbnail.snp.height)
-        }
     }
     
 }
 
 // MARK: Collection View
-extension PartyTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+//extension PartyTableViewCell: UICollectionViewDataSource {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return 3
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PartyT, for: <#T##IndexPath#>)
+//    }
     
-    func configureCollectionView() {
-        tagCollectionView.delegate = self
-        tagCollectionView.dataSource = self
-        tagCollectionView.register(TagCollectionViewCell.self, forCellWithReuseIdentifier: TagCollectionViewCell.identifier)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tagTexts.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = tagCollectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.identifier, for: indexPath) as? TagCollectionViewCell else { return UICollectionViewCell() }
-
-        if indexPath[1] < tagTexts.count {
-            cell.configureCell(with: tagTexts[indexPath[1]])
-        }
-        return cell
-    }
-}
+//}
 

@@ -41,6 +41,5 @@ class PartyTypeCollectionViewCell: UICollectionViewCell {
     
     func configureCell(name: String) {
         categoryNameLabel.text = name
-        
     }
 }

@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import RxSwift
 import Kingfisher
+import RxCocoa
 
 enum PartyList: Int, CaseIterable {
     case 관람팟
@@ -73,6 +74,7 @@ class HomeViewController: BaseViewController<HomeView> {
         super.viewDidLoad()
         cellResigster()
         setDatasourceAndDelegate()
+        bind()
     }
     
     func cellResigster() {
@@ -80,22 +82,22 @@ class HomeViewController: BaseViewController<HomeView> {
     }
     
     func setDatasourceAndDelegate() {
-        rootView.categoryCollectionView.dataSource = self
-    }
-}
-
-extension HomeViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return PartyList.numberOfItems
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TestViewCollectionViewCell.identifier, for: indexPath) as? TestViewCollectionViewCell else { return UICollectionViewCell() }
-        guard let item = PartyList(rawValue: indexPath.item) else { return UICollectionViewCell() }
-        cell.configureCell(item: item)
+    func bind() {
+        viewModel.output.categories
+            .bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: TestViewCollectionViewCell.identifier, cellType: TestViewCollectionViewCell.self)) { [weak self] index, partyType, cell in
+                cell.configureCell(item: partyType)
+            }
+            .disposed(by: disposeBag)
         
-        return cell
+        rootView.categoryCollectionView.rx
+            .modelSelected(CategoryModel.self)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, model in
+                print(model.id)
+                owner.viewModel.input.didSelectedCell.onNext(model)
+            })
+            .disposed(by: disposeBag)
     }
-    
-    
 }

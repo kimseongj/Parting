@@ -36,7 +36,6 @@ class CheckMyPartyViewController: BaseViewController<MypageCommonView>, MyPagePr
     
     private func navigationUI() {
         navigationController?.isNavigationBarHidden = false
-        self.navigationItem.rightBarButtonItem = rootView.bellBarButton
         self.navigationItem.leftBarButtonItem = rootView.backBarButton
         self.navigationItem.titleView = BarTitleLabel(text: "내가 개설한 파티")
     }
@@ -80,7 +79,7 @@ class CheckMyPartyViewController: BaseViewController<MypageCommonView>, MyPagePr
 extension CheckMyPartyViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 148
+        return 160
     }
 }
 

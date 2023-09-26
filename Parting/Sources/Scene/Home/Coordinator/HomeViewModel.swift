@@ -21,8 +21,8 @@ final class HomeViewModel: BaseViewModel {
 	}
 	
 	struct Input {
-        let viewDidLoadTrigger = PublishSubject<Void>()
 		let pushScheduleVCTrigger = PublishSubject<Void>()
+        let didSelectedCell = PublishSubject<CategoryModel>()
 	}
 	
 	struct Output {
@@ -55,12 +55,11 @@ final class HomeViewModel: BaseViewModel {
 				owner.coordinator?.pushScheduleVC()
 			})
 			.disposed(by: disposeBag)
-        
-        input.viewDidLoadTrigger
+       
+        input.didSelectedCell
             .withUnretained(self)
-            .subscribe(onNext: { owner, _ in
-                owner.getDdayInfo()
-                owner.getCalendarInfo()
+            .subscribe(onNext: { owner, model in
+                owner.pushPartyListVC(category: model)
             })
             .disposed(by: disposeBag)
 	}
