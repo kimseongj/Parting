@@ -216,7 +216,6 @@ extension MyPageViewController: UITableViewDataSource {
             }
         case rootView.setPartyTableView:
             switch indexPath.row {
-                
             case 2:
                 viewModel.presentNotificationSettingVC()
             case 3:
@@ -227,12 +226,6 @@ extension MyPageViewController: UITableViewDataSource {
             print("setPartyTableView입니다 \(indexPath.row)")
         case rootView.setETCTableView:
             print("setETCTableView입니다 \(indexPath.row)")
-            switch indexPath.row {
-            case 2:
-                viewModel.pushInquireVC()
-            default:
-                break
-            }
         default:
             break
         }

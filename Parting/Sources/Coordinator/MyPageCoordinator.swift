@@ -84,10 +84,4 @@ final class MyPageCoordinator: Coordinator {
     func dismissVC() {
         navigationController.dismiss(animated: true)
     }
-    
-    func pushInquireVC() {
-        let viewModel = InquireViewModel(coordinator: self)
-        let vc = InquireViewController(viewModel: viewModel)
-        navigationController.pushViewController(vc, animated: true)
-    }
 }
