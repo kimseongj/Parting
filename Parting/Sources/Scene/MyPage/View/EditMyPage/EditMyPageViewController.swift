@@ -83,6 +83,7 @@ extension EditMyPageViewController {
             .withUnretained(self)
             .bind { owner, text in
                 guard let text else { return }
+                print(text)
                 owner.rootView.updateTextCountLabel(text: text)
                 
             }
