@@ -12,7 +12,7 @@ class BarTitleLabel: UILabel {
 		
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		font = UIFont(name: AppFont.Bold.rawValue, size: 20)
+        font = AppFont.SemiBold.of(size: 20)
 		textColor = AppColor.baseText
 	}
 	

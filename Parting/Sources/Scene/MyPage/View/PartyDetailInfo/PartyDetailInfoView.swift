@@ -26,7 +26,7 @@ class PartyDetailInfoView: BaseView {
     
     let partyTitle: UILabel = {
         let label = UILabel()
-        label.font = AppFont.Bold.of(size: 20)
+        label.font = AppFont.SemiBold.of(size: 18)
         label.sizeToFit()
         label.text = "OO하는 모임"
         return label
@@ -53,14 +53,14 @@ class PartyDetailInfoView: BaseView {
         let modify = UIAction(
             title: "수정"
         ) { _ in
-                print("수정")
-            }
+            print("수정")
+        }
         
         let delete = UIAction(
             title: "삭제"
         ) { _ in
-                print("삭제")
-            }
+            print("삭제")
+        }
         
         let share = UIAction(
             title: "공유"
@@ -103,22 +103,11 @@ class PartyDetailInfoView: BaseView {
         return view
     }()
     
-    let deadLineLabel: UILabel = {
-        let label = UILabel()
-        label.text = "11월 11일 PM. 1:00 모집 마감"
-        label.layer.borderColor = AppColor.brand.cgColor
-        label.layer.cornerRadius = 8
-        label.textColor = AppColor.brand
-        label.textAlignment = .center
-        label.layer.borderWidth = 3
-        label.font = AppFont.Bold.of(size: 20)
-        return label
-    }()
-    
     let partyPersonnelBackgroundView: UIView = {
         let view = UIView()
         view.layer.borderColor = UIColor.black.cgColor
         view.layer.borderWidth = 1
+        view.layer.cornerRadius = 10
         return view
     }()
     
@@ -146,6 +135,7 @@ class PartyDetailInfoView: BaseView {
         let view = UIView()
         view.layer.borderColor = UIColor.black.cgColor
         view.layer.borderWidth = 1
+        view.layer.cornerRadius = 10
         return view
     }()
     
@@ -166,7 +156,8 @@ class PartyDetailInfoView: BaseView {
     let ageGroupLabel: UILabel = {
         let label = UILabel()
         label.text = "22세 ~ 26세"
-        label.font = AppFont.Medium.of(size: 12)
+        label.font = AppFont.Medium.of(size: 11)
+        label.textColor = AppColor.gray800
         return label
     }()
     
@@ -184,7 +175,8 @@ class PartyDetailInfoView: BaseView {
     let partyPeriodLabel: UILabel = {
         let label = UILabel()
         label.text = "2022.11.11 ~ 13시 ~ 15시"
-        label.font = AppFont.Medium.of(size: 12)
+        label.font = AppFont.Medium.of(size: 11)
+        label.textColor = AppColor.gray800
         return label
     }()
     
@@ -202,7 +194,8 @@ class PartyDetailInfoView: BaseView {
     let locationLabel: UILabel = {
         let label = UILabel()
         label.text = "대구 산격동 140"
-        label.font = AppFont.Medium.of(size: 12)
+        label.font = AppFont.Medium.of(size: 11)
+        label.textColor = AppColor.gray800
         return label
     }()
     
@@ -215,12 +208,13 @@ class PartyDetailInfoView: BaseView {
         let view = UIView()
         view.layer.borderColor = UIColor.black.cgColor
         view.layer.borderWidth = 1
+        view.layer.cornerRadius = 10
         return view
     }()
     
     let descriptionPartyLabel: UILabel = {
         let label = UILabel()
-        label.text = "파티 정보"
+        label.text = "파티 설명"
         label.font = AppFont.Medium.of(size: 12)
         label.textColor = UIColor(hexcode: "BABABA")
         return label
@@ -229,7 +223,8 @@ class PartyDetailInfoView: BaseView {
     let descriptionPartyContentsLabel: UILabel = {
         let label = UILabel()
         label.text = "같이 열심히 공부합시다!"
-        label.font = AppFont.Medium.of(size: 12)
+        label.font = AppFont.Medium.of(size: 11)
+        label.textColor = AppColor.gray800
         return label
     }()
     
@@ -245,6 +240,14 @@ class PartyDetailInfoView: BaseView {
         view.axis = .vertical
         return view
     }()
+    
+    override func layoutSubviews() {
+        partyPersonnel.layer.cornerRadius = partyPersonnel.frame.height / 2
+        
+        [openChatButton, leavePartyButton, enterPartyButton].forEach {
+            $0.backgroundColor = AppColor.brand
+        }
+    }
     
     
     
@@ -278,7 +281,7 @@ class PartyDetailInfoView: BaseView {
             partyButtonStackView.addArrangedSubview($0)
         }
         
-        [partyTitle, partyPersonnel, reportOrshareButton, categoryImage, partyTypeCollectionView, hashTagCategoryCollectionView, deadLineLabel, partyPersonnelBackgroundView, partyInfoBackgroundView, descriptionPartyBackgroundView, partyButtonStackView].forEach {
+        [partyTitle, partyPersonnel, reportOrshareButton, categoryImage, partyTypeCollectionView, hashTagCategoryCollectionView, partyPersonnelBackgroundView, partyInfoBackgroundView, descriptionPartyBackgroundView, partyButtonStackView].forEach {
             contentsView.addSubview($0)
         }
         
@@ -321,52 +324,39 @@ class PartyDetailInfoView: BaseView {
             make.width.height.equalTo(25)
         }
         
-        partyTypeCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(partyTitle.snp.bottom).offset(14)
-            make.leading.equalTo(categoryImage.snp.trailing).offset(18)
-            make.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(25)
-        }
-        
         hashTagCategoryCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(partyTypeCollectionView.snp.bottom).offset(10)
+            make.top.equalTo(partyTitle.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(25)
+            make.height.equalTo(30)
         }
         
-        deadLineLabel.snp.makeConstraints { make in
+        descriptionPartyLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(12)
+            make.leading.equalToSuperview().inset(16)
+            make.height.equalTo(24)
+        }
+        
+        descriptionPartyContentsLabel.snp.makeConstraints { make in
+            make.top.equalTo(descriptionPartyLabel.snp.bottom).offset(7)
+            make.horizontalEdges.equalToSuperview().inset(10)
+            make.bottom.equalToSuperview().inset(10)
+        }
+        
+        descriptionPartyBackgroundView.snp.makeConstraints { make in
             make.top.equalTo(hashTagCategoryCollectionView.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(50)
-        }
-        
-        partyPersonnelBackgroundView.snp.makeConstraints { make in
-            make.top.equalTo(deadLineLabel.snp.bottom).offset(10)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(85)
-        }
-        
-        partyPersonnelLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview().inset(10)
-            make.height.equalTo(19)
-        }
-        
-        partyPersonnelCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(partyPersonnelLabel.snp.bottom)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview()
+            make.height.equalTo(222)
         }
         
         partyInfoBackgroundView.snp.makeConstraints { make in
-            make.top.equalTo(partyPersonnelBackgroundView.snp.bottom).offset(14)
+            make.top.equalTo(descriptionPartyBackgroundView.snp.bottom).offset(14)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(118)
+            make.height.equalTo(122)
         }
         
         partyInfoLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview().inset(10)
+            make.top.equalToSuperview().inset(12)
+            make.leading.equalToSuperview().inset(16)
             make.height.equalTo(24)
         }
         
@@ -421,27 +411,28 @@ class PartyDetailInfoView: BaseView {
             make.height.equalTo(20)
         }
         
-        descriptionPartyLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview().inset(10)
-            make.height.equalTo(24)
-        }
-        
-        descriptionPartyContentsLabel.snp.makeConstraints { make in
-            make.top.equalTo(descriptionPartyLabel.snp.bottom).offset(7)
-            make.horizontalEdges.equalToSuperview().inset(10)
-            make.bottom.equalToSuperview().inset(10)
-        }
-        
-        descriptionPartyBackgroundView.snp.makeConstraints { make in
-            make.top.equalTo(partyInfoBackgroundView.snp.bottom).offset(14)
+        partyPersonnelBackgroundView.snp.makeConstraints { make in
+            make.top.equalTo(partyInfoBackgroundView.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(85)
+            make.height.equalTo(112)
+        }
+        
+        partyPersonnelLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(12)
+            make.leading.equalToSuperview().inset(16)
+            make.height.equalTo(19)
+        }
+        
+        partyPersonnelCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(partyPersonnelLabel.snp.bottom)
+            make.horizontalEdges.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview()
         }
         
         partyButtonStackView.snp.makeConstraints { make in
-            make.top.equalTo(descriptionPartyBackgroundView.snp.bottom).offset(23)
+            make.top.equalTo(partyPersonnelBackgroundView.snp.bottom).offset(23)
             make.horizontalEdges.equalToSuperview().inset(20)
+            make.height.equalTo(110)
             make.bottom.equalToSuperview().inset(40)
         }
     }
@@ -455,9 +446,7 @@ extension PartyDetailInfoView {
             leavePartyButton.isHidden = true
             enterPartyButton.isHidden = true
         case "NORMAL_MEMBER":
-//            openChatButton.isHidden = true
-//            leavePartyButton.isHidden = true
-                        enterPartyButton.isHidden = true
+            enterPartyButton.isHidden = true
         case "NOT_MEMBER":
             openChatButton.isHidden = true
             leavePartyButton.isHidden = true
@@ -470,12 +459,9 @@ extension PartyDetailInfoView {
         partyPersonnel.text = "\(data.result.currentPartyMemberCount)/\(data.result.maxPartyMemberCount)"
         partyPeriodLabel.text = "\(data.result.partyStartDateTime) ~ \(data.result.partyEndDateTime)"
         locationLabel.text = data.result.address
-        deadLineLabel.text = data.result.deadLineDate
         ageGroupLabel.text = "\(data.result.minAge)세 ~ \(data.result.maxAge)세"
         categoryImage.kf.setImage(with: URL(string: data.result.categoryImg))
         print(data.result.categoryImg, "🌱🌱")
         descriptionPartyContentsLabel.text = data.result.partyDescription
     }
-    
-    
 }

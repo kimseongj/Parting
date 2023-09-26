@@ -21,7 +21,7 @@ class SetMapViewController: BaseViewController<MapView> {
     private let viewModel: SetMapViewModel
     private let marker = NMFMarker()
     
-    var locationManger = CLLocationManager()
+    var locationManager = CLLocationManager()
     weak var delegate: SendCoordinate?
     
     init(viewModel: SetMapViewModel) {
@@ -64,7 +64,7 @@ class SetMapViewController: BaseViewController<MapView> {
             if CLLocationManager.locationServicesEnabled() {
                 let authorization: CLAuthorizationStatus
                 if #available(iOS 14.0, *) {
-                    authorization = self.locationManger.authorizationStatus
+                    authorization = self.locationManager.authorizationStatus
                 } else {
                     authorization = CLLocationManager.authorizationStatus()
                 }
@@ -80,15 +80,15 @@ class SetMapViewController: BaseViewController<MapView> {
     }
     
     private func moveCurrentPositionCamera() {
-        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: locationManger.location?.coordinate.latitude ?? 35.88979460661547 , lng: locationManger.location?.coordinate.latitude ?? 128.61133694145016))
+        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: locationManager.location?.coordinate.latitude ?? 35.88979460661547 , lng: locationManager.location?.coordinate.latitude ?? 128.61133694145016))
         cameraUpdate.animation = .easeIn
         rootView.mapView.mapView.moveCamera(cameraUpdate)
     }
     
     private func setLocationDelegate() {
-        locationManger.delegate = self
-        locationManger.desiredAccuracy = kCLLocationAccuracyBest
-        locationManger.requestWhenInUseAuthorization() // 위치 서비스 권한 허용 팝업
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization() // 위치 서비스 권한 허용 팝업
     }
     
     // MARK: - 사용자의 현재 권한 허용 상태 확인
@@ -97,10 +97,10 @@ class SetMapViewController: BaseViewController<MapView> {
         case .authorizedAlways:
             print("authorizedAlways")
         case .notDetermined:
-            locationManger.desiredAccuracy = kCLLocationAccuracyBest // 정확도 설정
-            locationManger.requestWhenInUseAuthorization() // 위치 사용 허용 팝업
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest // 정확도 설정
+            locationManager.requestWhenInUseAuthorization() // 위치 사용 허용 팝업
         case .authorizedWhenInUse:
-            locationManger.startUpdatingLocation() // 현재 위치 가져오기
+            locationManager.startUpdatingLocation() // 현재 위치 가져오기
         case .denied:
             print("denied")
             showLocationSettingAlert()
@@ -176,7 +176,7 @@ extension SetMapViewController: CLLocationManagerDelegate {
             print("위도: \(location.coordinate.latitude) 경도: \(location.coordinate.longitude)")
         }
         
-        locationManger.stopUpdatingLocation()
+        locationManager.stopUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
