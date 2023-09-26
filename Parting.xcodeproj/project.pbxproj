@@ -26,6 +26,9 @@
 		2FD54EA42ABDAA1F00C9216A /* CustomTwoButtonAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54EA32ABDAA1F00C9216A /* CustomTwoButtonAlertView.swift */; };
 		2FD54EA62ABDAA3000C9216A /* EditMyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD54EA52ABDAA3000C9216A /* EditMyPageViewModel.swift */; };
 		2FF8F47E2AC2647300A46FAF /* MyPageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF8F47D2AC2647300A46FAF /* MyPageCollectionViewCell.swift */; };
+		2FF8F4802AC2753900A46FAF /* InquireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF8F47F2AC2753900A46FAF /* InquireView.swift */; };
+		2FF8F4822AC2754100A46FAF /* InquireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF8F4812AC2754100A46FAF /* InquireViewController.swift */; };
+		2FF8F4842AC281D900A46FAF /* InquireViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF8F4832AC281D900A46FAF /* InquireViewModel.swift */; };
 		4E0DCE502A7CC2D200DEB3B5 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0DCE4F2A7CC2D100DEB3B5 /* Toast */; };
 		4E0DCE562A7CF0BF00DEB3B5 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0DCE552A7CF0BF00DEB3B5 /* RxDataSources */; };
 		4E153FA82A34C37600C7F58C /* DetailInterestsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E153FA72A34C37600C7F58C /* DetailInterestsViewModel.swift */; };
@@ -213,6 +216,9 @@
 		2FD54EA32ABDAA1F00C9216A /* CustomTwoButtonAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTwoButtonAlertView.swift; sourceTree = "<group>"; };
 		2FD54EA52ABDAA3000C9216A /* EditMyPageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMyPageViewModel.swift; sourceTree = "<group>"; };
 		2FF8F47D2AC2647300A46FAF /* MyPageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCollectionViewCell.swift; sourceTree = "<group>"; };
+		2FF8F47F2AC2753900A46FAF /* InquireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquireView.swift; sourceTree = "<group>"; };
+		2FF8F4812AC2754100A46FAF /* InquireViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquireViewController.swift; sourceTree = "<group>"; };
+		2FF8F4832AC281D900A46FAF /* InquireViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquireViewModel.swift; sourceTree = "<group>"; };
 		3BD59E7956BC0D337F1F0F17 /* Pods_Parting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Parting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E153FA72A34C37600C7F58C /* DetailInterestsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsViewModel.swift; sourceTree = "<group>"; };
 		4E153FA92A34C39F00C7F58C /* DetailInterestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsViewController.swift; sourceTree = "<group>"; };
@@ -399,12 +405,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2FBF584E2AC181D500D227E6 /* NewMyPage */ = {
+		2FBF584E2AC181D500D227E6 /* Inquire */ = {
 			isa = PBXGroup;
 			children = (
-				2FBF584F2AC1822F00D227E6 /* TopTipView.swift */,
+				2FF8F47F2AC2753900A46FAF /* InquireView.swift */,
+				2FF8F4812AC2754100A46FAF /* InquireViewController.swift */,
 			);
-			path = NewMyPage;
+			path = Inquire;
 			sourceTree = "<group>";
 		};
 		2FD54E8C2ABDA9E900C9216A /* EditMyPage */ = {
@@ -413,6 +420,7 @@
 				2FD54E8D2ABDA9E900C9216A /* EditMyPageViewController.swift */,
 				2FD54E8E2ABDA9E900C9216A /* InterestCollectionViewCell.swift */,
 				2FD54E8F2ABDA9E900C9216A /* EditMyPageView.swift */,
+				2FBF584F2AC1822F00D227E6 /* TopTipView.swift */,
 			);
 			path = EditMyPage;
 			sourceTree = "<group>";
@@ -673,7 +681,7 @@
 		4E89BC4029C5E10A00BAE38A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2FBF584E2AC181D500D227E6 /* NewMyPage */,
+				2FBF584E2AC181D500D227E6 /* Inquire */,
 				2FD54E932ABDA9FE00C9216A /* Setting */,
 				2FD54E8C2ABDA9E900C9216A /* EditMyPage */,
 				4EF4D07C2A95F68B00A2E8F4 /* MypageCommonView */,
@@ -698,6 +706,7 @@
 				2FD54E882ABDA9CD00C9216A /* LogoutAlertViewModel.swift */,
 				2FD54E892ABDA9CD00C9216A /* NotificationSettingViewModel.swift */,
 				2FBF58552AC1999900D227E6 /* NewMyPageViewModel.swift */,
+				2FF8F4832AC281D900A46FAF /* InquireViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1330,6 +1339,7 @@
 				4EF72DE52A8B775B000B7205 /* MyPageCustomTableView.swift in Sources */,
 				2FD54EA22ABDA9FE00C9216A /* SettingAlertViewController.swift in Sources */,
 				4E52228029F14163000B96B4 /* EssentialInfoView.swift in Sources */,
+				2FF8F4822AC2754100A46FAF /* InquireViewController.swift in Sources */,
 				4E1CE0D92A8E459B006855E3 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				4EFFCE472A6DF5410075EF9C /* PartyListHeaderView.swift in Sources */,
 				4E82F7F92ABA726B00C06CFB /* UserAgreementViewController.swift in Sources */,
@@ -1421,6 +1431,7 @@
 				4EA5836B29C04F4200BF4D7A /* AppDelegate.swift in Sources */,
 				4E52228F29F27DA8000B96B4 /* customStackView.swift in Sources */,
 				4EA5836D29C04F4200BF4D7A /* SceneDelegate.swift in Sources */,
+				2FF8F4802AC2753900A46FAF /* InquireView.swift in Sources */,
 				4EB2AC692A3081090023F49A /* NickNameValidateResponse.swift in Sources */,
 				4EF4D04A2A933E1100A2E8F4 /* MyPageTableViewCell.swift in Sources */,
 				4EF72E052A8C9329000B7205 /* CheckMyPartyView.swift in Sources */,
@@ -1441,6 +1452,7 @@
 				4EECA7F22A6E9FF200C94417 /* CreatePartyViewIntroLabel.swift in Sources */,
 				4E153FAC2A34C3BB00C7F58C /* DetailInterestsView.swift in Sources */,
 				933B3CA32A55871800B8D60B /* Images.swift in Sources */,
+				2FF8F4842AC281D900A46FAF /* InquireViewModel.swift in Sources */,
 				4E89BC2D29C57D2300BAE38A /* Endpoints.swift in Sources */,
 				4EFFCE4D2A6DF56A0075EF9C /* PartyTableViewCell.swift in Sources */,
 				4ECEAE1529ED20F3006AAF6B /* CoordinatorStyleCase.swift in Sources */,
