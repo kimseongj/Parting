@@ -12,8 +12,7 @@ import Toast
 final class EditMyPageViewController: BaseViewController<EditMyPageView> {
     
     private var viewModel: EditMyPageViewModel
-    
-    private let datePicker = UIDatePicker()
+    private var firstPickerViewRow: Int = 0
     
     init(viewModel: EditMyPageViewModel) {
         self.viewModel = viewModel
@@ -30,7 +29,11 @@ final class EditMyPageViewController: BaseViewController<EditMyPageView> {
         super.viewDidLoad()
         navigationUI()
         setDelegate()
-        viewModel.input.viewDidLoadTrigger.accept(())
+        setupdatePicker()
+        setupPickerView()
+        setupToolBar()
+        setupPickerViewToolBar()
+        viewModel.input.onNext(.viewdidLoadTrigger)
         bind()
         setMyInterestDataSource()
         var snapshot = NSDiffableDataSourceSnapshot<Int, UIImage>()
@@ -152,6 +155,133 @@ extension EditMyPageViewController {
 extension EditMyPageViewController {
     private func setDelegate() {
         rootView.introduceExplainTextView.delegate = self
+        rootView.nameTextField.delegate = self
+        rootView.birthTextField.delegate = self
+        
+        rootView.regionPickerView.delegate = self
+        rootView.regionPickerView.dataSource = self
+    }
+}
+
+extension EditMyPageViewController: UIPickerViewDelegate {
+    
+}
+
+// MARK: - PickerView
+extension EditMyPageViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        switch component {
+        case 0:
+            return viewModel.list.count
+        case 1:
+            return viewModel.list[firstPickerViewRow].sigungu.count
+        default:
+            return 0
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == rootView.regionPickerView {
+            switch component {
+            case 0:
+                return viewModel.list[row].sido.rawValue
+            case 1:
+                return viewModel.list[firstPickerViewRow].sigungu[row]
+            default:
+                return nil
+            }
+        } else {
+            return "-"
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch component {
+        case 0:
+            firstPickerViewRow = row
+            let selectedItem = viewModel.list[firstPickerViewRow]
+            let region = selectedItem.sido.rawValue
+            rootView.sidoTextField.text = region
+            rootView.regionPickerView.reloadAllComponents()
+        case 1:
+            let selectedItem = viewModel.list[firstPickerViewRow].sigungu[row]
+            rootView.sigugunTextField.text = selectedItem
+        default:
+            return
+        }
+    }
+}
+
+// MARK: - DatePicker
+extension EditMyPageViewController {
+    private func setupdatePicker() {
+        
+        rootView.datePicker.datePickerMode = .date
+        rootView.datePicker.preferredDatePickerStyle = .inline
+        rootView.datePicker.locale = Locale(identifier: "ko-KR")
+        rootView.datePicker.addTarget(self, action: #selector(dateChange), for: .valueChanged)
+        rootView.birthTextField.inputView = rootView.datePicker
+        rootView.birthTextField.text = dateFormat(date: Date())
+    }
+    
+    @objc func dateChange(_ sender: UIDatePicker) {
+        rootView.birthTextField.text = dateFormat(date: sender.date)
+    }
+    
+    private func dateFormat(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: date)
+    }
+    
+    private func setupToolBar() {
+        let toolBar = UIToolbar()
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonHandler))
+        
+        toolBar.items = [flexibleSpace, doneButton]
+        toolBar.sizeToFit()
+        
+        rootView.birthTextField.inputAccessoryView = toolBar
+    }
+    
+    @objc func doneButtonHandler(_ sender: UIBarButtonItem) {
+        rootView.birthTextField.text = dateFormat(date: rootView.datePicker.date)
+        
+        rootView.birthTextField.resignFirstResponder()
+    }
+}
+
+extension EditMyPageViewController {
+    private func setupPickerView() {
+        rootView.sidoTextField.inputView = rootView.regionPickerView
+        rootView.sigugunTextField.inputView = rootView.regionPickerView
+    }
+    
+    private func setupPickerViewToolBar() {
+        let toolBar = UIToolbar()
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(pickerViewdoneButtonHandler))
+        
+        toolBar.items = [flexibleSpace, doneButton]
+        toolBar.sizeToFit()
+        
+        rootView.sidoTextField.inputAccessoryView = toolBar
+        rootView.sigugunTextField.inputAccessoryView = toolBar
+    }
+    
+    @objc func pickerViewdoneButtonHandler(_ sender: UIBarButtonItem) {
+        let row = rootView.regionPickerView.selectedRow(inComponent: 0)
+        let row2 = rootView.regionPickerView.selectedRow(inComponent: 1)
+        rootView.regionPickerView.selectRow(row, inComponent: 0, animated: false)
+        rootView.sidoTextField.text = viewModel.list[row].sido.rawValue
+        rootView.sigugunTextField.text = viewModel.list[row].sigungu[row2]
+        rootView.sidoTextField.resignFirstResponder()
+        rootView.sigugunTextField.resignFirstResponder()
     }
 }
 
@@ -163,26 +293,8 @@ extension EditMyPageViewController: UITextViewDelegate {
         
         return changeText.count < 41
     }
-}
-
-extension EditMyPageViewController {
-    private func configureDatePicker() {
-        datePicker.datePickerMode = .date
-        datePicker.preferredDatePickerStyle = .wheels
-        datePicker.addTarget(self, action: #selector(datePickerValueDidChange(_:)), for: .valueChanged)
-        datePicker.locale = Locale(identifier: "ko_KR")
-        rootView.birthTextField.inputView = self.datePicker
-    }
     
-    @objc private func datePickerValueDidChange(_ datePicker: UIDatePicker) {
-        datePicker.rx.date
-            .withUnretained(self)
-            .subscribe(onNext:{ owner, date in
-                owner.viewModel.input.BirthTextFieldTrigger.onNext(date)
-                print(date)
-            })
-            .disposed(by: disposeBag)
-    }
+    
 }
 
 extension EditMyPageViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -200,5 +312,12 @@ extension EditMyPageViewController: UIImagePickerControllerDelegate, UINavigatio
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true)
+    }
+}
+
+
+extension EditMyPageViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
     }
 }
