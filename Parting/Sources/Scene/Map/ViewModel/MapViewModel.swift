@@ -11,6 +11,7 @@ import RxCocoa
 
 final class MapViewModel {
     enum Input {
+        case viewWillAppearTrigger
         case viewDidLoadTrigger
         case markerClicked(data: MapDetailPartyDTO)
     }
@@ -40,6 +41,8 @@ final class MapViewModel {
             .withUnretained(self)
             .subscribe(onNext: { owner, event in
                 switch event {
+                case .viewWillAppearTrigger:
+                    owner.getAroundParty()
                 case .viewDidLoadTrigger:
                     owner.getAroundParty()
                 case let .markerClicked(data):
@@ -63,10 +66,10 @@ final class MapViewModel {
     
     private func getAroundParty() {
         let api = PartingAPI.getAroundParty(
-            searchHighLatitude: 35.89546290303795,
-            searchHighLongitude: 128.61401014559738,
-            searchLowLatitude: 35.886934229408965,
-            searchLowLongitude:  128.6048894089099
+            searchHighLatitude: 37.51895456923172,
+            searchHighLongitude: 126.88782916277418,
+            searchLowLatitude:  37.517739605481474,
+            searchLowLongitude:  126.88459585441812
         )
         
         guard let apiurl = api.url else { return }

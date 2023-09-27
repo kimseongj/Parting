@@ -16,8 +16,6 @@ class PartyListViewController: BaseViewController<PartyListView> {
     
     private var tableViewReachedEndCount = 0
     
-    private let spinner = UIActivityIndicatorView(style: .large)
-    
     init(viewModel: PartyListViewModel, title: String) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -56,10 +54,8 @@ class PartyListViewController: BaseViewController<PartyListView> {
     }
     
     private func configureTableView() {
-        rootView.partyListTableView.sectionHeaderTopPadding = 0
         rootView.partyListTableView.rx.setDelegate(self).disposed(by: disposeBag)
         rootView.partyListTableView.register(PartyTableViewCell.self, forCellReuseIdentifier: PartyTableViewCell.identifier)
-        rootView.partyListTableView.register(PartyListHeaderView.self, forHeaderFooterViewReuseIdentifier: PartyListHeaderView.identifier)
     }
     
     private func bindViewModel() {
@@ -72,40 +68,15 @@ class PartyListViewController: BaseViewController<PartyListView> {
         
         viewModel.output.partyList.bind(to: rootView.partyListTableView.rx.items(cellIdentifier: PartyTableViewCell.identifier, cellType: PartyTableViewCell.self)) { [weak self] index, party, cell in
             cell.selectionStyle = .none
-//            cell.configureCell(party: party)
+            cell.configurePartyListeCell(party: party)
         }.disposed(by: disposeBag)
         
-        viewModel.output.isLoadingMore
-            .withUnretained(self)
-            .subscribe(onNext: { owner, isLoading in
-
-            if isLoading {
-                owner.spinner.startAnimating()
-                owner.rootView.partyListTableView.tableFooterView?.isHidden = false
-            } else {
-                owner.spinner.stopAnimating()
-                owner.rootView.partyListTableView.tableFooterView?.isHidden = true
-                
-                
-                let cellHeight = owner.rootView.window?.windowScene?.screen.bounds.height ?? 852
-                
-                let boundsHeight = owner.rootView.partyListTableView.bounds.height
-                let cellCountInTableView = Int(ceil(boundsHeight / cellHeight))
-                if owner.viewModel.output.partyList.value.count > cellCountInTableView {
-                    let contentHeight = owner.rootView.partyListTableView.contentSize.height
-                    
-                    let bottomOffset = CGPoint(x: 0, y: contentHeight - boundsHeight - 40)
-                    owner.rootView.partyListTableView.setContentOffset(bottomOffset, animated: true)
-                }
-            }
-        })
-            .disposed(by: disposeBag)
-        
         rootView.partyListTableView.rx
-            .modelSelected(PartyInfoResponse.self)
+            .modelSelected(PartyListItemModel.self)
             .withUnretained(self)
             .subscribe(onNext: { owner, cellModel in
-                owner.viewModel.input.didSelectCell.onNext(cellModel.partyID)
+                owner.viewModel.input.didSelectCell.onNext(cellModel.id)
+                print(cellModel.id, "🥰")
             })
             .disposed(by: disposeBag)
         
@@ -119,61 +90,5 @@ extension PartyListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 148
     }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: PartyListHeaderView.identifier) as? PartyListHeaderView else { return PartyListHeaderView() }
-        header.viewModel = self.viewModel
-        header.delegate = self
-        if !header.didConfiguredCell {
-            header.configureCollectionViews()
-        }
-        
-        return header
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let height = rootView.window?.windowScene?.screen.bounds.height
-        return 100
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let lastSectionIndex = tableView.numberOfSections - 1
-        let lastRowIndex = tableView.numberOfRows(inSection: lastSectionIndex) - 1
-        if indexPath.section ==  lastSectionIndex && indexPath.row == lastRowIndex {
-            
-            
-            spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
-            
-            self.rootView.partyListTableView.tableFooterView = spinner
-        }
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-//        let didReachedEnd = rootView.partyListTableView.contentOffset.y > (rootView.partyListTableView.contentSize.height - rootView.partyListTableView.bounds.size.height + 60)
-//        tableViewReachedEndCount += 1
-//
-//        if didReachedEnd && tableViewReachedEndCount > 2 {
-//            self.viewModel.loadPartyListMore()
-//        }
-    }
-    
-}
-
-// MARK: PartyListHeaderViewDelegate
-extension PartyListViewController: PartyListHeaderViewDelegate {
-    func didTapSortingOptionCell(_ orderOption: SortingOption) {
-        let vc = SortingOptionModalViewController(viewModel: viewModel, for: orderOption)
-        
-        if let sheet = vc.sheetPresentationController {
-            sheet.detents = [.medium()]
-        }
-        
-        present(vc, animated: true, completion: nil)
-        
-    }
-    
-    
 }
 

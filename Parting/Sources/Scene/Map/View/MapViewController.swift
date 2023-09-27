@@ -26,6 +26,10 @@ final class MapViewController: BaseViewController<MapView> {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.input.onNext(.viewWillAppearTrigger)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +40,6 @@ final class MapViewController: BaseViewController<MapView> {
         naverMap()
         moveCurrentPositionCamera()
         setNaverMapDelegate()
-        
     }
     
     private func naverMap() {

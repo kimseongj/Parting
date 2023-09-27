@@ -120,6 +120,15 @@ class PartyTableViewCell: UITableViewCell {
         statusLabel.text = "\(party.currentPartyMemberCount)/\(party.maxPartyMemberCount)"
         partyDescriptionLabel.text = party.description
     }
+    
+    func configurePartyListeCell(party: PartyListItemModel) {
+        locationLabel.text = party.location
+        partyImage.kf.setImage(with: URL(string: party.imgURL))
+        titleLabel.text = party.title
+        periodLabel.text = party.partyDuration
+        statusLabel.text = "\(party.currentPartyMemberCount)/\(party.maxPartyMemberCount)"
+//        partyDescriptionLabel.text = party.
+    }
 }
 
 // MARK: ProgrammaticallyInitializableViewProtocol

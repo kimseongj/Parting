@@ -233,6 +233,8 @@ class CreatePartyViewController: BaseViewController<CreatePartyView>, SendCoordi
                     CreatePartyMockData.storeName
                 )
                 
+                print(latitude, longitude)
+                
                 self?.viewModel.input.popVCTrigger.onNext(())
             }
             .disposed(by: disposeBag)
