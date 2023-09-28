@@ -62,6 +62,7 @@ class HomeViewController: BaseViewController<HomeView> {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
@@ -85,7 +86,7 @@ class HomeViewController: BaseViewController<HomeView> {
     }
     
     func bind() {
-        viewModel.output.categories
+        viewModel.state.categories
             .bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: TestViewCollectionViewCell.identifier, cellType: TestViewCollectionViewCell.self)) { [weak self] index, partyType, cell in
                 cell.configureCell(item: partyType)
             }
@@ -96,7 +97,8 @@ class HomeViewController: BaseViewController<HomeView> {
             .withUnretained(self)
             .subscribe(onNext: { owner, model in
                 print(model.id)
-                owner.viewModel.input.didSelectedCell.onNext(model)
+                owner.viewModel.input.onNext(.didSelectedCell(model: model))
+//                owner.viewModel.input.didSelectedCell.onNext(model)
             })
             .disposed(by: disposeBag)
     }
