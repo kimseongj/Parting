@@ -62,7 +62,7 @@ class HomeViewController: BaseViewController<HomeView> {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        viewModel.input.onNext(.viewWillAppear)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     

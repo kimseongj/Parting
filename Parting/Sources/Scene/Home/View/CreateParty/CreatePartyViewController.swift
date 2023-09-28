@@ -11,6 +11,7 @@ import RxCocoa
 import Kingfisher
 import Toast
 import MultiSlider
+import CoreLocation
 
 class CreatePartyViewController: BaseViewController<CreatePartyView> {
     var currentSelectedIndex: Int?
@@ -21,6 +22,7 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
     var selectedCategoryID: Int?
     var maxAge: Int?
     var minAge: Int?
+    var partyAddress: String?
     var latitude: Double?
     var longitude: Double?
    
@@ -203,9 +205,10 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
                 guard let partyName = self?.rootView.setPartyBackgroundView.textField?.text else { return }
                 guard let latitude = self?.latitude else { return }
                 guard let longitude = self?.longitude else { return }
+                guard let partyAddress = self?.partyAddress else { return }
                 
                 self?.viewModel.createPartyAPICall(
-                    CreatePartyMockData.address,
+                    partyAddress,
                     numberOfPeople,
                     categoryDetailIDList,
                     selectedCategoryID,
@@ -246,6 +249,17 @@ extension CreatePartyViewController: SendCoordinate {
         print(lat, lng, "🌟")
         latitude = lat
         longitude = lng
+        guard let latitude else { return }
+        guard let longitude else { return }
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        let geocoder = CLGeocoder()
+        let locale = Locale(identifier: "Ko-kr")
+        geocoder.reverseGeocodeLocation(location, preferredLocale: locale) { [weak self] placemarks, _ in
+            guard let placemarks = placemarks, let address = placemarks.last else { return }
+            guard let address = address.name else { return }
+            print(address, "🌟")
+            self?.partyAddress = address
+        }
     }
 }
 

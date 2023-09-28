@@ -22,6 +22,7 @@ final class HomeViewModel {
     
     enum Input {
         case didSelectedCell(model: CategoryModel)
+        case viewWillAppear
     }
     
     enum Output {
@@ -53,6 +54,8 @@ final class HomeViewModel {
                 switch input {
                 case let .didSelectedCell(model):
                     owner.pushPartyListVC(category: model)
+                case .viewWillAppear:
+                    owner.getEnteredMyParty()
                 }
             })
             .disposed(by: disposeBag)
@@ -76,6 +79,31 @@ final class HomeViewModel {
                 print(error)
             }
         }
+    }
+    
+    private func getEnteredMyParty() {
+        let api = PartingAPI.checkEnteredParty(
+            pageNumber: 0,
+            lat: 23,
+            lng: 24
+        )
+        
+        guard let apiURL = api.url else { return }
+        guard let url = URL(string: apiURL) else { return }
+        
+        APIManager.shared.requestParting(
+            type: CheckMyPartyResponse.self,
+            url: url,
+            method: .get,
+            parameters: api.parameters,
+            headers: api.headers) { response in
+                switch response {
+                case let .success(data):
+                    print(data)
+                case let .failure(error):
+                    print(error)
+                }
+            }
     }
     
     private func getCalendarInfo() {
