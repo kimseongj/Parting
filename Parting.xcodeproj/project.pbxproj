@@ -52,6 +52,7 @@
 		4E54431B2A6132990074F654 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E54431A2A6132990074F654 /* MapViewController.swift */; };
 		4E54431D2A6132B40074F654 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E54431C2A6132B40074F654 /* MapViewModel.swift */; };
 		4E54431F2A61342C0074F654 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E54431E2A61342C0074F654 /* MapView.swift */; };
+		4E5AF6302AC6D4FA007FB7E7 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = 4E5AF62F2AC6D4FA007FB7E7 /* Tabman */; };
 		4E6123BC2A36C1100039307A /* CategoryDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6123BB2A36C1100039307A /* CategoryDetailResponse.swift */; };
 		4E6123BE2A3763720039307A /* detailCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6123BD2A3763720039307A /* detailCategoryCollectionViewCell.swift */; };
 		4E6123C02A39B0BC0039307A /* CustomGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6123BF2A39B0BC0039307A /* CustomGroupView.swift */; };
@@ -393,6 +394,7 @@
 				4E783FA429EABC54008B3E48 /* RxSwift in Frameworks */,
 				4EA81DDC29ED2D2A0070F1B7 /* SnapKit in Frameworks */,
 				4E783FA229EABC54008B3E48 /* RxCocoa in Frameworks */,
+				4E5AF6302AC6D4FA007FB7E7 /* Tabman in Frameworks */,
 				4E0DCE562A7CF0BF00DEB3B5 /* RxDataSources in Frameworks */,
 				4E89BC3F29C58B7300BAE38A /* Alamofire in Frameworks */,
 				933B3CAB2A55875600B8D60B /* FSCalendar in Frameworks */,
@@ -1208,6 +1210,7 @@
 				4EECA7ED2A6E5BD400C94417 /* MultiSlider */,
 				4E0DCE4F2A7CC2D100DEB3B5 /* Toast */,
 				4E0DCE552A7CF0BF00DEB3B5 /* RxDataSources */,
+				4E5AF62F2AC6D4FA007FB7E7 /* Tabman */,
 			);
 			productName = Parting;
 			productReference = 4EA5836729C04F4200BF4D7A /* Parting.app */;
@@ -1247,6 +1250,7 @@
 				4EECA7EC2A6E5BD400C94417 /* XCRemoteSwiftPackageReference "MultiSlider" */,
 				4E0DCE4E2A7CC2D100DEB3B5 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				4E0DCE542A7CF0BF00DEB3B5 /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				4E5AF62E2AC6D4FA007FB7E7 /* XCRemoteSwiftPackageReference "Tabman" */,
 			);
 			productRefGroup = 4EA5836829C04F4200BF4D7A /* Products */;
 			projectDirPath = "";
@@ -1736,6 +1740,14 @@
 				kind = branch;
 			};
 		};
+		4E5AF62E2AC6D4FA007FB7E7 /* XCRemoteSwiftPackageReference "Tabman" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/uias/Tabman.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.2;
+			};
+		};
 		4E783FA029EABC54008B3E48 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
@@ -1801,6 +1813,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E2874B72A2D98FB0000B24C /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDK;
+		};
+		4E5AF62F2AC6D4FA007FB7E7 /* Tabman */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E5AF62E2AC6D4FA007FB7E7 /* XCRemoteSwiftPackageReference "Tabman" */;
+			productName = Tabman;
 		};
 		4E783FA129EABC54008B3E48 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
