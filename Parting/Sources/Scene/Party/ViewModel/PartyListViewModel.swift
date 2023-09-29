@@ -245,7 +245,7 @@ class PartyListViewModel: BaseViewModel {
         input.didSelectCell
             .withUnretained(self)
             .subscribe(onNext: { owner, partyId in
-                
+                owner.pushDetailInfoVC(partyId: partyId)
             })
             .disposed(by: disposeBag)
         
@@ -253,7 +253,7 @@ class PartyListViewModel: BaseViewModel {
     
     
     private func pushDetailInfoVC(partyId: Int) {
-        
+        self.coordinator?.pushDetailPartyVC(partyId: partyId)
     }
 }
 
