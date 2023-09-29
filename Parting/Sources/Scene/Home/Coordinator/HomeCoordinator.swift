@@ -44,7 +44,20 @@ final class HomeCoordinator: Coordinator {
 		
 	func pushPartyListVC(category: CategoryModel) {
 		let viewModel = PartyListViewModel(coordinator: self, category: category)
-		navigationController.pushViewController(PartyListViewController(viewModel: viewModel, title: category.name), animated: true)
+        let vc1 = PartyListViewController(viewModel: viewModel, title: category.name)
+        let vc2 = PartyListViewController(viewModel: viewModel, title: category.name)
+        let vc3 = PartyListViewController(viewModel: viewModel, title: category.name)
+        
+        let tabManViewModel = TabManViewModel(coordinator: self)
+
+        let tabManVC = TabManViewController(
+            firstVC: vc1,
+            secondVC: vc2,
+            thirdVC: vc3,
+            title: category.name,
+            viewModel: tabManViewModel
+        )
+		navigationController.pushViewController(tabManVC, animated: true)
 	}
 	
 	func pushCreatePartyVC() {
@@ -72,5 +85,11 @@ final class HomeCoordinator: Coordinator {
     
     func dismissPopUpVC() {
         navigationController.dismiss(animated: true)
+    }
+    
+    func pushDetailPartyVC(partyId: Int) {
+        let viewModel = PartyDetailInfoViewModel(coordinator: nil, partyId: partyId, homeCoordinator: self)
+        let vc = PartyDetailInfoViewController(viewModel: viewModel)
+        navigationController.pushViewController(vc, animated: true)
     }
 }
