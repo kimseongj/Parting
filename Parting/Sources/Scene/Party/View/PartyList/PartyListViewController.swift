@@ -56,6 +56,9 @@ class PartyListViewController: BaseViewController<PartyListView> {
     private func configureTableView() {
         rootView.partyListTableView.rx.setDelegate(self).disposed(by: disposeBag)
         rootView.partyListTableView.register(PartyTableViewCell.self, forCellReuseIdentifier: PartyTableViewCell.identifier)
+        rootView.partyListTableView.register(PartyListHeaderView.self, forHeaderFooterViewReuseIdentifier: PartyListHeaderView.identifier)
+        rootView.partyListTableView.sectionHeaderHeight = 35
+        rootView.partyListTableView.sectionHeaderTopPadding = 5
     }
     
     private func bindViewModel() {
@@ -89,6 +92,11 @@ extension PartyListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 148
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: PartyListHeaderView.identifier) else { return UIView() }
+        return headerView
     }
 }
 

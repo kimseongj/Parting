@@ -21,10 +21,11 @@ final class TabManViewController: TabmanViewController {
     private let disposeBag = DisposeBag()
     private let viewModel: TabManViewModel
     
-    init(firstVC: UIViewController, secondVC: UIViewController, thirdVC: UIViewController, title: String, viewModel: TabManViewModel) {
+    init(firstVC: UIViewController, secondVC: UIViewController, thirdVC: UIViewController, fourthVC: UIViewController, title: String, viewModel: TabManViewModel) {
         tabControllers.append(firstVC)
         tabControllers.append(secondVC)
         tabControllers.append(thirdVC)
+        tabControllers.append(fourthVC)
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         navigationTitle.text = title
@@ -47,14 +48,14 @@ final class TabManViewController: TabmanViewController {
     
     func configureTabmanBar() {
         bar.layout.transitionStyle = .snap
-        bar.layout.alignment = .leading
+        bar.layout.alignment = .centerDistributed
         bar.layout.contentMode = .fit
-        bar.layout.interButtonSpacing = view.bounds.width / 8
+        bar.layout.interButtonSpacing = 23
         
         bar.backgroundView.style = .clear
         bar.backgroundColor = AppColor.white
         
-        bar.layout.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
+        bar.layout.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         bar.buttons.customize { button in
             button.tintColor = AppColor.gray300
@@ -103,6 +104,8 @@ extension TabManViewController: TMBarDataSource {
             return TMBarItem(title: "스터디")
         case 2:
             return TMBarItem(title: "책/독서")
+        case 3:
+            return TMBarItem(title: "클래스 수강")
         default:
             break
         }

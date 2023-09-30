@@ -9,8 +9,6 @@ import UIKit
 
 class SortingOptionCollectionViewCell: UICollectionViewCell {
     
-//    static let identifier = "SortingOptionCollectionViewCell"
-    
     private let cellConatiner: UIView = {
         let view = UIView()
         view.backgroundColor = AppColor.gray500
@@ -42,6 +40,7 @@ class SortingOptionCollectionViewCell: UICollectionViewCell {
         
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

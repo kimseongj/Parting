@@ -459,7 +459,7 @@ extension PartyDetailInfoView {
         partyPersonnel.text = "\(data.result.currentPartyMemberCount)/\(data.result.maxPartyMemberCount)"
         partyPeriodLabel.text = "\(data.result.partyStartDateTime) ~ \(data.result.partyEndDateTime)"
         locationLabel.text = data.result.address
-        ageGroupLabel.text = "\(data.result.minAge)세 ~ \(data.result.maxAge)세"
+        ageGroupLabel.text = "\(data.result.maxAge)세 ~ \(data.result.minAge)세"
         categoryImage.kf.setImage(with: URL(string: data.result.categoryImg))
         print(data.result.categoryImg, "🌱🌱")
         descriptionPartyContentsLabel.text = data.result.partyDescription
