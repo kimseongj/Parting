@@ -47,6 +47,7 @@ final class HomeCoordinator: Coordinator {
         let vc1 = PartyListViewController(viewModel: viewModel, title: category.name)
         let vc2 = PartyListViewController(viewModel: viewModel, title: category.name)
         let vc3 = PartyListViewController(viewModel: viewModel, title: category.name)
+        let vc4 = PartyListViewController(viewModel: viewModel, title: category.name)
         
         let tabManViewModel = TabManViewModel(coordinator: self)
 
@@ -54,6 +55,7 @@ final class HomeCoordinator: Coordinator {
             firstVC: vc1,
             secondVC: vc2,
             thirdVC: vc3,
+            fourthVC: vc4,
             title: category.name,
             viewModel: tabManViewModel
         )
