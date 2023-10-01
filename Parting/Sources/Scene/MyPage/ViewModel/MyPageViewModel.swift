@@ -17,7 +17,7 @@ enum MyPageCellTitle: String {
 
 final class MyPageViewModel: BaseViewModel {
     struct Input {
-        let viewDidLoadTrigger: PublishRelay<Void> = PublishRelay()
+        let viewWillAppearTrigger = PublishSubject<Void>()
         let cellSelected: PublishRelay<MyPageModel> = PublishRelay()
     }
     
@@ -45,11 +45,11 @@ final class MyPageViewModel: BaseViewModel {
     }
     
     private func bind() {
-        input.viewDidLoadTrigger
+        input.viewWillAppearTrigger
             .withUnretained(self)
-            .bind { vm, _ in
-                vm.getMyPageData()
-            }
+            .subscribe(onNext: { owner, _ in
+                owner.getMyPageData()
+            })
             .disposed(by: disposeBag)
         
         input.cellSelected
@@ -82,7 +82,6 @@ final class MyPageViewModel: BaseViewModel {
             parameters: api.parameters,
             headers: api.headers
         ) { data in
-            print("getRequest ✅✅")
             if let response = try? data.get() {
                 self.checkMyPartyResponseData = response
             }
@@ -104,7 +103,6 @@ final class MyPageViewModel: BaseViewModel {
             parameters: api.parameters,
             headers: api.headers
         ) { data in
-            print("getRequest ✅✅")
             if let response = try? data.get() {
                 self.checkEnteredPartyResponseData = response
             }
@@ -164,7 +162,6 @@ extension MyPageViewModel {
         APIManager.shared.requestGetMyPageData()
             .subscribe { [weak self] data in
                 guard let self else { return }
-                print(data)
                 self.myPageData.accept(data)
             } onError: { error in
                 print(error)

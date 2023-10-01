@@ -77,36 +77,6 @@ class APIManager {
             }
         })
     }
-    
-//    func getPartyList(categoryId: Int, categoryDetailIds: [Int], orderCondition1: SortingOption.NumberOfPeopleType, orderCondition2: SortingOption.TimeType, pageNumber: Int, location: CLLocation) async throws -> [PartyListItemModel] {
-//            
-//            return await withCheckedContinuation({ continuation in
-//                
-////                guard let location = LocationManager.shared.getLocation() else { return }
-//                let urlParams = PartingAPI.PartyListParams(categoryId: categoryId, categoryDetailIds: categoryDetailIds, orderCondition1: orderCondition1.rawValue, orderCondition2: orderCondition2.rawValue, pageNumber: pageNumber, userLatitude: location.coordinate.latitude, userLongitude: location.coordinate.longitude)
-//                let api = PartingAPI.parties(params: urlParams)
-//                guard let url = api.url else { return }
-//                
-//                AF.request(url, method: .get, parameters: api.parameters, encoding: URLEncoding.default, headers: api.headers).responseDecodable(of: PartyListResponse.self) { response in
-//                    
-//                    switch response.result {
-//                    case .success(let data):
-//                        let partyInfoList = data.result.partyInfos
-//                        
-//                        let partyList = partyInfoList.map { info in
-//                            let distanceString = String(info.distance) + info.distanceUnit
-//                            let partyStatus = PartyStatus.strToStatus(info.status)
-//                            
-//                            return PartyListItemModel(id: info.partyId, title: info.partyName, location: info.address, distance: distanceString, currentPartyMemberCount: info.currentPartyMemberCount, maxPartyMemberCount: info.maxPartyMemberCount, partyDuration: info.partyStartTime, tags: info.hashTagNameList, status: partyStatus, imgURL: info.categoryImg)
-//                        }
-//                        continuation.resume(returning: partyList)
-//                        
-//                    case .failure(let error):
-//                        print(error)
-//                    }
-//                } /* AF Request */
-//            }) /* End withUnsafeContinuation() */
-//        } /* End func getPartyList() */
 }
 
 // MARK: - Generic 활용해보기
@@ -136,7 +106,7 @@ extension APIManager {
                         completion(.failure(error))
                     }
                 }
-            case .post:
+            case .post, .put:
                 AF.request(
                     url,
                     method: method,
@@ -203,7 +173,7 @@ extension APIManager {
                             emitter.onError(error)
                         }
                     }
-            case .post:
+            case .post, .put:
                 AF.request(
                     url,
                     method: method,

@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 class TopTipView: UIView {
+let titleLabel = UILabel()
   init(
     viewColor: UIColor,
     tipStartX: CGFloat,
@@ -36,7 +37,6 @@ class TopTipView: UIView {
     self.layer.insertSublayer(shape, at: 0)
     self.layer.masksToBounds = false
     self.layer.cornerRadius = 16
-    
     self.addLabel(text: text)
   }
   
@@ -62,7 +62,6 @@ class TopTipView: UIView {
 extension TopTipView {
     func updateLabel(text: String) {
         self.snp.removeConstraints()
-        let titleLabel = UILabel()
         titleLabel.textColor = .white
         titleLabel.text = text
         titleLabel.numberOfLines = 0

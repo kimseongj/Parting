@@ -58,10 +58,14 @@ final class MyPageViewController: BaseViewController<MyPageView> {
     
     private var dataSource: UICollectionViewDiffableDataSource<Int, MyPageModel>!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.input.viewWillAppearTrigger.onNext(())
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationUI()
-        viewModel.input.viewDidLoadTrigger.accept(())
         bind()
         setDataSource()
         setDelegate()
