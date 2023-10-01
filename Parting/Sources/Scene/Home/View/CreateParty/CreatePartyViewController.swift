@@ -50,6 +50,25 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
         setDelegateTextField()
         setDelegateTextView()
         getSliderValues()
+        tabGesture()
+    }
+    
+    private func tabGesture() {
+        let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MyTapMethod))
+
+        singleTapGestureRecognizer.numberOfTapsRequired = 1
+
+        singleTapGestureRecognizer.isEnabled = true
+
+        singleTapGestureRecognizer.cancelsTouchesInView = false
+
+        rootView.scrollView.addGestureRecognizer(singleTapGestureRecognizer)
+    }
+    
+    @objc func MyTapMethod(sender: UITapGestureRecognizer) {
+        
+        self.view.endEditing(true)
+        
     }
     
     private func navigationUI() {
@@ -73,6 +92,7 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
         rootView.setPartyTimeTextField.delegate = self
         rootView.setPartyYearAndMonthTextField.delegate = self
         rootView.numberOfPeopleTextField.delegate = self
+        rootView.openKakaoChatTextField.delegate = self
     }
     
     private func setDelegateTextView() {
