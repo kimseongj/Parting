@@ -56,18 +56,18 @@ extension EditMyPageViewController {
         rootView.manButton.rx.tap
             .withUnretained(self)
             .bind { owner, _ in
-                owner.viewModel.selectedGender.accept(.man)
+                owner.viewModel.state.selectedGender.accept(.man)
             }
             .disposed(by: disposeBag)
         
         rootView.womanButton.rx.tap
             .withUnretained(self)
             .bind { owner, _ in
-                owner.viewModel.selectedGender.accept(.woman)
+                owner.viewModel.state.selectedGender.accept(.woman)
             }
             .disposed(by: disposeBag)
         
-        viewModel.selectedGender
+        viewModel.state.selectedGender
             .withUnretained(self)
             .bind { owner, gender in
                 owner.rootView.genderButtonTap(genderCase: gender)
@@ -78,6 +78,7 @@ extension EditMyPageViewController {
             .withUnretained(self)
             .bind { owner, text in
                 guard let text else { return }
+                owner.viewModel.state.nameTextField.accept(text)
                 owner.rootView.updateDupricatedButton(text: text)
             }
             .disposed(by: disposeBag)
@@ -87,8 +88,33 @@ extension EditMyPageViewController {
             .bind { owner, text in
                 guard let text else { return }
                 print(text)
+                owner.viewModel.state.introduceTextView.accept(text)
                 owner.rootView.updateTextCountLabel(text: text)
                 
+            }
+            .disposed(by: disposeBag)
+        
+        rootView.sidoTextField.rx.text
+            .withUnretained(self)
+            .bind { owner, text in
+                guard let text else { return }
+                owner.viewModel.state.regionTextField.accept(text)
+            }
+            .disposed(by: disposeBag)
+        
+        rootView.sigugunTextField.rx.text
+            .withUnretained(self)
+            .bind { owner, text in
+                guard let text else { return }
+                owner.viewModel.state.regionTextField.accept(text)
+            }
+            .disposed(by: disposeBag)
+        
+        rootView.birthTextField.rx.text
+            .withUnretained(self)
+            .bind { owner, birth in
+                guard let birth else { return }
+                owner.viewModel.state.birthTextField.accept(birth)
             }
             .disposed(by: disposeBag)
         
@@ -127,6 +153,27 @@ extension EditMyPageViewController {
                 imagePicker.delegate = owner
                 owner.present(imagePicker, animated: true)
             }
+            .disposed(by: disposeBag)
+        
+        
+        rootView.finishButton.rx.tap
+            .withUnretained(self)
+            .subscribe(onNext: { owner, event in
+                owner.viewModel.input.onNext(.editCompleteButtonClicked)
+            })
+            .disposed(by: disposeBag)
+        
+        
+        viewModel.completeButtonIsValid
+            .withUnretained(self)
+            .subscribe(onNext: { owner, state in
+                if state {
+                    owner.rootView.configureCompleteButton(state: state)
+                } else {
+                    owner.rootView.configureCompleteButton(state: state)
+                }
+                owner.rootView.finishButton.isEnabled = state
+            })
             .disposed(by: disposeBag)
     }
 }

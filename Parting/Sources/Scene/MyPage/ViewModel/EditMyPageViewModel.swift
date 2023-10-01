@@ -9,9 +9,9 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-enum GenderCase {
-    case man
-    case woman
+enum GenderCase: String {
+    case man = "M"
+    case woman = "F"
 }
 
 struct SidoSigunguData {
@@ -98,6 +98,7 @@ final class EditMyPageViewModel {
     enum Input {
         case BirthTextFieldTrigger
         case viewdidLoadTrigger
+        case editCompleteButtonClicked
     }
     
     enum Output {
@@ -105,7 +106,12 @@ final class EditMyPageViewModel {
     }
     
     struct State {
-        
+        var nameTextField = BehaviorRelay<String>(value: "")
+        var selectedGender = BehaviorRelay(value: GenderCase.man)
+        var birthTextField = BehaviorRelay<String>(value: "")
+        var regionTextField = BehaviorRelay<String>(value: "")
+        var introduceTextView = BehaviorRelay<String>(value: "")
+        var completeButtonIsValidState = BehaviorRelay(value: false)
     }
     
     var input = PublishSubject<Input>()
@@ -115,16 +121,47 @@ final class EditMyPageViewModel {
     var regionDataList: regionResult?
     var sidoCDList: [Int] = []
     var sigunguDict: [Int: [String]] = [:]
-    var selectedGender = BehaviorRelay(value: GenderCase.man)
     let myPageData = PublishRelay<MyPageResponse>()
     let nickNameDuplicateState = BehaviorRelay(value: false)
+    var state = State()
     
     init(coordinator: MyPageCoordinator?) {
         self.coordinator = coordinator
         bind()
     }
     
+    var completeButtonIsValid: Observable<Bool> {
+           Observable.combineLatest(state.nameTextField, state.birthTextField, state.regionTextField, state.introduceTextView) { name, birth, region, introduce in
+               if name != "" && birth != "" && introduce != "" && region != "" {
+                   return true
+               } else {
+                   return false
+               }
+           }
+       }
+    
     private func bind() {
+        state.nameTextField
+            .withUnretained(self)
+            .subscribe(onNext: { owner, text in
+                print(text, "💛")
+            })
+            .disposed(by: disposeBag)
+        
+        state.birthTextField
+            .withUnretained(self)
+            .subscribe(onNext: { owner, text in
+                print(text, "💛")
+            })
+            .disposed(by: disposeBag)
+        
+        state.regionTextField
+            .withUnretained(self)
+            .subscribe(onNext: { owner, text in
+                print(text, "💛")
+            })
+            .disposed(by: disposeBag)
+        
         input
             .withUnretained(self)
             .subscribe(onNext: { owner, input in
@@ -132,6 +169,9 @@ final class EditMyPageViewModel {
                 case .viewdidLoadTrigger:
                     owner.getSidoSigungu()
                     owner.getMyPageData()
+                case .editCompleteButtonClicked:
+                    print("프로필 수정 API CALL")
+                    owner.putModifyProfile()
                 default:
                     break
                 }
@@ -146,11 +186,43 @@ final class EditMyPageViewModel {
 }
 
 extension EditMyPageViewModel {
+    private func putModifyProfile() {
+            let api = PartingAPI.modifyInfo(
+                birth: state.birthTextField.value,
+                introduce: state.introduceTextView.value,
+                nickName: state.nameTextField.value,
+                gender: state.selectedGender.value.rawValue,
+                sigunguCd: 11020
+            )
+        
+        print(state.birthTextField.value, state.introduceTextView.value, state.nameTextField.value, state.selectedGender.value.rawValue)
+
+            guard let apiURL = api.url else { return }
+            guard let url = URL(string: apiURL) else { return }
+
+            APIManager.shared.requestParting(
+                type: BasicResponse.self,
+                url: url,
+                method: .put,
+                parameters: api.parameters,
+                encoding: .default,
+                headers: api.headers) { response in
+                    switch response {
+                    case let .success(data):
+                        print("프로필 수정 PUT 데이터\(data)", "💛")
+                        print(data)
+                        self.popVC()
+                    case let .failure(error):
+                        print(error)
+                    }
+                }
+        }
+    
     func getMyPageData() {
         APIManager.shared.requestGetMyPageData()
             .subscribe { [weak self] data in
                 guard let self else { return }
-                print(data)
+//                print(data)
                 self.myPageData.accept(data)
             } onError: { error in
                 print(error)
@@ -159,7 +231,7 @@ extension EditMyPageViewModel {
 
     }
     
-    func getSidoSigungu() {
+    private func getSidoSigungu() {
         let api = PartingAPI.region
         guard let apiURL = api.url else { return }
         guard let url = URL(string: apiURL) else { return }

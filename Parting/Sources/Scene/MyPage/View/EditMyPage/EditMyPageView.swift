@@ -205,6 +205,14 @@ final class EditMyPageView: BaseView {
         return button
     }()
     
+    func configureCompleteButton(state: Bool) {
+        if state {
+            finishButton.backgroundColor = AppColor.brand
+        } else {
+            finishButton.backgroundColor = AppColor.brandNotValidate
+        }
+    }
+    
     lazy var myInterestCollectionView = UICollectionView(frame: .zero, collectionViewLayout: interestCellLayout())
     
     let finishButton = CompleteAndNextButton("완료")
@@ -405,7 +413,6 @@ extension EditMyPageView {
 extension EditMyPageView {
     func genderButtonTap(genderCase: GenderCase) {
         switch genderCase {
-            
         case .man:
             manButtonTapped()
         case .woman:
