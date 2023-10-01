@@ -49,7 +49,7 @@ final class HomeCoordinator: Coordinator {
         let vc3 = PartyListViewController(viewModel: viewModel, title: category.name)
         let vc4 = PartyListViewController(viewModel: viewModel, title: category.name)
         
-        let tabManViewModel = TabManViewModel(coordinator: self)
+        let tabManViewModel = TabManDataSource(coordinator: self)
 
         let tabManVC = TabManViewController(
             firstVC: vc1,
