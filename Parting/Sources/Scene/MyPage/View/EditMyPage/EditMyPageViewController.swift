@@ -35,12 +35,31 @@ final class EditMyPageViewController: BaseViewController<EditMyPageView> {
         setupPickerViewToolBar()
         viewModel.input.onNext(.viewdidLoadTrigger)
         bind()
+        tabGesture()
         setMyInterestDataSource()
         var snapshot = NSDiffableDataSourceSnapshot<Int, UIImage>()
         snapshot.appendSections([0])
         var arr: [UIImage] = [UIImage(named: "관람")!, UIImage(named: "문화생활")!, UIImage(named: "술")!]
         snapshot.appendItems(arr)
         self.interestDataSource.apply(snapshot)
+    }
+    
+    private func tabGesture() {
+        let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MyTapMethod))
+
+        singleTapGestureRecognizer.numberOfTapsRequired = 1
+
+        singleTapGestureRecognizer.isEnabled = true
+
+        singleTapGestureRecognizer.cancelsTouchesInView = false
+
+        rootView.scrollView.addGestureRecognizer(singleTapGestureRecognizer)
+    }
+    
+    @objc func MyTapMethod(sender: UITapGestureRecognizer) {
+        
+        self.view.endEditing(true)
+        
     }
 }
 
