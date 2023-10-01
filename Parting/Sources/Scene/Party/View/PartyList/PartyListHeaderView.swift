@@ -83,22 +83,6 @@ extension PartyListHeaderView: UICollectionViewDelegateFlowLayout, UICollectionV
             return
         }
         
-        // BINDING: sortingOptionCollectionView
-        viewModel.output.sortingOptions
-            .bind(to: self.sortingOptionCollectionView.rx.items(cellIdentifier: SortingOptionCollectionViewCell.identifier, cellType: SortingOptionCollectionViewCell.self)) { [weak self] index, text, cell in
-                print(cell)
-            cell.textLabel.text = text
-            if index == 2 {
-                cell.icon.image = UIImage(systemName: Images.sfSymbol.map)
-            } else {
-                cell.icon.image = UIImage(systemName: Images.sfSymbol.downChevron)
-            }
-            DispatchQueue.main.async {
-                self?.sortingOptionCollectionView.collectionViewLayout.invalidateLayout()
-            }
-        }.disposed(by: disposeBag)
-        
-        
         sortingOptionCollectionView.rx.itemSelected
             .withUnretained(self)
             .subscribe(onNext: { owner, indexPath in
