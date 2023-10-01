@@ -79,7 +79,7 @@ extension PartyListHeaderView: UICollectionViewDelegateFlowLayout, UICollectionV
         
         
         guard let viewModel = viewModel else {
-            print("viewModel 생성안됨")
+            print("HeaderView viewModel 생성안됨")
             return
         }
         

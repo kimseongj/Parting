@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import Kingfisher
 import RxCocoa
+import CoreLocation
 
 enum PartyList: Int, CaseIterable {
     case 관람팟
@@ -47,9 +48,13 @@ enum PartyList: Int, CaseIterable {
     }
 }
 
-class HomeViewController: BaseViewController<HomeView> {
+final class HomeViewController: BaseViewController<HomeView> {
     
     private var viewModel: HomeViewModel
+    static var userLat: Double = 0
+    static var userLng: Double = 0
+    private var locationManager = CLLocationManager()
+    
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -74,18 +79,91 @@ class HomeViewController: BaseViewController<HomeView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         cellResigster()
-        setDatasourceAndDelegate()
         bind()
+        checkDeviceLocationAuthorization()
+        setDatasourceAndDelegate()
     }
     
-    func cellResigster() {
+    private func cellResigster() {
         rootView.categoryCollectionView.register(TestViewCollectionViewCell.self, forCellWithReuseIdentifier: TestViewCollectionViewCell.identifier)
     }
     
-    func setDatasourceAndDelegate() {
+    private func setDatasourceAndDelegate() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
     }
     
-    func bind() {
+    // MARK: - 지도 위치 권한 설정
+    private func checkDeviceLocationAuthorization() {
+        DispatchQueue.global().async {
+            if CLLocationManager.locationServicesEnabled() {
+                let authorization: CLAuthorizationStatus // 유저의 현재 위치권한 허용 상태
+                if #available(iOS 14.0, *) {
+                    authorization = self.locationManager.authorizationStatus
+                } else {
+                    authorization = CLLocationManager.authorizationStatus()
+                }
+                
+                print(authorization, "✅")
+                DispatchQueue.main.async {
+                    self.checkCurrentLocationAuthorization(status: authorization)
+                }
+            } else {
+                print("위치 서비스 OFF 상태, 위치 권한 요청을 못합니다.")
+            }
+        }
+    }
+    
+    // MARK: - 사용자의 현재 권한 허용 상태 확인
+    private func checkCurrentLocationAuthorization(status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedAlways:
+            print("authorizedAlways")
+        case .notDetermined:
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest // 정확도 설정
+            locationManager.requestWhenInUseAuthorization() // 위치 사용 허용 팝업
+        case .authorizedWhenInUse:
+            locationManager.startUpdatingLocation() // 현재 위치 가져오기
+        case .denied:
+            print("denied")
+            showLocationSettingAlert()
+        case .restricted:
+            print("restricted")
+        default:
+            break
+        }
+    }
+    
+    // MARK: - 위치 권환 허용 유도 알럿
+    private func showLocationSettingAlert() {
+        let alert = UIAlertController(
+            title: "위치 정보 이용",
+            message: "위치 서비스를 사용할 수 없습니다. 기기의 '설정>개인정보 보호'에서 위치 서비스를 켜주세요",
+            preferredStyle: .alert
+        )
+        
+        let goSetting = UIAlertAction(
+            title: "설정으로 이동",
+            style: .default
+        ) { _ in
+            if let appSetting = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(appSetting)
+            }
+        }
+        
+        let cancel = UIAlertAction(
+            title: "취소",
+            style: .cancel
+        )
+        
+        alert.addAction(goSetting)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true)
+    }
+    
+    private func bind() {
         viewModel.state.categories
             .bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: TestViewCollectionViewCell.identifier, cellType: TestViewCollectionViewCell.self)) { [weak self] index, partyType, cell in
                 cell.configureCell(item: partyType)
@@ -98,8 +176,17 @@ class HomeViewController: BaseViewController<HomeView> {
             .subscribe(onNext: { owner, model in
                 print(model.id)
                 owner.viewModel.input.onNext(.didSelectedCell(model: model))
-//                owner.viewModel.input.didSelectedCell.onNext(model)
             })
             .disposed(by: disposeBag)
+    }
+}
+
+extension HomeViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            HomeViewController.userLat = location.coordinate.latitude
+            HomeViewController.userLng = location.coordinate.longitude
+            print("사용자 현재 위치 위경도: \(HomeViewController.userLat), \(HomeViewController.userLng )")
+        }
     }
 }
