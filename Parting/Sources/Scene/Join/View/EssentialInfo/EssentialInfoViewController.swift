@@ -149,7 +149,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     
     // MARK: - 시도, 시군구 관련 데이터 바인딩
     private func regionDataBind() {
-        self.viewModel.output.sidoCodeData
+        viewModel.output.sidoCodeData
             .filter { $0 != nil}
             .withUnretained(self)
             .subscribe(onNext: { owner, sidoCD in
@@ -157,7 +157,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
             })
             .disposed(by: disposeBag)
         
-        self.viewModel.output.sidoListData
+        viewModel.output.sidoListData
             .filter { $0 != nil }
             .withUnretained(self)
             .subscribe(onNext: { owner, data in
@@ -165,7 +165,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
             })
             .disposed(by: disposeBag)
         
-        self.viewModel.output.sigugunListData
+        viewModel.output.sigugunListData
             .filter { $0 != nil }
             .withUnretained(self)
             .subscribe(onNext:{ owner, data in
@@ -174,7 +174,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
             })
             .disposed(by: disposeBag)
         
-        self.viewModel.output.sigugunCodeData
+        viewModel.output.sigugunCodeData
             .filter { $0 != nil }
             .withUnretained(self)
             .subscribe(onNext: { owner, data in
@@ -183,7 +183,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
             })
             .disposed(by: disposeBag)
         
-        self.viewModel.output.sidoCDDictData
+        viewModel.output.sidoCDDictData
             .filter { $0 != nil}
             .withUnretained(self)
             .subscribe(onNext: { owner, data in
@@ -192,7 +192,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
             })
             .disposed(by: disposeBag)
         
-        self.viewModel.output.sigunguCDDictData
+        viewModel.output.sigunguCDDictData
             .filter { $0 != nil }
             .withUnretained(self)
             .subscribe(onNext: { owner, data in
@@ -204,7 +204,7 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
     
     // MARK: - BirthDate TextField Configure
     private func birthDateConfigure() {
-        self.viewModel.output.birthDateData
+        viewModel.output.birthDateData
             .withUnretained(self)
             .subscribe(onNext: { owner, date in
                 guard let date = date else { return }
@@ -242,7 +242,6 @@ class EssentialInfoViewController: BaseViewController<EssentialInfoView> {
         let leftBarButtonItem = UIBarButtonItem.init(image:  UIImage(named: "backBarButton"), style: .plain, target: self, action: #selector(backBarButtonClicked))
         leftBarButtonItem.tintColor = AppColor.joinText
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
-//        let titleLabel = JoinNavigationBar(type: .EssentialInfo)
         let titleImage = UIImage(named: "JoinFlowEssentialInfo")
         navigationItem.titleView = UIImageView(image: titleImage)
     }

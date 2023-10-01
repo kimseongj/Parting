@@ -24,9 +24,9 @@ class PartyListViewController: BaseViewController<PartyListView> {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         self.viewModel.input.viewWillAppear.onNext(())
 //        self.viewModel.loadPartyList()
-        rootView.partyListTableView.reloadData()
     }
     
     required init?(coder: NSCoder) {

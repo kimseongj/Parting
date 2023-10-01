@@ -11,8 +11,9 @@ import RxCocoa
 import Kingfisher
 import Toast
 import MultiSlider
+import CoreLocation
 
-class CreatePartyViewController: BaseViewController<CreatePartyView>, SendCoordinate {
+class CreatePartyViewController: BaseViewController<CreatePartyView> {
     var currentSelectedIndex: Int?
     var selectedDetailCategoryLists = Set<Int>()
     var categoryDetailIDList: [Int] = []
@@ -21,6 +22,7 @@ class CreatePartyViewController: BaseViewController<CreatePartyView>, SendCoordi
     var selectedCategoryID: Int?
     var maxAge: Int?
     var minAge: Int?
+    var partyAddress: String?
     var latitude: Double?
     var longitude: Double?
    
@@ -48,12 +50,6 @@ class CreatePartyViewController: BaseViewController<CreatePartyView>, SendCoordi
         setDelegateTextField()
         setDelegateTextView()
         getSliderValues()
-    }
-    
-    func sendLatAndLng(_ lat: Double, _ lng: Double) {
-        print(lat, lng, "🌟")
-        latitude = lat
-        longitude = lng
     }
     
     private func navigationUI() {
@@ -109,7 +105,6 @@ class CreatePartyViewController: BaseViewController<CreatePartyView>, SendCoordi
                 cell.interestsImageView.image = image
                 cell.interestsLabel.text = category.name
                 
-                // selectedIndex가 cell의 index와 같으면 해당 셀 configure(.normal)
                 if self?.viewModel.selectedIndex == row {
                     cell.configureCell(type: .normal, size: .md)
                 } // selectedIndex가 cell의 index와 다르면 configure(.deselectable)
@@ -134,7 +129,7 @@ class CreatePartyViewController: BaseViewController<CreatePartyView>, SendCoordi
                 }
             .disposed(by: disposeBag)
         
-        // didSelectItem
+        // MARK: - DidSelectItem
         Observable
             .zip(rootView.detailCategoryCollectionView.rx.modelSelected(CategoryDetailResultContainisSelected.self), rootView.detailCategoryCollectionView.rx.itemSelected)
             .subscribe(onNext: { [weak self] (item, indexPath) in
@@ -158,11 +153,7 @@ class CreatePartyViewController: BaseViewController<CreatePartyView>, SendCoordi
                 self?.hashTagNameList = text.replacingOccurrences(of: " ", with: "").split(separator: ",").map{String($0)}
             }
             .disposed(by: disposeBag)
-        
-    //MARK: - 원하는 동작
-    // 1. 셀 클릭 -> 셀 클릭 된 상태로 변경 (최대 중복2개 까지)
-    // 2. collectionView.items가 CellForItem에 해당하는 데이터 소스 인데 itemSelected에서 또 cellForItem 메서드를 사용하는게 맞는지 -> cell에 대한 UI는 rx.items에서, 세부 카테고리 cell은 따로 model을 만들어서 상태관리
-    // 3. 카테고리 셀이 전환될 때 마다 디테일 카테고리 셀은 초기화 되어야 하는데 어떤 부분을 생각해야 하는지
+
         Observable
             .zip(rootView.categoryCollectionView.rx.modelSelected(CategoryModel.self), rootView.categoryCollectionView.rx.itemSelected)
             .subscribe(onNext: { [weak self] (item, indexPath) in
@@ -188,7 +179,7 @@ class CreatePartyViewController: BaseViewController<CreatePartyView>, SendCoordi
         viewModel.toastMessage
             .observe(on: MainScheduler.instance)
             .bind { [weak self] toastMessage in
-                self?.view.makeToast(toastMessage)
+                self?.rootView.makeToast(toastMessage)
             }
             .disposed(by: disposeBag)
         
@@ -214,9 +205,10 @@ class CreatePartyViewController: BaseViewController<CreatePartyView>, SendCoordi
                 guard let partyName = self?.rootView.setPartyBackgroundView.textField?.text else { return }
                 guard let latitude = self?.latitude else { return }
                 guard let longitude = self?.longitude else { return }
+                guard let partyAddress = self?.partyAddress else { return }
                 
                 self?.viewModel.createPartyAPICall(
-                    CreatePartyMockData.address,
+                    partyAddress,
                     numberOfPeople,
                     categoryDetailIDList,
                     selectedCategoryID,
@@ -249,6 +241,25 @@ class CreatePartyViewController: BaseViewController<CreatePartyView>, SendCoordi
 
         rootView.detailCategoryCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
+    }
+}
+
+extension CreatePartyViewController: SendCoordinate {
+    func sendLatAndLng(_ lat: Double, _ lng: Double) {
+        print(lat, lng, "🌟")
+        latitude = lat
+        longitude = lng
+        guard let latitude else { return }
+        guard let longitude else { return }
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        let geocoder = CLGeocoder()
+        let locale = Locale(identifier: "Ko-kr")
+        geocoder.reverseGeocodeLocation(location, preferredLocale: locale) { [weak self] placemarks, _ in
+            guard let placemarks = placemarks, let address = placemarks.last else { return }
+            guard let address = address.name else { return }
+            print(address, "🌟")
+            self?.partyAddress = address
+        }
     }
 }
 

@@ -14,6 +14,25 @@ final class EditMyPageView: BaseView {
     var backBarButton = BarImageButton(imageName: Images.icon.back)
     let navigationLabel: BarTitleLabel = BarTitleLabel(text: "프로필 수정")
     
+    let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        return view
+    }()
+    
+    let contentsView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    let datePicker: UIDatePicker = {
+        let picker = UIDatePicker()
+        return picker
+    }()
+    
+    let regionPickerView: UIPickerView = {
+        let pickerView = UIPickerView()
+        return pickerView
+    }()
     
     let profileImageView: UIImageView = {
         let view = UIImageView()
@@ -197,25 +216,12 @@ final class EditMyPageView: BaseView {
         addressStackView.addArrangedSubview(sigugunTextField)
         myInterestCollectionView.isScrollEnabled = false
         
-        self.addSubview(profileImageView)
-        self.addSubview(profileEditButton)
-        self.addSubview(nameTextFieldContainView)
-        self.addSubview(nameTextField)
-        self.addSubview(duplicatedNickNameCheckButton)
-        self.addSubview(genderLabel)
-        self.addSubview(manButton)
-        self.addSubview(womanButton)
-        self.addSubview(birthLabel)
-        self.addSubview(birthTextField)
-        self.addSubview(addressLabel)
-        self.addSubview(addressStackView)
-        self.addSubview(introduceLabel)
-        self.addSubview(myInterestLabel)
-        self.addSubview(myInterestButton)
-        self.addSubview(myInterestCollectionView)
-        self.addSubview(finishButton)
-        self.addSubview(introduceExplainTextView)
-        self.addSubview(introduceTextCountLabel)
+        [profileImageView, profileEditButton, nameTextFieldContainView, nameTextField, duplicatedNickNameCheckButton, genderLabel, manButton, womanButton, birthLabel, birthTextField, addressLabel, addressStackView, introduceLabel, myInterestLabel, myInterestButton, myInterestCollectionView, finishButton, introduceExplainTextView, introduceTextCountLabel].forEach {
+            contentsView.addSubview($0)
+        }
+        
+        scrollView.addSubview(contentsView)
+        addSubview(scrollView)
     }
     
     override func layoutSubviews() {
@@ -224,8 +230,18 @@ final class EditMyPageView: BaseView {
     }
     
     override func makeConstraints() {
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        contentsView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView.contentLayoutGuide)
+            make.width.equalTo(scrollView.frameLayoutGuide)
+            make.height.greaterThanOrEqualTo(self.snp.height).priority(.low)
+        }
+        
         profileImageView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).offset(28)
+            make.top.equalToSuperview().offset(28)
             make.leading.equalTo(safeAreaLayoutGuide).offset(24)
             make.height.width.equalTo(65)
         }
@@ -238,7 +254,7 @@ final class EditMyPageView: BaseView {
         
         duplicatedNickNameCheckButton.snp.makeConstraints { make in
             make.trailing.equalTo(safeAreaLayoutGuide).offset(-24)
-            make.top.equalTo(safeAreaLayoutGuide).offset(43)
+            make.top.equalToSuperview().offset(43)
             make.width.equalTo(69)
             make.height.equalTo(37)
         }
@@ -307,34 +323,9 @@ final class EditMyPageView: BaseView {
             make.height.equalTo(19)
         }
         
-        finishButton.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24)
-            make.height.equalTo(50)
-            make.bottom.equalTo(safeAreaLayoutGuide).offset(-39)
-        }
-        
-        myInterestCollectionView.snp.makeConstraints { make in
-            make.height.equalTo(74)
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24)
-            make.bottom.equalTo(finishButton.snp.top).offset(-4)
-        }
-        
-        myInterestLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(myInterestCollectionView.snp.top).offset(-4)
-            make.leading.equalTo(safeAreaLayoutGuide).offset(24)
-            make.height.equalTo(28)
-            make.width.equalTo(74)
-        }
-        
-        myInterestButton.snp.makeConstraints { make in
-            make.leading.equalTo(myInterestLabel.snp.trailing).offset(4)
-            make.centerY.equalTo(myInterestLabel)
-            make.height.width.equalTo(24)
-        }
-        
         introduceExplainTextView.snp.makeConstraints { make in
             make.top.equalTo(introduceLabel.snp.bottom).offset(8)
-            make.bottom.equalTo(myInterestLabel.snp.top).offset(-24)
+            make.height.equalTo(76)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24)
         }
         
@@ -344,6 +335,33 @@ final class EditMyPageView: BaseView {
             make.height.equalTo(17)
             make.width.equalTo(48)
         }
+        
+        myInterestLabel.snp.makeConstraints { make in
+            make.top.equalTo(introduceExplainTextView.snp.bottom).offset(24)
+            make.leading.equalTo(safeAreaLayoutGuide).offset(24)
+            make.height.equalTo(28)
+            make.width.equalTo(74)
+        }
+        
+        myInterestCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(myInterestLabel.snp.bottom).offset(4)
+            make.height.equalTo(74)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24)
+        }
+        
+        myInterestButton.snp.makeConstraints { make in
+            make.leading.equalTo(myInterestLabel.snp.trailing).offset(4)
+            make.centerY.equalTo(myInterestLabel)
+            make.height.width.equalTo(24)
+        }
+        
+        finishButton.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24)
+            make.top.equalTo(myInterestCollectionView.snp.bottom).offset(30)
+            make.height.equalTo(50)
+            make.bottom.equalToSuperview().offset(-39)
+        }
+        
     }
 }
 
