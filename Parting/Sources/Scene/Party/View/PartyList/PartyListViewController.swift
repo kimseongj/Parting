@@ -16,16 +16,17 @@ class PartyListViewController: BaseViewController<PartyListView> {
     
     private var tableViewReachedEndCount = 0
     
-    init(viewModel: PartyListViewModel, title: String) {
+    init(viewModel: PartyListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.rootView.navigationLabel.text = title
+//        self.rootView.navigationLabel.text = title
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        rootView.partyListTableView.reloadData()
-        self.viewModel.loadPartyList()
+
+        self.viewModel.input.viewWillAppear.onNext(())
+//        self.viewModel.loadPartyList()
     }
     
     required init?(coder: NSCoder) {
@@ -41,7 +42,8 @@ class PartyListViewController: BaseViewController<PartyListView> {
         navigationUI()
         bindViewModel()
         configureTableView()
-        self.viewModel.loadPartyList()
+        self.viewModel.input.viewDidLoad.onNext(())
+//        self.viewModel.loadPartyList()
     }
     
     
@@ -62,6 +64,13 @@ class PartyListViewController: BaseViewController<PartyListView> {
     }
     
     private func bindViewModel() {
+        viewModel.output.reloadData
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.rootView.partyListTableView.reloadData()
+            })
+            .disposed(by: disposeBag)
+        
         rootView.backBarButton.innerButton
             .rx.tap.bind(to: viewModel.input.popVCTrigger)
             .disposed(by: disposeBag)

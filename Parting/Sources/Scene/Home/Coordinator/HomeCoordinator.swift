@@ -42,22 +42,21 @@ final class HomeCoordinator: Coordinator {
 		navigationController.pushViewController(ScheduleViewController(viewModel: viewModel), animated: true)
 	}
 		
-	func pushPartyListVC(category: CategoryModel) {
-		let viewModel = PartyListViewModel(coordinator: self, category: category)
-        let vc1 = PartyListViewController(viewModel: viewModel, title: category.name)
-        let vc2 = PartyListViewController(viewModel: viewModel, title: category.name)
-        let vc3 = PartyListViewController(viewModel: viewModel, title: category.name)
-        let vc4 = PartyListViewController(viewModel: viewModel, title: category.name)
-        
-        let tabManViewModel = TabManDataSource(coordinator: self)
+    func pushPartyListVC(category: CategoryModel) {
+//        if let apiModel = apiModel {
+//            
+//        }
+//        let viewModel = PartyListViewModel(coordinator: self, category: category, apiModel: apiModel)
+//        let vc1 = PartyListViewController(viewModel: viewModel, title: category.name)
+//        let vc2 = PartyListViewController(viewModel: viewModel, title: category.name)
+//        let vc3 = PartyListViewController(viewModel: viewModel, title: category.name)
+//        let vc4 = PartyListViewController(viewModel: viewModel, title: category.name)
+//        
+        let tabManViewModel = TabManDataSource(coordinator: self, categoryModel: category)
 
         let tabManVC = TabManViewController(
-            firstVC: vc1,
-            secondVC: vc2,
-            thirdVC: vc3,
-            fourthVC: vc4,
             title: category.name,
-            viewModel: tabManViewModel
+            tabManDatasource: tabManViewModel
         )
 		navigationController.pushViewController(tabManVC, animated: true)
 	}

@@ -40,6 +40,7 @@
 		4E1CE0D62A8E41B1006855E3 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CE0D52A8E41B1006855E3 /* RadioButton.swift */; };
 		4E1CE0D92A8E459B006855E3 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CE0D82A8E459B006855E3 /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		4E2874B92A2D98FB0000B24C /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2874B82A2D98FB0000B24C /* KakaoSDK */; };
+		4E2907812AC94F97006D3A89 /* PartyTabResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2907802AC94F97006D3A89 /* PartyTabResponse.swift */; };
 		4E3C856529F7AE920006BEB1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3C856429F7AE920006BEB1 /* BaseViewController.swift */; };
 		4E52228029F14163000B96B4 /* EssentialInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52227F29F14163000B96B4 /* EssentialInfoView.swift */; };
 		4E52228229F1417A000B96B4 /* EssentialInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52228129F1417A000B96B4 /* EssentialInfoViewModel.swift */; };
@@ -231,6 +232,7 @@
 		4E1CE0D32A8E4170006855E3 /* SortingOptionModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingOptionModalViewController.swift; sourceTree = "<group>"; };
 		4E1CE0D52A8E41B1006855E3 /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		4E1CE0D82A8E459B006855E3 /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		4E2907802AC94F97006D3A89 /* PartyTabResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyTabResponse.swift; sourceTree = "<group>"; };
 		4E3C856429F7AE920006BEB1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		4E52227829F10541000B96B4 /* Parting.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Parting.entitlements; sourceTree = "<group>"; };
 		4E52227F29F14163000B96B4 /* EssentialInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialInfoView.swift; sourceTree = "<group>"; };
@@ -1040,6 +1042,7 @@
 				4E70E4152AC1C17A007F640A /* AroundPartyDetailResponse.swift */,
 				4E70E4172AC1E811007F640A /* MapDetailPartyDTO.swift */,
 				2FBF584C2AC16BFC00D227E6 /* MyPageResponse.swift */,
+				4E2907802AC94F97006D3A89 /* PartyTabResponse.swift */,
 			);
 			path = ResponseModel;
 			sourceTree = "<group>";
@@ -1401,6 +1404,7 @@
 				4E892CFE2A9EB47D0075F56F /* PartyDetailInfoViewController.swift in Sources */,
 				4EFFCE532A6DF5830075EF9C /* PartyListViewController.swift in Sources */,
 				4E87B4572AA2E5DF00B3AD94 /* CalendarResponse.swift in Sources */,
+				4E2907812AC94F97006D3A89 /* PartyTabResponse.swift in Sources */,
 				4E9317702A6B7AEA001FBDCB /* CreatePartyView.swift in Sources */,
 				4EFCEBCE2A67A7E2000F0A2B /* BottomSheetView.swift in Sources */,
 				933B3C9A2A5586BF00B8D60B /* HomeCoordinator.swift in Sources */,

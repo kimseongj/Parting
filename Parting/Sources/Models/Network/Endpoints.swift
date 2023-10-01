@@ -16,7 +16,7 @@ enum PartingAPI {
     case oauthLogout
     case isMemeber
     case tokenReissue
-    case parties(params: PartyListParams)
+    case parties(params: PartyTabResponse)
     case createParty(
         address: String,
         capacity: Int,
@@ -150,13 +150,13 @@ extension PartingAPI {
             case .parties(let params):
                 return [
                     "categoryId": params.categoryId,
-                    "categoryDetailId": params.categoryDetailIds,
+                    "categoryDetailId": params.categoryDetailId,
                     "orderCondition1": params.orderCondition1,
                     "orderCondition2": params.orderCondition2,
                     "pageNumber": params.pageNumber,
                     "categoryVersion": "1.0.0",
-                    "userLatitude": params.userLatitude,
-                    "userLongitude": params.userLongitude
+                    "userLatitude": params.userLat,
+                    "userLongitude": params.userLng
                 ]
             case let .createParty(
                 address,
