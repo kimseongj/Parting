@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-final class TabManViewModel {
+final class TabManDataSource {
     private weak var coordinator: HomeCoordinator?
     
     enum Input {

@@ -19,9 +19,9 @@ final class TabManViewController: TabmanViewController {
     private let navigationTitle = BarTitleLabel(text: "무슨무슨팟")
     private var backBarButton = BarImageButton(imageName: Images.icon.back)
     private let disposeBag = DisposeBag()
-    private let viewModel: TabManViewModel
+    private let viewModel: TabManDataSource
     
-    init(firstVC: UIViewController, secondVC: UIViewController, thirdVC: UIViewController, fourthVC: UIViewController, title: String, viewModel: TabManViewModel) {
+    init(firstVC: UIViewController, secondVC: UIViewController, thirdVC: UIViewController, fourthVC: UIViewController, title: String, viewModel: TabManDataSource) {
         tabControllers.append(firstVC)
         tabControllers.append(secondVC)
         tabControllers.append(thirdVC)
