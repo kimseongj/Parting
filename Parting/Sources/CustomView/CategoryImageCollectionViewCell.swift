@@ -8,27 +8,14 @@
 import UIKit
 import RxSwift
 
-class CategoryImageCollectionViewCell: UICollectionViewCell {
-    enum CellType {
-        case normal
-        case deselectable
-    }
-    
-    enum CellSize {
-        case md
-        case lg
-    }
-    
-    private let cellType: CellType = .deselectable
-    let bgView: UIView = {
+final class CategoryImageCollectionViewCell: UICollectionViewCell {
+    let imageBgView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 16
-        view.layer.borderColor = UIColor(hexcode: "F1F1F1").cgColor
+        view.layer.cornerRadius = 10.4
+        view.layer.borderColor = AppColor.gray50.cgColor
         view.layer.borderWidth = 1
         return view
     }()
-    
-    var shadows = UIView()
     
     let interestsImageView: UIImageView = {
         let imageView = UIImageView()
@@ -45,11 +32,6 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let interestStackView: UIStackView = {
-        let view = StackView(axis: .vertical, alignment: .fill, distribution: .fillProportionally, spacing: 8.0)
-        return view
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
@@ -64,18 +46,14 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
         makeConstraints()
     }
     
-    func configureCell(item: String) {
+    func configureCell(item: String, model: CategoryModel) {
         interestsImageView.image = UIImage(named: item)
-        interestsLabel.text = item
+        interestsLabel.text = model.name
     }
     
-    func configureCell(type: CategoryImageCollectionViewCell.CellType, size: CategoryImageCollectionViewCell.CellSize) {
-        var imageViewWidth: CGFloat
-        
-    }
-    
-    func configureSelectedCell() {
-        
+    func configureCategoryName(item: String) {
+        interestsImageView.image = UIImage(named: item)
+        interestsLabel.text = item + "팟"
     }
     
     override func prepareForReuse() {
@@ -85,27 +63,29 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
 }
 
 extension CategoryImageCollectionViewCell: ProgrammaticallyInitializableViewProtocol {
-    
-    
     func addSubviews() {
-        bgView.addSubview(shadows)
-        bgView.addSubview(interestsImageView)
-        interestStackView.addArrangedSubview(bgView)
-        interestStackView.addArrangedSubview(interestsLabel)
-        
-        contentView.addSubview(interestStackView)
+        imageBgView.addSubview(interestsImageView)
+        contentView.addSubview(imageBgView)
+        contentView.addSubview(interestsLabel)
     }
     
     func makeConstraints() {
-        interestsImageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(16)
+        imageBgView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.5)
+            make.width.equalTo(imageBgView.snp.height)
+            make.centerX.equalToSuperview()
         }
         
-        interestStackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        interestsImageView.snp.makeConstraints { make in
+            make.width.height.equalToSuperview().multipliedBy(0.6)
+            make.center.equalToSuperview()
+        }
+        
+        interestsLabel.snp.makeConstraints { make in
+            make.top.equalTo(interestsImageView.snp.bottom)
+            make.horizontalEdges.bottom.equalToSuperview()
         }
     }
-    
-    
 }
 

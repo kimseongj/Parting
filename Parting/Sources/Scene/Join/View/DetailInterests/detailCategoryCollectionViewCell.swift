@@ -28,7 +28,7 @@ class detailCategoryCollectionViewCell: UICollectionViewCell {
     let backGroundView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 8
-        view.backgroundColor = UIColor(hexcode: "D9D9E2")
+        view.backgroundColor = UIColor(hexcode: "FAFAFA")
         return view
     }()
     
@@ -62,6 +62,7 @@ class detailCategoryCollectionViewCell: UICollectionViewCell {
     
     private func setUpview() {
         backGroundView.addSubview(categoryNameLabel)
+//        contentView.backgroundColor = UIColor(hexcode: "D9D9E2")
         [backGroundView].forEach {
             self.contentView.addSubview($0)
         }
@@ -86,7 +87,7 @@ class detailCategoryCollectionViewCell: UICollectionViewCell {
         if isClicked {
             backGroundView.backgroundColor = AppColor.brand
         } else {
-            backGroundView.backgroundColor = AppColor.gray400
+            backGroundView.backgroundColor = UIColor(hexcode: "D9D9E2")
         }
     }
 }

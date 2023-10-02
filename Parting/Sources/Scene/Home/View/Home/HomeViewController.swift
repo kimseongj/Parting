@@ -166,7 +166,8 @@ final class HomeViewController: BaseViewController<HomeView> {
     private func bind() {
         viewModel.state.categories
             .bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: TestViewCollectionViewCell.identifier, cellType: TestViewCollectionViewCell.self)) { [weak self] index, partyType, cell in
-                cell.configureCell(item: partyType)
+                guard let categoryImage = CategoryTitleImage(rawValue: index)?.item else { return }
+                cell.configureCell(item: partyType, image: categoryImage)
             }
             .disposed(by: disposeBag)
         

@@ -87,37 +87,37 @@ class InterestsViewController: BaseViewController<InterestsView> {
         viewModel.output.categoryImage
             .bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: CategoryImageCollectionViewCell.identifier, cellType: CategoryImageCollectionViewCell.self)) {
                 index, categoryImage, cell in
-                cell.configureCell(item: CategoryTitleImage(rawValue: index)?.item ?? "관람")
+                cell.configureCategoryName(item: CategoryTitleImage(rawValue: index)?.item ?? "관람")
 
             }
             .disposed(by: disposeBag)
     }
     
     private func didSelectedCell() {
-        rootView.categoryCollectionView.rx
-            .itemSelected
-            .observe(on: MainScheduler.instance)
-            .withUnretained(self)
-            .subscribe(onNext: { owner, indexPath in
-                guard let cell = owner.rootView.categoryCollectionView.cellForItem(at: indexPath) as? CategoryImageCollectionViewCell else { return }
-                if  cell.bgView.layer.borderColor == UIColor(hexcode: "FBB0C0").cgColor { // 선택이 이미 된 상태
-                    if let firstIndex = owner.selectedCellIndex.firstIndex(of: indexPath[1]+1) {
-                        owner.selectedCellIndex.remove(at: firstIndex)  // 1
-                    }
-                    cell.interestsLabel.textColor = AppColor.gray700
-                    cell.bgView.layer.borderColor = UIColor(hexcode: "F1F1F1").cgColor
-                } else { // 선택이 안된 상태
-                    owner.selectedCellIndex.append(indexPath[1]+1)
-                    cell.interestsLabel.textColor = AppColor.gray900
-                    cell.bgView.layer.borderColor = UIColor(hexcode: "FBB0C0").cgColor
-                }
-                if owner.selectedCellIndex.count > 0 {
-                    owner.rootView.changeButtonColor(state: true)
-                } else {
-                    owner.rootView.changeButtonColor(state: false)
-                }
-            })
-            .disposed(by: disposeBag)
+//        rootView.categoryCollectionView.rx
+//            .itemSelected
+//            .observe(on: MainScheduler.instance)
+//            .withUnretained(self)
+//            .subscribe(onNext: { owner, indexPath in
+//                guard let cell = owner.rootView.categoryCollectionView.cellForItem(at: indexPath) as? CategoryImageCollectionViewCell else { return }
+//                if  cell.bgView.layer.borderColor == UIColor(hexcode: "FBB0C0").cgColor { // 선택이 이미 된 상태
+//                    if let firstIndex = owner.selectedCellIndex.firstIndex(of: indexPath[1]+1) {
+//                        owner.selectedCellIndex.remove(at: firstIndex)  // 1
+//                    }
+//                    cell.interestsLabel.textColor = AppColor.gray700
+//                    cell.bgView.layer.borderColor = UIColor(hexcode: "F1F1F1").cgColor
+//                } else { // 선택이 안된 상태
+//                    owner.selectedCellIndex.append(indexPath[1]+1)
+//                    cell.interestsLabel.textColor = AppColor.gray900
+//                    cell.bgView.layer.borderColor = UIColor(hexcode: "FBB0C0").cgColor
+//                }
+//                if owner.selectedCellIndex.count > 0 {
+//                    owner.rootView.changeButtonColor(state: true)
+//                } else {
+//                    owner.rootView.changeButtonColor(state: false)
+//                }
+//            })
+//            .disposed(by: disposeBag)
     }
     
     private func nextButtonClicked() {

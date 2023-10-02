@@ -57,9 +57,7 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
         let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MyTapMethod))
 
         singleTapGestureRecognizer.numberOfTapsRequired = 1
-
         singleTapGestureRecognizer.isEnabled = true
-
         singleTapGestureRecognizer.cancelsTouchesInView = false
 
         rootView.scrollView.addGestureRecognizer(singleTapGestureRecognizer)
@@ -120,18 +118,32 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
         viewModel.output.categories
             .bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: CategoryImageCollectionViewCell.identifier, cellType: CategoryImageCollectionViewCell.self)) { [weak self]
                 row, category, cell in
-                guard let localImage = category.localImgSrc else { return }
-                let image = UIImage.loadImageFromDiskWith(fileName: localImage)
-                cell.interestsImageView.image = image
-                cell.interestsLabel.text = category.name
+                guard let categoryImage = CategoryTitleImage(rawValue: row)?.item else { return }
+                cell.configureCell(item: categoryImage, model: category)
                 
                 if self?.viewModel.selectedIndex == row {
-                    cell.configureCell(type: .normal, size: .md)
+//                    cell.configureCell(type: .normal, size: .md)
+                    
                 } // selectedIndex가 cell의 index와 다르면 configure(.deselectable)
                 else {
-                    cell.configureCell(type: .deselectable, size: .md)
+//                    cell.configureCell(type: .deselectable, size: .md)
                 }
             }
+            .disposed(by: disposeBag)
+        
+        Observable
+            .zip(rootView.categoryCollectionView.rx.modelSelected(CategoryModel.self), rootView.categoryCollectionView.rx.itemSelected)
+            .subscribe(onNext: { [weak self] (item, indexPath) in
+                self?.viewModel.isSeletedCellIdx.onNext(indexPath.item)
+                self?.viewModel.partyCellClicked(categoryId: item.id)
+                self?.viewModel.selectedIndex = indexPath.item
+                self?.rootView.categoryCollectionView.reloadData()
+
+                self?.viewModel.selectedDetailCategoryCell.accept([])
+                self?.rootView.detailCategoryCollectionView.reloadData()
+
+                self?.selectedCategoryID = item.id
+            })
             .disposed(by: disposeBag)
         
         viewModel.selectedDetailCategoryCell
@@ -172,21 +184,6 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
                 guard let text else { return }
                 self?.hashTagNameList = text.replacingOccurrences(of: " ", with: "").split(separator: ",").map{String($0)}
             }
-            .disposed(by: disposeBag)
-
-        Observable
-            .zip(rootView.categoryCollectionView.rx.modelSelected(CategoryModel.self), rootView.categoryCollectionView.rx.itemSelected)
-            .subscribe(onNext: { [weak self] (item, indexPath) in
-                self?.viewModel.isSeletedCellIdx.onNext(indexPath.item)
-                self?.viewModel.partyCellClicked(categoryId: item.id)
-                self?.viewModel.selectedIndex = indexPath.item
-                self?.rootView.categoryCollectionView.reloadData()
-
-                self?.viewModel.selectedDetailCategoryCell.accept([])
-                self?.rootView.detailCategoryCollectionView.reloadData()
-
-                self?.selectedCategoryID = item.id
-            })
             .disposed(by: disposeBag)
         
         viewModel.output.categoryDetailLists

@@ -31,7 +31,7 @@ final class HomeViewModel {
     
     struct State {
         let categories: BehaviorRelay<[CategoryModel]> = BehaviorRelay(value: [])
-        let categoryImages: BehaviorRelay<[CategoryModel]> = BehaviorRelay(value: [])
+//        let categoryImages: BehaviorRelay<[CategoryModel]> = BehaviorRelay(value: [])
         let widgetData: BehaviorRelay<WidgetResult?> = BehaviorRelay<WidgetResult?>(value: nil)
         let calendarData: BehaviorRelay<[Int]?> = BehaviorRelay<[Int]?>(value: nil)
     }
