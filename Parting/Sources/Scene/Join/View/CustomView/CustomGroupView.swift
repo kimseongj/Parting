@@ -14,7 +14,7 @@ class CustomGroupView: UICollectionReusableView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
-        view.backgroundColor = UIColor(hexcode: "F8FAFD")
+        view.backgroundColor = UIColor(hexcode: "FFFFFF")
         return view
     }()
     
@@ -31,9 +31,7 @@ class CustomGroupView: UICollectionReusableView {
     
     func setConstraints() {
         insetView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.edges.equalToSuperview()
         }
     }
 }

@@ -42,8 +42,9 @@ final class TestViewCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(item: CategoryModel) {
-        partyImageView.kf.setImage(with: URL(string: item.imgURL))
+    func configureCell(item: CategoryModel, image: String) {
+//        partyImageView.kf.setImage(with: URL(string: item.imgURL))
+        partyImageView.image = UIImage(named: image)
         partyTitle.text = item.name
     }
     
