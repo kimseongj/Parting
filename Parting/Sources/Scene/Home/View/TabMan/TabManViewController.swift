@@ -37,6 +37,7 @@ final class TabManViewController: TabmanViewController {
         super.viewDidLoad()
         tabManDatasource.input.onNext(.viewDidLoad)
         configureTabmanBar()
+        self.view.backgroundColor = .white
         self.dataSource = self
         bind()
     }
