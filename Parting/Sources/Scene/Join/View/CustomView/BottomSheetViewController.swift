@@ -27,7 +27,7 @@ final class BottomSheetViewController: BaseViewController<BottomSheetView> {
         super.viewDidLoad()
         
         if let sheetPresentationController = sheetPresentationController {
-            sheetPresentationController.detents = [.medium(), .large()]
+            sheetPresentationController.detents = [ .medium(), .large()]
             sheetPresentationController.largestUndimmedDetentIdentifier = .medium
             sheetPresentationController.preferredCornerRadius = 50
             sheetPresentationController.prefersGrabberVisible = true

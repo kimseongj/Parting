@@ -43,14 +43,6 @@ final class HomeCoordinator: Coordinator {
 	}
 		
     func pushPartyListVC(category: CategoryModel) {
-//        if let apiModel = apiModel {
-//            
-//        }
-//        let viewModel = PartyListViewModel(coordinator: self, category: category, apiModel: apiModel)
-//        let vc1 = PartyListViewController(viewModel: viewModel, title: category.name)
-//        let vc2 = PartyListViewController(viewModel: viewModel, title: category.name)
-//        let vc3 = PartyListViewController(viewModel: viewModel, title: category.name)
-//        let vc4 = PartyListViewController(viewModel: viewModel, title: category.name)
 //        
         let tabManViewModel = TabManDataSource(coordinator: self, categoryModel: category)
 

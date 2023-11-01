@@ -173,14 +173,6 @@ class HomeView: BaseView {
         return view
     }()
     
-    let testCollectionView: UIView = {
-        let view = UIView()
-        view.layer.borderColor = AppColor.brand.cgColor
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 15
-        return view
-    }()
-    
     static func createLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1/4),
@@ -220,7 +212,7 @@ class HomeView: BaseView {
             calendarTotalView.addSubview($0)
         }
         
-        [categoryCollectionView, calendarTotalView, myPartyListLabel, myPartyListView, testCollectionView].forEach {
+        [categoryCollectionView, calendarTotalView, myPartyListLabel, myPartyListView].forEach {
             contentView.addSubview($0)
         }
         
@@ -244,11 +236,10 @@ class HomeView: BaseView {
         }
         
         naviImageView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).offset(15)
-            make.width.equalToSuperview().multipliedBy(0.09)
-            make.height.equalToSuperview().multipliedBy(0.272)
+            make.top.equalTo(safeAreaLayoutGuide)
+            make.width.equalTo(30)
+            make.height.equalTo(naviImageView.snp.width).multipliedBy(1.4)
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().inset(0.468 * 175)
         }
         
         
@@ -320,13 +311,6 @@ class HomeView: BaseView {
             make.top.equalTo(myPartyListLabel.snp.bottom).offset(12)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24)
             make.height.equalTo(126)
-        }
-        
-        testCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(myPartyListView.snp.bottom).offset(32)
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24)
-            make.height.equalTo(136)
-            make.bottom.equalToSuperview().inset(20)
         }
     }
 }
