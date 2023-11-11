@@ -4,7 +4,8 @@
 
 
 ## 스크린샷
-<img width="987" alt="KakaoTalk_Photo_2023-10-28-15-34-55" src="https://github.com/tlguszz1010/MailPlugAssignment/assets/62739187/8f754e69-772c-406a-bcd4-e10e9e153719">
+<img width="1337" alt="스크린샷 2023-10-11 오후 10 30 38" src="https://github.com/tlguszz1010/Parting/assets/62739187/c4003526-be99-4ca4-bf82-19455e26c120">
+
 
 
 
