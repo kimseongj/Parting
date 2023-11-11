@@ -15,8 +15,8 @@
 | ------ | ---------------- |
 | Architecture | MVVM + Input - Output Pattern, State |
 | Network      | Alamofire + Router            |
-| Library      | RxSwift, RxGesture, Almofire, Toast, SnapKit, Realm |
-| Tools        | Git, Github                   |
+| Library      | RxSwift, RxGesture, Almofire, Toast, SnapKit, FSCalendar, TabMan, KakaoOpenSDK |
+| Tools        | Git, Github, Slack, Swagger                   |
 
 
 
