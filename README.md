@@ -39,8 +39,6 @@
 ### 개발적 고려사항
 - MVVM + Input/Output Pattern + State 을 사용하여, Input으로는 사용자의 이벤트 및 ViewLifeCycle에 대한 신호를 받고, Output 으로는 데이터 갱신에 대한 신호를, State에서는 View의 상태(데이터)를 관리하도록 하였습니다.
 - cellViewModel을 통해 cell에 대한 상태 관리를 용이하게 구현하였습니다.
-- Repository Pattern 을 사용하여, Realm의 CRUD를 한곳에서 관리하도록 하였습니다.
-- View의 재사용성 : BoardView를 공유함으로써 코드의 재사용성을 증가시켰습니다.
 - DesignSystem : App에 사용되는 폰트, 컬러, 이미지등을 Enum을 통해 관리하였습니다.
 - 컴파일 성능 고려 : 상속이 필요하지 않은 class에 Final 키워드를 사용함으로써 static Dispatch로 동작하도록 구현하였습니다.
   
