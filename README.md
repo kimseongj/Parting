@@ -63,5 +63,8 @@
   
 <img width="628" alt="스크린샷 2023-10-28 오후 3 57 29" src="https://github.com/tlguszz1010/MailPlugAssignment/assets/62739187/84fb75da-4040-4173-b753-1a9901b1380e">
 
+
+## 회고
+
 <img width="531" alt="스크린샷 2023-10-27 오후 6 01 34" src="https://github.com/tlguszz1010/MailPlugAssignment/assets/62739187/a5220be3-db12-45ad-9091-67e2fcfac31e">
 
