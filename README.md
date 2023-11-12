@@ -11,6 +11,8 @@
 <img width="1337" alt="스크린샷 2023-10-11 오후 10 30 38" src="https://github.com/tlguszz1010/Parting/assets/62739187/c4003526-be99-4ca4-bf82-19455e26c120">
 
 
+## 프로젝트 구조
+<img width="629" alt="팟팅 프로젝트 구조" src="https://github.com/tlguszz1010/Parting/assets/62739187/fcf76885-68f3-48f4-8f61-93204d64cffa">
 
 
 ## 기술 스택
