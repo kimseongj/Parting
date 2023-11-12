@@ -19,7 +19,7 @@
 
 | Kinds        | Stack                         |
 | ------ | ---------------- |
-| Architecture | MVVM + Input - Output Pattern, State |
+| Architecture | MVVM - Coordinator + Input - Output Pattern, State |
 | Network      | Alamofire + Router            |
 | Library      | RxSwift, Alamofire, Toast, SnapKit, FSCalendar, TabMan, KakaoOpenSDK, Toast, NaverMap |
 | Tools        | Git, Github, Slack, Swagger                   |
