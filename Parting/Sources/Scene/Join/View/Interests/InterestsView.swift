@@ -9,19 +9,6 @@ import UIKit
 import SnapKit
 
 class InterestsView: BaseView {
-    let scrollView: UIScrollView = {
-        let view = UIScrollView()
-        return view
-    }()
-    
-    // MARK: - 스크롤뷰 내부에 들어갈 Content View
-    // UI 컴포넌트들이 contentView에 들어가야함
-    let contentView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     let setThemeLabel: UILabel = {
         let label = UILabel()
         label.text = """
@@ -44,6 +31,7 @@ class InterestsView: BaseView {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 32
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        //view.allowsMultipleSelection = true
         return view
     }()
     
@@ -61,38 +49,24 @@ class InterestsView: BaseView {
     override func makeConfigures() {
         super.makeConfigures()
         [setThemeLabel, categoryCollectionView, nextStepButton].forEach {
-            contentView.addSubview($0)
+            self.addSubview($0)
         }
-        
-        scrollView.addSubview(contentView)
-        addSubview(scrollView)
     }
     
     override func makeConstraints() {
-        scrollView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        contentView.snp.makeConstraints { make in
-            make.edges.equalTo(scrollView.contentLayoutGuide)
-            make.height.greaterThanOrEqualTo(self.snp.height).priority(.low)
-            make.width.equalTo(scrollView.frameLayoutGuide)
-        }
-        
         setThemeLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalTo(safeAreaLayoutGuide)
             make.leading.equalTo(safeAreaLayoutGuide).inset(24)
             make.width.equalTo(115)
         }
         
         categoryCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(setThemeLabel.snp.bottom).offset(52)
+            make.top.equalTo(setThemeLabel.snp.bottom).offset(40)
             make.horizontalEdges.equalToSuperview().inset(24)
             make.height.equalTo(400)
         }
         
         nextStepButton.snp.makeConstraints { make in
-            make.top.equalTo(categoryCollectionView.snp.bottom).offset(80)
             make.centerX.equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(24)
             make.height.equalTo(50)
