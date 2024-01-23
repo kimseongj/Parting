@@ -7,14 +7,16 @@
 
 import UIKit
 import NMapsMap
+import RxCocoa
+import RxSwift
 
 import CoreLocation
 
 final class MapViewController: BaseViewController<MapView> {
-
     private let viewModel: MapViewModel
     private var markers = [NMFMarker]() // 마커배열 인스턴스 생성
     var locationManager = CLLocationManager()
+    var timer = Timer()
     
     init(viewModel: MapViewModel) {
         self.viewModel = viewModel
@@ -35,11 +37,13 @@ final class MapViewController: BaseViewController<MapView> {
         super.viewDidLoad()
         setLocationDelegate()
         navigationUI()
-        configureMarker()
+//        configureMarker()
         checkDeviceLocationAuthorization()
         naverMap()
         moveCurrentPositionCamera()
         setNaverMapDelegate()
+        bindMarker()
+
     }
     
     private func naverMap() {
@@ -52,51 +56,7 @@ final class MapViewController: BaseViewController<MapView> {
         let locationOverlay = rootView.mapView.mapView.locationOverlay
         locationOverlay.location = NMGLatLng(lat: lat, lng: lng)
     }
-    
-    //MARK: - lat, lng에 해당하는 마커 생성
-    private func configureMarker() {
-        viewModel.state.aroundPartyList
-            .withUnretained(self)
-            .subscribe(onNext: { owner, partyList in
-                for idx in 0..<partyList.count {
-                    let marker = NMFMarker()
-                    marker.position = NMGLatLng(
-                        lat: partyList[idx].partyLatitude,
-                        lng: partyList[idx].partyLongitude
-                    )
-                    owner.viewModel.partyDetailInfo.append(partyList[idx])
-                    owner.markers.append(marker)
-                }
-                
-                DispatchQueue.main.async {
-                    for marker in owner.markers {
-                        marker.mapView = owner.rootView.mapView.mapView
-                    }
-                }
-                owner.markerClicked()
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    // MARK: - Marker 클릭
-    private func markerClicked() {
-        for marker in markers {
-            marker.touchHandler = { (marker: NMFOverlay?) -> Bool in
-                if let marker = marker as? NMFMarker {
-                    print(marker.position.lat, marker.position.lng)
-                    let mapDetailDTO = MapDetailPartyDTO(
-                        partyLatitude: marker.position.lat,
-                        partyLongitude: marker.position.lng
-                    )
-                    
-                    self.viewModel.input.onNext(.markerClicked(data: mapDetailDTO))
-                }
-                return true
-            }
-        }
-        
-    }
-    
+
     // MARK: - naverMapDelegate
     private func setNaverMapDelegate() {
         rootView.mapView.mapView.addCameraDelegate(delegate: self)
@@ -190,6 +150,10 @@ final class MapViewController: BaseViewController<MapView> {
             
             self.present(alert, animated: true)
     }
+    
+    private func bindPartyMaker() {
+        
+    }
 }
 
 extension MapViewController: CLLocationManagerDelegate {
@@ -228,11 +192,61 @@ extension MapViewController: NMFMapViewCameraDelegate {
     func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
         print("카메라가 변경됨 : reason : \(reason)")
         let cameraPosition = mapView.cameraPosition
+        print(cameraPosition)
     }
     
 }
 
 //MARK: - 클릭한 위치에 대한 액션 1. 좌표 얻기 2. 팝업 띄우기
 extension MapViewController: NMFMapViewTouchDelegate {
+    func startAPICallDebouncer() {
+        timer.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(handleAPICall), userInfo: nil, repeats: false)
+    }
     
+    @objc func handleAPICall() {
+        let southWest = rootView.mapView.mapView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest
+        let northEast = rootView.mapView.mapView.projection.latlngBounds(fromViewBounds: self.view.frame).northEast
+        viewModel.searchPartyOnMap(searchHighLatitude: northEast.lat, searchHighLongitude: northEast.lng, searchLowLatitude: southWest.lat, searchLowLongitude: southWest.lng)
+    }
+    
+    func mapViewCameraIdle(_ mapView: NMFMapView) {
+        startAPICallDebouncer()
+    }
+    
+    func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
+        rootView.hidePartyInfoView()
+    }
+}
+
+extension MapViewController {
+    func bindMarker() {
+        viewModel.output.aroundPartyList.bind(onNext: { partyList in
+            partyList.forEach { data in
+                let marker = NMFMarker(position: NMGLatLng(lat: data.partyLatitude, lng: data.partyLongitude), iconImage: NMFOverlayImage(name: "locationMarker"))
+                
+                    marker.mapView = self.rootView.mapView.mapView
+
+                let handler = { [weak self] (overlay: NMFOverlay) -> Bool in
+                    guard let self = self else { return true }
+//                    if let maker = overlay as? NMFMarker {
+                        self.viewModel.getMapPartyDetailInfo(partyId: data.partyID, partyLat: data.partyLatitude, partyLng: data.partyLongitude)
+                        self.viewModel.output.selectedParty.bind(onNext: { data in
+                            self.rootView.partyInfoView.fill(with: data)
+                        })
+                        .disposed(by: disposeBag)
+                        self.rootView.presentInfoView()
+//                    }
+                    return true
+                }
+                
+                marker.touchHandler = handler
+            }
+        })
+        .disposed(by: disposeBag)
+    }
+    
+    func bindParyDetail() {
+//        rootView.partyInfoView.rx.
+    }
 }
