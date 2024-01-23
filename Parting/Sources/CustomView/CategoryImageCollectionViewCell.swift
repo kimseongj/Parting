@@ -51,6 +51,12 @@ final class CategoryImageCollectionViewCell: UICollectionViewCell {
         interestsLabel.text = model.name
     }
     
+    func configureCell1(name: String) {
+        interestsLabel.text = name 
+        interestsImageView.image = UIImage(named: name)
+        
+    }
+    
     func configureCategoryName(item: String) {
         interestsImageView.image = UIImage(named: item)
         interestsLabel.text = item + "팟"

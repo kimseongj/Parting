@@ -155,8 +155,8 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
         // MARK: - 세부 카테고리 CellForItemAt(DataSource)
         viewModel.output.categoryDetailLists
             .bind(to: rootView.detailCategoryCollectionView.rx
-                .items(cellIdentifier: detailCategoryCollectionViewCell.identifier, cellType: detailCategoryCollectionViewCell.self)) { [weak self] row, element, cell in
-                    cell.configure(self?.viewModel.categoryDetailListsData?[row].categoryDetailName ?? "")
+                .items(cellIdentifier: DetailCategoryCollectionViewCell.identifier, cellType: DetailCategoryCollectionViewCell.self)) { [weak self] row, element, cell in
+//                    cell.configure(self?.viewModel.categoryDetailListsData?[row].categoryDetailName ?? "")
                     cell.changeCellState(element.isClicked)
                 }
             .disposed(by: disposeBag)
@@ -254,7 +254,7 @@ class CreatePartyViewController: BaseViewController<CreatePartyView> {
         rootView.categoryCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
-        rootView.detailCategoryCollectionView.register(detailCategoryCollectionViewCell.self, forCellWithReuseIdentifier: detailCategoryCollectionViewCell.identifier)
+        rootView.detailCategoryCollectionView.register(DetailCategoryCollectionViewCell.self, forCellWithReuseIdentifier: DetailCategoryCollectionViewCell.identifier)
 
         rootView.detailCategoryCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)

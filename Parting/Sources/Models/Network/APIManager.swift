@@ -32,31 +32,31 @@ class APIManager {
     static let shared = APIManager()
     
     private init() {}
-	
-	func getCategoryImageAPI() -> Observable<[CategoryModel]> {
+    
+    func getCategoryImageAPI() -> Observable<[CategoryModel]> {
         return Observable.create { emitter in
             let api = PartingAPI.detailCategory(categoryVersion: "1.0.0")
             guard let categoryURL = api.url else { return Disposables.create() }
             AF.request(categoryURL, method: .get, headers: api.headers)
-				.validate(statusCode: 200...500)
-				.responseDecodable(of: CategoryResponse.self) { response in
-                switch response.result {
-                case let .success(value):
-					let categories = value.result.categories
-					
-					var categoryList: [CategoryModel] = []
-					
-					for category in categories {
-						guard let safeID = Int(category.categoryID) else { return }
-						let newCategory = CategoryModel(id: safeID, name: category.categoryName, imgURL: category.imgURL, localImgSrc: nil)
-						categoryList.append(newCategory)
-					}
-                    emitter.onNext(categoryList)
-					emitter.onCompleted()
-                case let .failure(error):
-                    emitter.onError(error)
+                .validate(statusCode: 200...500)
+                .responseDecodable(of: CategoryResponse.self) { response in
+                    switch response.result {
+                    case let .success(value):
+                        let categories = value.result.categories
+                        
+                        var categoryList: [CategoryModel] = []
+                        
+                        for category in categories {
+                            guard let safeID = Int(category.categoryID) else { return }
+                            let newCategory = CategoryModel(id: safeID, name: category.categoryName, imgURL: category.imgURL, localImgSrc: nil)
+                            categoryList.append(newCategory)
+                        }
+                        emitter.onNext(categoryList)
+                        emitter.onCompleted()
+                    case let .failure(error):
+                        emitter.onError(error)
+                    }
                 }
-            }
             return Disposables.create()
         }
     }
@@ -69,7 +69,7 @@ class APIManager {
             AF.request(url, method: .get, parameters: api.parameters, encoding: URLEncoding.default, headers: api.headers).responseDecodable(of: CategoryDetailResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    let associatedCategories = data.result
+                    let associatedCategories = data.result.categoryDetailList
                     continuation.resume(returning: associatedCategories)
                 case .failure(let error):
                     print(error)
@@ -163,16 +163,16 @@ extension APIManager {
                     parameters: parameters,
                     headers: headers
                 )
-                    .validate(statusCode: 200...500)
-                    .responseDecodable(of: T.self) { response in
-                        switch response.result {
-                        case let .success(value):
-                            emitter.onNext(.success(value))
-                            emitter.onCompleted()
-                        case let .failure(error):
-                            emitter.onError(error)
-                        }
+                .validate(statusCode: 200...500)
+                .responseDecodable(of: T.self) { response in
+                    switch response.result {
+                    case let .success(value):
+                        emitter.onNext(.success(value))
+                        emitter.onCompleted()
+                    case let .failure(error):
+                        emitter.onError(error)
                     }
+                }
             case .post, .put:
                 AF.request(
                     url,
@@ -181,16 +181,16 @@ extension APIManager {
                     encoding: encoding,
                     headers: headers
                 )
-                    .validate(statusCode: 200...500)
-                    .responseDecodable(of: T.self) { response in
-                        switch response.result {
-                        case let .success(value):
-                            emitter.onNext(.success(value))
-                            emitter.onCompleted()
-                        case let .failure(error):
-                            emitter.onError(error)
-                        }
+                .validate(statusCode: 200...500)
+                .responseDecodable(of: T.self) { response in
+                    switch response.result {
+                    case let .success(value):
+                        emitter.onNext(.success(value))
+                        emitter.onCompleted()
+                    case let .failure(error):
+                        emitter.onError(error)
                     }
+                }
             default:
                 break
             }

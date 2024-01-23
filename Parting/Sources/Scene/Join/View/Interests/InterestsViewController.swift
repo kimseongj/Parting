@@ -10,49 +10,11 @@ import RxSwift
 import RxCocoa
 import Kingfisher
 
-enum InterestsCategory: Int, CaseIterable {
-    case culture
-    case preview
-    case selfDevelopement
-    case food
-    case exercise
-    case playGame
-    case cafe
-    case drink
-    
-    var category: String {
-        switch self {
-        case .culture:
-            return "문화생활"
-        case .preview:
-            return "관람"
-        case .selfDevelopement:
-            return "자기개발"
-        case .food:
-            return "음식"
-        case .exercise:
-            return "운동"
-        case .playGame:
-            return "오락"
-        case .cafe:
-            return "카페"
-        case .drink:
-            return "술"
-        }
-    }
-    
-    static var numberOfCategorys: Int {
-        return InterestsCategory.allCases.count
-    }
-}
-
 class InterestsViewController: BaseViewController<InterestsView> {
     private let viewModel: InterestsViewModel
-    
-    private var checkedCategoryList: [Int] = [1,2,3,4,5,6,7,8]
-    private var selectedCellIndex: [Int] = []
+
     init(viewModel: InterestsViewModel) {
-		self.viewModel = viewModel
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -64,17 +26,14 @@ class InterestsViewController: BaseViewController<InterestsView> {
         print("InterestsVC 메모리 해제")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        selectedCellIndex.removeAll()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.viewModel.getAssociatedCategory(checkedCategoryList)
         navigationUI()
         configureCell()
-        bindCategoryImage()
+        bindCategory()
+        bindNextButtonState()
         didSelectedCell()
+        didDeselectedCell()
         nextButtonClicked()
         viewModel.getCategoryInfo()
     }
@@ -83,54 +42,67 @@ class InterestsViewController: BaseViewController<InterestsView> {
         rootView.categoryCollectionView.register(CategoryImageCollectionViewCell.self, forCellWithReuseIdentifier: CategoryImageCollectionViewCell.identifier)
     }
     
-    private func bindCategoryImage() {
-        viewModel.output.categoryImage
+    private func bindCategory() {
+        viewModel.output.categoryRelay
             .bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: CategoryImageCollectionViewCell.identifier, cellType: CategoryImageCollectionViewCell.self)) {
-                index, categoryImage, cell in
-                cell.configureCategoryName(item: CategoryTitleImage(rawValue: index)?.item ?? "관람")
-
+                index, categoryData, cell in
+                cell.configureCell1(name: categoryData.name)
             }
             .disposed(by: disposeBag)
     }
     
     private func didSelectedCell() {
-//        rootView.categoryCollectionView.rx
-//            .itemSelected
-//            .observe(on: MainScheduler.instance)
-//            .withUnretained(self)
-//            .subscribe(onNext: { owner, indexPath in
-//                guard let cell = owner.rootView.categoryCollectionView.cellForItem(at: indexPath) as? CategoryImageCollectionViewCell else { return }
-//                if  cell.bgView.layer.borderColor == UIColor(hexcode: "FBB0C0").cgColor { // 선택이 이미 된 상태
-//                    if let firstIndex = owner.selectedCellIndex.firstIndex(of: indexPath[1]+1) {
-//                        owner.selectedCellIndex.remove(at: firstIndex)  // 1
-//                    }
-//                    cell.interestsLabel.textColor = AppColor.gray700
-//                    cell.bgView.layer.borderColor = UIColor(hexcode: "F1F1F1").cgColor
-//                } else { // 선택이 안된 상태
-//                    owner.selectedCellIndex.append(indexPath[1]+1)
-//                    cell.interestsLabel.textColor = AppColor.gray900
-//                    cell.bgView.layer.borderColor = UIColor(hexcode: "FBB0C0").cgColor
-//                }
-//                if owner.selectedCellIndex.count > 0 {
-//                    owner.rootView.changeButtonColor(state: true)
-//                } else {
-//                    owner.rootView.changeButtonColor(state: false)
-//                }
-//            })
-//            .disposed(by: disposeBag)
+        rootView.categoryCollectionView.rx
+            .itemSelected
+            .observe(on: MainScheduler.instance)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, indexPath in
+                guard let cell = owner.rootView.categoryCollectionView.cellForItem(at: indexPath) as? CategoryImageCollectionViewCell else { return }
+                cell.interestsLabel.textColor = AppColor.gray900
+                cell.imageBgView.layer.borderColor = UIColor(hexcode: "FBB0C0").cgColor
+                
+                owner.viewModel.addSelected(index: indexPath.row)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func didDeselectedCell() {
+        rootView.categoryCollectionView.rx
+            .itemDeselected
+            .observe(on: MainScheduler.instance)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, indexPath in
+                guard let cell = owner.rootView.categoryCollectionView.cellForItem(at: indexPath) as? CategoryImageCollectionViewCell else { return }
+                cell.interestsLabel.textColor = AppColor.gray700
+                cell.imageBgView.layer.borderColor = UIColor(hexcode: "F1F1F1").cgColor
+                
+                owner.viewModel.removeSelected(index: indexPath.row)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindNextButtonState() {
+        viewModel.output.selectedIDRelay.subscribe(onNext: { [weak self] indexList in
+            guard let self = self else { return }
+            
+            if indexList.count > 0 {
+                self.rootView.changeButtonColor(state: true)
+            } else {
+                self.rootView.changeButtonColor(state: false)
+            }
+        })
+        .disposed(by: disposeBag)
     }
     
     private func nextButtonClicked() {
-        //MARK: - 보내야 할 데이터: EssentialView에서 선택할 관심사 배열, 배열하나만 보내면 카운트 갯수만큼 컬렉션 뷰 Cell 생성, 배열의 원소(인덱스)를 통해 통신.
         rootView.nextStepButton.rx.tap
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
-                if owner.selectedCellIndex.count > 0 {
-                    owner.viewModel.input.pushDetailInterestViewTrigger.onNext(owner.selectedCellIndex)
+                if owner.viewModel.selectedIDList.count > 0 {
+                    owner.viewModel.input.pushDetailInterestViewTrigger.onNext(owner.viewModel.selectedIDList)
                 } else {
                     print("선택한 카테고리가 없습니다.")
                 }
-                
             })
             .disposed(by: disposeBag)
     }

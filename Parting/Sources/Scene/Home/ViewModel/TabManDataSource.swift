@@ -66,9 +66,9 @@ final class TabManDataSource {
                 switch response {
                 case let .success(data):
                     dump(data)
-                    for ele in data.result {
-//                        print(ele.categoryDetailName) // 디테일 카테고리 이름
-//                        print(ele.categoryDetailID) // 디테일 카테고리 고유 ID
+                    for ele in data.result.categoryDetailList {
+                        print(ele.categoryDetailName) // 디테일 카테고리 이름
+                        print(ele.categoryDetailID) // 디테일 카테고리 고유 ID
                         let apiModelDTO = PartyTabResponse(
                             categoryDetailId: ele.categoryDetailID,
                             categoryId: self.categoryModel.id,

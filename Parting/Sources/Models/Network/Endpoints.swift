@@ -52,7 +52,7 @@ enum PartingAPI {
     case checkMypage
     case checkNickname(nickName: String)
     case essentialInfo(birth: String, job: String, nickName: String, sex: String, sigunguCd: Int)
-    case interest
+    case interest(categoryVersion: String, ids: [Int])
     case modifyInfo(
         birth: String,
         introduce: String,
@@ -95,7 +95,7 @@ extension PartingAPI {
     var url: String? {
         switch self {
         case let .associatedCategory(categoryId):
-            return  "\(BaseURL.baseURL)/categoryId/\(categoryId)/associated-category"
+            return  "\(BaseURL.detailCategoryBaseURL)/categoryId/\(categoryId)/associated-category"
         case let .detailCategory(categoryVersion):
             return  "\(BaseURL.baseURL)/category-sortby/category-version/0.0.9"
         case .oauthKaKao, .oauthLogout, .isMemeber, .tokenReissue:
@@ -126,8 +126,10 @@ extension PartingAPI {
             return  "\(BaseURL.userURL)"
         case .checkNickname:
             return  "\(BaseURL.userURL)/check"
-        case .essentialInfo, .interest:
+        case .essentialInfo:
             return  "\(BaseURL.userURL)/essential-information"
+        case .interest:
+            return "\(BaseURL.userURL)/interest"
         case .getAroundParty:
             return "\(BaseURL.partyURL)/map"
         case .getMapPartyDetailInfo:
@@ -143,12 +145,12 @@ extension PartingAPI {
         switch self {
         case .oauthKaKao, .oauthLogout, .isMemeber, .tokenReissue, .reportParty, .checkEnteredParty, .partyDday, .checkMypage, .interest :
             return [
-                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY5Njk0MzMyNywiZXhwIjoxNjk5NTM1MzI3fQ.l-q7DxeXB01v2YOxly8hF5U3b7Fp3mQbdmgM6R5CWm8"
+                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTcwNTEwNDU3MiwiZXhwIjoxNzA2MzE0MTcyfQ.wVCLb-zN3FSbIDTbh5ES3dvAERAN5HwmHf26DLanK8I"
             ]
         case .parties, .associatedCategory, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calender, .region, .recentView, .checkMyParty, .partyMember, .detailCategory, .checkNickname, .essentialInfo, .getAroundParty, .getMapPartyDetailInfo, .getMypage, .modifyInfo, .modifyProfileImage:
             
             return [
-                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTY5Njk0MzMyNywiZXhwIjoxNjk5NTM1MzI3fQ.l-q7DxeXB01v2YOxly8hF5U3b7Fp3mQbdmgM6R5CWm8",
+                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTcwNTEwNDU3MiwiZXhwIjoxNzA2MzE0MTcyfQ.wVCLb-zN3FSbIDTbh5ES3dvAERAN5HwmHf26DLanK8I",
                 "Content-Type": "application/json;charset=UTF-8"
             ]
         }
@@ -249,6 +251,8 @@ extension PartingAPI {
                 "sex": sex,
                 "sigunguCd": sigunguCd
             ]
+        case let .interest(categoryVersion, ids):
+            return ["categoryVersion": categoryVersion, "interests": ids]
         case let .getAroundParty(
             _,
             _,

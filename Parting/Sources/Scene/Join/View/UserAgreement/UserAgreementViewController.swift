@@ -22,8 +22,6 @@ class UserAgreementViewController: BaseViewController<UserAgreementView> {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationUI()
@@ -86,5 +84,4 @@ class UserAgreementViewController: BaseViewController<UserAgreementView> {
     @objc func backBarButtonClicked() {
         viewModel.popUserAgreementVC()
     }
-    
 }
