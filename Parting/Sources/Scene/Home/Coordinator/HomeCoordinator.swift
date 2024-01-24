@@ -81,7 +81,7 @@ final class HomeCoordinator: Coordinator {
     }
     
     func pushDetailPartyVC(partyId: Int) {
-        let viewModel = PartyDetailInfoViewModel(coordinator: nil, partyId: partyId, homeCoordinator: self)
+        let viewModel = PartyDetailInfoViewModel(coordinator: nil, partyId: partyId, homeCoordinator: self, mapCoordinator: nil)
         let vc = PartyDetailInfoViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: true)
     }

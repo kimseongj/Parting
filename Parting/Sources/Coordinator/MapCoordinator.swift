@@ -35,16 +35,14 @@ final class MapCoordinator: Coordinator {
         navigationController.viewControllers = [vc]
     }
     
-    func showPartyDetailBottomsheetVC(data: AroundPartyDetailResponse) {
-        let viewModel = BottomSheetViewModel(coorinator: self, data: data)
-        let vc = BottomSheetViewController(viewModel: viewModel)
-        if let currentVC = currentVC as? MapViewController {
-            currentVC.present(vc, animated: true)
-        }
+    func pushPartyDetailVC(partyID: Int) {
+        let viewModel = PartyDetailInfoViewModel(coordinator: nil, partyId: partyID, homeCoordinator: nil, mapCoordinator: self)
+        let vc = PartyDetailInfoViewController(viewModel: viewModel)
+        navigationController.pushViewController(vc, animated: true)
     }
     
-    func dismissPartyDetailBottomSheetVC() {
-        currentVC?.dismiss(animated: true)
+    func popPartyDetailVC() {
+        navigationController.popViewController(animated: true)
     }
 }
 
