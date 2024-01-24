@@ -10,73 +10,50 @@ import RxSwift
 import RxCocoa
 
 final class MapViewModel {
-    enum Input {
-        case viewWillAppearTrigger
-        case viewDidLoadTrigger
-        case markerClicked(data: MapDetailPartyDTO)
+    struct Input {
+        let pushPartyDetailTrigger: PublishSubject<Void> = PublishSubject()
     }
     
-    enum Output {
-        
+    struct Output {
+        var aroundPartyList: BehaviorRelay<[PartyInfoOnMapList]> = BehaviorRelay<[PartyInfoOnMapList]>(value: [])
+        var selectedParty: BehaviorRelay<MarkerPartyInfo> = BehaviorRelay<MarkerPartyInfo>(value: MarkerPartyInfo(address: "", categoryImg: "", currentPartyMemberCount: 0, description: "", distance: 0, distanceUnit: "", hashTagNameList: [""], maxPartyMemberCount: 0, partyEndTime: "", partyID: 0, partyName: "", partyStartTime: "", status: ""))
     }
     
     struct State {
         var aroundPartyList: BehaviorRelay<[PartyInfoOnMapList]> = BehaviorRelay<[PartyInfoOnMapList]>(value: [])
     }
     
-    var input: PublishSubject<Input> = PublishSubject()
+    var input = Input()
+    var output = Output()
     var state = State()
-    var partyDetailInfo: [PartyInfoOnMapList] = []
+    var partyInfoOnMapList: [PartyInfoOnMapList] = []
+    var partyOnMapList: [Int] = []
+    var selectedPartyID: Int = 0
     
     private var mapCoordinator: MapCoordinator?
     private let disposeBag = DisposeBag()
     
     init(mapCoordinator: MapCoordinator?) {
         self.mapCoordinator = mapCoordinator
-        bind()
+
     }
-    
-    private func bind() {
-        input
-            .withUnretained(self)
-            .subscribe(onNext: { owner, event in
-                switch event {
-                case .viewWillAppearTrigger:
-                    owner.getAroundParty()
-                case .viewDidLoadTrigger:
-                    owner.getAroundParty()
-                case let .markerClicked(data):
-                    for ele in owner.partyDetailInfo {
-                        print(data.partyLatitude, ele.partyLatitude)
-                        if data.partyLatitude == ele.partyLatitude {
-                            print(ele.partyID, ele.partyLatitude, ele.partyLongitude, "✅")
-                            owner.getMapPartyDetailInfo(
-                                partyId: ele.partyID,
-                                partyLat: ele.partyLatitude,
-                                partyLng: ele.partyLongitude
-                            )
-                            break
-                        }
-                    }
-                }
-                
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    private func getAroundParty() {
+
+    func searchPartyOnMap(searchHighLatitude: Double,
+                                searchHighLongitude: Double,
+                                searchLowLatitude:  Double,
+                                searchLowLongitude:  Double) {
         let api = PartingAPI.getAroundParty(
-            searchHighLatitude: 37.51895456923172,
-            searchHighLongitude: 126.88782916277418,
-            searchLowLatitude:  37.517739605481474,
-            searchLowLongitude:  126.88459585441812
+            searchHighLatitude: searchHighLatitude,
+            searchHighLongitude: searchHighLongitude,
+            searchLowLatitude:  searchLowLatitude,
+            searchLowLongitude:  searchLowLongitude
         )
         
         guard let apiurl = api.url else { return }
         guard let url = URL(string: apiurl) else { return }
         
         print(url, "🌆")
-
+        
         APIManager.shared.requestParting(
             type: AroundPartyResponse.self,
             url: url,
@@ -84,18 +61,18 @@ final class MapViewModel {
             parameters: api.parameters,
             headers: api.headers
         ) { response in
-                switch response {
-                case let .success(data):
-                    print(data, "✅")
-                    print(data.result)
-                    self.state.aroundPartyList.accept(data.result.partyInfoOnMapList)
-                case let .failure(error):
-                    print(error)
-                }
+            switch response {
+            case let .success(data):
+                print(data, "✅")
+                print(data.result)
+                self.output.aroundPartyList.accept(data.result.partyInfoOnMapList)
+            case let .failure(error):
+                print(error)
             }
+        }
     }
     
-    private func getMapPartyDetailInfo(
+    func getMapPartyDetailInfo(
         partyId: Int,
         partyLat: Double,
         partyLng: Double
@@ -106,8 +83,7 @@ final class MapViewModel {
             userLongitude: partyLng
         )
         
-        guard let apiURL = api.url else { return }
-        guard let url = URL(string: apiURL) else { return }
+        guard let apiURL = api.url, let url = URL(string: apiURL) else { return }
         
         APIManager.shared.requestParting(
             type: AroundPartyDetailResponse.self,
@@ -115,18 +91,20 @@ final class MapViewModel {
             method: .get,
             parameters: api.parameters,
             headers: api.headers
-        ) { response in
+        ) { [weak self] response in
+            guard let self = self else { return }
             switch response {
             case let .success(data):
                 print(data, "💛")
-                self.showBottomSheetVC(data: data)
+                selectedPartyID = data.result.partyInfos.first!.partyID
+                self.output.selectedParty.accept(data.result.partyInfos.first!)
             case let .failure(error):
                 print(error)
             }
         }
     }
     
-    private func showBottomSheetVC(data: AroundPartyDetailResponse) {
-        self.mapCoordinator?.showPartyDetailBottomsheetVC(data: data)
+    func pushPartyDetailViewController() {
+        mapCoordinator?.pushPartyDetailVC(partyID: selectedPartyID)
     }
 }

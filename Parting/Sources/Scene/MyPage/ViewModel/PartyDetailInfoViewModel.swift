@@ -21,6 +21,7 @@ class PartyDetailInfoViewModel {
     
     private var coordinator: MyPageCoordinator?
     private var homeCoordinator: HomeCoordinator?
+    private var mapCoordinator: MapCoordinator?
     private let disposeBag = DisposeBag()
     let partyId: Int?
     let input = PublishSubject<Input>()
@@ -31,10 +32,11 @@ class PartyDetailInfoViewModel {
     var perssonalDataList: BehaviorRelay<[PartyMemberList]> = BehaviorRelay<[PartyMemberList]>(value: [])
     var selectedPartyID: Int?
     
-    init(coordinator: MyPageCoordinator?, partyId: Int, homeCoordinator: HomeCoordinator?) {
+    init(coordinator: MyPageCoordinator?, partyId: Int, homeCoordinator: HomeCoordinator?, mapCoordinator: MapCoordinator?) {
         self.coordinator = coordinator
         self.partyId = partyId
         self.homeCoordinator = homeCoordinator
+        self.mapCoordinator = mapCoordinator
         bind()
     }
     

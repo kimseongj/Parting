@@ -133,31 +133,31 @@ final class CreatePartyViewModel: BaseViewModel {
     }
     
     func partyCellClicked(categoryId: Int) {
-        let api = PartingAPI.associatedCategory(categoryId: categoryId)
-        guard let apiURL = api.url else { return }
-        guard let url = URL(string: apiURL) else { return }
-        
-        APIManager.shared.requestPartingWithObservable(
-            type: CategoryDetailResponse.self,
-            url: url,
-            method: .get,
-            parameters: api.parameters,
-            headers: api.headers
-        )
-        .withUnretained(self)
-        .subscribe(onNext: { owner, result in
-            if let data = try? result.get() {
-                owner.categoryDetailListsData = data.result
-                var newData: [CategoryDetailResultContainisSelected] = []
-                guard let arr =  owner.categoryDetailListsData else { return }
-                for ele in arr {
-                    let data = CategoryDetailResultContainisSelected(categoryDetailID: ele.categoryDetailID, categoryDetailName: ele.categoryDetailName)
-                    newData.append(data)
-                }
-                owner.output.categoryDetailLists.accept(newData)
-            }
-        })
-        .disposed(by: disposeBag)
+//        let api = PartingAPI.associatedCategory(categoryId: categoryId)
+//        guard let apiURL = api.url else { return }
+//        guard let url = URL(string: apiURL) else { return }
+//        
+//        APIManager.shared.requestPartingWithObservable(
+//            type: CategoryDetailResponse.self,
+//            url: url,
+//            method: .get,
+//            parameters: api.parameters,
+//            headers: api.headers
+//        )
+//        .withUnretained(self)
+//        .subscribe(onNext: { owner, result in
+//            if let data = try? result.get() {
+//                owner.categoryDetailListsData = data.result
+//                var newData: [CategoryDetailResultContainisSelected] = []
+//                guard let arr =  owner.categoryDetailListsData else { return }
+//                for ele in arr {
+//                    let data = CategoryDetailResultContainisSelected(categoryDetailID: ele.categoryDetailID, categoryDetailName: ele.categoryDetailName)
+//                    newData.append(data)
+//                }
+//                owner.output.categoryDetailLists.accept(newData)
+//            }
+//        })
+//        .disposed(by: disposeBag)
     }
     
     

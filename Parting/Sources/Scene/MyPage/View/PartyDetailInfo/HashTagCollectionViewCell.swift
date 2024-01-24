@@ -8,13 +8,6 @@
 import UIKit
 
 class HashTagCollectionViewCell: UICollectionViewCell {
-    private let cellConatiner: UIView = {
-        let view = UIView()
-        view.backgroundColor = AppColor.gray50
-        view.clipsToBounds = true
-        return view
-    }()
-    
     let hashTagNameLabel: UILabel = {
         let label = UILabel()
         label.layer.cornerRadius = 8
@@ -24,15 +17,9 @@ class HashTagCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        DispatchQueue.main.async {
-            self.cellConatiner.layer.cornerRadius = self.cellConatiner.frame.height / 2
-        }
-    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configureContentView()
         makeConfigures()
         makeConstraints()
     }
@@ -41,20 +28,19 @@ class HashTagCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configureContentView() {
+        contentView.layer.cornerRadius = 8
+        contentView.backgroundColor =  AppColor.gray50
+    }
+    
     func makeConfigures() {
-        
-        contentView.addSubview(cellConatiner)
-        cellConatiner.addSubview(hashTagNameLabel)
+        contentView.addSubview(hashTagNameLabel)
     }
     
     func makeConstraints() {
-        cellConatiner.snp.makeConstraints { make in
-            make.height.equalTo(24)
-            make.width.equalToSuperview()
-        }
-        
         hashTagNameLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.leading.top.equalToSuperview().offset(7)
+            make.trailing.bottom.equalToSuperview().inset(7)
         }
     }
     

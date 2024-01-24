@@ -150,37 +150,6 @@ final class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtoco
         }
     }
     
-    //MARK: - 필수정보 입력 POST API
-    func postEssentialInfo(
-        _ birth: String,
-        _ job: String,
-        _ nickName: String,
-        _ sex: String,
-        _ sigunguCd: Int
-    ) {
-        let api = PartingAPI.essentialInfo(
-            birth: birth,
-            job: job,
-            nickName: nickName,
-            sex: sex,
-            sigunguCd: sigunguCd
-        )
-        guard let apiUrl = api.url else { return }
-        guard let url = URL(string: apiUrl) else { return }
-        APIManager.shared.requestPartingWithObservable(
-            type: BasicResponse.self,
-            url: url,
-            method: .post,
-            parameters: api.parameters,
-            encoding: .default,
-            headers: api.headers)
-        .withUnretained(self)
-        .subscribe(onNext: { owner, response in
-            
-        })
-        .disposed(by: disposeBag)
-    }
-    
     //MARK: - 닉네임 정규식 표현
     func nicknameValidCheck(_ nickname: String) -> Bool {
         let regexPattern = "^[a-zA-Z0-9가-힣_-]{2,16}$"
@@ -268,6 +237,64 @@ final class EssentialInfoViewModel: BaseViewModel, EssentialInfoViewModelProtoco
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
                 owner.pushInterestsViewController()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    //MARK: - 필수정보 입력 POST API
+    func postEssentialInfo(
+        _ birth: String,
+        _ job: String,
+        _ nickName: String,
+        _ sex: String,
+        _ sigunguCd: Int
+    ) {
+        let api = PartingAPI.essentialInfo(
+            birth: birth,
+            job: job,
+            nickName: nickName,
+            sex: sex,
+            sigunguCd: sigunguCd
+        )
+        guard let apiUrl = api.url else { return }
+        guard let url = URL(string: apiUrl) else { return }
+        APIManager.shared.requestPartingWithObservable(
+            type: BasicResponse.self,
+            url: url,
+            method: .post,
+            parameters: api.parameters,
+            encoding: .default,
+            headers: api.headers)
+        .withUnretained(self)
+        .subscribe(onNext: { owner, response in
+            print(response)
+        })
+        .disposed(by: disposeBag)
+    }
+    
+    func getEssentialInfo(birth: String,
+                          job: String,
+                          nickName: String,
+                          sex: String,
+                          sigunguCd: Int) {
+        let api = PartingAPI.essentialInfo(birth: birth,
+                                           job: job,
+                                           nickName: nickName,
+                                           sex: sex,
+                                           sigunguCd: sigunguCd)
+        guard let url = URL(string: api.url!) else { return }
+        APIManager.shared.requestPartingWithObservable(
+            type: CategoryResponse.self,
+            url: url,
+            method: .post,
+            parameters: api.parameters,
+            headers: api.headers
+        )
+            .withUnretained(self)
+            .subscribe(onNext: { owner, response in
+                if let result = try? response.get() {
+                    print(result)
+                }
             })
             .disposed(by: disposeBag)
     }

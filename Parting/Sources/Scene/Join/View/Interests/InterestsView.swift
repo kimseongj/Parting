@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class InterestsView: BaseView {
+final class InterestsView: BaseView {
     let setThemeLabel: UILabel = {
         let label = UILabel()
         label.text = """
@@ -31,7 +31,7 @@ class InterestsView: BaseView {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 32
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        //view.allowsMultipleSelection = true
+        view.allowsMultipleSelection = true
         return view
     }()
     
@@ -43,7 +43,6 @@ class InterestsView: BaseView {
         } else {
             nextStepButton.backgroundColor = AppColor.brandNotValidate
         }
-        
     }
     
     override func makeConfigures() {

@@ -8,30 +8,7 @@
 import UIKit
 import SnapKit
 
-protocol ButtonColorChange: AnyObject {
-    func changeButtonColor(state: Bool)
-}
-
-
-class detailCategoryCollectionViewCell: UICollectionViewCell {
-    
-    weak var delegate: ButtonColorChange?
-    
-    override var isSelected: Bool {
-        didSet {
-            configureUI()
-            delegate?.changeButtonColor(state: isSelected)
-        }
-    }
-    var isActivated: Bool
-    
-    let backGroundView: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 8
-        view.backgroundColor = UIColor(hexcode: "FAFAFA")
-        return view
-    }()
-    
+class DetailCategoryCollectionViewCell: UICollectionViewCell {
     let categoryNameLabel: UILabel = {
         let label = UILabel()
         label.font = AppFont.Regular.of(size: 16)
@@ -40,10 +17,8 @@ class detailCategoryCollectionViewCell: UICollectionViewCell {
     }()
     
     override init(frame: CGRect) {
-        isActivated = false
         super.init(frame: frame)
-        setUpview()
-        constraints()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
@@ -51,43 +26,27 @@ class detailCategoryCollectionViewCell: UICollectionViewCell {
     }
     
     func configureUI() {
-        if isSelected {
-            backGroundView.backgroundColor = AppColor.brand
-            categoryNameLabel.textColor = AppColor.white
-        } else {
-            backGroundView.backgroundColor = UIColor(hexcode: "D9D9E2")
-            categoryNameLabel.textColor = AppColor.white
-        }
-    }
-    
-    private func setUpview() {
-        backGroundView.addSubview(categoryNameLabel)
-//        contentView.backgroundColor = UIColor(hexcode: "D9D9E2")
-        [backGroundView].forEach {
-            self.contentView.addSubview($0)
-        }
-    }
-    
-    private func constraints() {
-        backGroundView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        contentView.backgroundColor = UIColor(hexcode: "D9D9E2")
+        contentView.layer.cornerRadius = 8
+        categoryNameLabel.textColor = AppColor.white
+        
+        contentView.addSubview(categoryNameLabel)
         
         categoryNameLabel.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(backGroundView).inset(12)
-            make.verticalEdges.equalTo(backGroundView).inset(4)
+            make.horizontalEdges.equalTo(contentView).inset(12)
+            make.verticalEdges.equalTo(contentView).inset(4)
         }
     }
     
-    func configure(_ text: String) {
+    func fill(with text: String) {
         self.categoryNameLabel.text = text
     }
     
     func changeCellState(_ isClicked: Bool) {
         if isClicked {
-            backGroundView.backgroundColor = AppColor.brand
+            contentView.backgroundColor = AppColor.brand
         } else {
-            backGroundView.backgroundColor = UIColor(hexcode: "D9D9E2")
+            contentView.backgroundColor = UIColor(hexcode: "D9D9E2")
         }
     }
 }

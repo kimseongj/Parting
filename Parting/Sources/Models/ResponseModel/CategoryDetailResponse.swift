@@ -12,11 +12,16 @@ struct CategoryDetailResponse: Codable {
     let isSuccess: Bool
     let code: Int
     let message: String
-    let result: [CategoryDetail]
+    let result: CategoryWithCategoryDetail
+}
+
+struct CategoryWithCategoryDetail: Codable {
+    let categoryName: String
+    let categoryDetailList: [CategoryDetail]
 }
 
 // MARK: - Result
-struct CategoryDetail: Codable {
+struct CategoryDetail: Codable, Hashable {
     let categoryDetailID: Int
     let categoryDetailName: String
 

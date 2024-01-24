@@ -7,7 +7,6 @@ target 'Parting' do
 
   pod 'NMapsMap'
 
-
   # Pods for Parting
 
 end
