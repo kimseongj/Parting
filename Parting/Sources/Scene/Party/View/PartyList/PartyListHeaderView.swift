@@ -101,8 +101,6 @@ extension PartyListHeaderView: UICollectionViewDelegateFlowLayout, UICollectionV
             })
             .disposed(by: disposeBag)
         
-        
-        
         didConfiguredCell = true
     }
     

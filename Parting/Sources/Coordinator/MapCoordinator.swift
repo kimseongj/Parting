@@ -8,8 +8,6 @@
 import UIKit
 
 protocol MapCoordinatorProtocol: Coordinator {
-    //MARK: - MyPage에 해당하는 기능 프로토콜
-    
     var MapViewController: MapViewController { get set }
 }
 
