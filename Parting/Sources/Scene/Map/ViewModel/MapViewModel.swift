@@ -10,11 +10,8 @@ import RxSwift
 import RxCocoa
 
 final class MapViewModel {
-    enum Input {
-        case viewWillAppearTrigger
-        case viewDidLoadTrigger
-        case changeSearhBound
-        case markerClicked(data: MapDetailPartyDTO)
+    struct Input {
+        let pushPartyDetailTrigger: PublishSubject<Void> = PublishSubject()
     }
     
     struct Output {
@@ -26,7 +23,7 @@ final class MapViewModel {
         var aroundPartyList: BehaviorRelay<[PartyInfoOnMapList]> = BehaviorRelay<[PartyInfoOnMapList]>(value: [])
     }
     
-    var input: PublishSubject<Input> = PublishSubject()
+    var input = Input()
     var output = Output()
     var state = State()
     var partyInfoOnMapList: [PartyInfoOnMapList] = []
@@ -99,15 +96,15 @@ final class MapViewModel {
             switch response {
             case let .success(data):
                 print(data, "💛")
+                selectedPartyID = data.result.partyInfos.first!.partyID
                 self.output.selectedParty.accept(data.result.partyInfos.first!)
-                self.showBottomSheetVC(data: data)
             case let .failure(error):
                 print(error)
             }
         }
     }
     
-    private func showBottomSheetVC(data: AroundPartyDetailResponse) {
-        self.mapCoordinator?.showPartyDetailBottomsheetVC(data: data)
+    func pushPartyDetailViewController() {
+        mapCoordinator?.pushPartyDetailVC(partyID: selectedPartyID)
     }
 }

@@ -10,7 +10,6 @@ import SnapKit
 import NMapsMap
 
 final class MapView: BaseView {
-
     let bellBarButton = BarImageButton(imageName: Images.sfSymbol.bell)
     
     let navigationLabel: BarTitleLabel = BarTitleLabel(text: "지도로 보기")
@@ -30,6 +29,7 @@ final class MapView: BaseView {
     
     func presentInfoView() {
         partyInfoView.isHidden = false
+        partyInfoView.tagCollectionView.reloadData()
     }
     
     override func makeConfigures() {
@@ -50,12 +50,10 @@ final class MapView: BaseView {
     }
 }
 
+import RxCocoa
+
 final class PartyInfoView: BaseView {
-    let clickableView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        return view
-    }()
+    private var tagList: [String] = []
     
     let locationImageView: UIImageView = {
         let imageView = UIImageView()
@@ -105,19 +103,25 @@ final class PartyInfoView: BaseView {
         return label
     }()
     
-//    let tagCollectionView: UICollectionView = {
-//        let collectionView = UICollectionView()
-//
-//        return collectionView
-//    }()
-    
-    let dismissButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("닫기", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.tintColor = .black
-        return button
+    let tagCollectionView: MutableSizeCollectionView = {
+        let leftAlignedCollectionViewFlowLayout = LeftAlignedCollectionViewFlowLayout()
+        
+        let collectionView = MutableSizeCollectionView(frame: .zero, collectionViewLayout: leftAlignedCollectionViewFlowLayout)
+        collectionView.register(HashTagCollectionViewCell.self, forCellWithReuseIdentifier: HashTagCollectionViewCell.identifier)
+        return collectionView
     }()
+    
+    func configureDetailCategoryCollectionView() {
+        if let flowLayout = tagCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        }
+    }
+    
+    func roundCorners() {
+        self.clipsToBounds = true
+        self.layer.cornerRadius = 30
+        self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
+    }
     
     func fill(with partyInfo: MarkerPartyInfo) {
         locationLabel.text = "\(partyInfo.address) \(partyInfo.distance)\(partyInfo.distanceUnit)"
@@ -125,19 +129,19 @@ final class PartyInfoView: BaseView {
         partyTitleLabel.text = partyInfo.partyName
         partyDateLabel.text = partyInfo.partyStartTime
         partyInfoLabel.text = partyInfo.description
+        partyImageView.kf.setImage(with: URL(string: partyInfo.categoryImg))
+        tagList = partyInfo.hashTagNameList
     }
     
     override func makeConfigures() {
         super.makeConfigures()
-        [clickableView, dismissButton].forEach{ self.addSubview($0) }
-        [locationImageView, locationLabel, headCountLabel, partyImageView, partyTitleLabel, partyDateLabel, partyInfoLabel].forEach{ clickableView.addSubview($0)}
+        [locationImageView, locationLabel, headCountLabel, partyImageView, partyTitleLabel, partyDateLabel, partyInfoLabel, tagCollectionView].forEach{ self.addSubview($0) }
     }
     
     override func makeConstraints() {
-        clickableView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(dismissButton.snp.top)
-        }
+        roundCorners()
+        configureDetailCategoryCollectionView()
+        tagCollectionView.dataSource = self
         
         locationImageView.snp.makeConstraints {
             $0.centerY.equalTo(locationLabel)
@@ -145,13 +149,13 @@ final class PartyInfoView: BaseView {
         }
         
         locationLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(20)
+            $0.top.equalToSuperview().offset(30)
             $0.leading.equalTo(locationImageView.snp.trailing).offset(6)
         }
         
         headCountLabel.snp.makeConstraints {
             $0.centerY.equalTo(locationLabel)
-            $0.trailing.equalToSuperview().inset(6)
+            $0.trailing.equalToSuperview().inset(22)
         }
         
         partyImageView.snp.makeConstraints {
@@ -162,7 +166,7 @@ final class PartyInfoView: BaseView {
         
         partyTitleLabel.snp.makeConstraints {
             $0.top.equalTo(partyImageView.snp.top)
-            $0.leading.equalTo(partyImageView.snp.trailing).offset(8)
+            $0.leading.equalTo(partyImageView.snp.trailing).offset(13)
         }
         
         partyDateLabel.snp.makeConstraints {
@@ -174,13 +178,26 @@ final class PartyInfoView: BaseView {
             $0.top.equalTo(partyDateLabel.snp.bottom).offset(15)
             $0.leading.equalTo(partyTitleLabel.snp.leading)
             $0.trailing.equalToSuperview().inset(22)
-            $0.bottom.equalToSuperview()
         }
         
-        dismissButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(90)
+        tagCollectionView.snp.makeConstraints {
+            $0.top.equalTo(partyImageView.snp.bottom).offset(10)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview().inset(20)
         }
+    }
+}
+
+extension PartyInfoView: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return tagList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HashTagCollectionViewCell.identifier, for: indexPath) as? HashTagCollectionViewCell else { return UICollectionViewCell() }
+        let tagName = tagList[indexPath.item]
+        cell.configureCell(name: tagName)
+        return cell
     }
 }

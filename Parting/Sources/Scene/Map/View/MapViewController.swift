@@ -9,6 +9,7 @@ import UIKit
 import NMapsMap
 import RxCocoa
 import RxSwift
+import RxGesture
 
 import CoreLocation
 
@@ -30,7 +31,6 @@ final class MapViewController: BaseViewController<MapView> {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.input.onNext(.viewWillAppearTrigger)
     }
     
     override func viewDidLoad() {
@@ -43,7 +43,7 @@ final class MapViewController: BaseViewController<MapView> {
         moveCurrentPositionCamera()
         setNaverMapDelegate()
         bindMarker()
-
+        bindPartyDetail()
     }
     
     private func naverMap() {
@@ -166,7 +166,6 @@ extension MapViewController: CLLocationManagerDelegate {
             let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: location.coordinate.latitude ?? 35.88979460661547 , lng: location.coordinate.longitude ?? 128.61133694145016))
             cameraUpdate.animation = .easeIn
             rootView.mapView.mapView.moveCamera(cameraUpdate)
-            viewModel.input.onNext(.viewDidLoadTrigger)
         }
         
         locationManager.stopUpdatingLocation()
@@ -231,11 +230,13 @@ extension MapViewController {
                     guard let self = self else { return true }
 //                    if let maker = overlay as? NMFMarker {
                         self.viewModel.getMapPartyDetailInfo(partyId: data.partyID, partyLat: data.partyLatitude, partyLng: data.partyLongitude)
-                        self.viewModel.output.selectedParty.bind(onNext: { data in
+
+                        self.viewModel.output.selectedParty.bind(onNext: { data in 
                             self.rootView.partyInfoView.fill(with: data)
+                            self.rootView.presentInfoView()
                         })
                         .disposed(by: disposeBag)
-                        self.rootView.presentInfoView()
+                        
 //                    }
                     return true
                 }
@@ -246,7 +247,11 @@ extension MapViewController {
         .disposed(by: disposeBag)
     }
     
-    func bindParyDetail() {
-//        rootView.partyInfoView.rx.
+    func bindPartyDetail() {
+        rootView.partyInfoView.rx.tapGesture().when(.recognized)
+            .bind(onNext: { _ in
+            self.viewModel.pushPartyDetailViewController()
+        })
+        .disposed(by: disposeBag)
     }
 }
