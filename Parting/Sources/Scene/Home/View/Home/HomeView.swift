@@ -78,22 +78,6 @@ class HomeView: BaseView {
         return dateformat
     }()
     
-    lazy var leftButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        button.tintColor = AppColor.gray900
-        button.addTarget(self, action: #selector(nextWeek), for: .touchUpInside)
-        return button
-    }()
-    
-    lazy var rightButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-        button.tintColor = AppColor.gray900
-        button.addTarget(self, action: #selector(prevWeek), for: .touchUpInside)
-        return button
-    }()
-    
     let pageButtonStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
@@ -101,16 +85,6 @@ class HomeView: BaseView {
         view.spacing = 12.0
         return view
     }()
-    
-    @objc func prevWeek() {
-        guard let currentPage = Calendar.current.date(byAdding: .weekOfMonth, value: 1, to: calendarView.currentPage) else { return }
-        self.calendarView.setCurrentPage(currentPage, animated: true)
-    }
-    
-    @objc func nextWeek() {
-        guard let currentPage = Calendar.current.date(byAdding: .weekOfMonth, value: -1, to: calendarView.currentPage) else { return }
-        self.calendarView.setCurrentPage(currentPage, animated: true)
-    }
     
     lazy var calendarView: FSCalendar = {
         let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 48, height: 124))
@@ -170,6 +144,7 @@ class HomeView: BaseView {
         view.layer.cornerRadius = 15
         view.layer.borderColor = AppColor.brand.cgColor
         view.layer.borderWidth = 1
+        
         return view
     }()
     
@@ -203,10 +178,6 @@ class HomeView: BaseView {
         
         myPartyListView.addSubview(notYetParticipatePartyLabel)
         myPartyListView.addSubview(addPartyButton)
-        
-        [leftButton, rightButton].forEach {
-            pageButtonStackView.addArrangedSubview($0)
-        }
         
         [calendarLabel, defaultLine, calendarView, pageButtonStackView].forEach {
             calendarTotalView.addSubview($0)
