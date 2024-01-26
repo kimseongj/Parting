@@ -85,4 +85,10 @@ final class HomeCoordinator: Coordinator {
         let vc = PartyDetailInfoViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func pushScheduleCalendarVC() {
+        let vc = ScheduleCalendarViewController()
+        vc.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+        navigationController.present(vc, animated: true)
+    }
 }
