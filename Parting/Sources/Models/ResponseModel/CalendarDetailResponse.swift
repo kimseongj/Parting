@@ -1,5 +1,5 @@
 //
-//  ScheduleCalendarViewModel.swift
+//  CalendarDetailResponse.swift
 //  Parting
 //
 //  Created by kimseongjun on 1/26/24.
