@@ -145,12 +145,12 @@ extension PartingAPI {
         switch self {
         case .oauthKaKao, .oauthLogout, .isMemeber, .tokenReissue, .reportParty, .checkEnteredParty, .partyDday, .checkMypage, .interest :
             return [
-                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTcwNTEwNDU3MiwiZXhwIjoxNzA2MzE0MTcyfQ.wVCLb-zN3FSbIDTbh5ES3dvAERAN5HwmHf26DLanK8I"
+                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTcwNjM0NDgyNCwiZXhwIjoxNzA3NTU0NDI0fQ.YMsq35cSAKtCN8HY6_Brp3pcjeCJnuLQD4TGjLokmWQ"
             ]
         case .parties, .associatedCategory, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calender, .region, .recentView, .checkMyParty, .partyMember, .detailCategory, .checkNickname, .essentialInfo, .getAroundParty, .getMapPartyDetailInfo, .getMypage, .modifyInfo, .modifyProfileImage:
             
             return [
-                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTcwNTEwNDU3MiwiZXhwIjoxNzA2MzE0MTcyfQ.wVCLb-zN3FSbIDTbh5ES3dvAERAN5HwmHf26DLanK8I",
+                "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTcwNjM0NDgyNCwiZXhwIjoxNzA3NTU0NDI0fQ.YMsq35cSAKtCN8HY6_Brp3pcjeCJnuLQD4TGjLokmWQ",
                 "Content-Type": "application/json;charset=UTF-8"
             ]
         }
