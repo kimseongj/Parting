@@ -87,7 +87,8 @@ final class HomeCoordinator: Coordinator {
     }
     
     func pushScheduleCalendarVC() {
-        let vc = ScheduleCalendarViewController()
+        let viewModel = ScheduleCalendarViewModel(coordinator: nil)
+        let vc = ScheduleCalendarViewController(viewModel: viewModel)
         vc.modalPresentationStyle = UIModalPresentationStyle.fullScreen
         navigationController.present(vc, animated: true)
     }

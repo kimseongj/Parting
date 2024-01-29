@@ -18,7 +18,6 @@ final class ScheduleCalendarView: BaseView {
     let monthLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 28)
-        label.text = "11월"
         return label
     }()
     
@@ -141,17 +140,17 @@ final class ScheduleCalendarView: BaseView {
         let safeArea = self.safeAreaLayoutGuide
         
         dismissButton.snp.makeConstraints {
-            $0.top.equalTo(safeArea.snp.top).offset(14)
+            $0.top.equalTo(safeArea.snp.top).offset(25)
             $0.leading.equalToSuperview().offset(24)
         }
         
         monthLabel.snp.makeConstraints {
-            $0.top.equalTo(safeArea.snp.top).offset(16)
+            $0.top.equalTo(safeArea.snp.top).offset(25)
             $0.centerX.equalToSuperview()
         }
         
         calendarView.snp.makeConstraints {
-            $0.top.equalTo(monthLabel.snp.bottom).offset(20)
+            $0.top.equalTo(monthLabel.snp.bottom).offset(25)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(300)
         }
