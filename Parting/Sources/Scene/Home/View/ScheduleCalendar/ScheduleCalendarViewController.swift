@@ -15,7 +15,7 @@ final class ScheduleCalendarViewController: BaseViewController<ScheduleCalendarV
         super.viewDidLoad()
         bindDismissButton()
         configureCollectionView()
-        hideScheduleCollectionView()
+        hideNoPartyView()
     }
     
     override func viewDidLayoutSubviews() {

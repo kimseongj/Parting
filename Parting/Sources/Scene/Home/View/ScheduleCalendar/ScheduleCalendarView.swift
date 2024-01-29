@@ -50,7 +50,8 @@ final class ScheduleCalendarView: BaseView {
     
     let scheduleCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize.height = 50
+//        layout.itemSize.height = 50
+        layout.minimumLineSpacing = 25
         layout.itemSize.width = UIScreen.main.bounds.width
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor(white: 1, alpha: 0)

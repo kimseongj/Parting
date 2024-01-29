@@ -26,7 +26,7 @@ final class ScheduleCell: UICollectionViewCell {
     
     private let locationLabelImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "")
+        imageView.image = UIImage(named: "locationIcon")
         return imageView
     }()
     
@@ -79,9 +79,9 @@ final class ScheduleCell: UICollectionViewCell {
         }
         
         locationLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(5)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
             $0.leading.equalTo(locationLabelImageView.snp.trailing).offset(5)
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(10)
         }
         
         ddayLabel.snp.makeConstraints {
