@@ -19,6 +19,9 @@
 		1C70EDB62B63E65F00370242 /* CalendarDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C70EDB52B63E65F00370242 /* CalendarDetailResponse.swift */; };
 		1C70EDB82B66694900370242 /* ScheduleCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C70EDB72B66694900370242 /* ScheduleCalendarView.swift */; };
 		1C70EDBA2B66695A00370242 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C70EDB92B66695A00370242 /* ScheduleCell.swift */; };
+		1C70EDBC2B67466600370242 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C70EDBB2B67466600370242 /* DateFormatter.swift */; };
+		1C70EDBE2B67470400370242 /* ScheduleCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C70EDBD2B67470400370242 /* ScheduleCalendarViewModel.swift */; };
+		1C70EDC12B674A2F00370242 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C70EDC02B674A2F00370242 /* DateFormatterManager.swift */; };
 		1C8F912C2B5CE868003A18F7 /* CategoryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8F912B2B5CE868003A18F7 /* CategoryDTO.swift */; };
 		1CCDAF352B53F732001940DA /* StartWithLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCDAF342B53F732001940DA /* StartWithLoginViewController.swift */; };
 		1CCDAF372B563C40001940DA /* StartWithLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCDAF362B563C40001940DA /* StartWithLoginView.swift */; };
@@ -214,6 +217,9 @@
 		1C70EDB52B63E65F00370242 /* CalendarDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailResponse.swift; sourceTree = "<group>"; };
 		1C70EDB72B66694900370242 /* ScheduleCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCalendarView.swift; sourceTree = "<group>"; };
 		1C70EDB92B66695A00370242 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
+		1C70EDBB2B67466600370242 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		1C70EDBD2B67470400370242 /* ScheduleCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCalendarViewModel.swift; sourceTree = "<group>"; };
+		1C70EDC02B674A2F00370242 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		1C8F912B2B5CE868003A18F7 /* CategoryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDTO.swift; sourceTree = "<group>"; };
 		1CCDAF342B53F732001940DA /* StartWithLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWithLoginViewController.swift; sourceTree = "<group>"; };
 		1CCDAF362B563C40001940DA /* StartWithLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWithLoginView.swift; sourceTree = "<group>"; };
@@ -441,6 +447,14 @@
 			path = ScheduleCalendar;
 			sourceTree = "<group>";
 		};
+		1C70EDBF2B674A2200370242 /* DateFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				1C70EDC02B674A2F00370242 /* DateFormatterManager.swift */,
+			);
+			path = DateFormatter;
+			sourceTree = "<group>";
+		};
 		1C8F912A2B5CE813003A18F7 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
@@ -596,6 +610,7 @@
 		4E89BC2029C572C400BAE38A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				1C70EDBF2B674A2200370242 /* DateFormatter */,
 				4E70E4122ABD619C007F640A /* FSCalendar */,
 				4E1CE0D72A8E4580006855E3 /* Layout */,
 				933E58922A690AA5000F945E /* CoreData */,
@@ -642,6 +657,7 @@
 				933E58CC2A69422E000F945E /* UITabBarController+Extension.swift */,
 				4EFEB0D02A85BE6900CCAE5C /* ReuseIdentifierProtocol.swift */,
 				2FBF58572AC1B01D00D227E6 /* DiffableDatasource+Extension.swift */,
+				1C70EDBB2B67466600370242 /* DateFormatter.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -826,6 +842,7 @@
 				4EF1945E2A77E29700D34B71 /* SetMapViewModel.swift */,
 				4EFEB0EA2A88966D00CCAE5C /* SetPopUpViewModel.swift */,
 				4E5AF6342AC6E89A007FB7E7 /* TabManDataSource.swift */,
+				1C70EDBD2B67470400370242 /* ScheduleCalendarViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1452,6 +1469,7 @@
 				933B3C9F2A55870C00B8D60B /* BarImageButton.swift in Sources */,
 				4E89BC2F29C57DDD00BAE38A /* APIManager.swift in Sources */,
 				4EF4D04C2A939E6B00A2E8F4 /* RecentlyPartyViewController.swift in Sources */,
+				1C70EDC12B674A2F00370242 /* DateFormatterManager.swift in Sources */,
 				4EF72E032A8C92B8000B7205 /* CheckMyPartyViewModel.swift in Sources */,
 				2FBF58562AC1999900D227E6 /* NewMyPageViewModel.swift in Sources */,
 				4E892CFE2A9EB47D0075F56F /* PartyDetailInfoViewController.swift in Sources */,
@@ -1480,6 +1498,7 @@
 				4EB29EED2ABD17F6007E15E2 /* TestViewCollectionViewCell.swift in Sources */,
 				4ECEAE1A29ED2537006AAF6B /* JoinCoordinator.swift in Sources */,
 				933E58C32A69166D000F945E /* Model.xcdatamodeld in Sources */,
+				1C70EDBC2B67466600370242 /* DateFormatter.swift in Sources */,
 				4E892D102A9F3A010075F56F /* PartyTypeCollectionViewCell.swift in Sources */,
 				4E52228C29F18166000B96B4 /* InterestsViewController.swift in Sources */,
 				2FD54EA42ABDAA1F00C9216A /* CustomTwoButtonAlertView.swift in Sources */,
@@ -1509,6 +1528,7 @@
 				4EA5836B29C04F4200BF4D7A /* AppDelegate.swift in Sources */,
 				4E52228F29F27DA8000B96B4 /* customStackView.swift in Sources */,
 				4EA5836D29C04F4200BF4D7A /* SceneDelegate.swift in Sources */,
+				1C70EDBE2B67470400370242 /* ScheduleCalendarViewModel.swift in Sources */,
 				1C70EDBA2B66695A00370242 /* ScheduleCell.swift in Sources */,
 				2FF8F4802AC2753900A46FAF /* InquireView.swift in Sources */,
 				4EB2AC692A3081090023F49A /* NickNameValidateResponse.swift in Sources */,
