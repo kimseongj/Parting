@@ -59,6 +59,32 @@ final class ScheduleCalendarView: BaseView {
         return collectionView
     }()
     
+    let noPartyView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 15
+        return view
+    }()
+    
+    let noPartyLabel: UILabel = {
+        let label = UILabel()
+        label.text = """
+아직 참여한 파티가 없어요.
+파티를 시작해볼까요?
+"""
+        label.font = AppFont.Medium.of(size: 14)
+        label.textColor = AppColor.gray900
+        label.sizeToFit()
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        return label
+    }()
+    
+    let addPartyButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "addButton"), for: .normal)
+        return button
+    }()
+    
     let scheduleCollectionBackgroundView = UIView()
     
     func makeDotLine() {
@@ -85,7 +111,7 @@ final class ScheduleCalendarView: BaseView {
             $0.top.leading.equalToSuperview()
         }
     }
-
+    
     func makeClendarViewShadow() {
         calendarView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05).cgColor
         calendarView.layer.shadowOffset = CGSize(width: 0, height: 6)
@@ -93,9 +119,21 @@ final class ScheduleCalendarView: BaseView {
         calendarView.layer.shadowOpacity = 1
         calendarView.layer.shadowPath = UIBezierPath(roundedRect: calendarView.bounds, cornerRadius: 15).cgPath
     }
+    
+    func makeNoPartyView() {
+        let borderLayer = CAShapeLayer()
+        borderLayer.strokeColor = AppColor.brand.cgColor
+        borderLayer.lineDashPattern = [2, 2]
+        borderLayer.frame = noPartyView.bounds
+        borderLayer.fillColor = nil
+        borderLayer.path = UIBezierPath(roundedRect: noPartyView.bounds, cornerRadius: 15).cgPath
+        noPartyView.layer.addSublayer(borderLayer)
+    }
+    
     override func makeConfigures() {
         self.backgroundColor = .white
-        [dismissButton, monthLabel, calendarView, scheduleCollectionBackgroundView, scheduleCollectionView].forEach { self.addSubview($0) }
+        [dismissButton, monthLabel, calendarView, scheduleCollectionBackgroundView, scheduleCollectionView, noPartyView].forEach { self.addSubview($0) }
+        [noPartyLabel, addPartyButton].forEach { noPartyView.addSubview($0) }
     }
     
     override func makeConstraints() {
@@ -127,6 +165,24 @@ final class ScheduleCalendarView: BaseView {
             $0.top.equalTo(calendarView.snp.bottom).offset(30)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(safeArea.snp.bottom)
+        }
+        
+        noPartyView.snp.makeConstraints {
+            $0.top.equalTo(calendarView.snp.bottom).offset(32)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(UIScreen.main.bounds.width * 0.8)
+            $0.height.equalTo(UIScreen.main.bounds.width * 0.3)
+        }
+        
+        noPartyLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(20)
+            $0.centerX.equalToSuperview()
+        }
+        
+        addPartyButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(20)
+            $0.size.equalTo(29)
+            $0.centerX.equalToSuperview()
         }
     }
 }

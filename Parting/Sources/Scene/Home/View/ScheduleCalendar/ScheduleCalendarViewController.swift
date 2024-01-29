@@ -14,16 +14,38 @@ final class ScheduleCalendarViewController: BaseViewController<ScheduleCalendarV
     override func viewDidLoad() {
         super.viewDidLoad()
         bindDismissButton()
-        rootView.scheduleCollectionView.dataSource = self
+        configureCollectionView()
+        hideScheduleCollectionView()
     }
     
     override func viewDidLayoutSubviews() {
         rootView.makeDotLine()
         rootView.makeClendarViewShadow()
+        rootView.makeNoPartyView()
     }
     
     deinit {
         print("ScheduleCalendarVC 메모리 해제")
+    }
+    
+    private func configureCollectionView() {
+        rootView.scheduleCollectionView.dataSource = self
+    }
+    
+    private func bindScheduleCollectionView() {
+        
+    }
+    
+    private func hideScheduleCollectionView() {
+        rootView.scheduleCollectionView.isHidden = true
+        rootView.scheduleCollectionBackgroundView.isHidden = true
+        rootView.noPartyView.isHidden = false
+    }
+    
+    private func hideNoPartyView() {
+        rootView.scheduleCollectionView.isHidden = false
+        rootView.scheduleCollectionBackgroundView.isHidden = false
+        rootView.noPartyView.isHidden = true
     }
     
     private func bindDismissButton() {
