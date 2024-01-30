@@ -8,7 +8,6 @@
 import UIKit
 import FSCalendar
 
-
 final class ScheduleCalendarViewController: BaseViewController<ScheduleCalendarView> {
     
     private var viewModel: ScheduleCalendarViewModel
@@ -29,6 +28,7 @@ final class ScheduleCalendarViewController: BaseViewController<ScheduleCalendarV
         configureCollectionView()
         hideNoPartyView()
         configureMonth()
+        configureCalendar()
     }
     
     override func viewDidLayoutSubviews() {
@@ -43,6 +43,10 @@ final class ScheduleCalendarViewController: BaseViewController<ScheduleCalendarV
     
     private func configureMonth() {
         rootView.monthLabel.text = viewModel.fetchNowMonth()
+    }
+    
+    private func configureCalendar() {
+        rootView.calendarView.delegate = self
     }
     
     private func configureCollectionView() {
@@ -83,5 +87,13 @@ extension ScheduleCalendarViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ScheduleCell.identifier, for: indexPath) as? ScheduleCell else { return UICollectionViewCell() }
         return cell
+    }
+}
+
+extension ScheduleCalendarViewController: FSCalendarDelegate {
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        let currentPage = rootView.calendarView.currentPage
+        let formattedMonth = DateFormatterManager.dateFormatter.makeYearMonthDate(date: currentPage)
+        rootView.monthLabel.text = formattedMonth
     }
 }

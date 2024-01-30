@@ -32,8 +32,8 @@ final class ScheduleCalendarViewModel: BaseViewModel {
     }
     
     func fetchNowMonth() -> String {
-        DateFormatterManager.dateFormatter.makeMonthFormatter()
-        let month = DateFormatterManager.dateFormatter.string(from: Date())
+        
+        let month = DateFormatterManager.dateFormatter.makeNowMonthDate()
         return month
     }
     
