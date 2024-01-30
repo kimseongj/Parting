@@ -8,9 +8,15 @@
 import Foundation
 
 extension DateFormatter {
-    func makeMonthFormatter() {
+    func makeNowMonthDate() -> String {
         self.dateFormat = "MM월"
         self.locale = Locale(identifier: "ko_KR")
         self.timeZone = TimeZone(identifier: "KST")
+        return self.string(from: Date())
+    }
+    
+    func makeYearMonthDate(date: Date) -> String {
+        self.dateFormat = "yyyy년 MM월"
+        return self.string(from: date)
     }
 }
