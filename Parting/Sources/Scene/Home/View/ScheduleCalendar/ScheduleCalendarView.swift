@@ -116,10 +116,10 @@ final class ScheduleCalendarView: BaseView {
         calendarView.layer.shadowPath = UIBezierPath(roundedRect: calendarView.bounds, cornerRadius: 15).cgPath
     }
     
-    func makeNoPartyView() {
+    func configureNoPartyView() {
         let borderLayer = CAShapeLayer()
         borderLayer.strokeColor = AppColor.brand.cgColor
-        borderLayer.lineDashPattern = [2, 2]
+        borderLayer.lineDashPattern = [4, 4]
         borderLayer.frame = noPartyView.bounds
         borderLayer.fillColor = nil
         borderLayer.path = UIBezierPath(roundedRect: noPartyView.bounds, cornerRadius: 15).cgPath
