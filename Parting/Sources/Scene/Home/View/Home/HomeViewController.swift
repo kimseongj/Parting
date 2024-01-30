@@ -84,7 +84,7 @@ final class HomeViewController: BaseViewController<HomeView> {
         setDatasourceAndDelegate()
     }
     
-    override func viewDidLayoutSubviews() {
+    override func viewDidLayoutSubviews() { 
         rootView.configureMyPartyListView()
     }
     

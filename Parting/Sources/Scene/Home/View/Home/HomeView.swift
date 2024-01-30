@@ -44,14 +44,17 @@ class HomeView: BaseView {
     let categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        view.isScrollEnabled = false
         return view
     }()
     
     let calendarTotalView: UIView = {
         let view = UIView()
+        view.backgroundColor = .white
         view.layer.cornerRadius = 15
         view.layer.borderColor = AppColor.gray50.cgColor
         view.layer.borderWidth = 1
+        view.makeBottomShadow()
         return view
     }()
     
@@ -155,7 +158,7 @@ class HomeView: BaseView {
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .estimated(68)
+            heightDimension: .estimated(72)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
@@ -166,10 +169,6 @@ class HomeView: BaseView {
         return layout
     }
     
-    override func layoutSubviews() {
-        
-    }
-    
     override func makeConfigures() {
         super.makeConfigures()
         naviCustomView.addSubview(naviImageView)
@@ -177,7 +176,7 @@ class HomeView: BaseView {
         myPartyListView.addSubview(notYetParticipatePartyLabel)
         myPartyListView.addSubview(addPartyButton)
         
-        [calendarLabel, defaultLine, calendarView, pageButtonStackView].forEach {
+        [calendarLabel, defaultLine, calendarView].forEach {
             calendarTotalView.addSubview($0)
         }
         
@@ -241,11 +240,6 @@ class HomeView: BaseView {
             make.top.leading.equalToSuperview().inset(24)
         }
         
-        pageButtonStackView.snp.makeConstraints { make in
-            make.height.equalTo(20)
-            make.top.trailing.equalToSuperview().inset(24)
-        }
-        
         defaultLine.snp.makeConstraints { make in
             make.height.equalTo(1)
             make.top.equalTo(calendarLabel.snp.bottom).offset(9)
@@ -259,7 +253,7 @@ class HomeView: BaseView {
         }
         
         myPartyListLabel.snp.makeConstraints { make in
-            make.top.equalTo(calendarView.snp.bottom).offset(24)
+            make.top.equalTo(calendarTotalView.snp.bottom).offset(24)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24)
             make.height.equalTo(20)
         }
@@ -280,7 +274,6 @@ class HomeView: BaseView {
             make.centerX.equalToSuperview()
             make.width.equalTo(UIScreen.main.bounds.width * 0.8)
             make.height.equalTo(UIScreen.main.bounds.width * 0.3)
-            make.bottom.equalToSuperview().inset(50)
         }
     }
     
