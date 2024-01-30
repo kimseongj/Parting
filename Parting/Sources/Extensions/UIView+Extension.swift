@@ -20,4 +20,25 @@ extension UIView {
 //        gradient.position = center
         layer.insertSublayer(gradient, at: 0)
     }
+    
+    func makeBottomShadow() {
+        self.layer.shadowOpacity = 0.3
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 5)
+        self.layer.shadowRadius = 5
+    }
+    
+    func makeSmallBottomShadow() {
+        self.layer.shadowOpacity = 0.3
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 2)
+        self.layer.shadowRadius = 1
+    }
+    
+    func makeRightBottomShadow() {
+        self.layer.shadowOpacity = 0.3
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 5, height: 5)
+        self.layer.shadowRadius = 5
+    }
 }
