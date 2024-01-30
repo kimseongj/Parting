@@ -145,6 +145,10 @@ final class HomeViewModel {
 	func pushPartyListVC(category: CategoryModel) {
 		self.coordinator?.pushPartyListVC(category: category)
 	}
+    
+    func pushScheduleCalendarVC() {
+        coordinator?.pushScheduleCalendarVC()
+    }
 	
 }
 

@@ -179,6 +179,8 @@ final class HomeViewController: BaseViewController<HomeView> {
                 owner.viewModel.input.onNext(.didSelectedCell(model: model))
             })
             .disposed(by: disposeBag)
+        
+        bindCalendarViewEvent()
     }
 }
 
@@ -189,5 +191,16 @@ extension HomeViewController: CLLocationManagerDelegate {
             HomeViewController.userLng = location.coordinate.longitude
             print("사용자 현재 위치 위경도: \(HomeViewController.userLat), \(HomeViewController.userLng )")
         }
+    }
+}
+
+//MARK: - bindCalendarViewEvent
+extension HomeViewController {
+    func bindCalendarViewEvent() {
+        rootView.calendarView.rx.tapGesture().when(.recognized).bind(onNext: {[weak self] _ in
+            guard let self = self else { return }
+            self.viewModel.pushScheduleCalendarVC()
+        })
+        .disposed(by: disposeBag)
     }
 }
