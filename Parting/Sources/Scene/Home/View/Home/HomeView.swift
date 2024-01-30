@@ -142,8 +142,6 @@ class HomeView: BaseView {
     let myPartyListView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 15
-        view.layer.borderColor = AppColor.brand.cgColor
-        view.layer.borderWidth = 1
         
         return view
     }()
@@ -267,22 +265,33 @@ class HomeView: BaseView {
         }
         
         notYetParticipatePartyLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(19)
-            make.horizontalEdges.equalToSuperview().inset(80)
-            make.height.equalTo(46)
+            make.top.equalToSuperview().inset(20)
+            make.centerX.equalToSuperview()
         }
         
         addPartyButton.snp.makeConstraints { make in
-            make.top.equalTo(notYetParticipatePartyLabel.snp.bottom).offset(14)
+            make.bottom.equalToSuperview().inset(20)
             make.size.equalTo(29)
             make.centerX.equalToSuperview()
         }
         
         myPartyListView.snp.makeConstraints { make in
             make.top.equalTo(myPartyListLabel.snp.bottom).offset(12)
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24)
-            make.height.equalTo(126)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(UIScreen.main.bounds.width * 0.8)
+            make.height.equalTo(UIScreen.main.bounds.width * 0.3)
+            make.bottom.equalToSuperview().inset(50)
         }
+    }
+    
+    func configureMyPartyListView() {
+        let borderLayer = CAShapeLayer()
+        borderLayer.strokeColor = AppColor.brand.cgColor
+        borderLayer.lineDashPattern = [4, 4]
+        borderLayer.frame = myPartyListView.bounds
+        borderLayer.fillColor = nil
+        borderLayer.path = UIBezierPath(roundedRect: myPartyListView.bounds, cornerRadius: 15).cgPath
+        myPartyListView.layer.addSublayer(borderLayer)
     }
 }
 

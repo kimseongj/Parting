@@ -84,6 +84,10 @@ final class HomeViewController: BaseViewController<HomeView> {
         setDatasourceAndDelegate()
     }
     
+    override func viewDidLayoutSubviews() {
+        rootView.configureMyPartyListView()
+    }
+    
     private func cellResigster() {
         rootView.categoryCollectionView.register(TestViewCollectionViewCell.self, forCellWithReuseIdentifier: TestViewCollectionViewCell.identifier)
     }
