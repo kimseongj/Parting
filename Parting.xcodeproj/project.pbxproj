@@ -19,7 +19,7 @@
 		1C70EDB62B63E65F00370242 /* CalendarDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C70EDB52B63E65F00370242 /* CalendarDetailResponse.swift */; };
 		1C70EDB82B66694900370242 /* ScheduleCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C70EDB72B66694900370242 /* ScheduleCalendarView.swift */; };
 		1C70EDBA2B66695A00370242 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C70EDB92B66695A00370242 /* ScheduleCell.swift */; };
-		1C70EDBC2B67466600370242 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C70EDBB2B67466600370242 /* DateFormatter.swift */; };
+		1C70EDBC2B67466600370242 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C70EDBB2B67466600370242 /* DateFormatter+Extension.swift */; };
 		1C70EDBE2B67470400370242 /* ScheduleCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C70EDBD2B67470400370242 /* ScheduleCalendarViewModel.swift */; };
 		1C70EDC12B674A2F00370242 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C70EDC02B674A2F00370242 /* DateFormatterManager.swift */; };
 		1C8F912C2B5CE868003A18F7 /* CategoryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8F912B2B5CE868003A18F7 /* CategoryDTO.swift */; };
@@ -217,7 +217,7 @@
 		1C70EDB52B63E65F00370242 /* CalendarDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailResponse.swift; sourceTree = "<group>"; };
 		1C70EDB72B66694900370242 /* ScheduleCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCalendarView.swift; sourceTree = "<group>"; };
 		1C70EDB92B66695A00370242 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
-		1C70EDBB2B67466600370242 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		1C70EDBB2B67466600370242 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		1C70EDBD2B67470400370242 /* ScheduleCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCalendarViewModel.swift; sourceTree = "<group>"; };
 		1C70EDC02B674A2F00370242 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		1C8F912B2B5CE868003A18F7 /* CategoryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDTO.swift; sourceTree = "<group>"; };
@@ -657,7 +657,7 @@
 				933E58CC2A69422E000F945E /* UITabBarController+Extension.swift */,
 				4EFEB0D02A85BE6900CCAE5C /* ReuseIdentifierProtocol.swift */,
 				2FBF58572AC1B01D00D227E6 /* DiffableDatasource+Extension.swift */,
-				1C70EDBB2B67466600370242 /* DateFormatter.swift */,
+				1C70EDBB2B67466600370242 /* DateFormatter+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1498,7 +1498,7 @@
 				4EB29EED2ABD17F6007E15E2 /* TestViewCollectionViewCell.swift in Sources */,
 				4ECEAE1A29ED2537006AAF6B /* JoinCoordinator.swift in Sources */,
 				933E58C32A69166D000F945E /* Model.xcdatamodeld in Sources */,
-				1C70EDBC2B67466600370242 /* DateFormatter.swift in Sources */,
+				1C70EDBC2B67466600370242 /* DateFormatter+Extension.swift in Sources */,
 				4E892D102A9F3A010075F56F /* PartyTypeCollectionViewCell.swift in Sources */,
 				4E52228C29F18166000B96B4 /* InterestsViewController.swift in Sources */,
 				2FD54EA42ABDAA1F00C9216A /* CustomTwoButtonAlertView.swift in Sources */,
