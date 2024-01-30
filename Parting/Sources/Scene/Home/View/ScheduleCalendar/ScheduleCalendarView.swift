@@ -23,9 +23,6 @@ final class ScheduleCalendarView: BaseView {
     
     lazy var calendarView: FSCalendar = {
         let calendar = FSCalendar(frame: .zero)
-        //        calendar.dataSource = self
-        //        calendar.delegate = self
-        
         calendar.weekdayHeight = 20
         calendar.rowHeight = 30
         calendar.firstWeekday = 1
@@ -49,7 +46,6 @@ final class ScheduleCalendarView: BaseView {
     
     let scheduleCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-//        layout.itemSize.height = 50
         layout.minimumLineSpacing = 25
         layout.itemSize.width = UIScreen.main.bounds.width
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)

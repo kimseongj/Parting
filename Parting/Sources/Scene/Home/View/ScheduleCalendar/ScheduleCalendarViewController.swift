@@ -9,7 +9,6 @@ import UIKit
 import FSCalendar
 
 final class ScheduleCalendarViewController: BaseViewController<ScheduleCalendarView> {
-    
     private var viewModel: ScheduleCalendarViewModel
     
     init(viewModel: ScheduleCalendarViewModel) {
