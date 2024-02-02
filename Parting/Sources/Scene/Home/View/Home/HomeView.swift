@@ -93,7 +93,6 @@ class HomeView: BaseView {
         let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 48, height: 124))
         calendar.dataSource = self
         calendar.delegate = self
-        
         calendar.weekdayHeight = 20
         calendar.rowHeight = 30
         calendar.firstWeekday = 1
@@ -149,6 +148,25 @@ class HomeView: BaseView {
         return view
     }()
     
+    private lazy var carouselFlowLayout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = calculateItemSize()
+        layout.minimumLineSpacing = 15
+        
+        return layout
+    }()
+    
+    lazy var myPartyCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: carouselFlowLayout)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.clipsToBounds = true
+        collectionView.contentInset = calculateContentInset()
+        collectionView.isScrollEnabled = true
+        collectionView.register(MyPartyCell.self, forCellWithReuseIdentifier: MyPartyCell.identifier)
+        return collectionView
+    }()
+    
     static func createLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1/4),
@@ -180,7 +198,7 @@ class HomeView: BaseView {
             calendarTotalView.addSubview($0)
         }
         
-        [categoryCollectionView, calendarTotalView, myPartyListLabel, myPartyListView].forEach {
+        [categoryCollectionView, calendarTotalView, myPartyListLabel, myPartyListView, myPartyCollectionView].forEach {
             contentView.addSubview($0)
         }
         
@@ -209,7 +227,6 @@ class HomeView: BaseView {
             make.height.equalTo(naviImageView.snp.width).multipliedBy(1.4)
             make.centerX.equalToSuperview()
         }
-        
         
         naviCustomView.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -273,7 +290,13 @@ class HomeView: BaseView {
             make.top.equalTo(myPartyListLabel.snp.bottom).offset(12)
             make.centerX.equalToSuperview()
             make.width.equalTo(UIScreen.main.bounds.width * 0.8)
-            make.height.equalTo(UIScreen.main.bounds.width * 0.3)
+            make.height.equalTo(UIScreen.main.bounds.width * 0.4)
+        }
+        
+        myPartyCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(myPartyListLabel.snp.bottom).offset(12)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(UIScreen.main.bounds.width * 0.4)
         }
     }
     
@@ -285,6 +308,16 @@ class HomeView: BaseView {
         borderLayer.fillColor = nil
         borderLayer.path = UIBezierPath(roundedRect: myPartyListView.bounds, cornerRadius: 15).cgPath
         myPartyListView.layer.addSublayer(borderLayer)
+    }
+    
+    func hideMypartyCollectionView() {
+        myPartyCollectionView.isHidden = true
+        myPartyListView.isHidden = false
+    }
+    
+    func hideMyPartyListView() {
+        myPartyCollectionView.isHidden = false
+        myPartyListView.isHidden = true
     }
 }
 
@@ -302,5 +335,18 @@ extension HomeView: FSCalendarDataSource {
         }
         
         self.layoutIfNeeded()
+    }
+}
+
+extension HomeView {
+
+    private func calculateItemSize() -> CGSize {
+        let itemSize = CGSize(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.width * 0.4)
+        return itemSize
+    }
+    
+    private func calculateContentInset() -> UIEdgeInsets {
+        let collectionViewContentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        return collectionViewContentInset
     }
 }
