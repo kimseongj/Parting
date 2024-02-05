@@ -346,7 +346,7 @@ extension HomeView {
     }
     
     private func calculateContentInset() -> UIEdgeInsets {
-        let collectionViewContentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        let collectionViewContentInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
         return collectionViewContentInset
     }
 }

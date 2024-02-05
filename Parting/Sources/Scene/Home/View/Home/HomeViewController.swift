@@ -82,6 +82,7 @@ final class HomeViewController: BaseViewController<HomeView> {
         bind()
         checkDeviceLocationAuthorization()
         setDatasourceAndDelegate()
+        rootView.hideMyPartyListView()
     }
     
     override func viewDidLayoutSubviews() { 
@@ -96,6 +97,7 @@ final class HomeViewController: BaseViewController<HomeView> {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
+        rootView.myPartyCollectionView.dataSource = self
     }
     
     // MARK: - 지도 위치 권한 설정
@@ -206,5 +208,17 @@ extension HomeViewController {
             self.viewModel.pushScheduleCalendarVC()
         })
         .disposed(by: disposeBag)
+    }
+}
+
+extension HomeViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPartyCell.identifier, for: indexPath) as? MyPartyCell else { return UICollectionViewCell() }
+        
+        return cell
     }
 }
