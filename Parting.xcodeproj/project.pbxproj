@@ -400,9 +400,9 @@
 		9348C10A2A5029C6000F25A9 /* BarTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarTitleLabel.swift; sourceTree = "<group>"; };
 		9348C10F2A504680000F25A9 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		935D3A7D2A0A78900033DCCD /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
-		935D3A7F2A0A7B7F0033DCCD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Parting/Sources/Scene/Home/View/Home/HomeViewController.swift; sourceTree = SOURCE_ROOT; };
-		935D3A812A0A7C210033DCCD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeView.swift; path = Parting/Sources/Scene/Home/View/Home/HomeView.swift; sourceTree = SOURCE_ROOT; };
-		935D3A832A0A7CAF0033DCCD /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewModel.swift; path = Parting/Sources/Scene/Home/Coordinator/HomeViewModel.swift; sourceTree = SOURCE_ROOT; };
+		935D3A7F2A0A7B7F0033DCCD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Parting/Sources/Scene/Home/View/Home/View/HomeViewController.swift; sourceTree = SOURCE_ROOT; };
+		935D3A812A0A7C210033DCCD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeView.swift; path = Parting/Sources/Scene/Home/View/Home/View/HomeView.swift; sourceTree = SOURCE_ROOT; };
+		935D3A832A0A7CAF0033DCCD /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewModel.swift; path = Parting/Sources/Scene/Home/View/Home/ViewModel/HomeViewModel.swift; sourceTree = SOURCE_ROOT; };
 		937711E92A4EDFD00019DC6F /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 		938C902B2A512003007FA45F /* DdayWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DdayWidgetView.swift; sourceTree = "<group>"; };
 		93A09BA12A4D967F0096A1D5 /* CalendarWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWidgetView.swift; sourceTree = "<group>"; };
@@ -439,6 +439,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C26A0EF2B71CD7F00E9F591 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				935D3A812A0A7C210033DCCD /* HomeView.swift */,
+				935D3A7F2A0A7B7F0033DCCD /* HomeViewController.swift */,
+				4EB29EEC2ABD17F6007E15E2 /* TestViewCollectionViewCell.swift */,
+				1CF9F6DC2B70F60500D8A680 /* MyPartyCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1C26A0F02B71CD9400E9F591 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				935D3A832A0A7CAF0033DCCD /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		1C3630942B61F536009C6EF1 /* ScheduleCalendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -838,7 +857,6 @@
 		4E89BC4729C5E13500BAE38A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				935D3A832A0A7CAF0033DCCD /* HomeViewModel.swift */,
 				9348C1042A500A2A000F25A9 /* ScheduleViewModel.swift */,
 				4E9317732A6B7B15001FBDCB /* CreatePartyViewModel.swift */,
 				4EF1945E2A77E29700D34B71 /* SetMapViewModel.swift */,
@@ -1026,10 +1044,8 @@
 		4EF4D0612A942C0600A2E8F4 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				935D3A812A0A7C210033DCCD /* HomeView.swift */,
-				935D3A7F2A0A7B7F0033DCCD /* HomeViewController.swift */,
-				4EB29EEC2ABD17F6007E15E2 /* TestViewCollectionViewCell.swift */,
-				1CF9F6DC2B70F60500D8A680 /* MyPartyCell.swift */,
+				1C26A0F02B71CD9400E9F591 /* ViewModel */,
+				1C26A0EF2B71CD7F00E9F591 /* View */,
 			);
 			path = Home;
 			sourceTree = "<group>";
