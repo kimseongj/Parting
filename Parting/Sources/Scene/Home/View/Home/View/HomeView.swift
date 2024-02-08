@@ -121,17 +121,26 @@ class HomeView: BaseView {
         return label
     }()
     
-    let notYetParticipatePartyLabel: UILabel = {
+    let notYetParticipatePartyLabel1: UILabel = {
         let label = UILabel()
-        label.text = """
-아직 참여한 파티가 없어요.
-파티를 시작해볼까요?
-"""
+        label.text = "아직 참여한 파티가 없어요."
+
         label.font = AppFont.Medium.of(size: 14)
         label.textColor = AppColor.gray900
         label.sizeToFit()
         label.textAlignment = .center
-        label.numberOfLines = 2
+        label.numberOfLines = 1
+        return label
+    }()
+    
+    let notYetParticipatePartyLabel2: UILabel = {
+        let label = UILabel()
+        label.text = "파티를 시작해볼까요?"
+        label.font = AppFont.Medium.of(size: 14)
+        label.textColor = AppColor.gray900
+        label.sizeToFit()
+        label.textAlignment = .center
+        label.numberOfLines = 1
         return label
     }()
     
@@ -191,7 +200,8 @@ class HomeView: BaseView {
         super.makeConfigures()
         naviCustomView.addSubview(naviImageView)
         
-        myPartyListView.addSubview(notYetParticipatePartyLabel)
+        myPartyListView.addSubview(notYetParticipatePartyLabel1)
+        myPartyListView.addSubview(notYetParticipatePartyLabel2)
         myPartyListView.addSubview(addPartyButton)
         
         [calendarLabel, defaultLine, calendarView].forEach {
@@ -275,8 +285,13 @@ class HomeView: BaseView {
             make.height.equalTo(20)
         }
         
-        notYetParticipatePartyLabel.snp.makeConstraints { make in
+        notYetParticipatePartyLabel1.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(20)
+            make.centerX.equalToSuperview()
+        }
+        
+        notYetParticipatePartyLabel2.snp.makeConstraints { make in
+            make.top.equalTo(notYetParticipatePartyLabel1.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
         }
         
@@ -289,8 +304,8 @@ class HomeView: BaseView {
         myPartyListView.snp.makeConstraints { make in
             make.top.equalTo(myPartyListLabel.snp.bottom).offset(12)
             make.centerX.equalToSuperview()
-            make.width.equalTo(UIScreen.main.bounds.width * 0.8)
-            make.height.equalTo(UIScreen.main.bounds.width * 0.4)
+            make.horizontalEdges.equalToSuperview().inset(24)
+            make.height.equalTo(125)
         }
         
         myPartyCollectionView.snp.makeConstraints { make in
