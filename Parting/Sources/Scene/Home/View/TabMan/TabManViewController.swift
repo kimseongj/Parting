@@ -44,14 +44,14 @@ final class TabManViewController: TabmanViewController {
     
     func configureTabmanBar() {
         bar.layout.transitionStyle = .snap
-        bar.layout.alignment = .centerDistributed
+        bar.layout.alignment = .leading
         bar.layout.contentMode = .intrinsic
         bar.layout.interButtonSpacing = 23
         
         bar.backgroundView.style = .clear
         bar.backgroundColor = AppColor.white
         
-        bar.layout.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        bar.layout.contentInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
         
         bar.buttons.customize { button in
             button.tintColor = AppColor.gray300
