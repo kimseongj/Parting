@@ -33,7 +33,7 @@ final class ScheduleCalendarViewController: BaseViewController<ScheduleCalendarV
     override func viewDidLayoutSubviews() {
         rootView.makeDotLine()
         rootView.makeClendarViewShadow()
-        rootView.makeNoPartyView()
+        rootView.configureNoPartyView()
     }
     
     deinit {

@@ -7,11 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1C3630832B5F90FD009C6EF1 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3630822B5F90FD009C6EF1 /* RxBlocking */; };
-		1C3630852B5F90FD009C6EF1 /* RxBlocking-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3630842B5F90FD009C6EF1 /* RxBlocking-Dynamic */; };
-		1C3630872B5F90FD009C6EF1 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3630862B5F90FD009C6EF1 /* RxCocoa */; };
-		1C3630892B5F90FD009C6EF1 /* RxCocoa-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3630882B5F90FD009C6EF1 /* RxCocoa-Dynamic */; };
-		1C36308B2B5F90FD009C6EF1 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 1C36308A2B5F90FD009C6EF1 /* RxRelay */; };
+		1C26A0F92B71E45D00E9F591 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 1C26A0F82B71E45D00E9F591 /* RxBlocking */; };
+		1C26A0FB2B71E45D00E9F591 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 1C26A0FA2B71E45D00E9F591 /* RxCocoa */; };
+		1C26A0FD2B71E45D00E9F591 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 1C26A0FC2B71E45D00E9F591 /* RxRelay */; };
+		1C26A1002B746DC500E9F591 /* UserLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C26A0FF2B746DC500E9F591 /* UserLocationManager.swift */; };
 		1C36308E2B5F9184009C6EF1 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 1C36308D2B5F9184009C6EF1 /* RxGesture */; };
 		1C3630912B5F9197009C6EF1 /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3630902B5F9197009C6EF1 /* Differentiator */; };
 		1C3630932B5F9197009C6EF1 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3630922B5F9197009C6EF1 /* RxDataSources */; };
@@ -27,6 +26,7 @@
 		1CCDAF372B563C40001940DA /* StartWithLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCDAF362B563C40001940DA /* StartWithLoginView.swift */; };
 		1CCDAF392B565180001940DA /* MutableSizeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCDAF382B565180001940DA /* MutableSizeCollectionView.swift */; };
 		1CCDAF3B2B56520D001940DA /* DetailInterestsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCDAF3A2B56520D001940DA /* DetailInterestsListView.swift */; };
+		1CF9F6DD2B70F60500D8A680 /* MyPartyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF9F6DC2B70F60500D8A680 /* MyPartyCell.swift */; };
 		2FBF584D2AC16BFC00D227E6 /* MyPageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBF584C2AC16BFC00D227E6 /* MyPageResponse.swift */; };
 		2FBF58502AC1822F00D227E6 /* TopTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBF584F2AC1822F00D227E6 /* TopTipView.swift */; };
 		2FBF58562AC1999900D227E6 /* NewMyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBF58552AC1999900D227E6 /* NewMyPageViewModel.swift */; };
@@ -213,6 +213,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C26A0FF2B746DC500E9F591 /* UserLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationManager.swift; sourceTree = "<group>"; };
 		1C3630972B61F565009C6EF1 /* ScheduleCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCalendarViewController.swift; sourceTree = "<group>"; };
 		1C70EDB52B63E65F00370242 /* CalendarDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailResponse.swift; sourceTree = "<group>"; };
 		1C70EDB72B66694900370242 /* ScheduleCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCalendarView.swift; sourceTree = "<group>"; };
@@ -225,6 +226,7 @@
 		1CCDAF362B563C40001940DA /* StartWithLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWithLoginView.swift; sourceTree = "<group>"; };
 		1CCDAF382B565180001940DA /* MutableSizeCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableSizeCollectionView.swift; sourceTree = "<group>"; };
 		1CCDAF3A2B56520D001940DA /* DetailInterestsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInterestsListView.swift; sourceTree = "<group>"; };
+		1CF9F6DC2B70F60500D8A680 /* MyPartyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPartyCell.swift; sourceTree = "<group>"; };
 		2FBF584C2AC16BFC00D227E6 /* MyPageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageResponse.swift; sourceTree = "<group>"; };
 		2FBF584F2AC1822F00D227E6 /* TopTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTipView.swift; sourceTree = "<group>"; };
 		2FBF58552AC1999900D227E6 /* NewMyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMyPageViewModel.swift; sourceTree = "<group>"; };
@@ -398,9 +400,9 @@
 		9348C10A2A5029C6000F25A9 /* BarTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarTitleLabel.swift; sourceTree = "<group>"; };
 		9348C10F2A504680000F25A9 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		935D3A7D2A0A78900033DCCD /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
-		935D3A7F2A0A7B7F0033DCCD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Parting/Sources/Scene/Home/View/Home/HomeViewController.swift; sourceTree = SOURCE_ROOT; };
-		935D3A812A0A7C210033DCCD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeView.swift; path = Parting/Sources/Scene/Home/View/Home/HomeView.swift; sourceTree = SOURCE_ROOT; };
-		935D3A832A0A7CAF0033DCCD /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewModel.swift; path = Parting/Sources/Scene/Home/Coordinator/HomeViewModel.swift; sourceTree = SOURCE_ROOT; };
+		935D3A7F2A0A7B7F0033DCCD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Parting/Sources/Scene/Home/View/Home/View/HomeViewController.swift; sourceTree = SOURCE_ROOT; };
+		935D3A812A0A7C210033DCCD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeView.swift; path = Parting/Sources/Scene/Home/View/Home/View/HomeView.swift; sourceTree = SOURCE_ROOT; };
+		935D3A832A0A7CAF0033DCCD /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewModel.swift; path = Parting/Sources/Scene/Home/View/Home/ViewModel/HomeViewModel.swift; sourceTree = SOURCE_ROOT; };
 		937711E92A4EDFD00019DC6F /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 		938C902B2A512003007FA45F /* DdayWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DdayWidgetView.swift; sourceTree = "<group>"; };
 		93A09BA12A4D967F0096A1D5 /* CalendarWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWidgetView.swift; sourceTree = "<group>"; };
@@ -414,29 +416,54 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C26A0FD2B71E45D00E9F591 /* RxRelay in Frameworks */,
 				933B3C972A55858B00B8D60B /* Kingfisher in Frameworks */,
 				4EECA7EE2A6E5BD400C94417 /* MultiSlider in Frameworks */,
-				1C36308B2B5F90FD009C6EF1 /* RxRelay in Frameworks */,
 				4EA81DDC29ED2D2A0070F1B7 /* SnapKit in Frameworks */,
 				1C3630912B5F9197009C6EF1 /* Differentiator in Frameworks */,
 				4E5AF6302AC6D4FA007FB7E7 /* Tabman in Frameworks */,
+				1C26A0F92B71E45D00E9F591 /* RxBlocking in Frameworks */,
 				4E89BC3F29C58B7300BAE38A /* Alamofire in Frameworks */,
 				933B3CAB2A55875600B8D60B /* FSCalendar in Frameworks */,
 				1C36308E2B5F9184009C6EF1 /* RxGesture in Frameworks */,
-				1C3630892B5F90FD009C6EF1 /* RxCocoa-Dynamic in Frameworks */,
-				1C3630872B5F90FD009C6EF1 /* RxCocoa in Frameworks */,
 				1C3630932B5F9197009C6EF1 /* RxDataSources in Frameworks */,
+				1C26A0FB2B71E45D00E9F591 /* RxCocoa in Frameworks */,
 				4E2874B92A2D98FB0000B24C /* KakaoSDK in Frameworks */,
 				4E0DCE502A7CC2D200DEB3B5 /* Toast in Frameworks */,
 				D814D56DDF663E3A26B75E22 /* Pods_Parting.framework in Frameworks */,
-				1C3630852B5F90FD009C6EF1 /* RxBlocking-Dynamic in Frameworks */,
-				1C3630832B5F90FD009C6EF1 /* RxBlocking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C26A0EF2B71CD7F00E9F591 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				935D3A812A0A7C210033DCCD /* HomeView.swift */,
+				935D3A7F2A0A7B7F0033DCCD /* HomeViewController.swift */,
+				4EB29EEC2ABD17F6007E15E2 /* TestViewCollectionViewCell.swift */,
+				1CF9F6DC2B70F60500D8A680 /* MyPartyCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1C26A0F02B71CD9400E9F591 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				935D3A832A0A7CAF0033DCCD /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1C26A0FE2B746DAC00E9F591 /* UserLocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				1C26A0FF2B746DC500E9F591 /* UserLocationManager.swift */,
+			);
+			path = UserLocationManager;
+			sourceTree = "<group>";
+		};
 		1C3630942B61F536009C6EF1 /* ScheduleCalendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -610,6 +637,7 @@
 		4E89BC2029C572C400BAE38A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				1C26A0FE2B746DAC00E9F591 /* UserLocationManager */,
 				1C70EDBF2B674A2200370242 /* DateFormatter */,
 				4E70E4122ABD619C007F640A /* FSCalendar */,
 				4E1CE0D72A8E4580006855E3 /* Layout */,
@@ -836,7 +864,6 @@
 		4E89BC4729C5E13500BAE38A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				935D3A832A0A7CAF0033DCCD /* HomeViewModel.swift */,
 				9348C1042A500A2A000F25A9 /* ScheduleViewModel.swift */,
 				4E9317732A6B7B15001FBDCB /* CreatePartyViewModel.swift */,
 				4EF1945E2A77E29700D34B71 /* SetMapViewModel.swift */,
@@ -1024,9 +1051,8 @@
 		4EF4D0612A942C0600A2E8F4 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				935D3A812A0A7C210033DCCD /* HomeView.swift */,
-				935D3A7F2A0A7B7F0033DCCD /* HomeViewController.swift */,
-				4EB29EEC2ABD17F6007E15E2 /* TestViewCollectionViewCell.swift */,
+				1C26A0F02B71CD9400E9F591 /* ViewModel */,
+				1C26A0EF2B71CD7F00E9F591 /* View */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1288,14 +1314,12 @@
 				4EECA7ED2A6E5BD400C94417 /* MultiSlider */,
 				4E0DCE4F2A7CC2D100DEB3B5 /* Toast */,
 				4E5AF62F2AC6D4FA007FB7E7 /* Tabman */,
-				1C3630822B5F90FD009C6EF1 /* RxBlocking */,
-				1C3630842B5F90FD009C6EF1 /* RxBlocking-Dynamic */,
-				1C3630862B5F90FD009C6EF1 /* RxCocoa */,
-				1C3630882B5F90FD009C6EF1 /* RxCocoa-Dynamic */,
-				1C36308A2B5F90FD009C6EF1 /* RxRelay */,
 				1C36308D2B5F9184009C6EF1 /* RxGesture */,
 				1C3630902B5F9197009C6EF1 /* Differentiator */,
 				1C3630922B5F9197009C6EF1 /* RxDataSources */,
+				1C26A0F82B71E45D00E9F591 /* RxBlocking */,
+				1C26A0FA2B71E45D00E9F591 /* RxCocoa */,
+				1C26A0FC2B71E45D00E9F591 /* RxRelay */,
 			);
 			productName = Parting;
 			productReference = 4EA5836729C04F4200BF4D7A /* Parting.app */;
@@ -1334,9 +1358,9 @@
 				4EECA7EC2A6E5BD400C94417 /* XCRemoteSwiftPackageReference "MultiSlider" */,
 				4E0DCE4E2A7CC2D100DEB3B5 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				4E5AF62E2AC6D4FA007FB7E7 /* XCRemoteSwiftPackageReference "Tabman" */,
-				1C3630812B5F90FD009C6EF1 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				1C36308C2B5F9184009C6EF1 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				1C36308F2B5F9197009C6EF1 /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				1C26A0F72B71E45D00E9F591 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 4EA5836829C04F4200BF4D7A /* Products */;
 			projectDirPath = "";
@@ -1456,6 +1480,7 @@
 				2FD54E9D2ABDA9FE00C9216A /* NotificationSettingViewController.swift in Sources */,
 				2FBF58582AC1B01D00D227E6 /* DiffableDatasource+Extension.swift in Sources */,
 				4E54431B2A6132990074F654 /* MapViewController.swift in Sources */,
+				1C26A1002B746DC500E9F591 /* UserLocationManager.swift in Sources */,
 				2FD54E9E2ABDA9FE00C9216A /* NotificationSettingView.swift in Sources */,
 				2FD54EA62ABDAA3000C9216A /* EditMyPageViewModel.swift in Sources */,
 				4EB2AC652A2E09EF0023F49A /* RegionResponse.swift in Sources */,
@@ -1469,6 +1494,7 @@
 				933B3C9F2A55870C00B8D60B /* BarImageButton.swift in Sources */,
 				4E89BC2F29C57DDD00BAE38A /* APIManager.swift in Sources */,
 				4EF4D04C2A939E6B00A2E8F4 /* RecentlyPartyViewController.swift in Sources */,
+				1CF9F6DD2B70F60500D8A680 /* MyPartyCell.swift in Sources */,
 				1C70EDC12B674A2F00370242 /* DateFormatterManager.swift in Sources */,
 				4EF72E032A8C92B8000B7205 /* CheckMyPartyViewModel.swift in Sources */,
 				2FBF58562AC1999900D227E6 /* NewMyPageViewModel.swift in Sources */,
@@ -1818,7 +1844,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1C3630812B5F90FD009C6EF1 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+		1C26A0F72B71E45D00E9F591 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";
 			requirement = {
@@ -1909,29 +1935,19 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1C3630822B5F90FD009C6EF1 /* RxBlocking */ = {
+		1C26A0F82B71E45D00E9F591 /* RxBlocking */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1C3630812B5F90FD009C6EF1 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 1C26A0F72B71E45D00E9F591 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxBlocking;
 		};
-		1C3630842B5F90FD009C6EF1 /* RxBlocking-Dynamic */ = {
+		1C26A0FA2B71E45D00E9F591 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1C3630812B5F90FD009C6EF1 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = "RxBlocking-Dynamic";
-		};
-		1C3630862B5F90FD009C6EF1 /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1C3630812B5F90FD009C6EF1 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 1C26A0F72B71E45D00E9F591 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxCocoa;
 		};
-		1C3630882B5F90FD009C6EF1 /* RxCocoa-Dynamic */ = {
+		1C26A0FC2B71E45D00E9F591 /* RxRelay */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1C3630812B5F90FD009C6EF1 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = "RxCocoa-Dynamic";
-		};
-		1C36308A2B5F90FD009C6EF1 /* RxRelay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1C3630812B5F90FD009C6EF1 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 1C26A0F72B71E45D00E9F591 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxRelay;
 		};
 		1C36308D2B5F9184009C6EF1 /* RxGesture */ = {

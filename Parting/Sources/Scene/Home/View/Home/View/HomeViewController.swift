@@ -51,8 +51,6 @@ enum PartyList: Int, CaseIterable {
 final class HomeViewController: BaseViewController<HomeView> {
     
     private var viewModel: HomeViewModel
-    static var userLat: Double = 0
-    static var userLng: Double = 0
     private var locationManager = CLLocationManager()
     
     init(viewModel: HomeViewModel) {
@@ -82,6 +80,11 @@ final class HomeViewController: BaseViewController<HomeView> {
         bind()
         checkDeviceLocationAuthorization()
         setDatasourceAndDelegate()
+        rootView.hideMyPartyListView()
+    }
+    
+    override func viewDidLayoutSubviews() { 
+        rootView.configureMyPartyListView()
     }
     
     private func cellResigster() {
@@ -92,6 +95,7 @@ final class HomeViewController: BaseViewController<HomeView> {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
+        rootView.myPartyCollectionView.dataSource = self
     }
     
     // MARK: - 지도 위치 권한 설정
@@ -187,9 +191,9 @@ final class HomeViewController: BaseViewController<HomeView> {
 extension HomeViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
-            HomeViewController.userLat = location.coordinate.latitude
-            HomeViewController.userLng = location.coordinate.longitude
-            print("사용자 현재 위치 위경도: \(HomeViewController.userLat), \(HomeViewController.userLng )")
+            UserLocationManager.userLat = location.coordinate.latitude
+            UserLocationManager.userLng = location.coordinate.longitude
+            print("사용자 현재 위치 위경도: \(UserLocationManager.userLat), \(UserLocationManager.userLng )")
         }
     }
 }
@@ -202,5 +206,17 @@ extension HomeViewController {
             self.viewModel.pushScheduleCalendarVC()
         })
         .disposed(by: disposeBag)
+    }
+}
+
+extension HomeViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPartyCell.identifier, for: indexPath) as? MyPartyCell else { return UICollectionViewCell() }
+        
+        return cell
     }
 }

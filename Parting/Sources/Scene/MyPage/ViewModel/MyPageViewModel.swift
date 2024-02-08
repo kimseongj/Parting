@@ -69,8 +69,8 @@ final class MyPageViewModel: BaseViewModel {
     func checkMyPartyDataRequest() {
         let api = PartingAPI.checkMyParty(
             pageNumber: 0,
-            lat: HomeViewController.userLat,
-            lng: HomeViewController.userLng
+            lat: UserLocationManager.userLat,
+            lng: UserLocationManager.userLng
         )
         
         guard let url = URL(string: api.url ?? "") else { return }

@@ -16,10 +16,11 @@ final class TestViewCollectionViewCell: UICollectionViewCell {
     
     let partyImageBGView: UIView = {
         let view = UIView()
+        view.backgroundColor = .white
         view.layer.cornerRadius = 10
         view.layer.borderColor = AppColor.gray50.cgColor
         view.layer.borderWidth = 1
-        view.clipsToBounds = true
+        //        view.clipsToBounds = true
         return view
     }()
     
@@ -42,8 +43,13 @@ final class TestViewCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        partyImageBGView.makeSmallBottomShadow()
+    }
+    
     func configureCell(item: CategoryModel, image: String) {
-//        partyImageView.kf.setImage(with: URL(string: item.imgURL))
+        //        partyImageView.kf.setImage(with: URL(string: item.imgURL))
         partyImageView.image = UIImage(named: image)
         partyTitle.text = item.name
     }
@@ -68,7 +74,7 @@ final class TestViewCollectionViewCell: UICollectionViewCell {
         }
         
         partyTitle.snp.makeConstraints { make in
-            make.top.equalTo(partyImageBGView.snp.bottom)
+            make.top.equalTo(partyImageBGView.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
         }
