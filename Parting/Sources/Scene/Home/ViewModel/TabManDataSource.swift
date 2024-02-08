@@ -76,8 +76,8 @@ final class TabManDataSource {
                             orderCondition2: "NONE",
                             pageNumber: 0,
                             categoryVersion: "1.0.0",
-                            userLat: HomeViewController.userLat,
-                            userLng: HomeViewController.userLng
+                            userLat: UserLocationManager.userLat,
+                            userLng: UserLocationManager.userLng
                         )
                         let viewModel = PartyListViewModel(
                             coordinator: self.coordinator,
