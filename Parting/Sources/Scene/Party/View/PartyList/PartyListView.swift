@@ -24,14 +24,14 @@ class PartyListView: BaseView {
 		return tableView
 	}()
 	
-	let fab: UIButton = {
+	let addButton: UIButton = {
 		let button = UIButton()
 		button.backgroundColor = AppColor.brand
-		button.layer.cornerRadius = 32
+		button.layer.cornerRadius = 27
 		return button
 	}()
 	
-	private let fabSymbol: UIImageView = {
+	private let addImageView: UIImageView = {
 		let config = UIImage.SymbolConfiguration(scale: .large)
 		let image = UIImage(systemName: Images.sfSymbol.plus, withConfiguration: config)
 		let imageView = UIImageView(image: image)
@@ -46,8 +46,8 @@ class PartyListView: BaseView {
 		self.backgroundColor = .white
 		
 		addSubview(partyListTableView)
-		addSubview(fab)
-		fab.addSubview(fabSymbol)
+		addSubview(addButton)
+		addButton.addSubview(addImageView)
 		
 	}
 	
@@ -58,19 +58,17 @@ class PartyListView: BaseView {
 			make.bottom.equalToSuperview()
 		}
 		
-		fab.snp.makeConstraints { make in
-			make.width.equalTo(64)
-			make.height.equalTo(64)
+		addButton.snp.makeConstraints { make in
+			make.width.equalTo(55)
+			make.height.equalTo(55)
 			make.right.equalToSuperview().offset(-16)
 			make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-16)
 		}
 		
-		fabSymbol.snp.makeConstraints { make in
+		addImageView.snp.makeConstraints { make in
 			make.center.equalToSuperview()
 		}
-		
-	} /* End makeConstraints() */
-	
+	}
 }
 
 

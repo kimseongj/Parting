@@ -33,7 +33,6 @@ class PartyListViewModel: BaseViewModel {
     
     private weak var coordinator: HomeCoordinator?
     
-    private let category: CategoryModel
     private let apiModel: PartyTabResponse
     private var partyListItemModels: [PartyListItemModel] = []
     
@@ -43,10 +42,8 @@ class PartyListViewModel: BaseViewModel {
         input: Input = Input(),
         output: Output = Output(),
         coordinator: HomeCoordinator?,
-        category: CategoryModel,
         apiModel: PartyTabResponse
     ) {
-        self.category = category
         self.input = input
         self.output = output
         self.coordinator = coordinator

@@ -12,7 +12,6 @@ import RxSwift
 import RxCocoa
 
 final class TabManViewController: TabmanViewController {
-    
     private let tabView = UIView()
     private let bar = TMBar.ButtonBar()
     private let navigationTitle = BarTitleLabel(text: "무슨무슨팟")

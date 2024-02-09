@@ -39,7 +39,7 @@ final class TabManDataSource {
             .withUnretained(self)
             .subscribe(onNext: { owner, input in
                 switch input {
-                case let .viewDidLoad:
+                case .viewDidLoad:
                     owner.getDetailCategory(id: owner.categoryModel.id)
                 case .backButtonTap:
                     owner.popVC()
@@ -81,7 +81,6 @@ final class TabManDataSource {
                         )
                         let viewModel = PartyListViewModel(
                             coordinator: self.coordinator,
-                            category: self.categoryModel,
                             apiModel: apiModelDTO
                         )
                         let vc = PartyListViewController(viewModel: viewModel)

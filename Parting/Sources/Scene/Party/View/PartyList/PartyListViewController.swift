@@ -75,7 +75,7 @@ class PartyListViewController: BaseViewController<PartyListView> {
         rootView.backBarButton.innerButton
             .rx.tap.bind(to: viewModel.input.popVCTrigger)
             .disposed(by: disposeBag)
-        rootView.fab
+        rootView.addButton
             .rx.tap.bind(to: viewModel.input.pushCreatePartyVCTrigger)
             .disposed(by: disposeBag)
         
@@ -92,9 +92,7 @@ class PartyListViewController: BaseViewController<PartyListView> {
                 print(cellModel.id, "🥰")
             })
             .disposed(by: disposeBag)
-        
     }
-    
 }
 
 // MARK: Table View
@@ -109,4 +107,3 @@ extension PartyListViewController: UITableViewDelegate {
         return headerView
     }
 }
-
