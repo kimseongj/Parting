@@ -9,18 +9,10 @@ import UIKit
 import SnapKit
 
 class PartyListView: BaseView {
-
-	let bellBarButton = BarImageButton(imageName: Images.sfSymbol.bell)
-	
-	let navigationLabel = BarTitleLabel(text: "무슨무슨팟")
-	
-	var backBarButton = BarImageButton(imageName: Images.icon.back)
-	
 	let partyListTableView: UITableView = {
 		let tableView = UITableView()
 		tableView.separatorStyle = .none
 		tableView.showsVerticalScrollIndicator = false
-		
 		return tableView
 	}()
 	

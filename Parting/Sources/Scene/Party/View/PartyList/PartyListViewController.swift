@@ -12,7 +12,6 @@ import RxSwift
 import Kingfisher
 
 class PartyListViewController: BaseViewController<PartyListView> {
-    
     private var viewModel: PartyListViewModel
     
     private var tableViewReachedEndCount = 0
@@ -20,14 +19,11 @@ class PartyListViewController: BaseViewController<PartyListView> {
     init(viewModel: PartyListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-//        self.rootView.navigationLabel.text = title
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         self.viewModel.input.viewWillAppear.onNext(())
-//        self.viewModel.loadPartyList()
     }
     
     required init?(coder: NSCoder) {
@@ -44,16 +40,11 @@ class PartyListViewController: BaseViewController<PartyListView> {
         bindViewModel()
         configureTableView()
         self.viewModel.input.viewDidLoad.onNext(())
-//        self.viewModel.loadPartyList()
     }
     
     
     private func navigationUI() {
         navigationController?.isNavigationBarHidden = false
-        self.navigationItem.leftBarButtonItem = rootView.backBarButton
-        self.navigationItem.titleView = rootView.navigationLabel
-        rootView.navigationLabel.textAlignment = .left
-        
     }
     
     private func configureTableView() {
@@ -70,10 +61,6 @@ class PartyListViewController: BaseViewController<PartyListView> {
             .subscribe(onNext: { owner, _ in
                 owner.rootView.partyListTableView.reloadData()
             })
-            .disposed(by: disposeBag)
-        
-        rootView.backBarButton.innerButton
-            .rx.tap.bind(to: viewModel.input.popVCTrigger)
             .disposed(by: disposeBag)
         rootView.addButton
             .rx.tap.bind(to: viewModel.input.pushCreatePartyVCTrigger)
