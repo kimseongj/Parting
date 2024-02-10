@@ -14,17 +14,14 @@ import RxCocoa
 final class TabManViewController: TabmanViewController {
     private let tabView = UIView()
     private let bar = TMBar.ButtonBar()
-    private let navigationTitle = BarTitleLabel(text: "무슨무슨팟")
-    private var backBarButton = BarImageButton(imageName: Images.icon.back)
+    private let barImageTitleButton = BarImageTitleButton(imageName: Images.icon.back, title: "")
     private let disposeBag = DisposeBag()
     private let tabManDatasource: TabManDataSource
     
     init(title: String, tabManDatasource: TabManDataSource) {
         self.tabManDatasource = tabManDatasource
+        barImageTitleButton.titleLabel.text = title
         super.init(nibName: nil, bundle: nil)
-        navigationTitle.text = title
-        self.navigationItem.leftBarButtonItem = backBarButton
-        self.navigationItem.titleView = navigationTitle
     }
     
     @available(*, unavailable)
@@ -36,9 +33,14 @@ final class TabManViewController: TabmanViewController {
         super.viewDidLoad()
         tabManDatasource.input.onNext(.viewDidLoad)
         configureTabmanBar()
+        configureNavigationBar()
         self.view.backgroundColor = .white
         self.dataSource = self
         bind()
+    }
+    
+    private func configureNavigationBar() {
+        self.navigationItem.leftBarButtonItem = barImageTitleButton
     }
     
     func configureTabmanBar() {
@@ -66,7 +68,7 @@ final class TabManViewController: TabmanViewController {
     }
     
     func bind() {
-        backBarButton.innerButton.rx.tap
+        barImageTitleButton.innerButton.rx.tap
             .withUnretained(self)
             .subscribe(onNext: { owner, tap in
                 owner.tabManDatasource.input.onNext(.backButtonTap)
@@ -102,3 +104,27 @@ extension TabManViewController: TMBarDataSource {
         return TMBarItem(title: tabManDatasource.tabTitle[index])
     }
 }
+
+
+final class PartyListTabViewController: TabmanViewController {
+    private let disposeBag = DisposeBag()
+    private let tabManDatasource: TabManDataSource
+    
+    private let tabView = UIView()
+    private let bar = TMBar.ButtonBar()
+    private let navigationTitle = BarTitleLabel(text: "무슨무슨팟")
+    private var backBarButton = BarImageButton(imageName: Images.icon.back)
+    
+    init(title: String, tabManDatasource: TabManDataSource) {
+        self.tabManDatasource = tabManDatasource
+        super.init(nibName: nil, bundle: nil)
+        navigationTitle.text = title
+        self.navigationItem.leftBarButtonItem = backBarButton
+        self.navigationItem.titleView = navigationTitle
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
