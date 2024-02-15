@@ -8,69 +8,44 @@
 import Foundation
 
 enum SortingOption {
+    case none
+    case closingTime
+    case closingDistance
+    case latest
+    case manyPeople
+    case fewPeople
     
-    case numberOfPeople(NumberOfPeopleType)
-    case time(TimeType)
-    
-    var displayName: String {
+    var description: String {
         switch self {
-        case .numberOfPeople(let peopleNumOption):
-            switch peopleNumOption {
-            case .few:
-                return "인원 적은 순"
-            case .many:
-                return "인원 많은 순"
-            default:
-                return "인원 순"
-            }
-        case .time(let timeOption):
-            switch timeOption {
-            case .latest:
-                return "최근 개설 순"
-            case .closingTime:
-                return "마감 시간 순"
-            default:
-                return "거리 순"
-            }
+        case .none:
+            return "기본순"
+        case .closingDistance:
+            return "가까운 순"
+        case .closingTime:
+            return "마감 시간 순"
+        case .latest:
+            return "최근 개설 순"
+        case .manyPeople:
+            return "인원 많은 순"
+        case .fewPeople:
+            return "인원 적은 순"
         }
     }
     
-    var index: Int {
+    var queryDescription: String {
         switch self {
-        case .numberOfPeople(let peopleNumOption):
-            switch peopleNumOption {
-            case .few:
-                return 2
-            case .many:
-                return 1
-            case .none:
-                return 0
-            }
-        case .time(let timeOption):
-            switch timeOption {
-            case .latest:
-                return 2
-            case .closingTime:
-                return 1
-            case .closest:
-                return 0
-            case .none:
-                return 0
-            }
+        case .none:
+            return "NONE"
+        case .closingDistance:
+            return "CLOSING_DISTANCE"
+        case .closingTime:
+            return "CLOSING_TIME"
+        case .latest:
+            return "LATEST"
+        case .manyPeople:
+            return "MANY_PEOPLE"
+        case .fewPeople:
+            return "FEW_PEOPLE"
         }
     }
-    
-    enum NumberOfPeopleType: String {
-        case few = "FEW_PEOPLE"
-        case many = "MANY_PEOPLE"
-        case none = "NONE"
-    }
-    
-    enum TimeType: String {
-        case latest = "LATEST"
-        case closingTime = "CLOSING_TIME"
-        case closest = "CLOSING_DISTANCE"
-        case none = "NONE"
-    }
-    
 }
