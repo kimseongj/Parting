@@ -16,7 +16,7 @@ enum PartingAPI {
     case oauthLogout
     case isMemeber
     case tokenReissue
-    case parties(params: PartyTabResponse)
+    case parties(params: PartyListQuery)
     case createParty(
         address: String,
         capacity: Int,
@@ -101,7 +101,7 @@ extension PartingAPI {
         case .oauthKaKao, .oauthLogout, .isMemeber, .tokenReissue:
             return  "\(BaseURL.oauthURL)/"
         case .parties:
-            return "\(BaseURL.baseURL)/parties"
+            return "\(BaseURL.baseURLv2)/parties"
         case .createParty:
             return  "\(BaseURL.partyURL)"
         case .modifyParty, .calender, .recentView:
@@ -162,8 +162,7 @@ extension PartingAPI {
             return [
                 "categoryId": params.categoryId,
                 "categoryDetailId": params.categoryDetailId,
-                "orderCondition1": params.orderCondition1,
-                "orderCondition2": params.orderCondition2,
+                "orderCondition": params.orderCondition,
                 "pageNumber": params.pageNumber,
                 "categoryVersion": "1.0.0",
                 "userLatitude": params.userLat,
