@@ -25,8 +25,8 @@ final class HomeViewModel {
         case viewWillAppear
     }
     
-    enum Output {
-        
+    struct Output {
+        let myParties: BehaviorRelay<[PartyInfoResponse]> = BehaviorRelay(value: [])
     }
     
     struct State {
@@ -149,6 +149,5 @@ final class HomeViewModel {
     func pushScheduleCalendarVC() {
         coordinator?.pushScheduleCalendarVC()
     }
-	
 }
 

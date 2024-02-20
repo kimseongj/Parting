@@ -104,27 +104,3 @@ extension TabManViewController: TMBarDataSource {
         return TMBarItem(title: tabManDatasource.tabTitle[index])
     }
 }
-
-
-final class PartyListTabViewController: TabmanViewController {
-    private let disposeBag = DisposeBag()
-    private let tabManDatasource: TabManDataSource
-    
-    private let tabView = UIView()
-    private let bar = TMBar.ButtonBar()
-    private let navigationTitle = BarTitleLabel(text: "무슨무슨팟")
-    private var backBarButton = BarImageButton(imageName: Images.icon.back)
-    
-    init(title: String, tabManDatasource: TabManDataSource) {
-        self.tabManDatasource = tabManDatasource
-        super.init(nibName: nil, bundle: nil)
-        navigationTitle.text = title
-        self.navigationItem.leftBarButtonItem = backBarButton
-        self.navigationItem.titleView = navigationTitle
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
