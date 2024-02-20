@@ -11,7 +11,6 @@ import RxCocoa
 import CoreLocation
 
 class PartyListViewModel: BaseViewModel {
-    
     struct Input {
         let popVCTrigger = PublishSubject<Void>()
         let pushCreatePartyVCTrigger = PublishSubject<Void>()
@@ -23,6 +22,9 @@ class PartyListViewModel: BaseViewModel {
     struct Output {
         let partyList: BehaviorRelay<[PartyListItemModel]> = BehaviorRelay(value: [])
         let reloadData = PublishSubject<Void>()
+        let sortingOptionList: [SortingOption] = [.none, .closingDistance, .closingTime, .latest, .manyPeople, .fewPeople]
+        var selectedSortingOptionIndexPath: IndexPath?
+        var currentSortingOption: BehaviorRelay<SortingOption> = BehaviorRelay(value: .none)
     }
     
     
@@ -33,7 +35,7 @@ class PartyListViewModel: BaseViewModel {
     
     private weak var coordinator: HomeCoordinator?
     
-    private let apiModel: PartyTabResponse
+    private let apiModel: PartyListQuery
     private var partyListItemModels: [PartyListItemModel] = []
     
     var currentPage: Int
@@ -42,7 +44,7 @@ class PartyListViewModel: BaseViewModel {
         input: Input = Input(),
         output: Output = Output(),
         coordinator: HomeCoordinator?,
-        apiModel: PartyTabResponse
+        apiModel: PartyListQuery
     ) {
         self.input = input
         self.output = output
@@ -53,7 +55,7 @@ class PartyListViewModel: BaseViewModel {
         setupBindings()
     }
     
-    func getDetailPartyList(model: PartyTabResponse) {
+    func getDetailPartyList(model: PartyListQuery) {
         let api = PartingAPI.parties(params: model)
         guard let apiURL = api.url else { return }
         guard let url = URL(string: apiURL) else { return }

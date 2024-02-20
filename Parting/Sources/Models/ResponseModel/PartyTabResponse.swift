@@ -17,3 +17,13 @@ struct PartyTabResponse {
     let userLat: Double
     let userLng: Double
 }
+
+struct PartyListQuery {
+    let categoryDetailId: Int
+    let categoryId: Int
+    var orderCondition: String
+    let pageNumber: Int
+    let categoryVersionOfUser: String
+    let userLat: Double
+    let userLng: Double
+}

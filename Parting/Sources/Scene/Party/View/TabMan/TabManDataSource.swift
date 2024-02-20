@@ -69,13 +69,12 @@ final class TabManDataSource {
                     for ele in data.result.categoryDetailList {
                         print(ele.categoryDetailName) // 디테일 카테고리 이름
                         print(ele.categoryDetailID) // 디테일 카테고리 고유 ID
-                        let apiModelDTO = PartyTabResponse(
+                        let apiModelDTO = PartyListQuery(
                             categoryDetailId: ele.categoryDetailID,
                             categoryId: self.categoryModel.id,
-                            orderCondition1: "NONE",
-                            orderCondition2: "NONE",
+                            orderCondition: "NONE",
                             pageNumber: 0,
-                            categoryVersion: "1.0.0",
+                            categoryVersionOfUser: "1.0.0",
                             userLat: UserLocationManager.userLat,
                             userLng: UserLocationManager.userLng
                         )
