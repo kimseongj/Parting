@@ -163,8 +163,8 @@ extension PartingAPI {
                 "categoryId": params.categoryId,
                 "categoryDetailId": params.categoryDetailId,
                 "orderCondition": params.orderCondition,
-                "pageNumber": params.pageNumber,
-                "categoryVersion": "1.0.0",
+                "pageNum": params.pageNumber,
+                "categoryVersionOfUser": "1.0.0",
                 "userLatitude": params.userLat,
                 "userLongitude": params.userLng
             ]
