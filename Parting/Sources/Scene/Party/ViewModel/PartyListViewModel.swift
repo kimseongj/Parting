@@ -2,7 +2,7 @@
 //  PartyListViewModel.swift
 //  Parting
 //
-//  Created by 김민규 on 2023/07/11.
+//  Created by 김성준 on 2023/02/20.
 //
 
 import Foundation
@@ -35,7 +35,7 @@ class PartyListViewModel: BaseViewModel {
     
     private weak var coordinator: HomeCoordinator?
     
-    private let apiModel: PartyListQuery
+    private var apiModel: PartyListQuery
     private var partyListItemModels: [PartyListItemModel] = []
     
     var currentPage: Int
@@ -93,6 +93,13 @@ class PartyListViewModel: BaseViewModel {
             }
     }
     
+    func sortPartyList() {
+        output.currentSortingOption.withUnretained(self).subscribe(onNext: { owner, option in
+            owner.apiModel.orderCondition = option.queryDescription
+            owner.getDetailPartyList(model: owner.apiModel)
+        }).disposed(by: disposeBag)
+    }
+    
     
     // MARK: Bindings
     private func setupBindings() {
@@ -129,11 +136,10 @@ class PartyListViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
-    } /* End func setupBindings() */
-    
+        sortPartyList()
+    }
     
     private func pushDetailInfoVC(partyId: Int) {
         self.coordinator?.pushDetailPartyVC(partyId: partyId)
     }
 }
-

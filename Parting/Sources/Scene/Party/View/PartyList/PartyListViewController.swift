@@ -7,8 +7,8 @@
 
 
 import UIKit
-
 import RxSwift
+import RxCocoa
 import Kingfisher
 
 class PartyListViewController: BaseViewController<PartyListView> {
@@ -40,6 +40,7 @@ class PartyListViewController: BaseViewController<PartyListView> {
         bindViewModel()
         configureTableView()
         self.viewModel.input.viewDidLoad.onNext(())
+        rootView.noPartyListView.isHidden = true
     }
     
     
@@ -50,7 +51,6 @@ class PartyListViewController: BaseViewController<PartyListView> {
     private func configureTableView() {
         rootView.partyListTableView.rx.setDelegate(self).disposed(by: disposeBag)
         rootView.partyListTableView.register(PartyTableViewCell.self, forCellReuseIdentifier: PartyTableViewCell.identifier)
-        rootView.partyListTableView.register(PartyListHeaderView.self, forHeaderFooterViewReuseIdentifier: PartyListHeaderView.identifier)
         rootView.partyListTableView.sectionHeaderHeight = 35
         rootView.partyListTableView.sectionHeaderTopPadding = 5
     }
@@ -62,6 +62,7 @@ class PartyListViewController: BaseViewController<PartyListView> {
                 owner.rootView.partyListTableView.reloadData()
             })
             .disposed(by: disposeBag)
+        
         rootView.addButton
             .rx.tap.bind(to: viewModel.input.pushCreatePartyVCTrigger)
             .disposed(by: disposeBag)
@@ -71,12 +72,27 @@ class PartyListViewController: BaseViewController<PartyListView> {
             cell.configurePartyListeCell(party: party)
         }.disposed(by: disposeBag)
         
+        viewModel.output.currentSortingOption
+            .withUnretained(self)
+            .bind(onNext: { owner, sortingOption in
+            owner.rootView.buttonTitleLabel.text = sortingOption.description
+
+        }).disposed(by: disposeBag)
+        
         rootView.partyListTableView.rx
             .modelSelected(PartyListItemModel.self)
             .withUnretained(self)
             .subscribe(onNext: { owner, cellModel in
                 owner.viewModel.input.didSelectCell.onNext(cellModel.id)
                 print(cellModel.id, "🥰")
+            })
+            .disposed(by: disposeBag)
+        
+        rootView.sortingOptionButton
+            .rx.tap.withUnretained(self).bind(onNext: { owner, _ in
+                let partySortingModalViewController = PartySortingModalViewController(viewModel: owner.viewModel)
+                partySortingModalViewController.modalPresentationStyle = .overFullScreen
+                owner.present(partySortingModalViewController, animated: false)
             })
             .disposed(by: disposeBag)
     }
@@ -89,8 +105,8 @@ extension PartyListViewController: UITableViewDelegate {
         return 148
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: PartyListHeaderView.identifier) else { return UIView() }
-        return headerView
-    }
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: PartyListHeaderView.identifier) else { return UIView() }
+//        return headerView
+//    }
 }
