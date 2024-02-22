@@ -22,7 +22,7 @@ struct PartyListQuery {
     let categoryDetailId: Int
     let categoryId: Int
     var orderCondition: String
-    let pageNumber: Int
+    var pageNumber: Int
     let categoryVersionOfUser: String
     let userLat: Double
     let userLng: Double
