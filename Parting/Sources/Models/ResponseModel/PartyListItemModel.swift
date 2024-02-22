@@ -31,6 +31,4 @@ enum PartyStatus: String {
 			return .closed
 		}
 	}
-	
-	
 }
