@@ -40,6 +40,7 @@ final class TabManDataSource {
             .subscribe(onNext: { owner, input in
                 switch input {
                 case .viewDidLoad:
+                    owner.getWholePartyList(id: owner.categoryModel.id)
                     owner.getDetailCategory(id: owner.categoryModel.id)
                 case .backButtonTap:
                     owner.popVC()
@@ -50,6 +51,23 @@ final class TabManDataSource {
     
     private func popVC() {
         self.coordinator?.popVC()
+    }
+    
+    private func getWholePartyList(id: Int) {
+        let apiModelDTO = PartyListQuery(
+            categoryDetailId: nil,
+            categoryId: self.categoryModel.id,
+            orderCondition: "NONE",
+            pageNumber: 0,
+            categoryVersionOfUser: "1.0.0",
+            userLat: UserLocationManager.userLat,
+            userLng: UserLocationManager.userLng
+        )
+        
+        let viewModel = PartyListViewModel(coordinator: self.coordinator, apiModel: apiModelDTO)
+        let vc = PartyListViewController(viewModel: viewModel)
+        self.tabControllers.append(vc)
+        self.tabTitle.append("전체보기")
     }
     
     private func getDetailCategory(id: Int) {
@@ -66,6 +84,16 @@ final class TabManDataSource {
                 switch response {
                 case let .success(data):
                     dump(data)
+                    let apiModelDTO = PartyListQuery(
+                        categoryDetailId: self.categoryModel.id,
+                        categoryId: self.categoryModel.id,
+                        orderCondition: "NONE",
+                        pageNumber: 0,
+                        categoryVersionOfUser: "1.0.0",
+                        userLat: UserLocationManager.userLat,
+                        userLng: UserLocationManager.userLng
+                    )
+                    
                     for ele in data.result.categoryDetailList {
                         print(ele.categoryDetailName) // 디테일 카테고리 이름
                         print(ele.categoryDetailID) // 디테일 카테고리 고유 ID
