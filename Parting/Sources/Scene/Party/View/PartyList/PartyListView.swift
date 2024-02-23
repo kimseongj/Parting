@@ -44,6 +44,12 @@ class PartyListView: BaseView {
             $0.trailing.equalToSuperview().inset(14)
         }
         
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.layer.shadowRadius = 1
+
+        
         return button
     }()
     
