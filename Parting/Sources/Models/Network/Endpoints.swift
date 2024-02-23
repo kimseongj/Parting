@@ -156,18 +156,45 @@ extension PartingAPI {
         }
     }
     
-    var parameters: [String: Any] {
+    var parameters1: [String: Any] {
         switch self {
         case .parties(let params):
             return [
                 "categoryId": params.categoryId,
-                "categoryDetailId": params.categoryDetailId,
                 "orderCondition": params.orderCondition,
                 "pageNum": params.pageNumber,
                 "categoryVersionOfUser": "1.0.0",
                 "userLatitude": params.userLat,
                 "userLongitude": params.userLng
             ]
+        default:
+            return ["": ""]
+        }
+    }
+    
+    var parameters: [String: Any] {
+        switch self {
+        case .parties(let params):
+            if params.categoryDetailId == nil {
+                return [
+                    "categoryId": params.categoryId,
+                    "orderCondition": params.orderCondition,
+                    "pageNum": params.pageNumber,
+                    "categoryVersionOfUser": "1.0.0",
+                    "userLatitude": params.userLat,
+                    "userLongitude": params.userLng
+                ]
+            } else {
+                return [
+                    "categoryId": params.categoryId,
+                    "categoryDetailId": params.categoryDetailId,
+                    "orderCondition": params.orderCondition,
+                    "pageNum": params.pageNumber,
+                    "categoryVersionOfUser": "1.0.0",
+                    "userLatitude": params.userLat,
+                    "userLongitude": params.userLng
+                ]
+            }
         case let .createParty(
             address,
             capacity,
@@ -298,21 +325,6 @@ extension PartingAPI {
             ]
         default:
             return ["":""]
-        }
-    }
-}
-extension PartingAPI {
-    enum partySortingCondition {
-        enum byNumberOfPeople: String {
-            case few = "FEW_PEOPLE"
-            case many = "MANY_PEOPLE"
-            case none = "NONE"
-        }
-        
-        enum byTime: String {
-            case latest = "LATEST"
-            case closingTime = "CLOSING_TIME"
-            case none = "NONE"
         }
     }
 }
