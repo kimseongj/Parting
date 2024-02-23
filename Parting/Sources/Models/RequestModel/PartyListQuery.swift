@@ -7,19 +7,8 @@
 
 import Foundation
 
-struct PartyTabResponse {
-    let categoryDetailId: Int
-    let categoryId: Int
-    let orderCondition1: String
-    let orderCondition2: String
-    let pageNumber: Int
-    let categoryVersion: String
-    let userLat: Double
-    let userLng: Double
-}
-
 struct PartyListQuery {
-    let categoryDetailId: Int
+    let categoryDetailId: Int?
     let categoryId: Int
     var orderCondition: String
     var pageNumber: Int
