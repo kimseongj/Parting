@@ -13,7 +13,6 @@ class PartyListView: BaseView {
         let label = UILabel()
          label.text = "기본순"
          label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 14)
-
          return label
      }()
     
@@ -91,6 +90,14 @@ class PartyListView: BaseView {
 		tableView.showsVerticalScrollIndicator = false
 		return tableView
 	}()
+    
+    lazy var footerView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 40))
+        
+        return view
+    }()
+    
+    let activityIndicator = UIActivityIndicatorView(style: .medium)
 	
 	let addButton: UIButton = {
 		let button = UIButton()
@@ -125,6 +132,8 @@ class PartyListView: BaseView {
         noPartyListView.addSubview(recommendMakingPartyLabel)
         noPartyListView.addSubview(makePartyButton)
 		
+        footerView.addSubview(activityIndicator)
+        partyListTableView.tableFooterView = footerView
 	}
 	
 	override func makeConstraints() {
@@ -176,8 +185,19 @@ class PartyListView: BaseView {
 		addImageView.snp.makeConstraints { make in
 			make.center.equalToSuperview()
 		}
+        
+        activityIndicator.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
 	}
+    
+    func hidePartyListTableView() {
+        partyListTableView.isHidden = true
+        noPartyListView.isHidden = false
+    }
+    
+    func showPartyListTableView() {
+        partyListTableView.isHidden = false
+        noPartyListView.isHidden = true
+    }
 }
-
-
-

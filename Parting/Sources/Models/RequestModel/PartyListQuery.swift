@@ -2,7 +2,7 @@
 //  PartyTabResponse.swift
 //  Parting
 //
-//  Created by 박시현 on 2023/10/01.
+//  Created by kimseongjun on 2024/02/23.
 //
 
 import Foundation

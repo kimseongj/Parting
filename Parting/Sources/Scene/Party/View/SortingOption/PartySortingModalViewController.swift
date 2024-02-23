@@ -153,6 +153,7 @@ extension PartySortingModalViewController: UITableViewDelegate {
         
         tableView.cellForRow(at: indexPath)?.isSelected = true
         viewModel.output.selectedSortingOptionIndexPath = indexPath
-        viewModel.output.currentSortingOption.accept(viewModel.output.sortingOptionList[indexPath.row])
+        viewModel.input.currentSortingOptionRelay.accept(viewModel.output.sortingOptionList[indexPath.row])
+        viewModel.sortPartyList()
     }
 }
