@@ -5,29 +5,24 @@
 //  Created by 김민규 on 2023/07/11.
 //
 
-
 import UIKit
-
 import RxSwift
+import RxCocoa
 import Kingfisher
 
 class PartyListViewController: BaseViewController<PartyListView> {
-    
     private var viewModel: PartyListViewModel
     
-    private var tableViewReachedEndCount = 0
+    private var isPaging: Bool = false
     
     init(viewModel: PartyListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-//        self.rootView.navigationLabel.text = title
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         self.viewModel.input.viewWillAppear.onNext(())
-//        self.viewModel.loadPartyList()
     }
     
     required init?(coder: NSCoder) {
@@ -44,45 +39,45 @@ class PartyListViewController: BaseViewController<PartyListView> {
         bindViewModel()
         configureTableView()
         self.viewModel.input.viewDidLoad.onNext(())
-//        self.viewModel.loadPartyList()
+        rootView.noPartyListView.isHidden = true
     }
     
     
     private func navigationUI() {
         navigationController?.isNavigationBarHidden = false
-        self.navigationItem.leftBarButtonItem = rootView.backBarButton
-        self.navigationItem.titleView = rootView.navigationLabel
-        rootView.navigationLabel.textAlignment = .left
-        
     }
     
     private func configureTableView() {
         rootView.partyListTableView.rx.setDelegate(self).disposed(by: disposeBag)
         rootView.partyListTableView.register(PartyTableViewCell.self, forCellReuseIdentifier: PartyTableViewCell.identifier)
-        rootView.partyListTableView.register(PartyListHeaderView.self, forHeaderFooterViewReuseIdentifier: PartyListHeaderView.identifier)
-        rootView.partyListTableView.sectionHeaderHeight = 35
-        rootView.partyListTableView.sectionHeaderTopPadding = 5
     }
     
     private func bindViewModel() {
-        viewModel.output.reloadData
-            .withUnretained(self)
-            .subscribe(onNext: { owner, _ in
-                owner.rootView.partyListTableView.reloadData()
-            })
-            .disposed(by: disposeBag)
-        
-        rootView.backBarButton.innerButton
-            .rx.tap.bind(to: viewModel.input.popVCTrigger)
-            .disposed(by: disposeBag)
-        rootView.fab
+        rootView.addButton
             .rx.tap.bind(to: viewModel.input.pushCreatePartyVCTrigger)
             .disposed(by: disposeBag)
         
-        viewModel.output.partyList.bind(to: rootView.partyListTableView.rx.items(cellIdentifier: PartyTableViewCell.identifier, cellType: PartyTableViewCell.self)) { [weak self] index, party, cell in
+        viewModel.output.hasParty
+            .withUnretained(self)
+            .bind(onNext: { owner, hasParty in
+                if hasParty {
+                    owner.rootView.showPartyListTableView()
+                } else {
+                    owner.rootView.hidePartyListTableView()
+                }
+            }).disposed(by: disposeBag)
+        
+        viewModel.output.partyList.bind(to: rootView.partyListTableView.rx.items(cellIdentifier: PartyTableViewCell.identifier, cellType: PartyTableViewCell.self)) { index, party, cell in
             cell.selectionStyle = .none
-            cell.configurePartyListeCell(party: party)
+            cell.fill(with: party)
         }.disposed(by: disposeBag)
+             
+        viewModel.input.currentSortingOptionRelay
+            .withUnretained(self)
+            .bind(onNext: { owner, sortingOption in
+            owner.rootView.buttonTitleLabel.text = sortingOption.description
+
+        }).disposed(by: disposeBag)
         
         rootView.partyListTableView.rx
             .modelSelected(PartyListItemModel.self)
@@ -93,20 +88,47 @@ class PartyListViewController: BaseViewController<PartyListView> {
             })
             .disposed(by: disposeBag)
         
+        rootView.sortingOptionButton
+            .rx.tap.withUnretained(self).bind(onNext: { owner, _ in
+                let partySortingModalViewController = PartySortingModalViewController(viewModel: owner.viewModel)
+                partySortingModalViewController.modalPresentationStyle = .overFullScreen
+                owner.present(partySortingModalViewController, animated: false)
+            })
+            .disposed(by: disposeBag)
     }
-    
 }
 
 // MARK: Table View
 extension PartyListViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 148
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: PartyListHeaderView.identifier) else { return UIView() }
-        return headerView
+        return 166
     }
 }
 
+extension PartyListViewController {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.height
+        
+        if offsetY > (contentHeight - height) && !isPaging && viewModel.output.hasNextPage {
+            rootView.activityIndicator.startAnimating()
+            beginPaging()
+        } 
+    }
+    
+    func beginPaging() {
+        isPaging = true
+        pagepartyListTableView()
+    }
+    
+    func pagepartyListTableView() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            guard let self = self else { return }
+            
+            viewModel.pagePartyList()
+            self.rootView.activityIndicator.stopAnimating()
+            self.isPaging = false
+        }
+    }
+}

@@ -12,6 +12,7 @@ struct PartyListItemModel {
 	let title: String
 	let location: String
 	let distance: String
+    let description: String
 	let currentPartyMemberCount: Int
 	let maxPartyMemberCount: Int
 	let partyDuration: String
@@ -31,6 +32,4 @@ enum PartyStatus: String {
 			return .closed
 		}
 	}
-	
-	
 }

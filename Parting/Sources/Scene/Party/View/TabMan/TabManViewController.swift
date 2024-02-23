@@ -12,20 +12,16 @@ import RxSwift
 import RxCocoa
 
 final class TabManViewController: TabmanViewController {
-    
     private let tabView = UIView()
     private let bar = TMBar.ButtonBar()
-    private let navigationTitle = BarTitleLabel(text: "무슨무슨팟")
-    private var backBarButton = BarImageButton(imageName: Images.icon.back)
+    private let barImageTitleButton = BarImageTitleButton(imageName: Images.icon.back, title: "")
     private let disposeBag = DisposeBag()
     private let tabManDatasource: TabManDataSource
     
     init(title: String, tabManDatasource: TabManDataSource) {
         self.tabManDatasource = tabManDatasource
+        barImageTitleButton.titleLabel.text = title
         super.init(nibName: nil, bundle: nil)
-        navigationTitle.text = title
-        self.navigationItem.leftBarButtonItem = backBarButton
-        self.navigationItem.titleView = navigationTitle
     }
     
     @available(*, unavailable)
@@ -37,21 +33,26 @@ final class TabManViewController: TabmanViewController {
         super.viewDidLoad()
         tabManDatasource.input.onNext(.viewDidLoad)
         configureTabmanBar()
+        configureNavigationBar()
         self.view.backgroundColor = .white
         self.dataSource = self
         bind()
     }
     
+    private func configureNavigationBar() {
+        self.navigationItem.leftBarButtonItem = barImageTitleButton
+    }
+    
     func configureTabmanBar() {
         bar.layout.transitionStyle = .snap
-        bar.layout.alignment = .centerDistributed
+        bar.layout.alignment = .leading
         bar.layout.contentMode = .intrinsic
         bar.layout.interButtonSpacing = 23
         
         bar.backgroundView.style = .clear
         bar.backgroundColor = AppColor.white
         
-        bar.layout.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        bar.layout.contentInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
         
         bar.buttons.customize { button in
             button.tintColor = AppColor.gray300
@@ -67,7 +68,7 @@ final class TabManViewController: TabmanViewController {
     }
     
     func bind() {
-        backBarButton.innerButton.rx.tap
+        barImageTitleButton.innerButton.rx.tap
             .withUnretained(self)
             .subscribe(onNext: { owner, tap in
                 owner.tabManDatasource.input.onNext(.backButtonTap)

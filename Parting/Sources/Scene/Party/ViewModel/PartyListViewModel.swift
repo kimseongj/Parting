@@ -2,7 +2,7 @@
 //  PartyListViewModel.swift
 //  Parting
 //
-//  Created by 김민규 on 2023/07/11.
+//  Created by 김성준 on 2023/02/20.
 //
 
 import Foundation
@@ -11,18 +11,24 @@ import RxCocoa
 import CoreLocation
 
 class PartyListViewModel: BaseViewModel {
-    
     struct Input {
         let popVCTrigger = PublishSubject<Void>()
         let pushCreatePartyVCTrigger = PublishSubject<Void>()
         let didSelectCell = PublishSubject<Int>()
         let viewDidLoad = PublishSubject<Void>()
         let viewWillAppear = PublishSubject<Void>()
+        
+        var currentSortingOptionRelay: BehaviorRelay<SortingOption> = BehaviorRelay(value: .none)
+        var currentPageNum: Int = 0
     }
     
     struct Output {
         let partyList: BehaviorRelay<[PartyListItemModel]> = BehaviorRelay(value: [])
         let reloadData = PublishSubject<Void>()
+        let sortingOptionList: [SortingOption] = [.none, .closingDistance, .closingTime, .latest, .manyPeople, .fewPeople]
+        var selectedSortingOptionIndexPath: IndexPath?
+        var hasNextPage: Bool = true
+        var hasParty: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     }
     
     
@@ -33,30 +39,26 @@ class PartyListViewModel: BaseViewModel {
     
     private weak var coordinator: HomeCoordinator?
     
-    private let category: CategoryModel
-    private let apiModel: PartyTabResponse
+    private var apiModel: PartyListQuery
     private var partyListItemModels: [PartyListItemModel] = []
-    
+    private var currentSortingOption: SortingOption = .none
     var currentPage: Int
     
     init(
         input: Input = Input(),
         output: Output = Output(),
         coordinator: HomeCoordinator?,
-        category: CategoryModel,
-        apiModel: PartyTabResponse
+        apiModel: PartyListQuery
     ) {
-        self.category = category
         self.input = input
         self.output = output
         self.coordinator = coordinator
         self.apiModel = apiModel
         self.currentPage = 0
-        getDetailPartyList(model: apiModel)
         setupBindings()
     }
     
-    func getDetailPartyList(model: PartyTabResponse) {
+    func getFirstDetailPartyList(model: PartyListQuery) {
         let api = PartingAPI.parties(params: model)
         guard let apiURL = api.url else { return }
         guard let url = URL(string: apiURL) else { return }
@@ -66,16 +68,18 @@ class PartyListViewModel: BaseViewModel {
             url: url,
             method: .get,
             parameters: api.parameters,
-            headers: api.headers) { response in
+            headers: api.headers) { [weak self] response in
+                guard let self = self else { return }
+                
                 switch response {
                 case let .success(data):
-                    self.partyListItemModels = []
                     for ele in data.result.partyInfos {
                         let partyListItemDTO = PartyListItemModel(
                             id: ele.partyId,
                             title: ele.partyName,
                             location: ele.address,
                             distance: ele.distanceUnit,
+                            description: ele.description,
                             currentPartyMemberCount: ele.currentPartyMemberCount,
                             maxPartyMemberCount: ele.maxPartyMemberCount,
                             partyDuration: ele.partyEndTime,
@@ -85,15 +89,81 @@ class PartyListViewModel: BaseViewModel {
                         )
                         self.partyListItemModels.append(partyListItemDTO)
                     }
+                    if data.result.partyInfos.count != 10 {
+                        self.output.hasNextPage = false
+                    }
+                    
                     self.output.partyList.accept(self.partyListItemModels)
                     print(self.output.partyList.value.count, "파티 리스트 갯수")
-                    self.output.reloadData.onNext(())
-                case let .failure(error):
+                    
+                    if self.partyListItemModels.count == 0 {
+                        self.output.hasParty.accept(false)
+                    } else {
+                        self.output.hasParty.accept(true)
+                    }
+                    
+                    case let .failure(error):
                     print(error)
                 }
             }
     }
     
+    func getDetailPartyList(model: PartyListQuery) {
+        let api = PartingAPI.parties(params: model)
+        guard let apiURL = api.url else { return }
+        guard let url = URL(string: apiURL) else { return }
+        
+        APIManager.shared.requestParting(
+            type: PartyListResponse.self,
+            url: url,
+            method: .get,
+            parameters: api.parameters,
+            headers: api.headers) { [weak self] response in
+                guard let self = self else { return }
+                
+                switch response {
+                case let .success(data):
+                    for ele in data.result.partyInfos {
+                        let partyListItemDTO = PartyListItemModel(
+                            id: ele.partyId,
+                            title: ele.partyName,
+                            location: ele.address,
+                            distance: ele.distanceUnit,
+                            description: ele.description,
+                            currentPartyMemberCount: ele.currentPartyMemberCount,
+                            maxPartyMemberCount: ele.maxPartyMemberCount,
+                            partyDuration: ele.partyEndTime,
+                            tags: ele.hashTagNameList,
+                            status: PartyStatus.recruiting,
+                            imgURL: ele.categoryImg
+                        )
+                        self.partyListItemModels.append(partyListItemDTO)
+                    }
+                    if data.result.partyInfos.count != 10 {
+                        self.output.hasNextPage = false
+                    }
+                    
+                    self.output.partyList.accept(self.partyListItemModels)
+                    print(self.output.partyList.value.count, "파티 리스트 갯수")
+                    self.output.reloadData.onNext(())
+                    case let .failure(error):
+                    print(error)
+                }
+            }
+    }
+    
+    func sortPartyList() {
+        output.hasNextPage = true
+        partyListItemModels = []
+        apiModel.pageNumber = 0
+        apiModel.orderCondition = input.currentSortingOptionRelay.value.queryDescription
+        getDetailPartyList(model: apiModel)
+    }
+    
+    func pagePartyList() {
+        apiModel.pageNumber += 1
+        getDetailPartyList(model: apiModel)
+    }
     
     // MARK: Bindings
     private func setupBindings() {
@@ -109,17 +179,10 @@ class PartyListViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
-        input.viewWillAppear
-            .withUnretained(self)
-            .subscribe(onNext: { owner, _ in
-                owner.getDetailPartyList(model: owner.apiModel)
-            })
-            .disposed(by: disposeBag)
-        
         input.viewDidLoad
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
-                owner.getDetailPartyList(model: owner.apiModel)
+                owner.getFirstDetailPartyList(model: owner.apiModel)
             })
             .disposed(by: disposeBag)
         
@@ -129,12 +192,9 @@ class PartyListViewModel: BaseViewModel {
                 owner.pushDetailInfoVC(partyId: partyId)
             })
             .disposed(by: disposeBag)
-        
-    } /* End func setupBindings() */
-    
+    }
     
     private func pushDetailInfoVC(partyId: Int) {
         self.coordinator?.pushDetailPartyVC(partyId: partyId)
     }
 }
-

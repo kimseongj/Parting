@@ -9,35 +9,35 @@ import Foundation
 
 // MARK: - PartyListResponse
 struct PartyListResponse: Codable {
-	let isSuccess: Bool
-	let code: Int
-	let message: String
-	let result: PartyListResult
+    let isSuccess: Bool
+    let code: Int
+    let message: String
+    let result: PartyListResult
 }
 
 // MARK: - Result
 struct PartyListResult: Codable {
-	let partyInfos: [PartyInfo]
-	let partySize: Int
+    let partyInfos: [PartyInfo]
+    let partySize: Int
 }
-
 
 // MARK: - PartyInfo
 struct PartyInfo: Codable {
-	let partyId: Int // Match the key with lowercase "d"
-	let partyName, address: String
-	let distance: Double
-	let distanceUnit: String
-	let currentPartyMemberCount, maxPartyMemberCount: Int
-//	let partyTimeStr: String
+    let partyId: Int
+    let partyName: String
+    let description: String
+    let address: String
+    let distance: Double
+    let distanceUnit: String
+    let currentPartyMemberCount, maxPartyMemberCount: Int
     let partyStartTime: String
     let partyEndTime: String
-	let hashTagNameList: [String]
-	let status: String
-	let categoryImg: String
+    let hashTagNameList: [String]
+    let status: String
+    let categoryImg: String
 
-	enum CodingKeys: String, CodingKey {
-		case partyId // Use lowercase "d" to match the JSON key
-		case partyName, address, distance, distanceUnit, currentPartyMemberCount, maxPartyMemberCount, partyStartTime, partyEndTime, hashTagNameList, status, categoryImg
-	}
+    enum CodingKeys: String, CodingKey {
+        case partyId
+        case partyName, description, address, distance, distanceUnit, currentPartyMemberCount, maxPartyMemberCount, partyStartTime, partyEndTime, hashTagNameList, status, categoryImg
+    }
 }

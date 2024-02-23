@@ -8,9 +8,10 @@
 import Foundation
 
 enum BaseURL {
-    static let baseURL = "https://www.devparting.store/api/v1"
-    static let oauthURL = "http://www.devparting.store:80/api/oauth"
-    static let partyURL = "https://www.devparting.store/api/v1/party"
-    static let userURL = "https://www.devparting.store/api/v1/user"
-    static let detailCategoryBaseURL = "https://www.devparting.store/api/v2"
+    static let baseURL = "https://www.devparting.shop/api/v1"
+    static let baseURLv2 = "https://www.devparting.shop/api/v2"
+    static let oauthURL = "http://www.devparting.shop:80/api/oauth"
+    static let partyURL = "https://www.devparting.shop/api/v1/party"
+    static let userURL = "https://www.devparting.shop/api/v1/user"
+    static let detailCategoryBaseURL = "https://www.devparting.shop/api/v2"
 }

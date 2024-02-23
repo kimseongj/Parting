@@ -42,6 +42,5 @@ final class SplashViewModel: BaseViewModel {
                 owner.coordinator?.checkLogin(isLogin: owner.isLogin)
             })
             .disposed(by: disposeBag)
-        
     }
 }

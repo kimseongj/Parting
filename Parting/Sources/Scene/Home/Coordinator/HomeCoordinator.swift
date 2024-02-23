@@ -43,7 +43,6 @@ final class HomeCoordinator: Coordinator {
     }
     
     func pushPartyListVC(category: CategoryModel) {
-        //
         let tabManViewModel = TabManDataSource(coordinator: self, categoryModel: category)
         
         let tabManVC = TabManViewController(
