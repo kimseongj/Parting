@@ -8,20 +8,19 @@
 import UIKit
 
 class TagCollectionViewCell: UICollectionViewCell {
-    
-    private let cellConatiner: UIView = {
-        let view = UIView()
-        view.backgroundColor = AppColor.gray200
-        view.clipsToBounds = true
-        return view
+    let textLabel: UILabel = {
+        let label = UILabel()
+        label.clipsToBounds = true
+        label.font = AppFont.Regular.of(size: 11)
+        label.textColor = AppColor.gray500
+        return label
     }()
-    
-    let textLabel = Label(text: "#카공", weight: .Regular, size: 12)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
         makeConstraints()
+        configureContentView()
         self.backgroundColor = .clear
     }
     
@@ -29,30 +28,25 @@ class TagCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        cellConatiner.layer.cornerRadius = cellConatiner.frame.height / 2
+    func configureContentView() {
+        contentView.backgroundColor = AppColor.gray50
+        contentView.layer.cornerRadius = 8
     }
     
-    func configureCell(with text: String) {
+    func fill(with text: String) {
         textLabel.text = text
     }
 }
 
 extension TagCollectionViewCell: ProgrammaticallyInitializableViewProtocol {
     func addSubviews() {
-        contentView.addSubview(cellConatiner)
-        cellConatiner.addSubview(textLabel)
+        contentView.addSubview(textLabel)
     }
     
     func makeConstraints() {
-        cellConatiner.snp.makeConstraints { make in
-            make.height.equalToSuperview()
-            make.width.equalToSuperview()
-        }
-        
         textLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.top.leading.equalToSuperview().offset(6)
+            make.bottom.trailing.equalToSuperview().inset(6)
         }
     }
 }

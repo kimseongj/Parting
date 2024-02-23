@@ -69,7 +69,7 @@ class PartyListViewController: BaseViewController<PartyListView> {
         
         viewModel.output.partyList.bind(to: rootView.partyListTableView.rx.items(cellIdentifier: PartyTableViewCell.identifier, cellType: PartyTableViewCell.self)) { index, party, cell in
             cell.selectionStyle = .none
-            cell.configurePartyListeCell(party: party)
+            cell.fill(with: party)
         }.disposed(by: disposeBag)
              
         viewModel.input.currentSortingOptionRelay
@@ -101,7 +101,7 @@ class PartyListViewController: BaseViewController<PartyListView> {
 // MARK: Table View
 extension PartyListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 148
+        return 166
     }
 }
 

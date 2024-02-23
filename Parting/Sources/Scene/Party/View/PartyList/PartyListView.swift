@@ -53,11 +53,7 @@ class PartyListView: BaseView {
         return button
     }()
     
-    let noPartyListView: UIView = {
-        let view = UIView()
-        
-        return view
-    }()
+    let noPartyListView = UIView()
     
     let noPartyListImageView: UIImageView = {
         let imageView = UIImageView()
