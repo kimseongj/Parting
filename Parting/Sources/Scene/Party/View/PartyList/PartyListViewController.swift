@@ -101,7 +101,7 @@ class PartyListViewController: BaseViewController<PartyListView> {
 // MARK: Table View
 extension PartyListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 166
+        return 168
     }
 }
 
