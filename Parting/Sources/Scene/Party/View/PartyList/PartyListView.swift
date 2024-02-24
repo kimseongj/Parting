@@ -34,7 +34,7 @@ class PartyListView: BaseView {
         
         buttonTitleLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(14)
-            $0.verticalEdges.equalToSuperview().inset(5)
+            $0.centerY.equalToSuperview()
         }
         
         bottomArrowImageView.snp.makeConstraints {
@@ -142,6 +142,7 @@ class PartyListView: BaseView {
         sortingOptionButton.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(12)
             make.leading.equalToSuperview().offset(16)
+            make.height.equalTo(30 )
         }
         
         noPartyListView.snp.makeConstraints { make in
