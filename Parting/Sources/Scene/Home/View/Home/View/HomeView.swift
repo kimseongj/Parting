@@ -18,7 +18,6 @@ class HomeView: BaseView {
     let naviCustomView: UIView = {
         let view = UIView()
         view.backgroundColor = AppColor.brand
-        
         return view
     }()
     
@@ -60,7 +59,7 @@ class HomeView: BaseView {
     
     lazy var calendarLabel: UILabel = {
         let label = UILabel()
-        label.text = headerDateFormatter.string(from: Date())
+        label.text = DateFormatterManager.dateFormatter.makeNowMonthDate() + " 팟팅 일정"
         label.font = AppFont.SemiBold.of(size: 16)
         label.textColor = AppColor.gray900
         return label
@@ -73,14 +72,6 @@ class HomeView: BaseView {
         return label
     }()
     
-    let headerDateFormatter: DateFormatter = {
-        let dateformat = DateFormatter()
-        dateformat.dateFormat = "MM월 팟팅 일정"
-        dateformat.locale = Locale(identifier: "ko_KR")
-        dateformat.timeZone = TimeZone(identifier: "KST")
-        return dateformat
-    }()
-    
     let pageButtonStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
@@ -89,10 +80,8 @@ class HomeView: BaseView {
         return view
     }()
     
-    lazy var calendarView: FSCalendar = {
+    let calendarView: FSCalendar = {
         let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 48, height: 124))
-        calendar.dataSource = self
-        calendar.delegate = self
         calendar.weekdayHeight = 20
         calendar.rowHeight = 30
         calendar.firstWeekday = 1
@@ -108,6 +97,8 @@ class HomeView: BaseView {
         
         calendar.appearance.weekdayFont = AppFont.Regular.of(size: 12)
         calendar.appearance.weekdayTextColor = AppColor.gray400
+        
+        calendar.appearance.eventDefaultColor = AppColor.brand
         
         return calendar
     }()
@@ -336,25 +327,7 @@ class HomeView: BaseView {
     }
 }
 
-extension HomeView: FSCalendarDelegate {
-    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        let currentPage = calendarView.currentPage
-        calendarLabel.text = headerDateFormatter.string(from: currentPage)
-    }
-}
-
-extension HomeView: FSCalendarDataSource {
-    func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
-        calendar.snp.updateConstraints { make in
-            make.height.equalTo(bounds.height)
-        }
-        
-        self.layoutIfNeeded()
-    }
-}
-
 extension HomeView {
-
     private func calculateItemSize() -> CGSize {
         let itemSize = CGSize(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.width * 0.4)
         return itemSize
