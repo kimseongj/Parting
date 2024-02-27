@@ -11,42 +11,7 @@ import RxSwift
 import Kingfisher
 import RxCocoa
 import CoreLocation
-
-enum PartyList: Int, CaseIterable {
-    case 관람팟
-    case 자기개발팟
-    case 문화생활팟
-    case 음식팟
-    case 운동팟
-    case 오락팟
-    case 카페팟
-    case 한잔팟
-
-    var imageNameList: String {
-        switch self {
-        case .관람팟:
-            return "관람"
-        case .자기개발팟:
-            return "자기개발"
-        case .문화생활팟:
-            return "문화생활"
-        case .음식팟:
-            return "음식"
-        case .운동팟:
-            return "운동"
-        case .오락팟:
-            return "오락"
-        case .카페팟:
-            return "카페"
-        case .한잔팟:
-            return "술"
-        }
-    }
-
-    static var numberOfItems: Int {
-        return Self.allCases.count
-    }
-}
+import FSCalendar
 
 final class HomeViewController: BaseViewController<HomeView> {
     
@@ -80,11 +45,11 @@ final class HomeViewController: BaseViewController<HomeView> {
         bind()
         checkDeviceLocationAuthorization()
         setDatasourceAndDelegate()
-        rootView.hideMyPartyListView()
+        rootView.myPartyCollectionView.delegate = self
     }
     
-    override func viewDidLayoutSubviews() { 
-        rootView.configureMyPartyListView()
+    override func viewDidLayoutSubviews() {
+        rootView.configureNoPartyView()
     }
     
     private func cellResigster() {
@@ -95,7 +60,8 @@ final class HomeViewController: BaseViewController<HomeView> {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
-        rootView.myPartyCollectionView.dataSource = self
+        rootView.calendarView.dataSource = self
+        rootView.calendarView.delegate = self
     }
     
     // MARK: - 지도 위치 권한 설정
@@ -169,7 +135,8 @@ final class HomeViewController: BaseViewController<HomeView> {
     
     private func bind() {
         viewModel.state.categories
-            .bind(to: rootView.categoryCollectionView.rx.items(cellIdentifier: TestViewCollectionViewCell.identifier, cellType: TestViewCollectionViewCell.self)) { [weak self] index, partyType, cell in
+            .bind(to: rootView.categoryCollectionView
+                .rx.items(cellIdentifier: TestViewCollectionViewCell.identifier, cellType: TestViewCollectionViewCell.self)) { index, partyType, cell in
                 guard let categoryImage = CategoryTitleImage(rawValue: index)?.item else { return }
                 cell.configureCell(item: partyType, image: categoryImage)
             }
@@ -185,9 +152,32 @@ final class HomeViewController: BaseViewController<HomeView> {
             .disposed(by: disposeBag)
         
         bindCalendarViewEvent()
+        bindMyParty()
+    }
+    
+    private func bindMyParty() {
+        viewModel.state.hasEnteredParty
+            .withUnretained(self)
+            .bind(onNext: { owner, hasParty in
+                if hasParty {
+                    owner.rootView.hideNoPartyView()
+                } else {
+                    owner.rootView.hideMypartyCollectionView()
+                }
+        })
+            .disposed(by: disposeBag)
+        
+        viewModel.state.enteredMyPartyRelay
+            .bind(to:
+                    rootView.myPartyCollectionView
+                .rx.items(cellIdentifier: MyPartyCell.identifier, cellType: MyPartyCell.self)) { index, myParty, cell in
+                    cell.fill(with: myParty)
+                }
+                .disposed(by: disposeBag)
     }
 }
 
+//MARK: - 현재 위치 갱신
 extension HomeViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
@@ -206,17 +196,58 @@ extension HomeViewController {
             self.viewModel.pushScheduleCalendarVC()
         })
         .disposed(by: disposeBag)
+        
+        viewModel.state.calendarData.withUnretained(self).bind(onNext: {owner, _ in
+            owner.rootView.calendarView.reloadData()
+        })
+        .disposed(by: disposeBag)
     }
 }
 
-extension HomeViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func scrollViewWillEndDragging(
+        _ scrollView: UIScrollView,
+        withVelocity velocity: CGPoint,
+        targetContentOffset: UnsafeMutablePointer<CGPoint>
+    ) {
+        let scrolledOffsetX = targetContentOffset.pointee.x + scrollView.contentInset.left
+        let cellWidth = rootView.calculateItemSize().width + 12
+        let index = round(scrolledOffsetX / cellWidth)
+        targetContentOffset.pointee = CGPoint(x: index * cellWidth - scrollView.contentInset.left, y: scrollView.contentInset.top)
+    }
+}
+
+//MARK: - Calendar DataSource & Delegate
+extension HomeViewController: FSCalendarDelegate {
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        let currentDate = rootView.calendarView.currentPage
+        rootView.calendarLabel.text = DateFormatterManager.dateFormatter.makeMonthDate(date: currentDate) + " 팟팅 일정"
+        viewModel.getCalendarInfo(date: currentDate)
+        
+    }
+}
+
+extension HomeViewController: FSCalendarDataSource {
+    func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
+        calendar.snp.updateConstraints { make in
+            make.height.equalTo(bounds.height + 10)
+        }
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPartyCell.identifier, for: indexPath) as? MyPartyCell else { return UICollectionViewCell() }
-        
-        return cell
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        if viewModel.state.calendarData.value.contains(date){
+            return 1
+        }
+        return 0
+    }
+}
+
+extension HomeViewController: FSCalendarDelegateAppearance {
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        if viewModel.state.calendarData.value.contains(date) {
+            return AppColor.brand
+        } else {
+            return nil
+        }
     }
 }

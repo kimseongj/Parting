@@ -31,7 +31,6 @@ class PartyTableViewCell: UITableViewCell {
         label.textColor = AppColor.white
         label.backgroundColor = AppColor.brand
         label.clipsToBounds = true
-        //label.textAlignment = .center
         return label
     }()
     

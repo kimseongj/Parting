@@ -25,21 +25,21 @@ final class HomeViewModel {
         case viewWillAppear
     }
     
-    struct Output {
-        let myParties: BehaviorRelay<[PartyInfoResponse]> = BehaviorRelay(value: [])
-    }
-    
     struct State {
         let categories: BehaviorRelay<[CategoryModel]> = BehaviorRelay(value: [])
-//        let categoryImages: BehaviorRelay<[CategoryModel]> = BehaviorRelay(value: [])
         let widgetData: BehaviorRelay<WidgetResult?> = BehaviorRelay<WidgetResult?>(value: nil)
-        let calendarData: BehaviorRelay<[Int]?> = BehaviorRelay<[Int]?>(value: nil)
+        let calendarData: BehaviorRelay<[Date]> = BehaviorRelay<[Date]>(value: [])
+        let enteredMyPartyRelay: BehaviorRelay<[PartyInfoResponse]> = BehaviorRelay<[PartyInfoResponse]>(value: [])
+        let hasEnteredParty: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     }
 	
     var input = PublishSubject<Input>()
     var state = State()
 	private let disposeBag = DisposeBag()
 	private weak var coordinator: HomeCoordinator?
+    var currentYearAndMonth: Date = Date()
+    var calendarDataList: [Date] = []
+    var hasEnteredParty: Bool = false
     
     init(coordinator: HomeCoordinator?) {
 		self.coordinator = coordinator
@@ -56,6 +56,7 @@ final class HomeViewModel {
                     owner.pushPartyListVC(category: model)
                 case .viewWillAppear:
                     owner.getEnteredMyParty()
+                    owner.getCalendarInfo(date: Date())
                 }
             })
             .disposed(by: disposeBag)
@@ -84,8 +85,8 @@ final class HomeViewModel {
     private func getEnteredMyParty() {
         let api = PartingAPI.checkEnteredParty(
             pageNumber: 0,
-            lat: 23,
-            lng: 24
+            lat: UserLocationManager.userLat,
+            lng: UserLocationManager.userLng
         )
         
         guard let apiURL = api.url else { return }
@@ -96,20 +97,29 @@ final class HomeViewModel {
             url: url,
             method: .get,
             parameters: api.parameters,
-            headers: api.headers) { response in
+            headers: api.headers) {[weak self] response in
+                guard let self = self else { return }
                 switch response {
                 case let .success(data):
                     print(data)
+                    if !data.result.partyInfos.isEmpty {
+                        self.state.enteredMyPartyRelay.accept(data.result.partyInfos)
+                        self.state.hasEnteredParty.accept(true)
+                    } else {
+                        self.state.hasEnteredParty.accept(false)
+                    }
                 case let .failure(error):
                     print(error)
                 }
             }
     }
     
-    private func getCalendarInfo() {
+    func getCalendarInfo(date: Date) {
+        let year = DateFormatterManager.dateFormatter.makeYearInt(date: date)
+        let month = DateFormatterManager.dateFormatter.makeMonthInt(date: date)
         let api = PartingAPI.calender(
-            month: 8,
-            year: 2023
+            month: month,
+            year: year
         )
         guard let apiURL = api.url else { return }
         guard let url = URL(string: apiURL) else { return }
@@ -120,9 +130,15 @@ final class HomeViewModel {
             method: .get,
             parameters: api.parameters,
             headers: api.headers) { [weak self] data in
+                guard let self = self else { return }
+                
                 switch data {
                 case let .success(data):
-                    self?.state.calendarData.accept(data.result)
+                    data.result.forEach {
+                        let stringDate = String(year) + "-" + String(month) + "-" + String($0)
+                        self.calendarDataList.append(DateFormatterManager.dateFormatter.makeDateFrom(stringDate: stringDate))
+                    }
+                    self.state.calendarData.accept(self.calendarDataList)
                     print(data.result)
                 case let .failure(error):
                     print(error)
