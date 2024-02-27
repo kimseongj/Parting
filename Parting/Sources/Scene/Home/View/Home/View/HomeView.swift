@@ -126,7 +126,7 @@ class HomeView: BaseView {
     
     let notYetParticipatePartyLabel2: UILabel = {
         let label = UILabel()
-        label.text = "파티를 시작해볼까요?"
+        label.text = "새로운 파티에 참여해보세요."
         label.font = AppFont.Medium.of(size: 14)
         label.textColor = AppColor.gray900
         label.sizeToFit()
@@ -135,13 +135,7 @@ class HomeView: BaseView {
         return label
     }()
     
-    let addPartyButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "addButton"), for: .normal)
-        return button
-    }()
-    
-    let myPartyListView: UIView = {
+    let noPartyView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 15
         
@@ -152,7 +146,7 @@ class HomeView: BaseView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = calculateItemSize()
-        layout.minimumLineSpacing = 15
+        layout.minimumLineSpacing = 12
         
         return layout
     }()
@@ -160,6 +154,7 @@ class HomeView: BaseView {
     lazy var myPartyCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: carouselFlowLayout)
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.decelerationRate = .fast
         collectionView.clipsToBounds = true
         collectionView.contentInset = calculateContentInset()
         collectionView.isScrollEnabled = true
@@ -191,15 +186,14 @@ class HomeView: BaseView {
         super.makeConfigures()
         naviCustomView.addSubview(naviImageView)
         
-        myPartyListView.addSubview(notYetParticipatePartyLabel1)
-        myPartyListView.addSubview(notYetParticipatePartyLabel2)
-        myPartyListView.addSubview(addPartyButton)
+        noPartyView.addSubview(notYetParticipatePartyLabel1)
+        noPartyView.addSubview(notYetParticipatePartyLabel2)
         
         [calendarLabel, defaultLine, calendarView].forEach {
             calendarTotalView.addSubview($0)
         }
         
-        [categoryCollectionView, calendarTotalView, myPartyListLabel, myPartyListView, myPartyCollectionView].forEach {
+        [categoryCollectionView, calendarTotalView, myPartyListLabel, noPartyView, myPartyCollectionView].forEach {
             contentView.addSubview($0)
         }
         
@@ -267,7 +261,7 @@ class HomeView: BaseView {
         calendarView.snp.makeConstraints { make in
             make.top.equalTo(defaultLine.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview().inset(24)
-            make.height.equalTo(300)
+            make.height.equalTo(200)
         }
         
         myPartyListLabel.snp.makeConstraints { make in
@@ -277,8 +271,8 @@ class HomeView: BaseView {
         }
         
         notYetParticipatePartyLabel1.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(20)
             make.centerX.equalToSuperview()
+            make.bottom.equalTo(noPartyView.snp.centerY).inset(2)
         }
         
         notYetParticipatePartyLabel2.snp.makeConstraints { make in
@@ -286,54 +280,50 @@ class HomeView: BaseView {
             make.centerX.equalToSuperview()
         }
         
-        addPartyButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(20)
-            make.size.equalTo(29)
-            make.centerX.equalToSuperview()
-        }
-        
-        myPartyListView.snp.makeConstraints { make in
+        noPartyView.snp.makeConstraints { make in
             make.top.equalTo(myPartyListLabel.snp.bottom).offset(12)
             make.centerX.equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(24)
-            make.height.equalTo(125)
+            make.height.equalTo(150)
+            make.bottom.equalToSuperview().inset(40)
         }
         
         myPartyCollectionView.snp.makeConstraints { make in
             make.top.equalTo(myPartyListLabel.snp.bottom).offset(12)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(UIScreen.main.bounds.width * 0.4)
+            make.height.equalTo(150)
+            make.bottom.equalToSuperview().inset(40)
         }
     }
     
-    func configureMyPartyListView() {
+    func configureNoPartyView() {
         let borderLayer = CAShapeLayer()
         borderLayer.strokeColor = AppColor.brand.cgColor
         borderLayer.lineDashPattern = [4, 4]
-        borderLayer.frame = myPartyListView.bounds
+        borderLayer.frame = noPartyView.bounds
         borderLayer.fillColor = nil
-        borderLayer.path = UIBezierPath(roundedRect: myPartyListView.bounds, cornerRadius: 15).cgPath
-        myPartyListView.layer.addSublayer(borderLayer)
+        borderLayer.path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.bounds.width - 48, height: 150), cornerRadius: 15).cgPath
+        noPartyView.layer.addSublayer(borderLayer)
     }
     
     func hideMypartyCollectionView() {
         myPartyCollectionView.isHidden = true
-        myPartyListView.isHidden = false
+        noPartyView.isHidden = false
     }
     
-    func hideMyPartyListView() {
+    func hideNoPartyView() {
         myPartyCollectionView.isHidden = false
-        myPartyListView.isHidden = true
+        noPartyView.isHidden = true
     }
 }
 
 extension HomeView {
-    private func calculateItemSize() -> CGSize {
-        let itemSize = CGSize(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.width * 0.4)
+    func calculateItemSize() -> CGSize {
+        let itemSize = CGSize(width: UIScreen.main.bounds.width - 48, height: 150)
         return itemSize
     }
     
-    private func calculateContentInset() -> UIEdgeInsets {
+    func calculateContentInset() -> UIEdgeInsets {
         let collectionViewContentInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
         return collectionViewContentInset
     }

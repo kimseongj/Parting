@@ -25,15 +25,12 @@ final class HomeViewModel {
         case viewWillAppear
     }
     
-    struct Output {
-        let myParties: BehaviorRelay<[PartyInfoResponse]> = BehaviorRelay(value: [])
-    }
-    
     struct State {
         let categories: BehaviorRelay<[CategoryModel]> = BehaviorRelay(value: [])
-//        let categoryImages: BehaviorRelay<[CategoryModel]> = BehaviorRelay(value: [])
         let widgetData: BehaviorRelay<WidgetResult?> = BehaviorRelay<WidgetResult?>(value: nil)
         let calendarData: BehaviorRelay<[Date]> = BehaviorRelay<[Date]>(value: [])
+        let enteredMyPartyRelay: BehaviorRelay<[PartyInfoResponse]> = BehaviorRelay<[PartyInfoResponse]>(value: [])
+        let hasEnteredParty: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     }
 	
     var input = PublishSubject<Input>()
@@ -42,6 +39,7 @@ final class HomeViewModel {
 	private weak var coordinator: HomeCoordinator?
     var currentYearAndMonth: Date = Date()
     var calendarDataList: [Date] = []
+    var hasEnteredParty: Bool = false
     
     init(coordinator: HomeCoordinator?) {
 		self.coordinator = coordinator
@@ -99,10 +97,17 @@ final class HomeViewModel {
             url: url,
             method: .get,
             parameters: api.parameters,
-            headers: api.headers) { response in
+            headers: api.headers) {[weak self] response in
+                guard let self = self else { return }
                 switch response {
                 case let .success(data):
                     print(data)
+                    if !data.result.partyInfos.isEmpty {
+                        self.state.enteredMyPartyRelay.accept(data.result.partyInfos)
+                        self.state.hasEnteredParty.accept(true)
+                    } else {
+                        self.state.hasEnteredParty.accept(false)
+                    }
                 case let .failure(error):
                     print(error)
                 }
