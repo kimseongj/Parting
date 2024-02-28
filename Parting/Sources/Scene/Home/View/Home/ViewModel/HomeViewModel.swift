@@ -11,7 +11,7 @@ import RxCocoa
 import CoreData
 
 final class HomeViewModel {
-	
+
 	enum LocalStorageError: Error {
 		case noFileName
 		case noImageInDisk
@@ -28,7 +28,7 @@ final class HomeViewModel {
     struct State {
         let categories: BehaviorRelay<[CategoryModel]> = BehaviorRelay(value: [])
         let widgetData: BehaviorRelay<WidgetResult?> = BehaviorRelay<WidgetResult?>(value: nil)
-        let calendarData: BehaviorRelay<[Date]> = BehaviorRelay<[Date]>(value: [])
+        let calendarData: BehaviorRelay<Set<Date>> = BehaviorRelay<Set<Date>>(value: [])
         let enteredMyPartyRelay: BehaviorRelay<[PartyInfoResponse]> = BehaviorRelay<[PartyInfoResponse]>(value: [])
         let hasEnteredParty: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     }
@@ -38,7 +38,7 @@ final class HomeViewModel {
 	private let disposeBag = DisposeBag()
 	private weak var coordinator: HomeCoordinator?
     var currentYearAndMonth: Date = Date()
-    var calendarDataList: [Date] = []
+    var calendarDataList: Set<Date> = []
     var hasEnteredParty: Bool = false
     
     init(coordinator: HomeCoordinator?) {
@@ -117,7 +117,7 @@ final class HomeViewModel {
     func getCalendarInfo(date: Date) {
         let year = DateFormatterManager.dateFormatter.makeYearInt(date: date)
         let month = DateFormatterManager.dateFormatter.makeMonthInt(date: date)
-        let api = PartingAPI.calender(
+        let api = PartingAPI.calendar(
             month: month,
             year: year
         )
@@ -136,7 +136,7 @@ final class HomeViewModel {
                 case let .success(data):
                     data.result.forEach {
                         let stringDate = String(year) + "-" + String(month) + "-" + String($0)
-                        self.calendarDataList.append(DateFormatterManager.dateFormatter.makeDateFrom(stringDate: stringDate))
+                        self.calendarDataList.insert(DateFormatterManager.dateFormatter.makeDateFrom(stringDate: stringDate))
                     }
                     self.state.calendarData.accept(self.calendarDataList)
                     print(data.result)
@@ -166,4 +166,3 @@ final class HomeViewModel {
         coordinator?.pushScheduleCalendarVC()
     }
 }
-
