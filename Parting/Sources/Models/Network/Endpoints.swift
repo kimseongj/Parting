@@ -41,7 +41,8 @@ enum PartingAPI {
     )
     case modifyParty(partyId: Int)
     case deleteParty(partyId: Int)
-    case calender(month: Int, year: Int)
+    case calendar(month: Int, year: Int)
+    case detailCalendar(month: Int, year: Int, userLatitude: Double, userLongitude: Double)
     case recentView(partyIdStr: String)
     case region
     case reportParty
@@ -104,8 +105,10 @@ extension PartingAPI {
             return "\(BaseURL.baseURLv2)/parties"
         case .createParty:
             return  "\(BaseURL.partyURL)"
-        case .modifyParty, .calender, .recentView:
+        case .modifyParty, .calendar, .recentView:
             return  "\(BaseURL.partyURL)/calendar"
+        case .detailCalendar:
+            return "\(BaseURL.baseURLv2)/calendar-detail"
         case .partyDday:
             return "\(BaseURL.partyURL)/d-day"
         case let .partyMember(partyId, userId):
@@ -147,7 +150,7 @@ extension PartingAPI {
             return [
                 "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTcwOTAwNjc1NSwiZXhwIjoxNzEwMjE2MzU1fQ.ut1oh5dnUDvcIxtKed9zDEehrDAeeFCkLGCtQpYi_ws"
             ]
-        case .parties, .associatedCategory, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calender, .region, .recentView, .checkMyParty, .partyMember, .detailCategory, .checkNickname, .essentialInfo, .getAroundParty, .getMapPartyDetailInfo, .getMypage, .modifyInfo, .modifyProfileImage:
+        case .parties, .associatedCategory, .createParty, .getPartyDetail, .modifyParty, .deleteParty, .calendar, .detailCalendar, .region, .recentView, .checkMyParty, .partyMember, .detailCategory, .checkNickname, .essentialInfo, .getAroundParty, .getMapPartyDetailInfo, .getMypage, .modifyInfo, .modifyProfileImage:
             
             return [
                 "authorization": "Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEsImlhdCI6MTcwOTAwNjc1NSwiZXhwIjoxNzEwMjE2MzU1fQ.ut1oh5dnUDvcIxtKed9zDEehrDAeeFCkLGCtQpYi_ws"
@@ -155,21 +158,21 @@ extension PartingAPI {
         }
     }
     
-    var parameters1: [String: Any] {
-        switch self {
-        case .parties(let params):
-            return [
-                "categoryId": params.categoryId,
-                "orderCondition": params.orderCondition,
-                "pageNum": params.pageNumber,
-                "categoryVersionOfUser": "1.0.0",
-                "userLatitude": params.userLat,
-                "userLongitude": params.userLng
-            ]
-        default:
-            return ["": ""]
-        }
-    }
+//    var parameters1: [String: Any] {
+//        switch self {
+//        case .parties(let params):
+//            return [
+//                "categoryId": params.categoryId,
+//                "orderCondition": params.orderCondition,
+//                "pageNum": params.pageNumber,
+//                "categoryVersionOfUser": "1.0.0",
+//                "userLatitude": params.userLat,
+//                "userLongitude": params.userLng
+//            ]
+//        default:
+//            return ["": ""]
+//        }
+//    }
     
     var parameters: [String: Any] {
         switch self {
@@ -238,10 +241,17 @@ extension PartingAPI {
                 "userLatitude": userLatitude,
                 "userLongitude": userLongitude
             ]
-        case let .calender(month, year):
+        case let .calendar(month, year):
             return [
                 "month": month,
                 "year": year
+            ]
+        case let .detailCalendar(month, year, userLatitude, userLongitude):
+            return [
+                "month": month,
+                "year": year,
+                "userLatitude": userLatitude,
+                "userLongitude": userLongitude
             ]
         case let .recentView(partyIdStr):
             return [
