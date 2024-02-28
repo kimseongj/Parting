@@ -13,14 +13,12 @@ final class ScheduleCell: UICollectionViewCell {
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 16)
         label.textColor = UIColor(red: 0.969, green: 0.325, blue: 0.463, alpha: 1)
         label.backgroundColor = .white
-        label.text = "25일"
         return label
     }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 15)
-        label.text = "함께 운동합시다잉"
         return label
     }()
     
@@ -34,7 +32,6 @@ final class ScheduleCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = UIColor(red: 0.459, green: 0.459, blue: 0.459, alpha: 1)
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 11)
-        label.text = "강서구 마곡동 빌딩"
         return label
     }()
     
@@ -42,7 +39,7 @@ final class ScheduleCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = UIColor(red: 0.567, green: 0.567, blue: 0.567, alpha: 1)
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 15)
-        label.text = "D-23"
+        label.textAlignment = .right
         return label
     }()
     
@@ -87,11 +84,22 @@ final class ScheduleCell: UICollectionViewCell {
         ddayLabel.snp.makeConstraints {
             $0.centerY.equalTo(titleLabel)
             $0.leading.equalTo(titleLabel.snp.trailing).offset(25)
+            $0.width.equalTo(80)
             $0.trailing.equalToSuperview().inset(25)
         }
     }
     
-    func fill(with data: String) {
+    func fill(with data: PartyInfoWithDday) {
+        dayLabel.text = String(data.day) + "일"
+        titleLabel.text = data.partyName
+        locationLabel.text = data.address + " / " + String(data.distance) + data.distanceUnit
         
+        if data.dDay < 0 {
+            ddayLabel.text = "종료"
+        } else if data.dDay == 0 {
+            ddayLabel.text = "D-Day"
+        } else {
+            ddayLabel.text = "D-" + String(data.dDay)
+        }
     }
 }
