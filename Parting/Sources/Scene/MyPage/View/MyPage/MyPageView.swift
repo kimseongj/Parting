@@ -89,7 +89,7 @@ final class MyPageView: BaseView {
     let settingStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
-        view.distribution = .fillEqually
+        view.distribution = .fillProportionally
         return view
     }()
     
@@ -120,7 +120,7 @@ final class MyPageView: BaseView {
     let etcStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
-        view.distribution = .fillEqually
+        view.distribution = .fillProportionally
         return view
     }()
     

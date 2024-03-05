@@ -35,7 +35,6 @@ final class MapViewModel {
     
     init(mapCoordinator: MapCoordinator?) {
         self.mapCoordinator = mapCoordinator
-
     }
 
     func searchPartyOnMap(searchHighLatitude: Double,
@@ -96,7 +95,7 @@ final class MapViewModel {
             switch response {
             case let .success(data):
                 print(data, "💛")
-                selectedPartyID = data.result.partyInfos.first!.partyID
+                selectedPartyID = data.result.partyInfos.first?.partyID ?? 0
                 self.output.selectedParty.accept(data.result.partyInfos.first!)
             case let .failure(error):
                 print(error)

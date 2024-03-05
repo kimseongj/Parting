@@ -91,7 +91,6 @@ struct SidoSigunguData {
             sido: .제주특별자치도,
             sigungu: ["제주시", "서귀포시"])
     ]
-   
 }
 
 final class EditMyPageViewModel {
@@ -102,7 +101,7 @@ final class EditMyPageViewModel {
     }
     
     enum Output {
-        
+
     }
     
     struct State {

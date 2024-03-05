@@ -32,7 +32,7 @@ enum TableViewList {
         case .setParty:
             return ["darkMode", "'help", "bell", "logout"]
         case .etcParty:
-            return ["report", "", "mail"]
+            return ["report", "agreement", "mail"]
         }
     }
 }
