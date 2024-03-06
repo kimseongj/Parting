@@ -45,8 +45,9 @@ class MyPageTableViewCell: UITableViewCell {
     
     func constraintsLayout() {
         listImage.snp.makeConstraints { make in
-            make.verticalEdges.leading.equalToSuperview().inset(13)
-            make.width.equalTo(listImage.snp.height)
+            make.centerY.equalToSuperview()
+            make.size.equalTo(24)
+            make.leading.equalToSuperview().offset(24)
         }
         listTitle.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview().inset(13)
@@ -54,10 +55,9 @@ class MyPageTableViewCell: UITableViewCell {
             make.leading.equalTo(listImage.snp.trailing).offset(10)
         }
     }
-    
-    func configureCell(title: String, image: String) {
+
+    func fill(title: String, image: String) {
         listImage.image = UIImage(named: image)
         listTitle.text = title
     }
-
 }

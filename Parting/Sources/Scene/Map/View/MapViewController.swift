@@ -220,15 +220,16 @@ extension MapViewController: NMFMapViewTouchDelegate {
 
 extension MapViewController {
     func bindMarker() {
+        
+        
         viewModel.output.aroundPartyList.bind(onNext: { partyList in
             partyList.forEach { data in
+    
                 let marker = NMFMarker(position: NMGLatLng(lat: data.partyLatitude, lng: data.partyLongitude), iconImage: NMFOverlayImage(name: "locationMarker"))
-                
                     marker.mapView = self.rootView.mapView.mapView
 
                 let handler = { [weak self] (overlay: NMFOverlay) -> Bool in
                     guard let self = self else { return true }
-//                    if let maker = overlay as? NMFMarker {
                         self.viewModel.getMapPartyDetailInfo(partyId: data.partyID, partyLat: data.partyLatitude, partyLng: data.partyLongitude)
 
                         self.viewModel.output.selectedParty.bind(onNext: { data in 
@@ -236,8 +237,7 @@ extension MapViewController {
                             self.rootView.presentInfoView()
                         })
                         .disposed(by: disposeBag)
-                        
-//                    }
+
                     return true
                 }
                 
