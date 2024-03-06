@@ -9,7 +9,7 @@ import UIKit
 
 final class BarImageTitleButton: UIBarButtonItem {
     let containerView = UIView()
-    let innerButton = UIButton()
+    let backButton = UIButton()
     
     let titleLabel: UILabel = {
        let label = UILabel()
@@ -46,20 +46,20 @@ extension BarImageTitleButton: ProgrammaticallyInitializableViewProtocol {
     }
     
     func addSubviews() {
-        containerView.addSubview(innerButton)
+        containerView.addSubview(backButton)
         containerView.addSubview(titleLabel)
-        innerButton.addSubview(imageView)
+        backButton.addSubview(imageView)
     }
     
     func makeConstraints() {
-        innerButton.snp.makeConstraints {
+        backButton.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview()
         }
         
         titleLabel.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
-            $0.leading.equalTo(innerButton.snp.trailing).offset(8)
+            $0.leading.equalTo(backButton.snp.trailing).offset(8)
             $0.trailing.equalToSuperview()
         }
         
