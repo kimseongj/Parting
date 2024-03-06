@@ -48,13 +48,7 @@ Parting을 통해 시작해보세요!
 <br/>
 
 ## ⚙️ 기술 스택
-<img src="https://img.shields.io/badge/MVVM-100AF?style=flat-square"/>
-<img src="https://img.shields.io/badge/Coordinator-019999?style=flat-square"/>
-<img src="https://img.shields.io/badge/RxSwifft-AAA1AF?style=flat-square"/>
-<img src="https://img.shields.io/badge/Alamofire-100000?style=flat-square"/>
-<img src="https://img.shields.io/badge/KingFisher-FF0000?style=flat-square"/>
-<img src="https://img.shields.io/badge/Tabman-EEE6C4?style=flat-square"/>
-<img src="https://img.shields.io/badge/FSCalendar-DDA2FF?style=flat-square"/> 
+<img src="https://img.shields.io/badge/MVVM-100AF?style=flat-square"/><img src="https://img.shields.io/badge/Coordinator-019999?style=flat-square"/><img src="https://img.shields.io/badge/RxSwifft-AAA1AF?style=flat-square"/><img src="https://img.shields.io/badge/Alamofire-100000?style=flat-square"/><img src="https://img.shields.io/badge/KingFisher-FF0000?style=flat-square"/><img src="https://img.shields.io/badge/Tabman-EEE6C4?style=flat-square"/><img src="https://img.shields.io/badge/FSCalendar-DDA2FF?style=flat-square"/> 
 
 <br/>
 <br/>
