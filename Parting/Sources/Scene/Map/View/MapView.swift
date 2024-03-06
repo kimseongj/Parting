@@ -70,8 +70,11 @@ final class PartyInfoView: BaseView {
     
     let headCountLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(red: 0.459, green: 0.459, blue: 0.459, alpha: 1)
+        label.textColor = .white
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
+        label.backgroundColor = AppColor.brand
+        label.layer.cornerRadius = 7
+        label.clipsToBounds = true
         return label
     }()
     
@@ -125,7 +128,7 @@ final class PartyInfoView: BaseView {
     
     func fill(with partyInfo: MarkerPartyInfo) {
         locationLabel.text = "\(partyInfo.address) \(partyInfo.distance)\(partyInfo.distanceUnit)"
-        headCountLabel.text = "\(partyInfo.currentPartyMemberCount) / \(partyInfo.maxPartyMemberCount)"
+        headCountLabel.text = "  \(partyInfo.currentPartyMemberCount) / \(partyInfo.maxPartyMemberCount)  "
         partyTitleLabel.text = partyInfo.partyName
         partyDateLabel.text = partyInfo.partyStartTime
         partyInfoLabel.text = partyInfo.description

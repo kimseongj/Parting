@@ -68,7 +68,7 @@ final class TabManViewController: TabmanViewController {
     }
     
     func bind() {
-        barImageTitleButton.innerButton.rx.tap
+        barImageTitleButton.backButton.rx.tap
             .withUnretained(self)
             .subscribe(onNext: { owner, tap in
                 owner.tabManDatasource.input.onNext(.backButtonTap)

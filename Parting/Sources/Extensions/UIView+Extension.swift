@@ -36,9 +36,9 @@ extension UIView {
     }
     
     func makeRightBottomShadow() {
-        self.layer.shadowOpacity = 0.3
+        self.layer.shadowOpacity = 0.1
         self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOffset = CGSize(width: 5, height: 5)
-        self.layer.shadowRadius = 5
+        self.layer.shadowOffset = CGSize(width: 3, height: 3)
+        self.layer.shadowRadius = 1
     }
 }

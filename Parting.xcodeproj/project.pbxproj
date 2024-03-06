@@ -21,6 +21,8 @@
 		1C70EDBC2B67466600370242 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C70EDBB2B67466600370242 /* DateFormatter+Extension.swift */; };
 		1C70EDBE2B67470400370242 /* ScheduleCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C70EDBD2B67470400370242 /* ScheduleCalendarViewModel.swift */; };
 		1C70EDC12B674A2F00370242 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C70EDC02B674A2F00370242 /* DateFormatterManager.swift */; };
+		1C711B6D2B988BC800472C76 /* TermsOfServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C711B6C2B988BC800472C76 /* TermsOfServiceView.swift */; };
+		1C711B702B988CC300472C76 /* TermsOfServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C711B6F2B988CC300472C76 /* TermsOfServiceViewController.swift */; };
 		1C80D37B2B7B7F2500E77236 /* PartySortingModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C80D37A2B7B7F2500E77236 /* PartySortingModalViewController.swift */; };
 		1C80D37D2B7B7F4600E77236 /* PartySortingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C80D37C2B7B7F4600E77236 /* PartySortingTableViewCell.swift */; };
 		1C80D37F2B7B7F5700E77236 /* MutableSizeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C80D37E2B7B7F5700E77236 /* MutableSizeTableView.swift */; };
@@ -223,6 +225,8 @@
 		1C70EDBB2B67466600370242 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		1C70EDBD2B67470400370242 /* ScheduleCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCalendarViewModel.swift; sourceTree = "<group>"; };
 		1C70EDC02B674A2F00370242 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
+		1C711B6C2B988BC800472C76 /* TermsOfServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServiceView.swift; sourceTree = "<group>"; };
+		1C711B6F2B988CC300472C76 /* TermsOfServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServiceViewController.swift; sourceTree = "<group>"; };
 		1C80D37A2B7B7F2500E77236 /* PartySortingModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartySortingModalViewController.swift; sourceTree = "<group>"; };
 		1C80D37C2B7B7F4600E77236 /* PartySortingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartySortingTableViewCell.swift; sourceTree = "<group>"; };
 		1C80D37E2B7B7F5700E77236 /* MutableSizeTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableSizeTableView.swift; sourceTree = "<group>"; };
@@ -485,6 +489,15 @@
 			path = DateFormatter;
 			sourceTree = "<group>";
 		};
+		1C711B6E2B988BEC00472C76 /* TermsOfService */ = {
+			isa = PBXGroup;
+			children = (
+				1C711B6C2B988BC800472C76 /* TermsOfServiceView.swift */,
+				1C711B6F2B988CC300472C76 /* TermsOfServiceViewController.swift */,
+			);
+			path = TermsOfService;
+			sourceTree = "<group>";
+		};
 		1C8F912A2B5CE813003A18F7 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
@@ -552,6 +565,7 @@
 		2FD54E932ABDA9FE00C9216A /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				1C711B6E2B988BEC00472C76 /* TermsOfService */,
 				2FD54E942ABDA9FE00C9216A /* NotificationSetting */,
 				2FD54E972ABDA9FE00C9216A /* Logout */,
 				2FD54E9A2ABDA9FE00C9216A /* SettingAlert */,
@@ -1503,6 +1517,7 @@
 				4E9317762A6B881A001FBDCB /* CreayPartyCommonLabel.swift in Sources */,
 				4E87B4552AA2D88E00B3AD94 /* WidgetResponse.swift in Sources */,
 				4EA81DE229ED32680070F1B7 /* UILabel+Extension.swift in Sources */,
+				1C711B6D2B988BC800472C76 /* TermsOfServiceView.swift in Sources */,
 				4E892D122A9F42530075F56F /* HashTagCollectionViewCell.swift in Sources */,
 				2FD54E912ABDA9E900C9216A /* InterestCollectionViewCell.swift in Sources */,
 				933B3CA62A55873A00B8D60B /* DdayWidgetView.swift in Sources */,
@@ -1639,6 +1654,7 @@
 				4EA81DE629ED41100070F1B7 /* UIView+Extension.swift in Sources */,
 				1C80D37F2B7B7F5700E77236 /* MutableSizeTableView.swift in Sources */,
 				1C70EDB62B63E65F00370242 /* CalendarDetailResponse.swift in Sources */,
+				1C711B702B988CC300472C76 /* TermsOfServiceViewController.swift in Sources */,
 				4EFFCE452A6DF2170075EF9C /* CategoryImageCollectionViewCell.swift in Sources */,
 				4EA633992A5FAB3900F27386 /* MyPageViewController.swift in Sources */,
 				933B3CA82A55874600B8D60B /* ScheduleView.swift in Sources */,

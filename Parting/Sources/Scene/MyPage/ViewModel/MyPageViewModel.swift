@@ -155,6 +155,10 @@ final class MyPageViewModel: BaseViewModel {
     func pushInquireVC() {
         self.coordinator?.pushInquireVC()
     }
+    
+    func pushTermsOfServiceVC() {
+        self.coordinator?.pushTermsOfServiceVC()
+    }
 }
 
 extension MyPageViewModel {

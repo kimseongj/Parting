@@ -11,17 +11,14 @@ import RxCocoa
 
 enum TableViewList {
     case aboutParty
-    case setParty
-    case etcParty
-
+    case setting
+    
     var title: [String] {
         switch self {
         case .aboutParty:
             return ["최근 본 파티", "내가 개설한 파티", "내가 참여한 파티"]
-        case .setParty:
-            return ["다크모드", "도움말", "알림 설정", "로그아웃"]
-        case .etcParty:
-            return ["신고하기", "이용 약관", "문의하기"]
+        case .setting:
+            return ["알림 설정", "이용 약관", "문의하기", "로그아웃"]
         }
     }
     
@@ -29,10 +26,8 @@ enum TableViewList {
         switch self {
         case .aboutParty:
             return ["recentlyParty", "myParty", "participate"]
-        case .setParty:
-            return ["darkMode", "'help", "bell", "logout"]
-        case .etcParty:
-            return ["report", "", "mail"]
+        case .setting:
+            return ["bell", "agreement", "mail", "logout"]
         }
     }
 }
@@ -71,7 +66,7 @@ final class MyPageViewController: BaseViewController<MyPageView> {
         setDelegate()
         setDataSourceAndDelegate()
         cellRegister()
-        setTableViewHeight()
+        //        setTableViewHeight()
         var snapshot = NSDiffableDataSourceSnapshot<Int, MyPageModel>()
         snapshot.appendSections([0])
         var arr: [MyPageModel] = [MyPageModel(image: UIImage(named: "currentParty")!, title: MyPageCellTitle.current.rawValue), MyPageModel(image: UIImage(named: "createParty")!, title: MyPageCellTitle.create.rawValue), MyPageModel(image: UIImage(named: "participateParty")!, title: MyPageCellTitle.participate.rawValue)]
@@ -83,22 +78,13 @@ final class MyPageViewController: BaseViewController<MyPageView> {
         rootView.categoryCollectionView.delegate = self
     }
     
-    private func setTableViewHeight() {
-        rootView.setTableViewRowHeight(rootView.aboutPartyTableView)
-        rootView.setTableViewRowHeight(rootView.setPartyTableView)
-        rootView.setTableViewRowHeight(rootView.setETCTableView)
-    }
-    
     private func cellRegister() {
-        rootView.aboutPartyTableView.register(MyPageTableViewCell.self, forCellReuseIdentifier: MyPageTableViewCell.identifier)
-        rootView.setPartyTableView.register(MyPageTableViewCell.self, forCellReuseIdentifier: MyPageTableViewCell.identifier)
-        rootView.setETCTableView.register(MyPageTableViewCell.self, forCellReuseIdentifier: MyPageTableViewCell.identifier)
+        rootView.settingTableView.register(MyPageTableViewCell.self, forCellReuseIdentifier: MyPageTableViewCell.identifier)
     }
     
     private func setDataSourceAndDelegate() {
-        tableViewDataSourceAndDelegate(rootView.aboutPartyTableView)
-        tableViewDataSourceAndDelegate(rootView.setPartyTableView)
-        tableViewDataSourceAndDelegate(rootView.setETCTableView)
+        tableViewDataSourceAndDelegate(rootView.settingTableView)
+
     }
     
     private func tableViewDataSourceAndDelegate(_ tableView: UITableView) {
@@ -112,36 +98,6 @@ final class MyPageViewController: BaseViewController<MyPageView> {
     }
     
     private func bind() {
-        rootView.settingUnfoldButton.rx.tap
-            .withUnretained(self)
-            .subscribe(onNext: { owner, _ in
-                owner.viewModel.setUnfoldButton(state: true)
-                owner.rootView.setPartyTableView.reloadData()
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.settingUnfoldButtonState
-            .withUnretained(self)
-            .subscribe(onNext: { owner, state in
-                owner.rootView.setTableViewUIUpdate(state: state)
-            })
-            .disposed(by: disposeBag)
-        
-        rootView.etcUnfoldButton.rx.tap
-            .withUnretained(self)
-            .subscribe(onNext: { owner, _ in
-                owner.viewModel.etcUnfoldButton(state: true)
-                owner.rootView.setETCTableView.reloadData()
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.etcUnfoldButtonState
-            .withUnretained(self)
-            .subscribe(onNext: { owner, state in
-                owner.rootView.setETCTableViewUIUpdate(state: state)
-            })
-            .disposed(by: disposeBag)
-        
         rootView.editButton.rx.tap
             .withUnretained(self)
             .subscribe { onwer, _ in
@@ -152,7 +108,7 @@ final class MyPageViewController: BaseViewController<MyPageView> {
         viewModel.myPageData
             .withUnretained(self)
             .bind { owner, data in
-                owner.rootView.configureMyPageUI(data)
+             owner.rootView.configureMyPageUI(data)
             }
             .disposed(by: disposeBag)
         
@@ -162,86 +118,37 @@ final class MyPageViewController: BaseViewController<MyPageView> {
 }
 
 extension MyPageViewController: UITableViewDelegate {
-    
-}
-
-extension MyPageViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch tableView {
-        case rootView.aboutPartyTableView:
-            return TableViewList.aboutParty.title.count
-        case rootView.setPartyTableView:
-            return TableViewList.setParty.title.count
-        case rootView.setETCTableView:
-            return TableViewList.etcParty.title.count
-        default:
-            return 0
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = self.rootView.aboutPartyTableView.dequeueReusableCell(withIdentifier: MyPageTableViewCell.identifier, for: indexPath) as? MyPageTableViewCell else { return UITableViewCell() }
-        switch tableView {
-        case rootView.aboutPartyTableView:
-            cell.configureCell(
-                title: TableViewList.aboutParty.title[indexPath.row],
-                image: TableViewList.aboutParty.image[indexPath.row]
-            )
-            return cell
-        case rootView.setPartyTableView:
-            cell.configureCell(
-                title: TableViewList.setParty.title[indexPath.row],
-                image: TableViewList.setParty.image[indexPath.row]
-            )
-            return cell
-        case rootView.setETCTableView:
-            cell.configureCell(
-                title: TableViewList.etcParty.title[indexPath.row],
-                image: TableViewList.etcParty.image[indexPath.row]
-            )
-            return cell
-        default:
-            return UITableViewCell()
-        }
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch tableView {
-        case rootView.aboutPartyTableView:
-            switch indexPath.row {
-            case 0:
-                viewModel.pushRecentlyVC()
-            case 1:
-                viewModel.pushMyPartyVC()
-            case 2:
-                viewModel.pushEnteredPartyVC()
-            default:
-                break
-            }
-        case rootView.setPartyTableView:
-            switch indexPath.row {
-                
-            case 2:
-                viewModel.presentNotificationSettingVC()
-            case 3:
-                viewModel.presentLogoutAlertVC()
-            default:
-                break
-            }
-            print("setPartyTableView입니다 \(indexPath.row)")
-        case rootView.setETCTableView:
-            print("setETCTableView입니다 \(indexPath.row)")
-            switch indexPath.row {
-            case 2:
-                viewModel.pushInquireVC()
-            default:
-                break
-            }
+        switch indexPath.row {
+        case 0:
+            viewModel.presentNotificationSettingVC()
+        case 1:
+            viewModel.pushTermsOfServiceVC()
+        case 2:
+            viewModel.pushInquireVC()
+        case 3:
+            viewModel.presentLogoutAlertVC()
+
         default:
             break
         }
     }
 }
+
+extension MyPageViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return TableViewList.setting.title.count
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = self.rootView.settingTableView.dequeueReusableCell(withIdentifier: MyPageTableViewCell.identifier, for: indexPath) as? MyPageTableViewCell else { return UITableViewCell() }
+        cell.fill(title: TableViewList.setting.title[indexPath.row], image: TableViewList.setting.image[indexPath.row])
+        
+        return cell
+    }
+}
+
 
 extension MyPageViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

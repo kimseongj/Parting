@@ -10,7 +10,6 @@ import UIKit
 class HashTagCollectionViewCell: UICollectionViewCell {
     let hashTagNameLabel: UILabel = {
         let label = UILabel()
-        label.layer.cornerRadius = 8
         label.clipsToBounds = true
         label.font = AppFont.Regular.of(size: 11)
         label.textColor = AppColor.gray500
@@ -39,8 +38,8 @@ class HashTagCollectionViewCell: UICollectionViewCell {
     
     func makeConstraints() {
         hashTagNameLabel.snp.makeConstraints { make in
-            make.leading.top.equalToSuperview().offset(7)
-            make.trailing.bottom.equalToSuperview().inset(7)
+            make.leading.top.equalToSuperview().offset(8)
+            make.trailing.bottom.equalToSuperview().inset(8)
         }
     }
     

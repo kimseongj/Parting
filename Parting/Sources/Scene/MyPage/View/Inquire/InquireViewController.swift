@@ -10,9 +10,8 @@ import RxSwift
 import RxCocoa
 
 final class InquireViewController: BaseViewController<InquireView> {
-    
     private var viewModel: InquireViewModel
-
+    
     init(viewModel: InquireViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -23,17 +22,23 @@ final class InquireViewController: BaseViewController<InquireView> {
     }
     
     var textViewPlaceHolder = "내용을 입력하세요"
-
+    
+    private let barImageTitleButton = BarImageTitleButton(imageName: Images.icon.back, title: "문의하기")
+    
     private let emailInfoButtonValid = BehaviorRelay<Bool>(value: false)
     private let emailValid = BehaviorRelay<Bool>(value: false)
     private let inquireValid = BehaviorRelay<Bool>(value: false)
     private let totalValid = BehaviorRelay<Bool>(value: false)
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationUI()
         rootView.inquireTextView.delegate = self
+        configureNavigationBar()
         bind()
+    }
+    
+    private func configureNavigationBar() {
+        self.navigationItem.leftBarButtonItem = barImageTitleButton
     }
     
     private func bind() {
@@ -104,20 +109,18 @@ final class InquireViewController: BaseViewController<InquireView> {
                 owner.rootView.finishButtonValid(valid: valid)
             }
             .disposed(by: disposeBag)
-
-    }
-}
-
-extension InquireViewController {
-    private func navigationUI() {
-        navigationController?.isNavigationBarHidden = false
-        self.navigationItem.leftBarButtonItem = rootView.backBarButton
-        self.navigationItem.titleView = rootView.navigationLabel
+        
+        barImageTitleButton.backButton.rx.tap
+            .withUnretained(self)
+            .subscribe(onNext: { owner, tap in
+                owner.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
 extension InquireViewController: UITextViewDelegate {
-
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if rootView.inquireTextView.text == textViewPlaceHolder {
             rootView.inquireTextView.text = nil

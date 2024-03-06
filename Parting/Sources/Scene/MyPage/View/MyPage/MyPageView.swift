@@ -24,7 +24,6 @@ enum FoldButton {
 }
 
 final class MyPageView: BaseView {
-    
     let navigationLabel: BarTitleLabel = BarTitleLabel(text: "마이페이지")
     
     let scrollView: UIScrollView = {
@@ -70,28 +69,21 @@ final class MyPageView: BaseView {
         return button
     }()
     
-    let tipView: TopTipView = {
-        let view = TopTipView(viewColor: AppColor.lightPink, tipStartX: 12, tipWidth: 11, tipHeight: 6, text: "")
+    let lineView1: UIView = {
+        let view = UIView()
+        view.backgroundColor = AppColor.gray50
         return view
+    }()
+    
+    let partyListLabel: UILabel = {
+        let label = UILabel()
+        label.font = AppFont.Medium.of(size: 16)
+        label.textColor = UIColor(hexcode: "363636")
+        label.text = "파티목록"
+        return label
     }()
     
     lazy var categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: partyCellLayout())
-    
-    let aboutPartyTableView: UITableView = {
-        let view = UITableView()
-        view.layer.borderColor = UIColor.black.cgColor
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 8
-        view.separatorStyle = .none
-        return view
-    }()
-    
-    let settingStackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .horizontal
-        view.distribution = .fillEqually
-        return view
-    }()
     
     let settingLabel: UILabel = {
         let label = UILabel()
@@ -101,82 +93,33 @@ final class MyPageView: BaseView {
         return label
     }()
     
-    let settingUnfoldButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: FoldButton.unfold.buttonImage), for: .normal)
-        return button
-    }()
-    
-    let setPartyTableView: UITableView = {
+    let settingTableView: UITableView = {
         let view = UITableView()
-//        view.layer.borderColor = UIColor.black.cgColor
-//        view.layer.borderWidth = 1
-//        view.layer.cornerRadius = 8
         view.isScrollEnabled = false
         view.separatorStyle = .none
         return view
     }()
-    
-    let etcStackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .horizontal
-        view.distribution = .fillEqually
-        return view
-    }()
-    
-    let etcLabel: UILabel = {
-        let label = UILabel()
-        label.font = AppFont.Medium.of(size: 16)
-        label.textColor = UIColor(hexcode: "363636")
-        label.text = "기타"
-        return label
-    }()
-    
-    let lineView: UIView = {
-       let view = UIView()
+
+    let lineView2: UIView = {
+        let view = UIView()
         view.backgroundColor = AppColor.gray50
         return view
     }()
     
-    let etcUnfoldButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: FoldButton.unfold.buttonImage), for: .normal)
-        return button
-    }()
-    
-    let setETCTableView: UITableView = {
-        let view = UITableView()
-//        view.layer.borderColor = UIColor.black.cgColor
-//        view.layer.borderWidth = 1
-//        view.layer.cornerRadius = 8
-        view.isScrollEnabled = false
-        view.separatorStyle = .none
-        return view
-    }()
-    
-    let bottomEmptyView: UIView = {
-        let view = UIView()
-        return view
-    }()
-    
     override func layoutSubviews() {
-        // ViewImage Circle
         makeCircleImageView()
     }
     
     override func makeConfigures() {
         super.makeConfigures()
         
-        [profileImageView, nickname, editProfileButton, tipView, categoryCollectionView, editButtonBackgroundView, aboutPartyTableView, settingStackView, setPartyTableView,  etcStackView, setETCTableView, lineView, bottomEmptyView].forEach {
+        [editButton, lineView1, partyListLabel, categoryCollectionView, lineView2, settingLabel, settingTableView].forEach {
             contentView.addSubview($0)
         }
         
-        editButtonBackgroundView.addSubview(editButton)
-        settingStackView.addArrangedSubview(settingLabel)
-        settingStackView.addArrangedSubview(settingUnfoldButton)
-        
-        etcStackView.addArrangedSubview(etcLabel)
-        etcStackView.addArrangedSubview(etcUnfoldButton)
+        [profileImageView, nickname, editProfileButton].forEach {
+            editButton.addSubview($0)
+        }
         
         scrollView.addSubview(contentView)
         addSubview(scrollView)
@@ -193,18 +136,19 @@ final class MyPageView: BaseView {
             make.width.equalTo(scrollView.frameLayoutGuide)
         }
         
+        editButton.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+        }
+        
         profileImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.bottom.equalToSuperview()
             make.leading.equalToSuperview().inset(20)
-            make.width.equalToSuperview().multipliedBy(0.18)
-            make.height.equalTo(profileImageView.snp.width)
+            make.size.equalTo(60)
         }
         
         nickname.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalTo(profileImageView.snp.trailing).offset(5)
-            make.width.equalToSuperview().multipliedBy(0.6)
-            make.height.equalTo(profileImageView.snp.height)
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(profileImageView.snp.trailing).offset(20)
         }
         
         editProfileButton.snp.makeConstraints { make in
@@ -214,198 +158,49 @@ final class MyPageView: BaseView {
             make.height.equalTo(profileImageView.snp.height)
         }
         
-        tipView.snp.makeConstraints { make in
-            make.top.equalTo(nickname.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(36)
-        }
-        
-        categoryCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(tipView.snp.bottom).offset(20)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(103)
-        }
-        
-        editButtonBackgroundView.snp.makeConstraints { make in
-            make.leading.verticalEdges.equalTo(profileImageView)
-            make.trailing.equalTo(safeAreaLayoutGuide).offset(-20)
-        }
-        
-        editButton.snp.makeConstraints { make in
-            make.edges.equalTo(editButtonBackgroundView)
-        }
-        
-        aboutPartyTableView.snp.makeConstraints { make in
-            make.top.equalTo(categoryCollectionView.snp.bottom).offset(20)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(0)
-        }
-        
-        settingStackView.snp.makeConstraints { make in
-            make.top.equalTo(aboutPartyTableView.snp.bottom).offset(20)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.lessThanOrEqualToSuperview()
-        }
-
-        setPartyTableView.snp.makeConstraints { make in
-            make.top.equalTo(settingStackView.snp.bottom)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(160)
-        }
-        
-        etcStackView.snp.makeConstraints { make in
-            make.top.equalTo(settingStackView.snp.bottom).offset(20)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.lessThanOrEqualToSuperview()
-        }
-        
-        setETCTableView.snp.makeConstraints { make in
-            make.top.equalTo(etcStackView.snp.bottom)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(150)
-        }
-        
-        lineView.snp.makeConstraints { make in
-            make.bottom.equalTo(etcLabel.snp.top).offset(-8)
+        lineView1.snp.makeConstraints { make in
+            make.top.equalTo(editButton.snp.bottom).offset(20)
             make.height.equalTo(1)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(20)
         }
         
-        bottomEmptyView.snp.makeConstraints { make in
-            make.top.equalTo(setETCTableView.snp.bottom)
+        partyListLabel.snp.makeConstraints {
+            $0.top.equalTo(lineView1.snp.bottom).offset(20)
+            $0.leading.equalToSuperview().offset(24)
+        }
+        
+        categoryCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(partyListLabel.snp.bottom).offset(5)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(20)
-            make.bottom.equalToSuperview()
+            make.height.equalTo(108)
         }
-    }
-}
-
-// MARK: resizing
-extension MyPageView {
-    func removeSettingTableView() {
-        setPartyTableView.snp.removeConstraints()
-        setPartyTableView.snp.remakeConstraints { make in
-            make.height.equalTo(0)
-            make.horizontalEdges.equalToSuperview()
+        
+        lineView2.snp.makeConstraints { make in
+            make.top.equalTo(categoryCollectionView.snp.bottom).offset(20)
+            make.height.equalTo(1)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(20)
         }
-    }
-    
-    func resizeSettingTableView() {
-        setPartyTableView.snp.removeConstraints()
-        setPartyTableView.snp.remakeConstraints { make in
-            make.top.equalTo(settingStackView.snp.bottom).offset(10)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(setPartyTableView.contentSize.height)
+        
+        settingLabel.snp.makeConstraints {
+            $0.top.equalTo(lineView2.snp.bottom).offset(20)
+            $0.leading.equalToSuperview().offset(24)
         }
-    }
-    
-    func removeETCStackView() {
-        etcStackView.snp.removeConstraints()
-        etcStackView.snp.remakeConstraints { make in
-            make.top.equalTo(settingStackView.snp.bottom).offset(20)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.lessThanOrEqualToSuperview()
-        }
-    }
-    
-    func resizeETCStackView() {
-        etcStackView.snp.removeConstraints()
-        etcStackView.snp.remakeConstraints { make in
-            make.top.equalTo(setPartyTableView.snp.bottom).offset(20)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.lessThanOrEqualToSuperview()
-        }
-    }
-    
-    func removeETCTableView() {
-        setETCTableView.snp.removeConstraints()
-        setETCTableView.snp.remakeConstraints { make in
-            make.height.equalTo(0)
-            make.horizontalEdges.equalToSuperview()
-        }
-    }
-    
-    func resizeETCTableView() {
-        setETCTableView.snp.removeConstraints()
-        setETCTableView.snp.remakeConstraints { make in
-            make.top.equalTo(etcStackView.snp.bottom).offset(10)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(setETCTableView.contentSize.height)
-        }
-    }
-    
-    func removeBottomView() {
-        bottomEmptyView.snp.removeConstraints()
-        bottomEmptyView.snp.remakeConstraints { make in
-            make.height.equalTo(0)
-            make.horizontalEdges.equalToSuperview()
-        }
-    }
-    
-    func resizeBottomView() {
-        bottomEmptyView.snp.removeConstraints()
-        bottomEmptyView.snp.remakeConstraints { make in
-            make.top.equalTo(setETCTableView.snp.bottom)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(20)
-            make.bottom.equalToSuperview()
-        }
-    }
-}
-
-// MARK: - UIUpdate
-extension MyPageView {
-    func setTableViewRowHeight(_ tableView: UITableView) {
-        tableView.rowHeight = UITableView.automaticDimension
-    }
-    
-    func setTableViewUIUpdate(state: Bool) {
-        if !state {
-            // 닫기
-            self.removeSettingTableView()
-            self.settingUnfoldButton.setImage(UIImage(named: FoldButton.unfold.buttonImage), for: .normal)
-            self.removeETCStackView()
-        } else if state {
-            // 펼치기
-            self.resizeSettingTableView()
-            self.settingUnfoldButton.setImage(UIImage(named: FoldButton.fold.buttonImage), for: .normal)
-            self.resizeETCStackView()
-        }
-    }
-    
-    func setETCTableViewUIUpdate(state: Bool) {
-        if !state {
-            // 닫기
-            self.removeETCTableView()
-            self.etcUnfoldButton.setImage(UIImage(named: FoldButton.unfold.buttonImage), for: .normal)
-            self.removeBottomView()
-        } else if state {
-            // 펼치기
-            self.resizeETCTableView()
-            self.etcUnfoldButton.setImage(UIImage(named: FoldButton.fold.buttonImage), for: .normal)
-            self.resizeBottomView()
+        
+        settingTableView.snp.makeConstraints {
+            $0.top.equalTo(settingLabel.snp.bottom).offset(10)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(400)
         }
     }
     
     func makeCircleImageView() {
         profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
     }
-}
-
-extension MyPageView {
+    
     func configureMyPageUI(_ item: MyPageResponse) {
         nickname.text = item.result.nickName
-        tipView.updateLabel(text: item.result.introduce)
-        updateUI()
         guard let url = URL(string: item.result.profileImgUrl) else { return }
         profileImageView.kf.setImage(with: url)
-    }
-    
-    private func updateUI() {
-        tipView.snp.removeConstraints()
-        tipView.snp.remakeConstraints { make in
-            make.top.equalTo(nickname.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(36)
-        }
     }
 }
 
@@ -436,7 +231,7 @@ extension MyPageView {
         )
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-
+        
         
         group.interItemSpacing = NSCollectionLayoutSpacing.flexible(8)
         

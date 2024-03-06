@@ -12,9 +12,12 @@ class MyPageCollectionViewCell: UICollectionViewCell {
     
     private let containView: UIView = {
         let view = UIView()
-        view.clipsToBounds = true
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor(hexcode: "E7ECF3").cgColor
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 10
+        view.makeRightBottomShadow()
+        view.clipsToBounds = false
         return view
     }()
     
@@ -42,11 +45,6 @@ class MyPageCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        containView.layer.cornerRadius = 10
-    }
-    
     func setHierarchy() {
         self.addSubview(containView)
         self.addSubview(imageView)
@@ -55,7 +53,10 @@ class MyPageCollectionViewCell: UICollectionViewCell {
     
     func setLayout() {
         containView.snp.makeConstraints { make in
-            make.edges.equalTo(safeAreaLayoutGuide)
+            make.leading.equalToSuperview().offset(5)
+            make.top.equalToSuperview().offset(5)
+            make.bottom.equalToSuperview().inset(5)
+            make.trailing.equalToSuperview().inset(5)
         }
         
         imageView.snp.makeConstraints { make in

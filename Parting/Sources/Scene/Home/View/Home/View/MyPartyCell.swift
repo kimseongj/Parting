@@ -36,7 +36,6 @@ final class MyPartyCell: UICollectionViewCell {
     
     private let partyImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .gray
         imageView.layer.cornerRadius = 5
         return imageView
     }()
@@ -153,6 +152,7 @@ final class MyPartyCell: UICollectionViewCell {
         titleLabel.text = partyInfo.partyName
         periodLabel.text = partyInfo.partyStartTime
         partyDescriptionLabel.text = partyInfo.description
+        hashTagList = partyInfo.hashTagNameList
         tagCollectionView.reloadData()
     }
     

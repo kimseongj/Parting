@@ -43,7 +43,7 @@ final class ScheduleCalendarViewController: BaseViewController<ScheduleCalendarV
     }
     
     private func configureMonth() {
-        rootView.monthLabel.text = viewModel.fetchNowMonth()
+        rootView.monthLabel.text = DateFormatterManager.dateFormatter.makeYearMonthDate(date: Date())
     }
     
     private func bind() {
