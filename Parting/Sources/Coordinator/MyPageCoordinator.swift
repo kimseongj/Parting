@@ -90,4 +90,9 @@ final class MyPageCoordinator: Coordinator {
         let vc = InquireViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func pushTermsOfServiceVC() {
+        let vc = TermsOfServiceViewController()
+        navigationController.pushViewController(vc, animated: true)
+    }
 }
