@@ -66,7 +66,11 @@ final class MyPageViewController: BaseViewController<MyPageView> {
         setDelegate()
         setDataSourceAndDelegate()
         cellRegister()
-        //        setTableViewHeight()
+        applyPartyCategorySnapshot()
+    
+    }
+    
+    private func applyPartyCategorySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Int, MyPageModel>()
         snapshot.appendSections([0])
         var arr: [MyPageModel] = [MyPageModel(image: UIImage(named: "currentParty")!, title: MyPageCellTitle.current.rawValue), MyPageModel(image: UIImage(named: "createParty")!, title: MyPageCellTitle.create.rawValue), MyPageModel(image: UIImage(named: "participateParty")!, title: MyPageCellTitle.participate.rawValue)]
@@ -144,7 +148,7 @@ extension MyPageViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.rootView.settingTableView.dequeueReusableCell(withIdentifier: MyPageTableViewCell.identifier, for: indexPath) as? MyPageTableViewCell else { return UITableViewCell() }
         cell.fill(title: TableViewList.setting.title[indexPath.row], image: TableViewList.setting.image[indexPath.row])
-        
+        cell.selectionStyle = .none
         return cell
     }
 }

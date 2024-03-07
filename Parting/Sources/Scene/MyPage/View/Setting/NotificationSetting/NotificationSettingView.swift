@@ -171,7 +171,7 @@ final class NotificationSettingView: BaseView {
         }
         
         switchStackView.snp.makeConstraints { make in
-            make.trailing.equalTo(alertContainView.snp.trailing).offset(-16)
+            make.trailing.equalTo(alertContainView.snp.trailing).inset(24)
             make.top.equalTo(alertTitleLabel.snp.bottom).offset(24)
             make.height.equalTo(174)
             make.width.equalTo(38)
